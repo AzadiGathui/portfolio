@@ -1,18 +1,9 @@
-/*
-* Template Name: Style
-* Template Author: Untree.co
-* Template License: https://creativecommons.org/licenses/by/3.0/
-* Author URI: https://untree.co/
-
-* Twitter: https://twitter.com/Untree_co
-* Facebook: https://web.facebook.com/Untree.co/
-*/
 body {
   font-family: "Crimson Text", serif;
   line-height: 1.5;
   font-size: 15px;
   color: #000000;
-  background: #E8E5DE; }
+  background: #ececec; }
   body:before {
     content: "";
     position: fixed;
