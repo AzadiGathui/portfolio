@@ -1,0 +1,59 @@
+body {
+    background-color: black;
+}
+
+.hero-image-AA {
+    background-image: url(../images/space_1.jpg);
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+}
+
+.hero-image-BH {
+    background-image: url(../images/belva.jpg);
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+}
+
+.hero-image-3408 {
+    background-image: url(../images/3408.jpg);
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+}
+
+.hero-text {
+    text-align: left;
+    position: absolute;
+    margin-top: 30%;
+    margin-left: 5%;
+    color: rgb(226, 226, 226);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#hero-h1 {
+    font-family: 'Inter Tight';
+    font-size: 124px;
+    font-weight: 300;
+    line-height: 83.5%;
+}
+
+#hero-p {
+    font-family: 'Inter Tight';
+    font-size: 20px;
+    font-weight: 100;
+    line-height: 100%;
+}
