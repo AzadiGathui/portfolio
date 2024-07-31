@@ -1,5 +1,5 @@
 body {
-  font-family: "Crimson Text", serif;
+  font-family: "Barlow", sans-serif;
   line-height: 1.5;
   font-size: 15px;
   color: #000000;
@@ -33,7 +33,7 @@ a {
 
 h1, h2, h3, h4, h5 {
   color: #000;
-  font-family: "Playfair Display", serif; }
+  font-family: "Barlow", sans-serif; }
 
 .text-primary {
   color: #000 !important; }
@@ -50,7 +50,7 @@ a.text-primary {
   background-color: #000 !important; }
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
-  font-family: "Playfair Display", serif; }
+  font-family: "Barlow", sans-serif; }
 
 .btn {
   padding-top: 12px;
@@ -145,8 +145,8 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
 
 .logo {
   font-size: 25px;
-  font-family: "Playfair Display", serif;
-  font-weight: bold; }
+  font-family: "Barlow", sans-serif;
+  font-weight: normal; }
   .logo a {
     color: #000; }
 
@@ -547,7 +547,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   .custom-hero .hero-heading {
     font-size: 60px;
     line-height: 0;
-    font-weight: bold; }
+    font-weight: normal; }
     @media (max-width: 991.98px) {
       .custom-hero .hero-heading {
         font-size: 40px; } }
@@ -662,7 +662,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
       -ms-transform: scale(1);
       transform: scale(1); }
   .product h3 {
-    font-family: "Playfair Display", serif;
+    font-family: "Barlow", sans-serif;
     font-size: 18px; }
   .product strong {
     font-weight: 700;
@@ -690,7 +690,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   text-transform: uppercase; }
 
 .serif {
-  font-family: "Playfair Display", serif; }
+  font-family: "Barlow", sans-serif; }
 
 .section-4 .custom-prev-v2, .section-4 .custom-next-v2 {
   font-size: 14px;
@@ -1213,7 +1213,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   .article .share {
     top: 20px; }
     .article .share h3 {
-      font-family: "Playfair Display", serif;
+      font-family: "Barlow", sans-serif;
       font-size: 12px; }
       @media (max-width: 991.98px) {
         .article .share h3 {
