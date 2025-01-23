@@ -1,0 +1,122 @@
+
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-shrink: 0;
+  align-self: stretch;
+  margin: 0;
+}
+
+.nav {
+  position: sticky;
+  width: 15%;
+  padding: 1rem;
+  top: 0;
+}
+
+.navlinks {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  align-self: stretch;
+  gap: .5rem;
+  padding-top: 2rem;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1 0 0;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.logo {
+  height: 120px;
+}
+
+.row {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.coverimage {
+  background-color: lightgrey;
+  width: 100%;
+}
+
+.IAChero {
+  display: flex;
+  height: 90vh;
+  padding: 2rem;
+  align-items: flex-end;
+  align-self: stretch;
+  background: url(images/IAC/Cover\ Image.png) lightgray 50% / cover no-repeat;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: auto;
+  gap: 100px;
+  position: relative;
+}
+
+th, td {
+  border-top: #1a1a1a solid 1px;
+  text-align: left;
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
+  padding-right: 2rem;
+}
+
+.pjrow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.pjrowimage {
+  max-width: 100%;
+  min-width: auto;
+}
+
+.subtitle {
+  font-size: .9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #1a1a1a70;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: #e50000;
+}
+
+.hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2em;
+  padding: 2em;
+  flex-wrap: wrap;
+}
+
+.grid_layout {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1em;
+}
+
+h1, h2, h3, h4, h5, h6, p, a {
+  font-family: Barlow;
+  font-weight: 400;
+  color: #e6e6e6;
+}
