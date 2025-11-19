@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html land="en">
+<html lang="en">
     <head>        
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,20 +18,28 @@
     </head>
     <body style="margin: 0; background-color: #1a1a1a;">
         <header>
-            <nav style="padding: 2em; position: fixed; mix-blend-mode: difference;">
-                <a href="index.html"><img src="images/branding/AG Favicon Light on Dark.svg" alt="Azadi's logo" style=" width: 5em;"></a>
-            </nav>
+
         </header>
+        <nav class="nav">
+            <a href="index.html"><img src="images/branding/AG Favicon Light on Dark.svg" alt="Azadi's logo" class="logo"></a>
+            <ul class="nav-ul">
+                <a href="lab.html" style="text-decoration: none;"><li class="nav-li">Projects</li></a>
+                <a href="resume.html" style="text-decoration: none;"><li class="nav-li">Resume</li></a>
+                <a href="lab.html" style="text-decoration: none;"><li class="nav-li">Lab</li></a>
+            </ul>
+        </nav>
     
-        <main style="padding: 2em;">
-            <div style="display: flex; flex-direction: column; height: 100vh; align-items: center; justify-content: center; gap: 3em;">
+        <main>
+
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3em; padding-top: 15rem;">
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2em; align-items: end;">
                     <video src="images/home hero loop 1.mp4" autoplay loop></video>
                     <video src="images/home hero loop 2.mp4" autoplay loop></video>
                 </div>
-                <div style="display: flex; align-items: end;">
-                    <img src="images/name.svg" alt="Azadi Gathui, portfolio 2024">
-                    <p>Multi-disciplinary designer <br> who loves learning <br> and experimenting.</p>
+                <div>
+                    <p style="text-align:center; color: #e50000; font-weight: 500; font-size:large; margin-top: 0;">Portfolio 2025</p>
+                    <h1 style="text-align: center; font-family: Instrument Serif; font-style: italic; letter-spacing: -8px; font-size: 8em; line-height: 90%; margin: 0;">Azadi Gathui</h1>
+                    <p style="text-align: center; color: #e6e6e690;">Multi-disciplinary designer who loves learning and experimenting.</p>
                 </div>
                 <div>
                     <video src="images/home hero loop 3.mp4" autoplay loop></video>
@@ -39,18 +47,23 @@
                 <img src="images/scroll.svg" alt="scroll for previous work">           
             </div>
 
-            <div  style="display: flex; flex-direction: column; align-items: center;">
+            <div style="display: flex; flex-direction: column; align-items: center;">
                 <div>
                     <p style="font-family: Barlow; font-weight: 700; font-size: 8em; letter-spacing: -2px; color: #e6e6e610; margin: 0; line-height: 80%; text-align: center;">Professional <br> Experience</p>
                     <h2 style="text-align: center; font-family: Instrument Serif; font-size: 5em; margin-top: -1.7em; margin-bottom: 2em;">Projects</h2>
                 </div>
                     <div style="display: flex; gap: 1em; align-items: center; max-width: 80%; padding: 1em;">
-                        <a href="IAC.html" style="font-size: 5em; line-height: 80%; margin: 0; font-weight: 300; letter-spacing: -3PX; text-align: right;">Inclusive Africa Conference</a>
+                        <a href="LJ.html" style="font-size: 2em; line-height: 90%; margin: 0; font-weight: 300; letter-spacing: -1PX; text-align: right;">Leja Business App</a>
+                        <img src="public/images/LJmockup.png" alt="" style="height: 4em;">
+                        <p style="margin-bottom: 0;">Mobile application <br>research & design</p>
+                    </div>
+                    <div style="display: flex; gap: 1em; align-items: center; max-width: 80%; padding: 1em;">
+                        <a href="IAC.html" style="font-size: 2em; line-height: 90%; margin: 0; font-weight: 300; letter-spacing: -1PX; text-align: right;">Inclusive Africa Conference</a>
                         <img src="images/IAC/IAC hero mockup.png" alt="" style="height: 4em;">
                         <p style="margin-bottom: 0;">Accessibility conference <br>booklet</p>
                     </div>
                     <div style="display: flex; gap: 1em; align-items: center; max-width: 80%; padding: 1em;">
-                        <a href="EFW.html" style="font-size: 5em; line-height: 80%; margin: 0; font-weight: 300; letter-spacing: -3PX; text-align: right;">Kenya Energy Atlas</a>
+                        <a href="EFW.html" style="font-size: 2em; line-height: 90%; margin: 0; font-weight: 300; letter-spacing: -1PX; text-align: right;">Kenya Energy Atlas</a>
                         <img src="images/EFW/EFW hero mockup.png" alt="" style="height: 4em;">
                         <p style="margin-bottom: 0;">Consolidated research <br> publication</p>
                     </div>
