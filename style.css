@@ -123,8 +123,11 @@ section img {
 
 .pj-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(10rem, 100%),1fr));
   gap: 1rem;
+  /* This property activates the masonry layout */
+  grid-template-rows:min-content;
+  /* Defines responsive column behavior */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 
 .pj-reel {
