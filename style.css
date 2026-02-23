@@ -2,6 +2,7 @@
   box-sizing: border-box;
   font-family: Barlow;
   font-weight: 400;
+  line-height: 140%;
   color: #e6e6e6;
   scroll-behavior: smooth;
 }
@@ -18,6 +19,15 @@ main {
   align-items: center;
   gap: 2rem;
   align-self: stretch;
+}
+
+h1 {
+  font-family: Instrument Serif;
+  font-size: 6em;
+  line-height: 90%;
+  letter-spacing: -2px;
+  text-align: center;
+  margin: 0;
 }
 
 .nav {
@@ -72,12 +82,12 @@ header {
 
 .cover img {
   /* align-self: stretch; */
-  max-width: 20rem;
+  max-width: 30rem;
 }
 
 .pj-deets {
   display: flex;
-  max-width: 25rem;
+  max-width: 30rem;
   padding: 2rem;
   flex-direction: column;
   align-items: flex-start;
@@ -91,7 +101,8 @@ header {
   align-self: stretch;
 }
 
-th, td {
+th,
+td {
   border-top: #e6e6e650 solid 1px;
   text-align: left;
   padding-top: 0.5rem;
@@ -125,7 +136,7 @@ section img {
   display: grid;
   gap: 1rem;
   /* This property activates the masonry layout */
-  grid-template-rows:min-content;
+  grid-template-rows: min-content;
   /* Defines responsive column behavior */
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
@@ -140,7 +151,7 @@ section img {
   padding: 1rem;
 }
 
-.pj-reel > * {
+.pj-reel>* {
   scroll-snap-align: start;
   justify-self: stretch;
   gap: 1rem;
