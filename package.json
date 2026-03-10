@@ -1,0 +1,26 @@
+{
+  "name": "portfolio-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AzadiGathui/portfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/AzadiGathui/portfolio/issues"
+  },
+  "homepage": "https://github.com/AzadiGathui/portfolio#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.2",
+    "markdown-it": "^14.1.1"
+  }
+}

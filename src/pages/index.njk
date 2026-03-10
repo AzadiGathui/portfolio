@@ -1,0 +1,46 @@
+---
+layout: layouts/page.njk
+title: Portfolio
+description: Azadi Gathui — Product Designer & Analyst. Portfolio of UX, editorial, and data visualisation work.
+permalink: /
+---
+<main>
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3em; padding-top: 15rem;">
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2em; align-items: end;">
+      <video src="/assets/images/home/home hero loop 1.mp4" autoplay loop muted playsinline></video>
+      <video src="/assets/images/home/home hero loop 2.mp4" autoplay loop muted playsinline></video>
+    </div>
+    <div style="text-align: center;">
+      <p>Portfolio 2026</p>
+      <h1>Azadi Gathui</h1>
+      <p>Product Designer &amp; Analyst.</p>
+    </div>
+    <div>
+      <video src="/assets/images/home/home hero loop 3.mp4" autoplay loop muted playsinline></video>
+    </div>
+    <img src="/assets/images/home/scroll.svg" alt="scroll for previous work">
+  </div>
+
+  <div style="display: flex; flex-direction: column; align-items: center;">
+    <div>
+      <p style="font-family: Barlow; font-weight: 700; font-size: 8em; letter-spacing: -2px; color: #e6e6e610; margin: 0; line-height: 80%; text-align: center;">
+        Professional <br> Experience
+      </p>
+      <h2 style="text-align: center; font-family: Instrument Serif; font-size: 5em; margin-top: -1.7em; margin-bottom: 2em;">
+        Projects
+      </h2>
+    </div>
+
+    {% for project in collections.projects %}
+    <div style="display: flex; gap: 1em; align-items: center; max-width: 80%; padding: 1em;">
+      <a href="{{ project.url }}" style="font-size: 2em; line-height: 90%; margin: 0; font-weight: 300; letter-spacing: -1px; text-align: right; text-decoration: none;">
+        {{ project.data.title }}
+      </a>
+      {% if project.data.thumbnail %}
+        <img src="{{ project.data.thumbnail }}" alt="" style="height: 4em;">
+      {% endif %}
+      <p style="margin-bottom: 0;">{{ project.data.tagline }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</main>

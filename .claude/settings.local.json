@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp -r \"images/LJ/.\" \"src/assets/images/projects/lj/\")",
+      "Bash(cp \"public/images/LJcover.jpg\" \"src/assets/images/projects/lj/\")",
+      "Bash(cp \"public/images/LJmockup.png\" \"src/assets/images/projects/lj/\")"
+    ]
+  }
+}

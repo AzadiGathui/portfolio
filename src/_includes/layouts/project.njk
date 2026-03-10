@@ -1,0 +1,31 @@
+---
+layout: layouts/base.njk
+---
+<header>
+  <div class="cover" style="background: url('{{ coverImage }}') lightgray 50% / cover no-repeat;">
+    {% if mockupImage %}
+      <img src="{{ mockupImage }}" alt="{{ title }} project mockup">
+    {% endif %}
+  </div>
+
+  <div class="pj-deets">
+    <div class="pj-title">
+      {% if clientLogo %}
+        <img src="{{ clientLogo }}" alt="{{ client }} logo" style="width: 6rem;">
+      {% endif %}
+      <h1>{{ title }}</h1>
+      {% if tagline %}<p>{{ tagline }}</p>{% endif %}
+    </div>
+
+    <table style="align-self: stretch;">
+      <tr><th>Client</th><td>{{ client }}</td></tr>
+      {% if industry %}<tr><th>Industry</th><td>{{ industry }}</td></tr>{% endif %}
+      <tr><th>Role</th><td>{{ role }}</td></tr>
+      <tr><th>Deliverables</th><td>{{ deliverables }}</td></tr>
+    </table>
+  </div>
+</header>
+
+<main>
+  {{ content | safe }}
+</main>

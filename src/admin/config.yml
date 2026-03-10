@@ -1,0 +1,76 @@
+# Decap CMS Configuration
+# Docs: https://decapcms.org/docs/configuration-options/
+#
+# AUTH SETUP REQUIRED before production use:
+#   Option A (recommended): Register site on Netlify (free) for OAuth proxy.
+#     Add `base_url: https://api.netlify.com` and `auth_endpoint: auth` under backend.
+#   Option B: Register a GitHub OAuth App and self-host a small proxy.
+#
+# LOCAL DEVELOPMENT:
+#   Run `npx @decap/cms-proxy-server` alongside `npm start`
+#   Then visit http://localhost:8080/admin to edit content.
+
+backend:
+  name: github
+  repo: AzadiGathui/portfolio-1
+  branch: master
+  # Uncomment after setting up Netlify OAuth proxy:
+  # base_url: https://api.netlify.com
+  # auth_endpoint: auth
+
+# Enables draft/review workflow before publishing
+publish_mode: editorial_workflow
+
+# Where uploaded media files are stored and referenced
+media_folder: src/assets/images/uploads
+public_folder: /assets/images/uploads
+
+collections:
+  # ─── PROJECTS ───────────────────────────────────────────────
+  - name: projects
+    label: Projects
+    folder: src/projects
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: title, widget: string }
+      - { label: "Tagline", name: tagline, widget: string,
+          hint: "Short descriptor shown on homepage list and under the title on project pages." }
+      - { label: "Client", name: client, widget: string }
+      - { label: "Industry", name: industry, widget: string, required: false }
+      - { label: "Role", name: role, widget: string }
+      - { label: "Deliverables", name: deliverables, widget: string }
+      - { label: "Homepage Order", name: order, widget: number, value_type: int,
+          hint: "Lower number = appears earlier on homepage. Use 1, 2, 3…" }
+      - { label: "Published", name: published, widget: boolean, default: true,
+          hint: "Uncheck to hide from homepage without deleting the page." }
+      - { label: "Cover Image", name: coverImage, widget: image,
+          hint: "Full-bleed 80vh background image for the project header." }
+      - { label: "Mockup Image", name: mockupImage, widget: image, required: false,
+          hint: "Foreground PNG overlaid on the cover (max-width 30rem)." }
+      - { label: "Client Logo", name: clientLogo, widget: image, required: false,
+          hint: "SVG or PNG logo shown above the title in the project details panel." }
+      - { label: "Thumbnail", name: thumbnail, widget: image,
+          hint: "Small image shown next to title in the homepage project list." }
+      - { label: "OG Image", name: ogImage, widget: image, required: false,
+          hint: "Social sharing image — 1200×630px recommended." }
+      - { label: "Permalink", name: permalink, widget: string,
+          hint: "URL path — e.g. /projects/project-name/ (include trailing slash)." }
+      - { label: "SEO Description", name: description, widget: text, required: false,
+          hint: "150–160 characters for search results." }
+      - { label: "Body", name: body, widget: markdown,
+          hint: "Main case study content. Supports Markdown and raw HTML (for Tableau embeds, galleries, etc.)." }
+
+  # ─── ARTICLES ───────────────────────────────────────────────
+  - name: articles
+    label: Articles
+    folder: src/articles
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: title, widget: string }
+      - { label: "Date", name: date, widget: datetime }
+      - { label: "Published", name: published, widget: boolean, default: false }
+      - { label: "Description", name: description, widget: text, required: false }
+      - { label: "Cover Image", name: coverImage, widget: image, required: false }
+      - { label: "Body", name: body, widget: markdown }
