@@ -15,8 +15,8 @@ backend:
   repo: AzadiGathui/portfolio-1
   branch: master
   # Uncomment after setting up Netlify OAuth proxy:
-  # base_url: https://api.netlify.com
-  # auth_endpoint: auth
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
 
 # Enables draft/review workflow before publishing
 publish_mode: editorial_workflow
