@@ -1,28 +1,51 @@
+/* ============================================
+   CSS CUSTOM PROPERTIES
+   Single source of truth for design tokens.
+   ============================================ */
+:root {
+  --color-bg: #1a1a1a;
+  --color-bg-transparent: #1a1a1a00;
+  --color-text: #e6e6e6;
+  --color-text-ghost: #e6e6e610;
+  --color-accent: #e50000;
+  --color-border: #e6e6e650;
+  --font-display: "Instrument Serif", serif;
+  --font-body: "Barlow", sans-serif;
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 8rem;
+}
+
+/* ============================================
+   GLOBAL BASE
+   ============================================ */
 * {
   box-sizing: border-box;
-  font-family: Barlow;
+  font-family: var(--font-body);
   font-weight: 400;
   line-height: 140%;
-  color: #e6e6e6;
+  color: var(--color-text);
   scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  background-color: #1a1a1a;
+  background-color: var(--color-bg);
 }
 
 main {
   display: flex;
-  padding: 0 2rem 2 2rem;
+  padding: 0 var(--space-md) var(--space-md) var(--space-md);
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: var(--space-md);
   align-self: stretch;
 }
 
 h1 {
-  font-family: Instrument Serif;
+  font-family: var(--font-display);
   font-size: 6em;
   line-height: 90%;
   letter-spacing: -2px;
@@ -30,14 +53,39 @@ h1 {
   margin: 0;
 }
 
+a:hover {
+  color: var(--color-accent);
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+.skip-link {
+  position: absolute;
+  top: -3rem;
+  left: var(--space-sm);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--color-accent);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-weight: 700;
+  z-index: 100;
+  transition: top 0.1s;
+}
+
+.skip-link:focus {
+  top: var(--space-sm);
+}
+
 .nav {
   display: flex;
   width: 100vw;
-  padding: 1rem;
+  padding: var(--space-sm);
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  background: linear-gradient(180deg, #1A1A1A 0%, #1A1A1A00 100%);
+  z-index: 10;
+  background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-transparent) 100%);
   backdrop-filter: blur(2.5px);
 }
 
@@ -45,15 +93,26 @@ h1 {
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
-  gap: 1rem;
+  gap: var(--space-sm);
   list-style: none;
-  color: #e6e6e6;
+  margin: 0;
+  padding: 0;
+  color: var(--color-text);
 }
 
 .nav-li {
-  background-color: black;
-  padding: .5rem 1rem;
+  background-color: var(--color-bg);
+  padding: var(--space-xs) var(--space-sm);
   border-radius: 4px;
+}
+
+.nav-li a {
+  text-decoration: none;
+}
+
+.nav-li a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
 .logo {
@@ -63,6 +122,9 @@ h1 {
   mix-blend-mode: difference;
 }
 
+/* ============================================
+   LAYOUT
+   ============================================ */
 header {
   display: flex;
   flex-direction: column;
@@ -72,7 +134,7 @@ header {
 
 .cover {
   display: flex;
-  padding: 2rem;
+  padding: var(--space-md);
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
@@ -81,39 +143,29 @@ header {
 }
 
 .cover img {
-  /* align-self: stretch; */
   max-width: 30rem;
 }
 
 .pj-deets {
   display: flex;
   max-width: 30rem;
-  padding: 2rem;
+  padding: var(--space-md);
   flex-direction: column;
   align-items: flex-start;
-  gap: 2rem;
+  gap: var(--space-md);
 }
 
 .pj-title {
+  text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   align-self: stretch;
-}
-
-th,
-td {
-  border-top: #e6e6e650 solid 1px;
-  text-align: left;
-  padding-top: 0.5rem;
-  padding-bottom: 1rem;
-  padding-right: 2rem;
 }
 
 section {
   display: flex;
-  padding: 2rem;
-  gap: 1rem;
+  padding: var(--space-md);
+  gap: var(--space-sm);
   flex-direction: column;
   align-items: center;
   align-self: stretch;
@@ -124,67 +176,61 @@ section img {
   align-self: stretch;
 }
 
+/* ============================================
+   TABLES
+   ============================================ */
+th,
+td {
+  border-top: var(--color-border) solid 1px;
+  text-align: left;
+  padding-top: var(--space-xs);
+  padding-bottom: var(--space-sm);
+  padding-right: var(--space-md);
+}
+
+/* ============================================
+   PROJECT COMPONENTS
+   ============================================ */
 .pj-text {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   align-self: stretch;
-  gap: 1rem;
+  gap: var(--space-sm);
 }
 
 .pj-row {
   display: grid;
-  gap: 1rem;
-  /* This property activates the masonry layout */
+  gap: var(--space-sm);
+  /* Activates masonry-style layout */
   grid-template-rows: min-content;
-  /* Defines responsive column behavior */
+  /* Responsive column behavior */
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 
 .pj-reel {
   display: grid;
-  gap: 1rem;
+  gap: var(--space-sm);
   grid-auto-flow: column;
   grid-auto-columns: 20%;
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
-  padding: 1rem;
+  padding: var(--space-sm);
 }
 
-.pj-reel>* {
+.pj-reel > * {
   scroll-snap-align: start;
   justify-self: stretch;
-  gap: 1rem;
+  gap: var(--space-sm);
 }
 
-a:hover {
-  color: #e50000;
-}
-
+/* ============================================
+   UTILITY
+   ============================================ */
 .grid_layout {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1em;
-}
-
-/* ============================================
-   CSS CUSTOM PROPERTIES
-   Used by new editorial components below.
-   Existing classes above use literal values.
-   ============================================ */
-:root {
-  --color-bg: #1a1a1a;
-  --color-text: #e6e6e6;
-  --color-accent: #e50000;
-  --color-text-ghost: #e6e6e610;
-  --color-border: #e6e6e650;
-  --font-display: "Instrument Serif", serif;
-  --font-body: "Barlow", sans-serif;
-  --space-xs: 0.5rem;
-  --space-sm: 1rem;
-  --space-md: 2rem;
-  --space-lg: 4rem;
-  --space-xl: 8rem;
 }
 
 /* ============================================
@@ -335,8 +381,6 @@ details[open] .expandable__trigger::after {
 
 /* ============================================
    RESPONSIVE ADJUSTMENTS
-   Scales existing classes at smaller viewports.
-   Does not override any existing class behaviour.
    ============================================ */
 @media (max-width: 768px) {
   h1 {
