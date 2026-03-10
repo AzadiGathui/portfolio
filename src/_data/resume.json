@@ -1,0 +1,58 @@
+[
+  {
+    "heading": "Accessible healthcare financing",
+    "client": "Jireh Innovations Ltd.",
+    "role": "UX Researcher & Designer",
+    "deliverables": "B2C web app, B2B admin dashboards, User research & usability testing"
+  },
+  {
+    "heading": "Financial inclusion at the Last Mile",
+    "slug": "leja",
+    "logo": {
+      "src": "/assets/images/resume/leja/Leja logotype_WhitePink_RGB.svg",
+      "alt": "Leja logo",
+      "width": "6rem"
+    },
+    "client": "Leja Ltd.",
+    "role": "Product (UI/UX) Designer",
+    "deliverables": "Mobile application UX research & design",
+    "images": [
+      "leja01.png", "leja02.png", "leja03.png", "leja04.png",
+      "leja05.png", "leja06.png", "leja07.png", "leja08.png"
+    ]
+  },
+  {
+    "heading": "Crossover UX designer assessment",
+    "slug": "crossover",
+    "logo": {
+      "src": "/assets/images/resume/crossover/crossover-logo-white.svg",
+      "alt": "Crossover logo",
+      "width": "8rem"
+    },
+    "client": "Crossover",
+    "role": "UX Designer application",
+    "deliverables": "AI-powered e-learning platform interactive prototype",
+    "images": [
+      "crossover01.png", "crossover02.png", "crossover03.png", "crossover04.png",
+      "crossover05.png", "crossover06.png", "crossover07.png", "crossover08.png",
+      "crossover09.png", "crossover10.png", "crossover11.png"
+    ]
+  },
+  {
+    "heading": "Congolese cab-hailing service",
+    "slug": "carnayo",
+    "logo": {
+      "src": "/assets/images/resume/carnayo/carnayo logo white.png",
+      "alt": "Carnayo logo",
+      "width": "8rem"
+    },
+    "client": "Carnayo",
+    "role": "UI/UX Designer",
+    "deliverables": "Mobile application design",
+    "images": [
+      "carnayo01.png", "carnayo02.png", "carnayo03.png", "carnayo04.png",
+      "carnayo05.png", "carnayo06.png", "carnayo07.png", "carnayo08.png",
+      "carnayo09.png"
+    ]
+  }
+]

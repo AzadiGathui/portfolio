@@ -22,7 +22,10 @@
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
 </head>
 <body>
+  <a href="#main" class="skip-link">Skip to main content</a>
   {% include "partials/nav.njk" %}
+  <div id="main">
   {{ content | safe }}
+  </div>
 </body>
 </html>

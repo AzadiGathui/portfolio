@@ -16,96 +16,28 @@ permalink: /resume/
 </header>
 
 <main>
-  <!-- JIREH HEALTH -->
+  {% for job in resume %}
   <section>
     <header>
       <div class="pj-title">
-        <h2 style="font-size: 2.5rem; line-height: 90%; max-width: 20ch;">Accessible healthcare financing</h2>
+        {% if job.logo %}
+          <img src="{{ job.logo.src }}" style="width: {{ job.logo.width }};" alt="{{ job.logo.alt }}">
+        {% endif %}
+        <h2 style="font-size: 2.5rem; line-height: 90%; max-width: 20ch;">{{ job.heading }}</h2>
       </div>
       <table style="align-self: stretch;">
-        <tr><th>Client</th><td>Jireh Innovations Ltd.</td></tr>
-        <tr><th>Role</th><td>UX Researcher &amp; Designer</td></tr>
-        <tr><th>Deliverables</th><td>B2C web app, B2B admin dashboards, User research &amp; usability testing</td></tr>
+        <tr><th>Client</th><td>{{ job.client }}</td></tr>
+        <tr><th>Role</th><td>{{ job.role }}</td></tr>
+        <tr><th>Deliverables</th><td>{{ job.deliverables }}</td></tr>
       </table>
     </header>
-  </section>
-
-  <!-- LEJA -->
-  <section>
-    <header>
-      <div class="pj-title">
-        <img src="/assets/images/resume/leja/Leja logotype_WhitePink_RGB.svg" style="width: 6rem;" alt="Leja logo">
-        <h2 style="font-size: 2.5rem; line-height: 90%; max-width: 20ch;">Financial inclusion at the Last Mile</h2>
-      </div>
-      <table style="align-self: stretch;">
-        <tr><th>Client</th><td>Leja Ltd.</td></tr>
-        <tr><th>Role</th><td>Product (UI/UX) Designer</td></tr>
-        <tr><th>Deliverables</th><td>Mobile application UX research &amp; design</td></tr>
-      </table>
-    </header>
+    {% if job.images %}
     <div class="pj-reel">
-      <img src="/assets/images/resume/leja/leja01.png" alt="Leja app screen 1">
-      <img src="/assets/images/resume/leja/leja02.png" alt="Leja app screen 2">
-      <img src="/assets/images/resume/leja/leja03.png" alt="Leja app screen 3">
-      <img src="/assets/images/resume/leja/leja04.png" alt="Leja app screen 4">
-      <img src="/assets/images/resume/leja/leja05.png" alt="Leja app screen 5">
-      <img src="/assets/images/resume/leja/leja06.png" alt="Leja app screen 6">
-      <img src="/assets/images/resume/leja/leja07.png" alt="Leja app screen 7">
-      <img src="/assets/images/resume/leja/leja08.png" alt="Leja app screen 8">
+      {% for img in job.images %}
+      <img src="/assets/images/resume/{{ job.slug }}/{{ img }}" alt="{{ job.client }} screen {{ loop.index }}">
+      {% endfor %}
     </div>
+    {% endif %}
   </section>
-
-  <!-- CROSSOVER -->
-  <section>
-    <header>
-      <div class="pj-title">
-        <img src="/assets/images/resume/crossover/crossover-logo-white.svg" style="width: 8rem;" alt="Crossover logo">
-        <h2 style="font-size: 2.5rem; line-height: 90%; max-width: 20ch;">Crossover UX designer assessment</h2>
-      </div>
-      <table style="align-self: stretch;">
-        <tr><th>Client</th><td>Crossover</td></tr>
-        <tr><th>Role</th><td>UX Designer application</td></tr>
-        <tr><th>Deliverables</th><td>AI-powered e-learning platform interactive prototype</td></tr>
-      </table>
-    </header>
-    <div class="pj-reel">
-      <img src="/assets/images/resume/crossover/crossover01.png" alt="Crossover screen 1">
-      <img src="/assets/images/resume/crossover/crossover02.png" alt="Crossover screen 2">
-      <img src="/assets/images/resume/crossover/crossover03.png" alt="Crossover screen 3">
-      <img src="/assets/images/resume/crossover/crossover04.png" alt="Crossover screen 4">
-      <img src="/assets/images/resume/crossover/crossover05.png" alt="Crossover screen 5">
-      <img src="/assets/images/resume/crossover/crossover06.png" alt="Crossover screen 6">
-      <img src="/assets/images/resume/crossover/crossover07.png" alt="Crossover screen 7">
-      <img src="/assets/images/resume/crossover/crossover08.png" alt="Crossover screen 8">
-      <img src="/assets/images/resume/crossover/crossover09.png" alt="Crossover screen 9">
-      <img src="/assets/images/resume/crossover/crossover10.png" alt="Crossover screen 10">
-      <img src="/assets/images/resume/crossover/crossover11.png" alt="Crossover screen 11">
-    </div>
-  </section>
-
-  <!-- CARNAYO -->
-  <section>
-    <header>
-      <div class="pj-title">
-        <img src="/assets/images/resume/carnayo/carnayo logo white.png" style="width: 8rem;" alt="Carnayo logo">
-        <h2 style="font-size: 2.5rem; line-height: 90%; max-width: 20ch;">Congolese cab-hailing service</h2>
-      </div>
-      <table style="align-self: stretch;">
-        <tr><th>Client</th><td>Carnayo</td></tr>
-        <tr><th>Role</th><td>UI/UX Designer</td></tr>
-        <tr><th>Deliverables</th><td>Mobile application design</td></tr>
-      </table>
-    </header>
-    <div class="pj-reel">
-      <img src="/assets/images/resume/carnayo/carnayo01.png" alt="Carnayo screen 1">
-      <img src="/assets/images/resume/carnayo/carnayo02.png" alt="Carnayo screen 2">
-      <img src="/assets/images/resume/carnayo/carnayo03.png" alt="Carnayo screen 3">
-      <img src="/assets/images/resume/carnayo/carnayo04.png" alt="Carnayo screen 4">
-      <img src="/assets/images/resume/carnayo/carnayo05.png" alt="Carnayo screen 5">
-      <img src="/assets/images/resume/carnayo/carnayo06.png" alt="Carnayo screen 6">
-      <img src="/assets/images/resume/carnayo/carnayo07.png" alt="Carnayo screen 7">
-      <img src="/assets/images/resume/carnayo/carnayo08.png" alt="Carnayo screen 8">
-      <img src="/assets/images/resume/carnayo/carnayo09.png" alt="Carnayo screen 9">
-    </div>
-  </section>
+  {% endfor %}
 </main>
