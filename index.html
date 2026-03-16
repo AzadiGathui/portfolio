@@ -36,70 +36,80 @@
 
   <div id="main">
   <main>
-  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3em; padding-top: 10rem;">
+  <div class="hero-intro">
     <div style="text-align: center;">
       <h1>Azadi Gathui</h1>
       <p>Product Design & Analyst Portfolio 2026</p>
     </div>
-    <div style="display: flex; gap: 1em;">
+    <div class="hero-videos">
       <video src="/assets/images/home/home hero loop 1.mp4" autoplay loop muted playsinline></video>
       <video src="/assets/images/home/home hero loop 3.mp4" autoplay loop muted playsinline></video>
-      <video src="/assets/images/home/home hero loop 2.mp4" autoplay loop muted playsinline style="max-height: 8em;"></video>
-    </div>
-    <div>
+      <video src="/assets/images/home/home hero loop 2.mp4" autoplay loop muted playsinline></video>
     </div>
     <img src="/assets/images/home/scroll.svg" alt="scroll for previous work">
   </div>
 
-  <div style="display: flex; flex-direction: column; align-items: center;">
+  <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
     <div>
-      <p style="font-family: Barlow; font-weight: 700; font-size: 8em; letter-spacing: -2px; color: #e6e6e610; margin: 0; line-height: 80%; text-align: center;">
-        Professional <br> Experience
-      </p>
-      <h2 style="text-align: center; font-family: Instrument Serif; font-size: 5em; margin-top: -1.7em; margin-bottom: 2em;">
-        Projects
-      </h2>
+      <p class="hero-section-label">Professional <br> Experience</p>
+      <h2 class="projects-heading">Projects</h2>
     </div>
 
     
-    <div style="display: flex; gap: 1em; align-items: center; max-width: 80%; padding: 1em;">
-      <a href="/projects/price-of-power/" style="font-size: 2em; line-height: 90%; margin: 0; font-weight: 300; letter-spacing: -1px; text-align: right; text-decoration: none;">
-        The Price of Power
-      </a>
+    <div class="project-card">
       
-        <img src="/assets/images/projects/ren/bills.png" alt="" style="height: 4em;">
+        <img src="/assets/images/projects/ren/bills.png" alt="The Price of Power thumbnail">
       
-      <p style="margin-bottom: 0;">Energy &amp; Affordability</p>
+      <div>
+        <h3 style="margin-top:0;">
+          <a href="/projects/price-of-power/" style="text-decoration: none;">
+            The Price of Power
+          </a>
+        </h3>
+        <p style="color: #e6e6e690;">Energy &amp; Affordability</p>
+      </div>
     </div>
     
-    <div style="display: flex; gap: 1em; align-items: center; max-width: 80%; padding: 1em;">
-      <a href="/projects/leja-business-app/" style="font-size: 2em; line-height: 90%; margin: 0; font-weight: 300; letter-spacing: -1px; text-align: right; text-decoration: none;">
-        Financial inclusion at the Last Mile
-      </a>
+    <div class="project-card">
       
-        <img src="/assets/images/projects/lj/LJmockup.png" alt="" style="height: 4em;">
+        <img src="/assets/images/projects/lj/LJmockup.png" alt="Financial inclusion at the Last Mile thumbnail">
       
-      <p style="margin-bottom: 0;">Mobile application research &amp; design</p>
+      <div>
+        <h3 style="margin-top:0;">
+          <a href="/projects/leja-business-app/" style="text-decoration: none;">
+            Financial inclusion at the Last Mile
+          </a>
+        </h3>
+        <p style="color: #e6e6e690;">Mobile application research &amp; design</p>
+      </div>
     </div>
     
-    <div style="display: flex; gap: 1em; align-items: center; max-width: 80%; padding: 1em;">
-      <a href="/projects/inclusive-africa-conference/" style="font-size: 2em; line-height: 90%; margin: 0; font-weight: 300; letter-spacing: -1px; text-align: right; text-decoration: none;">
-        Inclusive Africa Conference
-      </a>
+    <div class="project-card">
       
-        <img src="/assets/images/projects/iac/IAC hero mockup.png" alt="" style="height: 4em;">
+        <img src="/assets/images/projects/iac/IAC hero mockup.png" alt="Inclusive Africa Conference thumbnail">
       
-      <p style="margin-bottom: 0;">Accessibility conference booklet</p>
+      <div>
+        <h3 style="margin-top:0;">
+          <a href="/projects/inclusive-africa-conference/" style="text-decoration: none;">
+            Inclusive Africa Conference
+          </a>
+        </h3>
+        <p style="color: #e6e6e690;">Accessibility conference booklet</p>
+      </div>
     </div>
     
-    <div style="display: flex; gap: 1em; align-items: center; max-width: 80%; padding: 1em;">
-      <a href="/projects/kenya-energy-atlas/" style="font-size: 2em; line-height: 90%; margin: 0; font-weight: 300; letter-spacing: -1px; text-align: right; text-decoration: none;">
-        Kenya Energy Atlas
-      </a>
+    <div class="project-card">
       
-        <img src="/assets/images/projects/efw/EFW hero mockup.png" alt="" style="height: 4em;">
+        <img src="/assets/images/projects/efw/EFW hero mockup.png" alt="Kenya Energy Atlas thumbnail">
       
-      <p style="margin-bottom: 0;">Consolidated research publication</p>
+      <div>
+        <h3 style="margin-top:0;">
+          <a href="/projects/kenya-energy-atlas/" style="text-decoration: none;">
+            Kenya Energy Atlas
+          </a>
+        </h3>
+        <p style="color: #e6e6e690;">Consolidated research publication</p>
+      </div>
     </div>
     
   </div>
@@ -107,5 +117,40 @@
 
 
   </div>
+  <footer class="footer">
+  <div class="footer__brand">
+    <a href="/" class="footer__name">Azadi Gathui</a>
+    <p class="footer__role">Product Designer &amp; Analyst</p>
+  </div>
+
+  <nav class="footer__nav" aria-label="Footer navigation">
+    <ul class="footer__nav-list">
+      <li><a href="/" class="footer__nav-link">Work</a></li>
+      
+      <li><a href="/resume/" class="footer__nav-link">Resume</a></li>
+      
+      <li><a href="/lab/" class="footer__nav-link">Lab</a></li>
+      
+    </ul>
+  </nav>
+
+  <div class="footer__social">
+    
+      <a href="https://linkedin.com/in/azadigathui" class="footer__social-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    
+    
+      <a href="https://behance.net/azadi_gathui" class="footer__social-link" target="_blank" rel="noopener noreferrer">Behance</a>
+    
+    
+      <a href="https://github.com/AzadiGathui" class="footer__social-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+    
+    
+      <a href="mailto:gathui@azadi.design" class="footer__social-link">gathui@azadi.design</a>
+    
+  </div>
+
+  <p class="footer__copy">&copy; 2026 Azadi Gathui</p>
+</footer>
+
 </body>
 </html>
