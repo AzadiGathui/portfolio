@@ -17,6 +17,23 @@ module.exports = function (eleventyConfig) {
       .sort((a, b) => (a.data.order || 99) - (b.data.order || 99))
   );
 
+  // Returns the index of a page in a collection — used for prev/next project navigation
+  eleventyConfig.addFilter("getProjectIndex", (collection, url) =>
+    collection.findIndex((p) => p.url === url)
+  );
+
+  // Returns the current 4-digit year — used in footer copyright line
+  eleventyConfig.addFilter("currentYear", () => new Date().getFullYear());
+
+  // Extracts h2 headings with id attributes from rendered HTML — used for sticky TOC
+  eleventyConfig.addFilter("tocEntries", (content) => {
+    const matches = [...content.matchAll(/<h2[^>]*\sid="([^"]+)"[^>]*>([\s\S]*?)<\/h2>/gi)];
+    return matches.map(([, id, html]) => ({
+      id,
+      text: html.replace(/<[^>]+>/g, "").trim(),
+    }));
+  });
+
   return {
     dir: {
       input: "src",

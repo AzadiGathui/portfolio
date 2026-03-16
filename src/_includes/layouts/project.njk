@@ -11,11 +11,11 @@ layout: layouts/base.njk
   <div class="pj-deets">
       {% if clientLogo %}
         <img src="{{ clientLogo }}" alt="{{ client }} logo" style="width: 6rem;">
-    <div class="pj-title">
       {% endif %}
-      <h1>{{ title }}</h1>
-      {% if tagline %}<p>{{ tagline }}</p>{% endif %}
-    </div>
+      <div class="pj-title">
+        <h1>{{ title }}</h1>
+        {% if tagline %}<p>{{ tagline }}</p>{% endif %}
+      </div>
 
     <table style="align-self: stretch;">
       <tr><th>Client</th><td>{{ client }}</td></tr>
@@ -26,6 +26,58 @@ layout: layouts/base.njk
   </div>
 </header>
 
+{% set tocItems = content | tocEntries %}
+
 <main>
+  {% if tocItems.length %}
+  <div class="pj-layout">
+    <aside class="pj-toc-sidebar" aria-label="Table of contents">
+      <nav class="toc">
+        <span class="label label--muted">Contents</span>
+        <ul class="toc__list">
+          {% for item in tocItems %}
+          <li><a href="#{{ item.id }}" class="toc__link">{{ item.text }}</a></li>
+          {% endfor %}
+          <li><a href="#" class="toc__link toc__link--top">↑ Back to top</a></li>
+        </ul>
+      </nav>
+    </aside>
+    <div class="pj-content">
+      {{ content | safe }}
+    </div>
+  </div>
+  {% else %}
   {{ content | safe }}
+  {% endif %}
 </main>
+
+{% set currentIndex = collections.projects | getProjectIndex(page.url) %}
+{% set prevProject = collections.projects[currentIndex - 1] if currentIndex > 0 else null %}
+{% set nextProject = collections.projects[currentIndex + 1] if currentIndex < collections.projects.length - 1 else null %}
+
+{% if prevProject or nextProject %}
+<nav class="pj-nav" aria-label="Project navigation">
+  <div class="pj-nav__item pj-nav__item--prev">
+    {% if prevProject %}
+      <a href="{{ prevProject.url }}" class="pj-nav__link">
+        <span class="label label--muted">← Previous</span>
+        <span class="pj-nav__title">{{ prevProject.data.title }}</span>
+        {% if prevProject.data.tagline %}
+          <span class="pj-nav__tagline">{{ prevProject.data.tagline }}</span>
+        {% endif %}
+      </a>
+    {% endif %}
+  </div>
+  <div class="pj-nav__item pj-nav__item--next">
+    {% if nextProject %}
+      <a href="{{ nextProject.url }}" class="pj-nav__link">
+        <span class="label label--muted">Next →</span>
+        <span class="pj-nav__title">{{ nextProject.data.title }}</span>
+        {% if nextProject.data.tagline %}
+          <span class="pj-nav__tagline">{{ nextProject.data.tagline }}</span>
+        {% endif %}
+      </a>
+    {% endif %}
+  </div>
+</nav>
+{% endif %}

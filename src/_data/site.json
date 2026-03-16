@@ -3,10 +3,11 @@
   "description": "Portfolio of design work, articles and experiments by Azadi Gathui — Product Designer & Analyst.",
   "url": "https://azadi.design",
   "author": "Azadi Gathui",
-  "email": "",
+  "email": "gathui@azadi.design",
   "social": {
-    "linkedin": "",
-    "behance": ""
+    "linkedin": "https://linkedin.com/in/azadigathui",
+    "behance":  "https://behance.net/azadi_gathui",
+    "github":   "https://github.com/AzadiGathui"
   },
-  "ogImage": "/assets/images/branding/AG Favicon Light on Dark.svg"
+  "ogImage": "/assets/images/branding/favicon.png"
 }

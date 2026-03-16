@@ -5,7 +5,7 @@ description: UI/UX Resume of Azadi Gathui — Product Designer & Analyst with 6+
 permalink: /resume/
 ---
 <header>
-  <div style="padding: 2rem; margin-top: 10rem; max-width: 25rem;">
+  <div style="padding: 2rem; margin-top: 6rem; max-width: 25rem;">
     <h1>Resumé</h1>
   </div>
 </header>
@@ -13,14 +13,16 @@ permalink: /resume/
 <main>
   {% for job in resume %}
   <section>
-    <header>
+    <header class="pj-deets">
       <div class="pj-title">
-        {% if job.logo %}
-          <img src="{{ job.logo.src }}" style="width: {{ job.logo.width }};" alt="{{ job.logo.alt }}">
-        {% endif %}
         <h2>{{ job.heading }}</h2>
       </div>
       <table style="align-self: stretch;">
+        <tr><th>Client</th><td>
+          {% if job.logo %}
+            <img src="{{ job.logo.src }}" style="width: {{ job.logo.width }};" alt="{{ job.logo.alt }}">
+          {% endif %}
+        </td></tr>
         <tr><th>Role</th><td>{{ job.role }}</td></tr>
         <tr><th>Deliverables</th><td>{{ job.deliverables }}</td></tr>
       </table>

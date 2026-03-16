@@ -1,0 +1,32 @@
+<footer class="footer">
+  <div class="footer__brand">
+    <a href="/" class="footer__name">{{ site.title }}</a>
+    <p class="footer__role">Product Designer &amp; Analyst</p>
+  </div>
+
+  <nav class="footer__nav" aria-label="Footer navigation">
+    <ul class="footer__nav-list">
+      <li><a href="/" class="footer__nav-link">Work</a></li>
+      {% for item in navigation %}
+      <li><a href="{{ item.url }}" class="footer__nav-link">{{ item.label }}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+
+  <div class="footer__social">
+    {% if site.social.linkedin %}
+      <a href="{{ site.social.linkedin }}" class="footer__social-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    {% endif %}
+    {% if site.social.behance %}
+      <a href="{{ site.social.behance }}" class="footer__social-link" target="_blank" rel="noopener noreferrer">Behance</a>
+    {% endif %}
+    {% if site.social.github %}
+      <a href="{{ site.social.github }}" class="footer__social-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+    {% endif %}
+    {% if site.email %}
+      <a href="mailto:{{ site.email }}" class="footer__social-link">{{ site.email }}</a>
+    {% endif %}
+  </div>
+
+  <p class="footer__copy">&copy; {{ "" | currentYear }} {{ site.author }}</p>
+</footer>
