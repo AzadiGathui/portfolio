@@ -4,14 +4,14 @@ layout: layouts/base.njk
 <header>
   <div class="cover" style="background: url('{{ coverImage }}') lightgray 50% / cover no-repeat;">
     {% if mockupImage %}
-      <img src="{{ mockupImage }}" alt="{{ title }} project mockup">
+      <img src="{{ mockupImage }}" alt="{{ title }} project mockup" class="pj-mockup">
     {% endif %}
   </div>
 
   <div class="pj-deets">
-    <div class="pj-title">
       {% if clientLogo %}
         <img src="{{ clientLogo }}" alt="{{ client }} logo" style="width: 6rem;">
+    <div class="pj-title">
       {% endif %}
       <h1>{{ title }}</h1>
       {% if tagline %}<p>{{ tagline }}</p>{% endif %}

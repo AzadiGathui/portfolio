@@ -6,12 +6,7 @@ permalink: /resume/
 ---
 <header>
   <div style="padding: 2rem; margin-top: 10rem; max-width: 25rem;">
-    <h1>UI/UX Resume</h1>
-    <p>
-      I am Azadi, a UI/UX Designer &amp; Researcher with 6+ years experience in human-centered design.
-      <br>I specialize in creating intuitive and visually appealing digital products, with a deep passion for
-      sustainable and ethical design practices.
-    </p>
+    <h1>Resumé</h1>
   </div>
 </header>
 
@@ -23,10 +18,9 @@ permalink: /resume/
         {% if job.logo %}
           <img src="{{ job.logo.src }}" style="width: {{ job.logo.width }};" alt="{{ job.logo.alt }}">
         {% endif %}
-        <h2 style="font-size: 2.5rem; line-height: 90%; max-width: 20ch;">{{ job.heading }}</h2>
+        <h2>{{ job.heading }}</h2>
       </div>
       <table style="align-self: stretch;">
-        <tr><th>Client</th><td>{{ job.client }}</td></tr>
         <tr><th>Role</th><td>{{ job.role }}</td></tr>
         <tr><th>Deliverables</th><td>{{ job.deliverables }}</td></tr>
       </table>
