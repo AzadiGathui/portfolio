@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="/assets/images/branding/favicon.png">
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <title>Predicting Threat Status for Kenya&#39;s Data Deficient Species | Azadi Gathui</title>
+  <meta name="description" content="A machine learning project predicting IUCN Red List threat categories for Kenya&#39;s 335 Data Deficient species using Random Forest classification trained on 35,000+ species.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Predicting Threat Status for Kenya&#39;s Data Deficient Species | Azadi Gathui">
+  <meta property="og:description" content="A machine learning project predicting IUCN Red List threat categories for Kenya&#39;s 335 Data Deficient species using Random Forest classification trained on 35,000+ species.">
+  <meta property="og:image" content="/assets/images/projects/iucn/model_kenya_by_class.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://azadi.design/projects/iucn-dd-species/">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <nav class="nav">
+  <a href="/"><img src="/assets/images/branding/AG Favicon Light on Dark.svg" alt="Azadi Gathui logo" class="logo"></a>
+  <ul class="nav-ul">
+    
+    <li class="nav-li"><a href="/resume/">Resume</a></li>
+    
+    <li class="nav-li"><a href="/lab/">Lab</a></li>
+    
+  </ul>
+</nav>
+
+  <div id="main">
+  <header>
+  <div class="cover" style="background: url('/assets/images/projects/iucn/eda_category_distribution.png') lightgray 50% / cover no-repeat;">
+    
+  </div>
+
+  <div class="pj-deets">
+      
+      <div class="pj-title">
+        <h1>Predicting Threat Status for Kenya&#39;s Data Deficient Species</h1>
+        <p>Machine learning for biodiversity conservation</p>
+      </div>
+
+    <table style="align-self: stretch;">
+      <tr><th>Client</th><td>Zindua School (Academic Project)</td></tr>
+      <tr><th>Industry</th><td>Conservation / Data Science</td></tr>
+      <tr><th>Role</th><td>Data Scientist</td></tr>
+      <tr><th>Deliverables</th><td>Data wrangling pipeline, exploratory analysis, Random Forest classification model, species-level predictions</td></tr>
+    </table>
+  </div>
+</header>
+
+
+
+<main>
+  
+  <div class="pj-layout">
+    <aside class="pj-toc-sidebar" aria-label="Table of contents">
+      <nav class="toc">
+        <span class="label label--muted">Contents</span>
+        <ul class="toc__list">
+          
+          <li><a href="#overview" class="toc__link">Overview</a></li>
+          
+          <li><a href="#the-dataset" class="toc__link">The Dataset</a></li>
+          
+          <li><a href="#eda" class="toc__link">Exploratory Data Analysis</a></li>
+          
+          <li><a href="#features" class="toc__link">Feature Engineering</a></li>
+          
+          <li><a href="#class-imbalance" class="toc__link">Handling Class Imbalance</a></li>
+          
+          <li><a href="#modelling" class="toc__link">Model Training + Evaluation</a></li>
+          
+          <li><a href="#results" class="toc__link">Results: Kenya&#39;s Data Deficient Species</a></li>
+          
+          <li><a href="#limitations" class="toc__link">Limitations</a></li>
+          
+          <li><a href="#references" class="toc__link">References + Acknowledgements</a></li>
+          
+          <li><a href="#" class="toc__link toc__link--top">↑ Back to top</a></li>
+        </ul>
+      </nav>
+    </aside>
+    <div class="pj-content">
+      <div class="article-body">
+<h2 id="overview">Overview</h2>
+<p>The <a href="https://www.iucnredlist.org/" target="_blank" rel="noopener">IUCN Red List</a> is the world's most comprehensive inventory of species' conservation status. It classifies species from <strong>Least Concern</strong> through to <strong>Extinct</strong> — but a critical subset are labelled <strong>Data Deficient (DD)</strong>: species where available information is too poor to even assign a threat category.</p>
+<p>This is not a safe status. A DD classification often reflects under-resourced field research rather than genuine absence of threat. Left unaddressed, these species fall through the cracks of conservation policy.</p>
+<figure>
+  <img src="/assets/images/projects/iucn/eda_category_distribution.png" alt="Distribution of IUCN Red List categories across all 39,024 species in the dataset">
+  <figcaption>Distribution of IUCN Red List categories. Least Concern dominates, while Data Deficient (far right) represents 9.3% of the dataset — species with insufficient information to classify.</figcaption>
+</figure>
+<p><strong>The goal:</strong> Train a classification model on species with known threat status, then use it to predict whether Kenya's 335 Data Deficient species are likely to be Threatened or Non-Threatened — surfacing candidates for urgent field research.</p>
+<hr>
+<h2 id="the-dataset">The Dataset</h2>
+<p>Data was sourced from the IUCN Red List bulk download, comprising <strong>8 CSV files</strong> covering different aspects of species records:</p>
+<table>
+  <thead><tr><th>File</th><th>Rows</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>simple_summary</td><td>41,949</td><td>Core taxonomy, Red List category, population trend</td></tr>
+    <tr><td>all_other_fields</td><td>41,949</td><td>Extended metadata fields</td></tr>
+    <tr><td>habitats</td><td>109,594</td><td>Habitat type associations per species</td></tr>
+    <tr><td>threats</td><td>88,999</td><td>Threat codes and stresses per species</td></tr>
+    <tr><td>research_needed</td><td>82,263</td><td>Research priority codes</td></tr>
+    <tr><td>conservation_needed</td><td>50,414</td><td>Conservation action codes</td></tr>
+    <tr><td>usetrade</td><td>18,524</td><td>Human use and trade records</td></tr>
+    <tr><td>countries</td><td>431,396</td><td>Country-level occurrence records</td></tr>
+  </tbody>
+</table>
+<h3>Missingness &amp; Deduplication</h3>
+<p>Before analysis, the data needed cleaning. Initial inspection revealed significant missing values across several fields.</p>
+<figure>
+  <img src="/assets/images/projects/iucn/initial_missingness.png" alt="Missingness matrix showing gaps across fields before cleaning">
+  <figcaption>Initial missingness matrix. Several fields — including population trend, habitat associations, and threat data — have substantial gaps, particularly for Data Deficient species.</figcaption>
+</figure>
+<p>The primary join key (<code>internalTaxonId</code>) had <strong>2,925 duplicated rows</strong>, retained as first occurrences and removed. After deduplication:</p>
+<figure>
+  <img src="/assets/images/projects/iucn/resolved_missingness.png" alt="Missingness matrix after cleaning and deduplication">
+  <figcaption>Missingness after cleaning. The dataset was consolidated to <strong>39,024 unique species</strong>, with 7 processed output files prepared for downstream analysis.</figcaption>
+</figure>
+<hr>
+<h2 id="eda">Exploratory Data Analysis</h2>
+<h3>Red List Category Imbalance</h3>
+<p>For modelling purposes, the 13 IUCN categories were collapsed into three simplified groups:</p>
+<ul>
+<li><strong>Threatened</strong> — Vulnerable, Endangered, Critically Endangered</li>
+<li><strong>Non-Threatened</strong> — Least Concern, Near Threatened, Lower Risk/*</li>
+<li><strong>Extinct</strong> — Extinct, Extinct in the Wild, Regionally Extinct</li>
+</ul>
+<p>Data Deficient species were excluded from training and reserved as prediction targets.</p>
+<figure>
+  <img src="/assets/images/projects/iucn/eda_simplified_categories.png" alt="Simplified Red List category groupings — Threatened vs Non-Threatened vs Extinct">
+  <figcaption>Simplified groupings used for binary classification. Non-Threatened (Least Concern + Near Threatened) vastly outnumbers Threatened, creating a class imbalance problem addressed later with SMOTE.</figcaption>
+</figure>
+<h3>Taxonomic Signals</h3>
+<p>Not all taxonomic groups face equal risk. Threat rates vary substantially by phylum and class — making taxonomy a potentially powerful predictor.</p>
+<figure>
+  <img src="/assets/images/projects/iucn/eda_species_by_phylum.png" alt="Species count and threat rate by phylum">
+  <figcaption>Species count (left) and threat rate (right) by phylum. Chordata dominates in species count, but some smaller phyla show disproportionately high threat rates.</figcaption>
+</figure>
+<figure>
+  <img src="/assets/images/projects/iucn/eda_category_by_class.png" alt="Red List category proportions by taxonomic class — stacked bar chart">
+  <figcaption>Simplified Red List category proportions within each taxonomic class. Classes like AMPHIBIA and CYCADOPSIDA have markedly higher threatened fractions than ACTINOPTERYGII (fish) or INSECTA.</figcaption>
+</figure>
+<h3>Geographic Range</h3>
+<p>Species occurring in fewer countries tend to have narrower ranges, making them more vulnerable to localised threats and habitat loss.</p>
+<figure>
+  <img src="/assets/images/projects/iucn/eda_country_count.png" alt="Country count distribution and boxplot comparing threatened vs non-threatened species">
+  <figcaption>Distribution of country occurrences per species (left) and boxplot by threat status (right). Threatened species occur in significantly fewer countries on average — range size is a meaningful signal.</figcaption>
+</figure>
+<h3>Habitat Specialisation</h3>
+<p>Similarly, species dependent on fewer habitat types have less adaptive buffer against environmental change.</p>
+<figure>
+  <img src="/assets/images/projects/iucn/eda_habitat_count.png" alt="Habitat count distribution and boxplot by threat category">
+  <figcaption>Habitat count distribution (left) and boxplot by category (right). Habitat specialists — those relying on 1–2 habitat types — skew toward Threatened status.</figcaption>
+</figure>
+<h3>Threat Documentation</h3>
+<p>Species with more documented threats are, unsurprisingly, more likely to be classified as Threatened. But this also reveals a critical bias:</p>
+<figure>
+  <img src="/assets/images/projects/iucn/eda_threat_count.png" alt="Documented threat count distribution and boxplot by category">
+  <figcaption>Threat count by species. Threatened species have substantially more documented threats. However, Data Deficient species have only <strong>35.4%</strong> threat documentation coverage, versus 63.8% for non-DD species — meaning the model may underestimate risk for poorly documented DD species.</figcaption>
+</figure>
+<h3>Data Availability for DD Species</h3>
+<p>A key challenge: Data Deficient species are deficient not just in their Red List assessment, but in the features the model relies on.</p>
+<figure>
+  <img src="/assets/images/projects/iucn/eda_data_availability.png" alt="Data availability comparison between DD and non-DD species across all feature sources">
+  <figcaption>Feature data availability for DD (orange) vs non-DD (blue) species. Countries (100%) and habitats (97%) are well covered. Threats (35.4%), uses (17.8%), and conservation records (20.2%) are sparse for DD species — a systematic bias that predictions must be interpreted against.</figcaption>
+</figure>
+<hr>
+<h2 id="features">Feature Engineering</h2>
+<p>Eight candidate features were selected based on EDA findings and data availability across DD species:</p>
+<table>
+  <thead><tr><th>Feature</th><th>Type</th><th>Source</th><th>Rationale</th></tr></thead>
+  <tbody>
+    <tr><td>className</td><td>Categorical</td><td>simple_summary</td><td>Taxonomic group is a proxy for ecological vulnerability</td></tr>
+    <tr><td>populationTrend</td><td>Categorical</td><td>simple_summary</td><td>Declining trend strongly associated with threatened status</td></tr>
+    <tr><td>n_countries</td><td>Numeric</td><td>countries (count)</td><td>Proxy for range size</td></tr>
+    <tr><td>n_habitats</td><td>Numeric</td><td>habitats (count)</td><td>Habitat breadth / specialisation</td></tr>
+    <tr><td>n_threats</td><td>Numeric</td><td>threats (count)</td><td>Documented threat burden</td></tr>
+    <tr><td>n_uses</td><td>Numeric</td><td>usetrade (count)</td><td>Human exploitation pressure</td></tr>
+    <tr><td>n_conservation</td><td>Numeric</td><td>conservation_needed (count)</td><td>Level of conservation attention</td></tr>
+    <tr><td>n_research</td><td>Numeric</td><td>research_needed (count)</td><td>Documented knowledge gaps</td></tr>
+  </tbody>
+</table>
+<p><code>className</code> and <code>populationTrend</code> were one-hot encoded, producing <strong>52 total features</strong> (6 numeric + 46 binary). The dataset was split 80/20 into training (28,163 species) and test (7,041 species) sets.</p>
+<hr>
+<h2 id="class-imbalance">Handling Class Imbalance</h2>
+<p>Non-Threatened species significantly outnumber Threatened ones — a ratio that would bias a naïve classifier toward the majority class. SMOTE (Synthetic Minority Over-sampling Technique) was applied to the training set to generate synthetic Threatened examples and balance the distribution before fitting.</p>
+<figure>
+  <img src="/assets/images/projects/iucn/model_smote.png" alt="Class distribution before and after SMOTE oversampling">
+  <figcaption>Training set class distribution before (left) and after (right) SMOTE. The synthetic samples bring Threatened species up to parity with Non-Threatened, allowing the model to learn from both classes equally.</figcaption>
+</figure>
+<hr>
+<h2 id="modelling">Model Training + Evaluation</h2>
+<p>Two classifiers were trained and evaluated: <strong>Logistic Regression</strong> and <strong>Random Forest</strong>.</p>
+<table>
+  <thead>
+    <tr><th>Model</th><th>Test Accuracy</th><th>Test F1 (weighted)</th><th>5-Fold CV F1</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Logistic Regression</td><td>83.4%</td><td>83.7%</td><td>84.0% ± 0.5%</td></tr>
+    <tr><td><strong>Random Forest</strong></td><td><strong>87.5%</strong></td><td><strong>87.6%</strong></td><td><strong>90.1% ± 1.8%</strong></td></tr>
+  </tbody>
+</table>
+<p>Random Forest outperformed Logistic Regression on all metrics and was selected for final predictions.</p>
+<figure>
+  <img src="/assets/images/projects/iucn/model_logreg_confusion.png" alt="Logistic Regression confusion matrix on test set">
+  <figcaption>Logistic Regression confusion matrix. The model achieves reasonable recall for Threatened species (87%) but with lower precision (72%) — it over-predicts threat status.</figcaption>
+</figure>
+<figure>
+  <img src="/assets/images/projects/iucn/model_rf_confusion.png" alt="Random Forest confusion matrix on test set">
+  <figcaption>Random Forest confusion matrix. Higher precision (79%) and similar recall (87%) for Threatened species — a better balance, with fewer false alarms.</figcaption>
+</figure>
+<h3>Feature Importance</h3>
+<figure>
+  <img src="/assets/images/projects/iucn/model_feature_importance.png" alt="Top 20 most important features in the Random Forest model">
+  <figcaption>Top 20 Random Forest feature importances. Numeric count features — particularly <code>n_countries</code>, <code>n_habitats</code>, and <code>n_threats</code> — dominate. Population trend categories and taxonomic class are the most informative categorical signals.</figcaption>
+</figure>
+<hr>
+<h2 id="results">Results: Kenya's Data Deficient Species</h2>
+<p><strong>335 species</strong> occurring in Kenya were identified as Data Deficient. Using the Random Forest model, each was assigned a predicted threat status.</p>
+<figure>
+  <img src="/assets/images/projects/iucn/model_kenya_labelled_baseline.png" alt="Baseline distribution of known threat status for Kenya species with Red List categories">
+  <figcaption>Known threat status distribution for Kenya species that already have Red List categories (i.e. non-DD). This provides a reference baseline for interpreting the DD predictions.</figcaption>
+</figure>
+<figure>
+  <img src="/assets/images/projects/iucn/model_kenya_predictions.png" alt="Random Forest and Logistic Regression predictions for Kenya's 335 Data Deficient species">
+  <figcaption>Prediction distributions for Kenya's 335 DD species from both models. The Random Forest (right) predicts <strong>291 Non-Threatened (86.9%)</strong> and <strong>44 Threatened (13.1%)</strong>. Logistic Regression is more conservative, flagging 79 as Threatened (23.6%).</figcaption>
+</figure>
+<p>The 44 RF-predicted Threatened species span multiple taxonomic classes — with fish (ACTINOPTERYGII), invertebrates, and mammals most represented among the flagged species.</p>
+<figure>
+  <img src="/assets/images/projects/iucn/model_kenya_by_class.png" alt="Per-class breakdown of predicted Threatened vs Non-Threatened for Kenya's DD species">
+  <figcaption>Predicted threat status by taxonomic class for Kenya's 335 Data Deficient species. Each panel shows both models' outputs side by side, highlighting where they agree and diverge. Fish and invertebrate classes show the highest absolute counts of predicted-Threatened species.</figcaption>
+</figure>
+<hr>
+<h2 id="limitations">Limitations</h2>
+<p>These predictions are best treated as <strong>research prioritisation hypotheses</strong>, not definitive assessments.</p>
+<ul>
+<li><strong>Sparse data bias:</strong> DD species are data-deficient by definition. With only 35% threat documentation coverage (vs 64% for non-DD), the model sees a less complete picture and may systematically underestimate risk.</li>
+<li><strong>SMOTE caveats:</strong> Synthetic oversampling generates plausible but artificial training examples. Edge cases near class boundaries may not reflect real ecological patterns.</li>
+<li><strong>Collapsed categories:</strong> Binary Threatened / Non-Threatened classification loses meaningful nuance — a Vulnerable and a Critically Endangered species are treated identically.</li>
+<li><strong>Count features only:</strong> Threat <em>type</em> and habitat <em>type</em> were reduced to simple counts. Qualitative differences (e.g., habitat destruction vs invasive species) are invisible to the model.</li>
+<li><strong>No external validation:</strong> Predictions have not been validated against expert assessments or field surveys. They should prompt investigation, not replace it.</li>
+</ul>
+<hr>
+<h2 id="references">References + Acknowledgements</h2>
+<p><strong>Data Source</strong></p>
+<p>IUCN Red List of Threatened Species. Version 2024-2. <a href="https://www.iucnredlist.org" target="_blank" rel="noopener">www.iucnredlist.org</a>. Downloaded November 2024.</p>
+<p><strong>Methods</strong></p>
+<ul>
+<li>Chawla, N.V., Bowyer, K.W., Hall, L.O., &amp; Kegelmeyer, W.P. (2002). SMOTE: Synthetic Minority Over-sampling Technique. <em>Journal of Artificial Intelligence Research</em>, 16, 321–357.</li>
+<li>Breiman, L. (2001). Random Forests. <em>Machine Learning</em>, 45(1), 5–32.</li>
+</ul>
+<p><strong>Libraries</strong></p>
+<p>pandas · scikit-learn · imbalanced-learn · matplotlib · seaborn</p>
+<p><strong>Acknowledgements</strong></p>
+<p>This project was completed as part of the Machine Learning module at <a href="https://zinduaschool.com" target="_blank" rel="noopener">Zindua School</a>, Nairobi. Thanks to the IUCN Red List team for making bulk species data publicly available to researchers.</p>
+</div>
+
+    </div>
+  </div>
+  
+</main>
+
+
+
+
+
+
+<nav class="pj-nav" aria-label="Project navigation">
+  <div class="pj-nav__item pj-nav__item--prev">
+    
+      <a href="/projects/kenya-energy-atlas/" class="pj-nav__link">
+        <span class="label label--muted">← Previous</span>
+        <span class="pj-nav__title">Kenya Energy Atlas</span>
+        
+          <span class="pj-nav__tagline">Consolidated research publication</span>
+        
+      </a>
+    
+  </div>
+  <div class="pj-nav__item pj-nav__item--next">
+    
+  </div>
+</nav>
+
+
+  </div>
+  <footer class="footer">
+  <div class="footer__brand">
+    <a href="/" class="footer__name">Azadi Gathui</a>
+    <p class="footer__role">Product Designer &amp; Analyst</p>
+  </div>
+
+  <nav class="footer__nav" aria-label="Footer navigation">
+    <ul class="footer__nav-list">
+      <li><a href="/" class="footer__nav-link">Work</a></li>
+      
+      <li><a href="/resume/" class="footer__nav-link">Resume</a></li>
+      
+      <li><a href="/lab/" class="footer__nav-link">Lab</a></li>
+      
+    </ul>
+  </nav>
+
+  <div class="footer__social">
+    
+      <a href="https://linkedin.com/in/azadigathui" class="footer__social-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    
+    
+      <a href="https://behance.net/azadi_gathui" class="footer__social-link" target="_blank" rel="noopener noreferrer">Behance</a>
+    
+    
+      <a href="https://github.com/AzadiGathui" class="footer__social-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+    
+    
+      <a href="mailto:gathui@azadi.design" class="footer__social-link">gathui@azadi.design</a>
+    
+  </div>
+
+  <p class="footer__copy">&copy; 2026 Azadi Gathui</p>
+</footer>
+
+</body>
+</html>
