@@ -24,20 +24,21 @@ permalink: /
       <h2 class="projects-heading">Projects</h2>
     </div>
 
-    {% for project in collections.projects %}
-    <div class="project-card">
-      {% if project.data.thumbnail %}
-        <img src="{{ project.data.thumbnail }}" alt="{{ project.data.title }} thumbnail">
-      {% endif %}
-      <div>
-        <h3 style="margin-top:0;">
-          <a href="{{ project.url }}" style="text-decoration: none;">
-            {{ project.data.title }}
-          </a>
-        </h3>
-        <p style="color: #e6e6e690;">{{ project.data.tagline }}</p>
-      </div>
+    <div class="projects-grid">
+      {% for project in collections.projects %}
+      <a href="{{ project.url }}" class="project-card">
+        {% if project.data.thumbnail %}
+          <img src="{{ project.data.thumbnail }}" alt="{{ project.data.title }} thumbnail">
+        {% endif %}
+        <div class="project-card__body">
+          {% if project.data.industry %}
+            <span class="label label--muted">{{ project.data.industry }}</span>
+          {% endif %}
+          <h3>{{ project.data.title }}</h3>
+          <p>{{ project.data.tagline }}</p>
+        </div>
+      </a>
+      {% endfor %}
     </div>
-    {% endfor %}
   </div>
 </main>

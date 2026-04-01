@@ -1,57 +1,291 @@
-[
-  {
-    "heading": "Accessible healthcare financing",
-    "client": "Jireh Innovations Ltd.",
-    "role": "UX Researcher & Designer",
-    "deliverables": "Coming soon..."
-  },
-  {
-    "heading": "Financial inclusion at the Last Mile",
-    "slug": "leja",
-    "logo": {
-      "src": "/assets/images/resume/leja/Leja logotype_WhitePink_RGB.svg",
-      "alt": "Leja logo",
-      "width": "6rem"
+{
+  "skills": [
+    "UX Research", "Interaction Design", "Information Architecture",
+    "Prototyping & Testing", "Data Visualisation", "Accessibility Design",
+    "Figma", "Tableau", "Adobe InDesign", "Adobe Illustrator",
+    "HTML & CSS", "Python"
+  ],
+  "sections": [
+    {
+      "title": "Product Design",
+      "entries": [
+        {
+          "client": "Jireh Health",
+          "industry": "Health Financing",
+          "role": "User Experience Researcher",
+          "period": "Apr 2025 – Mar 2026",
+          "deliverables": "Web app · Marketing graphics · Landing page",
+          "description": [
+            "Led UX research for a health-financing web app targeting MSMEs and individual policyholders in Kenya.",
+            "Designed accessible onboarding flows, marketing assets, and a product landing page from discovery to high-fidelity prototype.",
+            "Coordinated with clinical and engineering stakeholders to translate compliance constraints into usable product flows."
+          ],
+          "skills": ["UX Research", "Figma", "Accessibility", "Prototyping"]
+        },
+        {
+          "client": "Leja",
+          "industry": "Fintech",
+          "role": "Product Designer",
+          "period": "Feb 2022 – Jun 2025",
+          "deliverables": "Mobile app · Marketing graphics",
+          "portfolio_url": "/projects/leja-business-app/",
+          "slug": "leja",
+          "description": [
+            "Designed referral, onboarding, and transaction flows for a B2B fintech app serving Kenyan micro and small enterprises.",
+            "Led Kiswahili localisation, cutting cognitive load for non-English-dominant users and improving usability test completion rates.",
+            "Maintained a Figma component library and produced marketing graphics across a 3-year engagement."
+          ],
+          "skills": ["Figma", "Mobile UX", "User Research", "Localisation"],
+          "images": ["LDA1.png", "LDA2.png", "LDA3.png", "LDA4.png"]
+        },
+        {
+          "client": "CarNayo",
+          "industry": "Ride-sharing",
+          "role": "Product Designer",
+          "period": "Jun 2024",
+          "deliverables": "Mobile app design",
+          "slug": "carnayo",
+          "description": [
+            "Designed end-to-end UI/UX for a Congolese ride-hailing app, covering separate driver and passenger journeys.",
+            "Built a design system optimised for low-bandwidth conditions and entry-level Android devices.",
+            "Unified two distinct user mental models — driver and passenger — within a single navigation structure."
+          ],
+          "skills": ["Figma", "Mobile UI", "Design Systems", "User Flow Mapping"],
+          "images": [
+            "carnayo01.png", "carnayo02.png", "carnayo03.png", "carnayo04.png",
+            "carnayo05.png", "carnayo06.png", "carnayo07.png", "carnayo08.png",
+            "carnayo09.png"
+          ]
+        },
+        {
+          "client": "Impact Initiative Kenya",
+          "industry": "Charity",
+          "role": "Freelance UI/UX Designer",
+          "period": "Jan 2025 – Mar 2026",
+          "deliverables": "Landing page",
+          "description": [
+            "Designed and built a landing page for a Kenyan charity platform focused on grassroots community impact."
+          ],
+          "skills": ["Figma", "HTML & CSS", "Landing Page Design"]
+        },
+        {
+          "client": "Crossover",
+          "industry": "EdTech",
+          "role": "UX Designer",
+          "period": "2021 – 2022",
+          "deliverables": "Interactive prototype · UX assessment",
+          "slug": "crossover",
+          "description": [
+            "Prototyped an AI-powered e-learning platform under timed, competitive conditions for a global UX hiring assessment.",
+            "Applied end-to-end UX methodology — research synthesis, IA, wireframing, and high-fidelity prototyping — within a constrained timeline."
+          ],
+          "skills": ["Figma", "Prototyping", "Information Architecture", "Wireframing"],
+          "images": [
+            "crossover01.png", "crossover02.png", "crossover03.png", "crossover04.png",
+            "crossover05.png", "crossover06.png", "crossover07.png", "crossover08.png",
+            "crossover09.png", "crossover10.png", "crossover11.png"
+          ]
+        }
+      ]
     },
-    "client": "Leja Ltd.",
-    "role": "Product (UI/UX) Designer",
-    "deliverables": "Mobile application UX research & design",
-    "images": [
-      "LDA1.png", "LDA2.png", "LDA3.png", "LDA4.png"
-    ]
-  },
-  {
-    "heading": "Crossover UX designer assessment",
-    "slug": "crossover",
-    "logo": {
-      "src": "/assets/images/resume/crossover/crossover-logo-white.svg",
-      "alt": "Crossover logo",
-      "width": "8rem"
+    {
+      "title": "Data & Analysis",
+      "entries": [
+        {
+          "client": "Zindua School",
+          "industry": "Education / Conservation",
+          "role": "Data Analyst",
+          "period": "Aug 2025 – Mar 2026",
+          "deliverables": "Machine learning model · Exploratory analysis · Species predictions",
+          "portfolio_url": "/projects/iucn-dd-species/",
+          "description": [
+            "Built a Random Forest classifier predicting IUCN Red List threat status for Kenya's 335 Data Deficient species, trained on 35,000+ global records.",
+            "Managed end-to-end data pipeline: wrangling 8 IUCN CSV sources, exploratory analysis, feature engineering, and SMOTE for class imbalance.",
+            "Achieved 87.5% test accuracy and 90.1% cross-validated F1 score; delivered predictions as a conservation research prioritisation tool."
+          ],
+          "skills": ["Python", "scikit-learn", "pandas", "Machine Learning", "Data Visualisation"]
+        },
+        {
+          "client": "Independent",
+          "industry": "Energy & Data Journalism",
+          "role": "Researcher & Designer",
+          "period": "2021",
+          "deliverables": "Interactive Tableau dashboard",
+          "portfolio_url": "/projects/price-of-power/",
+          "description": [
+            "Built an interactive Tableau dashboard exploring Kenya Power electricity pricing, affordability, and the renewable energy transition.",
+            "Synthesised government tariff schedules, household income data, and regional generation statistics into a single exploratory tool."
+          ],
+          "skills": ["Tableau", "Data Journalism", "Research", "Data Wrangling"]
+        }
+      ]
     },
-    "client": "Crossover",
-    "role": "UX Designer application",
-    "deliverables": "AI-powered e-learning platform interactive prototype",
-    "images": [
-      "crossover01.png", "crossover02.png", "crossover03.png", "crossover04.png",
-      "crossover05.png", "crossover06.png", "crossover07.png", "crossover08.png",
-      "crossover09.png", "crossover10.png", "crossover11.png"
-    ]
-  },
-  {
-    "heading": "Congolese cab-hailing service",
-    "slug": "carnayo",
-    "logo": {
-      "src": "/assets/images/resume/carnayo/carnayo logo white.png",
-      "alt": "Carnayo logo",
-      "width": "8rem"
+    {
+      "title": "Editorial Design",
+      "entries": [
+        {
+          "client": "UN-Habitat",
+          "industry": "Non-profit / International Development",
+          "role": "Freelance Editorial Designer",
+          "period": "Feb 2025 – Aug 2025",
+          "deliverables": "Editorial design",
+          "description": [
+            "Delivered editorial design work for the United Nations Human Settlements Programme (UN-Habitat)."
+          ],
+          "skills": ["Adobe InDesign", "Editorial Design"]
+        },
+        {
+          "client": "UNFCCC High-Level Champions",
+          "industry": "Climate Policy",
+          "role": "Freelance Editorial Designer",
+          "period": "Sep 2024",
+          "deliverables": "Position paper layout",
+          "description": [
+            "Laid out a position paper for the UNFCCC High-Level Champions — the official champions of the Paris Agreement."
+          ],
+          "skills": ["Adobe InDesign", "Editorial Design"]
+        },
+        {
+          "client": "inABLE",
+          "industry": "Accessibility",
+          "role": "Freelance Editorial Designer",
+          "period": "May 2024",
+          "deliverables": "Conference booklet",
+          "portfolio_url": "/projects/inclusive-africa-conference/",
+          "description": [
+            "Designed the Inclusive Africa Conference booklet for inABLE, Kenya's leading assistive technology and disability advocacy organisation."
+          ],
+          "skills": ["Adobe InDesign", "Accessibility", "Editorial Design"]
+        },
+        {
+          "client": "Children's Investment Fund Foundation (CIFF)",
+          "industry": "Climate / Philanthropy",
+          "role": "Freelance Editorial Designer",
+          "period": "Dec 2023 – Feb 2024",
+          "deliverables": "Event report",
+          "description": [
+            "Designed the official event report for the Children & Youth Pavilion at COP27, commissioned by CIFF."
+          ],
+          "skills": ["Adobe InDesign", "Report Layout", "Editorial Design"]
+        },
+        {
+          "client": "LCOY Kenya",
+          "industry": "Climate / Youth",
+          "role": "Volunteer",
+          "period": "Oct 2022",
+          "deliverables": "Rebranding · Event graphics",
+          "description": [
+            "Rebranded and produced event graphics for YOUNGO's annual Local Conference of Youth on Climate Change in Kenya."
+          ],
+          "skills": ["Adobe Illustrator", "Branding", "Event Design"]
+        },
+        {
+          "client": "African Youth Conference on Climate Change (AFRIYOCCC)",
+          "industry": "Climate / Youth",
+          "role": "Volunteer",
+          "period": "Oct 2022",
+          "deliverables": "Resource pack · Conference programme",
+          "description": [
+            "Designed the attendee resource pack and conference programme for the African Youth Conference on Climate Change."
+          ],
+          "skills": ["Adobe InDesign", "Editorial Design"]
+        },
+        {
+          "client": "Society for International Development (SID)",
+          "industry": "Energy / Research",
+          "role": "Freelance Editorial Designer",
+          "period": "Oct – Dec 2021",
+          "deliverables": "300-page research publication",
+          "portfolio_url": "/projects/kenya-energy-atlas/",
+          "description": [
+            "Laid out a 300-page collaborative research publication for the Kenya Energy Atlas, a joint SID–government initiative.",
+            "Managed complex layouts integrating maps, charts, and long-form academic text across multiple thematic chapters."
+          ],
+          "skills": ["Adobe InDesign", "Complex Layouts", "Data Visualisation"]
+        },
+        {
+          "client": "3408 Belva",
+          "industry": "Real Estate",
+          "role": "Freelance Editorial Designer",
+          "period": "Feb 2020",
+          "deliverables": "Apartment catalogue",
+          "description": [
+            "Designed a property catalogue for a green-living residential development in Parklands, Nairobi."
+          ],
+          "skills": ["Adobe InDesign", "Editorial Layout"]
+        }
+      ]
     },
-    "client": "Carnayo",
-    "role": "UI/UX Designer",
-    "deliverables": "Mobile application design",
-    "images": [
-      "carnayo01.png", "carnayo02.png", "carnayo03.png", "carnayo04.png",
-      "carnayo05.png", "carnayo06.png", "carnayo07.png", "carnayo08.png",
-      "carnayo09.png"
-    ]
-  }
-]
+    {
+      "title": "Branding & Visual Design",
+      "entries": [
+        {
+          "client": "Embassy of Antigua and Barbuda",
+          "industry": "Public Sector",
+          "role": "Freelance Graphics Designer",
+          "period": "Jul 2025",
+          "deliverables": "Graphics",
+          "description": [
+            "Designed graphics for the Embassy of Antigua and Barbuda."
+          ],
+          "skills": ["Adobe Illustrator", "Graphic Design"]
+        },
+        {
+          "client": "Lab Owners Hub",
+          "industry": "Healthcare",
+          "role": "Freelance Branding Designer",
+          "period": "Feb 2024",
+          "deliverables": "Brand identity",
+          "description": [
+            "Developed brand identity for a healthcare lab management and owner networking platform."
+          ],
+          "skills": ["Adobe Illustrator", "Brand Identity"]
+        },
+        {
+          "client": "Qoba",
+          "industry": "ERP / SaaS",
+          "role": "Freelance Branding Designer",
+          "period": "Jan 2022",
+          "deliverables": "Brand identity",
+          "description": [
+            "Designed brand identity for an SME point-of-sale SaaS product."
+          ],
+          "skills": ["Adobe Illustrator", "Brand Identity", "SaaS Branding"]
+        },
+        {
+          "client": "Belva Homes",
+          "industry": "Real Estate",
+          "role": "Freelance Branding Designer",
+          "period": "Jul 2021",
+          "deliverables": "Brand identity",
+          "description": [
+            "Created brand identity for a luxury residential real estate company in Nairobi."
+          ],
+          "skills": ["Adobe Illustrator", "Brand Identity", "Logo Design"]
+        },
+        {
+          "client": "Lizopendwa",
+          "industry": "Jewellery",
+          "role": "Freelance Branding Designer",
+          "period": "May – Jun 2021",
+          "deliverables": "Branding · Social media templates · Product design",
+          "description": [
+            "Built full brand identity, social media templates, and product packaging design for a Kenyan brass jewellery brand."
+          ],
+          "skills": ["Adobe Illustrator", "Brand Identity", "Product Design"]
+        },
+        {
+          "client": "Herbivore Garden Center",
+          "industry": "Botany / Retail",
+          "role": "Graphics Designer & Social Media Manager",
+          "period": "Jun – Dec 2020",
+          "deliverables": "Social media graphics",
+          "description": [
+            "Created social media graphics and managed digital content for a Nairobi-based garden centre."
+          ],
+          "skills": ["Adobe Illustrator", "Social Media Design", "Content Management"]
+        }
+      ]
+    }
+  ]
+}

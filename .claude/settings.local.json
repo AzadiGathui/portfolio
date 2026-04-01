@@ -3,7 +3,13 @@
     "allow": [
       "Bash(cp -r \"images/LJ/.\" \"src/assets/images/projects/lj/\")",
       "Bash(cp \"public/images/LJcover.jpg\" \"src/assets/images/projects/lj/\")",
-      "Bash(cp \"public/images/LJmockup.png\" \"src/assets/images/projects/lj/\")"
+      "Bash(cp \"public/images/LJmockup.png\" \"src/assets/images/projects/lj/\")",
+      "Bash(mkdir -p \"D:/ProDev/Portfolio/Website/portfolio-1/src/assets/images/projects/iucn\")",
+      "Bash(cp \"D:/2-zindua/04-machine-learning-1/data_deficient_iucn_species/reports/figures/initial_missingness.png\" \"D:/ProDev/Portfolio/Website/portfolio-1/src/assets/images/projects/iucn/initial_missingness.png\")",
+      "Bash(cp \"D:/2-zindua/04-machine-learning-1/data_deficient_iucn_species/reports/figures/resolved_missingness.png\" \"D:/ProDev/Portfolio/Website/portfolio-1/src/assets/images/projects/iucn/resolved_missingness.png\")",
+      "Bash(cp \"D:/2-zindua/04-machine-learning-1/data_deficient_iucn_species/reports/figures/class imbalance with SMOTE.png\" \"D:/ProDev/Portfolio/Website/portfolio-1/src/assets/images/projects/iucn/smote_class_imbalance.png\")",
+      "Bash(cp \"D:/2-zindua/04-machine-learning-1/data_deficient_iucn_species/reports/figures/log reg confusion matrix for 1500 features.png\" \"D:/ProDev/Portfolio/Website/portfolio-1/src/assets/images/projects/iucn/logreg_confusion_matrix.png\")",
+      "Bash(python -:*)"
     ]
   }
 }

@@ -1,39 +1,90 @@
 ---
 layout: layouts/page.njk
 title: Resume
-description: UI/UX Resume of Azadi Gathui — Product Designer & Analyst with 6+ years of human-centered design experience.
+description: Resume of Azadi Gathui — Product Designer & Analyst with experience across fintech, healthcare, climate, and conservation.
 permalink: /resume/
 ---
-<header>
-  <div style="padding: 2rem; margin-top: 6rem; max-width: 25rem;">
-    <h1>Resumé</h1>
-  </div>
-</header>
 
-<main>
-  {% for job in resume %}
-  <section>
-    <header class="pj-deets">
-      <div class="pj-title">
-        <h2>{{ job.heading }}</h2>
-      </div>
-      <table style="align-self: stretch;">
-        <tr><th>Client</th><td>
-          {% if job.logo %}
-            <img src="{{ job.logo.src }}" style="width: {{ job.logo.width }};" alt="{{ job.logo.alt }}">
-          {% endif %}
-        </td></tr>
-        <tr><th>Role</th><td>{{ job.role }}</td></tr>
-        <tr><th>Deliverables</th><td>{{ job.deliverables }}</td></tr>
-      </table>
-    </header>
-    {% if job.images %}
-    <div class="pj-reel">
-      {% for img in job.images %}
-      <img src="/assets/images/resume/{{ job.slug }}/{{ img }}" alt="{{ job.client }} screen {{ loop.index }}">
-      {% endfor %}
+<main class="resume">
+
+  <header class="resume-masthead">
+    <div class="resume-masthead__identity">
+      <h1>{{ site.author }}</h1>
+      <p class="resume-masthead__title">Product Designer &amp; Analyst</p>
     </div>
-    {% endif %}
+    <nav class="resume-masthead__contact" aria-label="Contact links">
+      <a href="mailto:{{ site.email }}" class="resume-contact-link">{{ site.email }}</a>
+      <a href="{{ site.social.linkedin }}" class="resume-contact-link" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="{{ site.social.behance }}" class="resume-contact-link" target="_blank" rel="noopener">Behance</a>
+      <a href="{{ site.social.github }}" class="resume-contact-link" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </header>
+
+  {% for section in resume.sections %}
+  <section class="resume-section">
+    <span class="label">{{ section.title }}</span>
+
+    {% for job in section.entries %}
+    <article class="resume-entry">
+      <div class="resume-entry__meta">
+        <div class="resume-entry__company">
+          {# Logo placeholder — to be provided
+          {% if job.logo %}
+            <img src="{{ job.logo.src }}" alt="{{ job.logo.alt }}" class="resume-entry__logo" style="width: {{ job.logo.width }};">
+          {% endif %}
+          #}
+          <div>
+            <h2>
+              {% if job.portfolio_url %}
+                <a href="{{ job.portfolio_url }}" class="resume-entry__client-link">{{ job.client }}</a>
+              {% else %}
+                {{ job.client }}
+              {% endif %}
+            </h2>
+            <p class="resume-entry__role">
+              <span>{{ job.role }}</span>
+              <span class="resume-entry__deliverables">{{ job.deliverables }}</span>
+            </p>
+          </div>
+        </div>
+        <time class="resume-entry__period">{{ job.period }}</time>
+      </div>
+
+      {% if job.description %}
+      <ul class="resume-entry__body">
+        {% for point in job.description %}
+        <li>{{ point }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      {% if job.skills %}
+      <ul class="resume-entry__skills">
+        {% for skill in job.skills %}
+        <li>{{ skill }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      {% if job.images and job.images.length %}
+      <div class="pj-reel">
+        {% for img in job.images %}
+        <img src="/assets/images/resume/{{ job.slug }}/{{ img }}" alt="{{ job.client }} work sample {{ loop.index }}" loading="lazy">
+        {% endfor %}
+      </div>
+      {% endif %}
+    </article>
+    {% endfor %}
   </section>
   {% endfor %}
+
+  <section class="resume-section">
+    <span class="label">Skills</span>
+    <ul class="resume-skills">
+      {% for skill in resume.skills %}
+      <li class="label label--muted">{{ skill }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+
 </main>
