@@ -73,6 +73,42 @@
 
 
 
+<script>
+(function () {
+  // Scroll to bottom
+  var bottomLink = document.getElementById('toc-bottom-link');
+  if (bottomLink) {
+    bottomLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    });
+  }
+
+  // Active section highlight
+  var links = [...document.querySelectorAll('.toc__link[href^="#"]:not([href="#"])')];
+  if (!links.length) return;
+
+  var headings = links.map(function (l) {
+    return document.querySelector(l.getAttribute('href'));
+  }).filter(Boolean);
+
+  function setActive() {
+    var threshold = window.innerHeight * 0.25;
+    var active = null;
+    for (var i = 0; i < headings.length; i++) {
+      if (headings[i].getBoundingClientRect().top <= threshold) {
+        active = links[i];
+      }
+    }
+    links.forEach(function (l) { l.classList.remove('toc__link--active'); });
+    if (active) active.classList.add('toc__link--active');
+  }
+
+  window.addEventListener('scroll', setActive, { passive: true });
+  setActive();
+})();
+</script>
+
 
 <nav class="pj-nav" aria-label="Project navigation">
   <div class="pj-nav__item pj-nav__item--prev">
