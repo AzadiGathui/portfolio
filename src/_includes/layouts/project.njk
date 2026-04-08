@@ -39,6 +39,7 @@ layout: layouts/base.njk
           <li><a href="#{{ item.id }}" class="toc__link">{{ item.text }}</a></li>
           {% endfor %}
           <li><a href="#" class="toc__link toc__link--top">↑ Back to top</a></li>
+          <li><a href="#" class="toc__link toc__link--bottom" id="toc-bottom-link">↓ Scroll to bottom</a></li>
         </ul>
       </nav>
     </aside>
@@ -54,6 +55,42 @@ layout: layouts/base.njk
 {% set currentIndex = collections.projects | getProjectIndex(page.url) %}
 {% set prevProject = collections.projects[currentIndex - 1] if currentIndex > 0 else null %}
 {% set nextProject = collections.projects[currentIndex + 1] if currentIndex < collections.projects.length - 1 else null %}
+
+<script>
+(function () {
+  // Scroll to bottom
+  var bottomLink = document.getElementById('toc-bottom-link');
+  if (bottomLink) {
+    bottomLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    });
+  }
+
+  // Active section highlight
+  var links = [...document.querySelectorAll('.toc__link[href^="#"]:not([href="#"])')];
+  if (!links.length) return;
+
+  var headings = links.map(function (l) {
+    return document.querySelector(l.getAttribute('href'));
+  }).filter(Boolean);
+
+  function setActive() {
+    var threshold = window.innerHeight * 0.25;
+    var active = null;
+    for (var i = 0; i < headings.length; i++) {
+      if (headings[i].getBoundingClientRect().top <= threshold) {
+        active = links[i];
+      }
+    }
+    links.forEach(function (l) { l.classList.remove('toc__link--active'); });
+    if (active) active.classList.add('toc__link--active');
+  }
+
+  window.addEventListener('scroll', setActive, { passive: true });
+  setActive();
+})();
+</script>
 
 {% if prevProject or nextProject %}
 <nav class="pj-nav" aria-label="Project navigation">
