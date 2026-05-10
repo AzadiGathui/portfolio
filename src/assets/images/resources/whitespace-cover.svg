@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1200" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Whitespace &amp; Break Characters">
+  <rect width="2400" height="1200" fill="#1a1a1a"/>
+  <g fill="#e6e6e6" font-family="'Instrument Serif', Georgia, serif">
+    <text x="160" y="660" font-size="220" letter-spacing="-6">Whitespace</text>
+    <text x="160" y="900" font-size="220" letter-spacing="-6">&amp; Break Characters</text>
+  </g>
+  <g font-family="'JetBrains Mono', ui-monospace, monospace" fill="#e50000" font-size="48" opacity="0.9">
+    <text x="160" y="1080" letter-spacing="20">·   →   ↵   ¶   ▢   —   –   ‑</text>
+  </g>
+  <rect x="160" y="1140" width="280" height="2" fill="#e50000"/>
+</svg>

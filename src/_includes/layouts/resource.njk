@@ -2,27 +2,16 @@
 layout: layouts/base.njk
 ---
 <header>
-  <div class="cover" style="background: url('{{ coverImage }}') lightgray 50% / cover no-repeat;">
-    {% if mockupImage %}
-      <img src="{{ mockupImage }}" alt="{{ title }} project mockup" class="pj-mockup">
-    {% endif %}
-  </div>
+  {% if coverImage %}
+  <div class="cover" style="background: url('{{ coverImage }}') #1a1a1a 50% / cover no-repeat;"></div>
+  {% endif %}
 
   <div class="pj-deets">
-      {% if clientLogo %}
-        <img src="{{ clientLogo }}" alt="{{ client }} logo" style="width: 6rem;">
-      {% endif %}
-      <div class="pj-title">
-        <h1>{{ title }}</h1>
-        {% if tagline %}<p>{{ tagline }}</p>{% endif %}
-      </div>
-
-    <table style="align-self: stretch;">
-      <tr><th>Client</th><td>{{ client }}</td></tr>
-      {% if industry %}<tr><th>Industry</th><td>{{ industry }}</td></tr>{% endif %}
-      <tr><th>Role</th><td>{{ role }}</td></tr>
-      <tr><th>Deliverables</th><td>{{ deliverables }}</td></tr>
-    </table>
+    <div class="pj-title">
+      {% if type %}<span class="label">{{ type }}</span>{% endif %}
+      <h1>{{ title }}</h1>
+      {% if tagline %}<p>{{ tagline }}</p>{% endif %}
+    </div>
   </div>
 </header>
 
@@ -52,13 +41,12 @@ layout: layouts/base.njk
   {% endif %}
 </main>
 
-{% set currentIndex = collections.projects | getCollectionIndex(page.url) %}
-{% set prevProject = collections.projects[currentIndex - 1] if currentIndex > 0 else null %}
-{% set nextProject = collections.projects[currentIndex + 1] if currentIndex < collections.projects.length - 1 else null %}
+{% set currentIndex = collections.resources | getCollectionIndex(page.url) %}
+{% set prevResource = collections.resources[currentIndex - 1] if currentIndex > 0 else null %}
+{% set nextResource = collections.resources[currentIndex + 1] if currentIndex < collections.resources.length - 1 else null %}
 
 <script>
 (function () {
-  // Scroll to bottom
   var bottomLink = document.getElementById('toc-bottom-link');
   if (bottomLink) {
     bottomLink.addEventListener('click', function (e) {
@@ -67,7 +55,6 @@ layout: layouts/base.njk
     });
   }
 
-  // Active section highlight
   var links = [...document.querySelectorAll('.toc__link[href^="#"]:not([href="#"])')];
   if (!links.length) return;
 
@@ -92,26 +79,26 @@ layout: layouts/base.njk
 })();
 </script>
 
-{% if prevProject or nextProject %}
-<nav class="pj-nav" aria-label="Project navigation">
+{% if prevResource or nextResource %}
+<nav class="pj-nav" aria-label="Resource navigation">
   <div class="pj-nav__item pj-nav__item--prev">
-    {% if prevProject %}
-      <a href="{{ prevProject.url }}" class="pj-nav__link">
+    {% if prevResource %}
+      <a href="{{ prevResource.url }}" class="pj-nav__link">
         <span class="label label--muted">← Previous</span>
-        <span class="pj-nav__title">{{ prevProject.data.title }}</span>
-        {% if prevProject.data.tagline %}
-          <span class="pj-nav__tagline">{{ prevProject.data.tagline }}</span>
+        <span class="pj-nav__title">{{ prevResource.data.title }}</span>
+        {% if prevResource.data.tagline %}
+          <span class="pj-nav__tagline">{{ prevResource.data.tagline }}</span>
         {% endif %}
       </a>
     {% endif %}
   </div>
   <div class="pj-nav__item pj-nav__item--next">
-    {% if nextProject %}
-      <a href="{{ nextProject.url }}" class="pj-nav__link">
+    {% if nextResource %}
+      <a href="{{ nextResource.url }}" class="pj-nav__link">
         <span class="label label--muted">Next →</span>
-        <span class="pj-nav__title">{{ nextProject.data.title }}</span>
-        {% if nextProject.data.tagline %}
-          <span class="pj-nav__tagline">{{ nextProject.data.tagline }}</span>
+        <span class="pj-nav__title">{{ nextResource.data.title }}</span>
+        {% if nextResource.data.tagline %}
+          <span class="pj-nav__tagline">{{ nextResource.data.tagline }}</span>
         {% endif %}
       </a>
     {% endif %}

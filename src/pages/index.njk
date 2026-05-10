@@ -41,4 +41,30 @@ permalink: /
       {% endfor %}
     </div>
   </div>
+
+  {% if collections.resources.length %}
+  <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+    <div>
+      <p class="hero-section-label">Personal <br> Practice</p>
+      <h2 class="projects-heading">Resources</h2>
+    </div>
+
+    <div class="projects-grid">
+      {% for resource in collections.resources %}
+      <a href="{{ resource.url }}" class="project-card">
+        {% if resource.data.thumbnail %}
+          <img src="{{ resource.data.thumbnail }}" alt="{{ resource.data.title }} thumbnail">
+        {% endif %}
+        <div class="project-card__body">
+          {% if resource.data.type %}
+            <span class="label label--muted">{{ resource.data.type }}</span>
+          {% endif %}
+          <h3>{{ resource.data.title }}</h3>
+          <p>{{ resource.data.tagline }}</p>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
 </main>

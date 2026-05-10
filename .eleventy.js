@@ -17,8 +17,16 @@ module.exports = function (eleventyConfig) {
       .sort((a, b) => (a.data.order || 99) - (b.data.order || 99))
   );
 
-  // Returns the index of a page in a collection — used for prev/next project navigation
-  eleventyConfig.addFilter("getProjectIndex", (collection, url) =>
+  // Resources collection — articles, prototypes, and live tools in src/resources/
+  eleventyConfig.addCollection("resources", (api) =>
+    api
+      .getFilteredByGlob("src/resources/*.md")
+      .filter((p) => p.data.published !== false)
+      .sort((a, b) => (a.data.order || 99) - (b.data.order || 99))
+  );
+
+  // Returns the index of a page in a collection — used for prev/next navigation
+  eleventyConfig.addFilter("getCollectionIndex", (collection, url) =>
     collection.findIndex((p) => p.url === url)
   );
 

@@ -11,6 +11,7 @@
   --color-border: #e6e6e650;
   --font-display: "Instrument Serif", serif;
   --font-body: "Barlow", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --space-xs: 0.5rem;
   --space-sm: 1rem;
   --space-md: 2rem;
@@ -67,6 +68,22 @@ h2 {
 
 a:hover {
   color: var(--color-accent);
+}
+
+code, kbd, samp, pre {
+  font-family: var(--font-mono);
+}
+
+/* Full-bleed utility — lets a block escape its column max-width to span
+   the viewport. Pair with overflow-x: clip on an ancestor to avoid
+   horizontal scroll. */
+.full-bleed {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  max-width: 100vw;
 }
 
 /* ============================================
@@ -467,7 +484,7 @@ details[open] .expandable__trigger::after {
   flex-direction: column;
   gap: var(--space-lg);
   min-width: 0; /* prevents grid blowout */
-  overflow-x: hidden;
+  overflow-x: clip; /* clip (not hidden) keeps position: sticky working in descendants */
 }
 
 .pj-content .article-body {
@@ -1011,5 +1028,624 @@ main.resume {
 
   .footer {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   WHITESPACE DEMO
+   Scoped under .ws-demo. Reuses tokens; only red
+   token used is --color-accent, and only when
+   data-marked="true" (the highlight toggle).
+   ============================================ */
+.ws-demo {
+  --demo-measure: 40ch;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  margin: var(--space-lg) 0;
+  padding: 0 var(--space-md);
+}
+
+.ws-demo__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  max-width: min(1200px, 100%);
+  margin-inline: auto;
+  width: 100%;
+}
+
+.ws-demo[data-hydrated="true"] .ws-demo__nojs { display: none; }
+
+.ws-demo__nojs {
+  border: 1px solid var(--color-border);
+  padding: var(--space-sm) var(--space-md);
+  font-size: 0.875rem;
+  opacity: 0.6;
+}
+
+/* Toolbar — sticky under the fixed nav */
+.ws-toolbar {
+  position: sticky;
+  top: 4.5rem;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-sm) var(--space-md);
+  align-items: center;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.ws-toolbar__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.ws-toolbar__row--controls {
+  justify-content: flex-end;
+}
+
+.ws-search {
+  flex: 1 1 16ch;
+  min-width: 12ch;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.9375rem;
+  padding: 0.35rem 0;
+  outline: none;
+}
+
+.ws-search:focus-visible {
+  border-bottom-color: var(--color-accent);
+}
+
+.ws-filter {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.ws-filter:hover { opacity: 1; }
+
+.ws-filter[aria-pressed="true"] {
+  opacity: 1;
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.ws-slider-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+.ws-slider {
+  width: 9rem;
+  accent-color: var(--color-accent);
+}
+
+.ws-slider-value {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  min-width: 4ch;
+  text-align: right;
+}
+
+.ws-toggle-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  cursor: pointer;
+  user-select: none;
+}
+
+.ws-toggle {
+  appearance: none;
+  width: 2.25rem;
+  height: 1.1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.ws-toggle::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: calc(1.1rem - 4px);
+  height: calc(1.1rem - 4px);
+  border-radius: 50%;
+  background: var(--color-text);
+  opacity: 0.6;
+  transition: transform 0.15s, background 0.15s, opacity 0.15s;
+}
+
+.ws-toggle:checked {
+  border-color: var(--color-accent);
+  background: rgba(229, 0, 0, 0.15);
+}
+
+.ws-toggle:checked::after {
+  transform: translateX(1.15rem);
+  background: var(--color-accent);
+  opacity: 1;
+}
+
+.ws-toggle:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Card grid */
+.ws-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.ws-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-sm);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-md);
+  padding-right: 3rem; /* leaves room for the absolute-positioned copy icon */
+}
+
+.ws-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.ws-card__name {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  margin: 0;
+  text-align: left;
+  font-weight: 400;
+}
+
+.ws-card__code {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  opacity: 0.55;
+}
+
+.ws-card__shortcuts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 0.75rem;
+  margin: 0;
+  font-size: 0.8125rem;
+}
+
+.ws-card__shortcuts dt {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.4;
+  align-self: center;
+}
+
+.ws-card__shortcuts dd {
+  margin: 0;
+}
+
+.ws-card__shortcuts kbd {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  border: 1px solid var(--color-border);
+  padding: 0.15rem 0.5rem;
+  display: inline-block;
+}
+
+.ws-card__examples {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+  margin-top: 0.5rem;
+}
+
+.ws-example {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.ws-example__label {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+
+.ws-example__body {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--color-border);
+  background: rgba(230, 230, 230, 0.03);
+  max-width: var(--demo-measure);
+  white-space: pre-wrap;
+  word-break: normal;
+  overflow-wrap: break-word;
+  min-height: 4.2rem;
+}
+
+.ws-example[data-note]::after {
+  content: attr(data-note);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  opacity: 0.5;
+  line-height: 1.4;
+}
+
+.ws-card__cases {
+  list-style: none;
+  margin: 0.25rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.875rem;
+  opacity: 0.75;
+}
+
+.ws-card__cases li {
+  padding-left: 1.2rem;
+  position: relative;
+  line-height: 1.5;
+}
+
+.ws-card__cases li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  opacity: 0.4;
+}
+
+.ws-copy {
+  position: absolute;
+  top: var(--space-md);
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: color 0.15s, border-color 0.15s, opacity 0.15s;
+}
+
+.ws-copy__icon {
+  width: 1rem;
+  height: 1rem;
+  pointer-events: none;
+}
+
+.ws-copy:hover,
+.ws-copy:focus-visible {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  opacity: 1;
+}
+
+.ws-copy--copied {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  opacity: 1;
+}
+
+/* Whitespace marker tokens — visible only when highlight is on */
+.ws-tok {
+  display: inline;
+  white-space: pre;
+}
+
+.ws-tok--space::before      { content: " "; }
+.ws-tok--nbsp::before       { content: "\00A0"; }
+.ws-tok--tab::before        { content: "\09"; }
+.ws-tok--line-break::before { content: ""; }
+.ws-tok--em-space::before   { content: "\2003"; }
+.ws-tok--en-space::before   { content: "\2002"; }
+.ws-tok--thin-space::before { content: "\2009"; }
+.ws-tok--hair-space::before { content: "\200A"; }
+.ws-tok--zwsp::before       { content: "\200B"; }
+.ws-tok--soft-hyphen::before{ content: "\00AD"; }
+.ws-tok--nb-hyphen::before  { content: "\2011"; }
+.ws-tok--em-dash::before    { content: "\2014"; }
+.ws-tok--en-dash::before    { content: "\2013"; }
+
+.ws-demo[data-marked="true"] .ws-tok::before { color: var(--color-accent); }
+.ws-demo[data-marked="true"] .ws-tok--space::before      { content: "·"; }
+.ws-demo[data-marked="true"] .ws-tok--nbsp::before       { content: "⌒"; }
+.ws-demo[data-marked="true"] .ws-tok--tab::before        { content: "→\00A0\00A0\00A0"; }
+.ws-demo[data-marked="true"] .ws-tok--line-break::before { content: "↵"; }
+.ws-demo[data-marked="true"] .ws-tok--em-space::before   { content: "·\00A0·\00A0·"; }
+.ws-demo[data-marked="true"] .ws-tok--en-space::before   { content: "·\00A0·"; }
+.ws-demo[data-marked="true"] .ws-tok--thin-space::before { content: "·"; font-size: 0.7em; }
+.ws-demo[data-marked="true"] .ws-tok--hair-space::before { content: "·"; font-size: 0.55em; opacity: 0.7; }
+.ws-demo[data-marked="true"] .ws-tok--zwsp::before       { content: "▢"; font-size: 0.85em; }
+.ws-demo[data-marked="true"] .ws-tok--soft-hyphen::before{ content: "·-·"; opacity: 0.7; }
+.ws-demo[data-marked="true"] .ws-tok--nb-hyphen::before  { content: "‑"; box-shadow: 0 0 0 1px var(--color-accent) inset; padding: 0 0.1em; }
+.ws-demo[data-marked="true"] .ws-tok--em-dash::before    { content: "—"; box-shadow: 0 0 0 1px var(--color-accent) inset; padding: 0 0.1em; }
+.ws-demo[data-marked="true"] .ws-tok--en-dash::before    { content: "–"; box-shadow: 0 0 0 1px var(--color-accent) inset; padding: 0 0.1em; }
+
+/* Playground */
+.ws-playground {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-sm);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-md);
+}
+
+.ws-playground__heading {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  margin: 0;
+  text-align: left;
+  font-weight: 400;
+}
+
+.ws-playground__inserts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.ws-insert {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  padding: 0.35rem 0.6rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.ws-insert:hover {
+  opacity: 1;
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.ws-playground__input {
+  width: 100%;
+  min-height: 7rem;
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  padding: 0.85rem 1rem;
+  background: rgba(230, 230, 230, 0.03);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  resize: vertical;
+}
+
+.ws-playground__input:focus-visible {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.ws-playground__preview {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--color-border);
+  background: rgba(230, 230, 230, 0.03);
+  max-width: var(--demo-measure);
+  white-space: pre-wrap;
+  word-break: normal;
+  overflow-wrap: break-word;
+  min-height: 3rem;
+}
+
+.ws-playground__preview-label,
+.ws-playground__counter {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.45;
+}
+
+.ws-playground__counter {
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  text-transform: none;
+  opacity: 0.55;
+}
+
+/* Per-card "Use in playground →" deep-link.
+   Hidden on desktop (the keyboard shortcuts row is the primary affordance);
+   shown only below 600px where shortcuts are useless on a touch device. */
+.ws-deeplink {
+  display: none;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+  text-decoration: none;
+  opacity: 0.75;
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--color-border);
+  margin-top: 0.5rem;
+}
+
+.ws-deeplink:hover,
+.ws-deeplink:focus-visible {
+  color: var(--color-accent);
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .ws-toolbar {
+    grid-template-columns: 1fr;
+    top: 3.5rem;
+  }
+  .ws-toolbar__row--controls { justify-content: flex-start; }
+  .ws-card__examples { grid-template-columns: 1fr; }
+  .ws-card__header { flex-direction: column; gap: 0.25rem; align-items: flex-start; }
+}
+
+/* Mobile adjustments — see iteration 2 plan, section 6 */
+@media (max-width: 600px) {
+  /* 1. Compact sticky toolbar */
+  .ws-toolbar {
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  /* Filter chips become a horizontal scroll strip */
+  .ws-toolbar__row--filters {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 0.25rem;
+    margin: 0 calc(-1 * var(--space-sm)); /* bleed to viewport edge */
+    padding-left: var(--space-sm);
+    padding-right: var(--space-sm);
+  }
+  .ws-toolbar__row--filters::-webkit-scrollbar { display: none; }
+  .ws-search { width: 100%; flex: 1 0 100%; }
+  .ws-filter { flex: 0 0 auto; scroll-snap-align: start; }
+
+  /* Hide the measure slider — the phone viewport is already narrowest */
+  .ws-slider-group { display: none; }
+
+  /* 2. Touch targets ≥44×44 */
+  .ws-filter {
+    min-height: 44px;
+    padding: 0.6rem 0.9rem;
+  }
+  .ws-copy {
+    width: 44px;
+    height: 44px;
+    top: var(--space-sm);
+  }
+  .ws-insert {
+    min-height: 44px;
+    padding: 0.7rem 0.9rem;
+  }
+  .ws-toggle {
+    width: 2.75rem;
+    height: 1.5rem;
+  }
+  .ws-toggle::after {
+    width: calc(1.5rem - 4px);
+    height: calc(1.5rem - 4px);
+  }
+  .ws-toggle:checked::after {
+    transform: translateX(1.25rem);
+  }
+
+  /* 3. Hide shortcuts, show deep-link */
+  .ws-card__shortcuts { display: none; }
+  .ws-deeplink { display: block; }
+
+  /* 4. Promote playground above the card grid */
+  .ws-demo__inner {
+    display: flex;
+    flex-direction: column;
+  }
+  .ws-toolbar    { order: 1; }
+  .ws-playground { order: 2; }
+  .ws-grid       { order: 3; }
+
+  /* 5. Insert chips as horizontal scroll strip */
+  .ws-playground__inserts {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin: 0 calc(-1 * var(--space-md));
+    padding: 0 var(--space-md) 0.25rem;
+  }
+  .ws-playground__inserts::-webkit-scrollbar { display: none; }
+  .ws-insert { flex: 0 0 auto; }
+
+  /* 6. Cheat sheet — hide Mac/Windows shortcut columns */
+  .article-body table.cheat-sheet th:nth-child(4),
+  .article-body table.cheat-sheet td:nth-child(4),
+  .article-body table.cheat-sheet th:nth-child(5),
+  .article-body table.cheat-sheet td:nth-child(5) {
+    display: none;
+  }
+
+  /* 8. Smaller cover on phones held vertically */
+  .cover { height: 50vh; }
+
+  /* 9. Less demo chrome */
+  .ws-card {
+    padding-right: 0; /* copy icon repositions on mobile */
+    padding-top: var(--space-sm);
+  }
+  .ws-copy {
+    position: absolute;
+    top: var(--space-sm);
+    right: 0;
+  }
+  .ws-example__body {
+    padding: 0.6rem 0.7rem;
+  }
+  .ws-card__name {
+    font-size: 1.5rem;
+  }
+  .ws-demo {
+    padding: 0 var(--space-sm);
   }
 }
