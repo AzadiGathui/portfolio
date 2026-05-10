@@ -61,16 +61,35 @@ collections:
       - { label: "Body", name: body, widget: markdown,
           hint: "Main case study content. Supports Markdown and raw HTML (for Tableau embeds, galleries, etc.)." }
 
-  # ─── ARTICLES ───────────────────────────────────────────────
-  - name: articles
-    label: Articles
-    folder: src/articles
+  # ─── RESOURCES ──────────────────────────────────────────────
+  - name: resources
+    label: Resources
+    folder: src/resources
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{slug}}"
     fields:
       - { label: "Title", name: title, widget: string }
+      - { label: "Tagline", name: tagline, widget: string,
+          hint: "Short descriptor shown on the home page list and under the title on the resource page." }
+      - label: "Type"
+        name: type
+        widget: select
+        options: ["Article", "Prototype", "Tool"]
+        default: "Article"
       - { label: "Date", name: date, widget: datetime }
-      - { label: "Published", name: published, widget: boolean, default: false }
-      - { label: "Description", name: description, widget: text, required: false }
-      - { label: "Cover Image", name: coverImage, widget: image, required: false }
-      - { label: "Body", name: body, widget: markdown }
+      - { label: "Homepage Order", name: order, widget: number, value_type: int,
+          hint: "Lower number = appears earlier on the home page list." }
+      - { label: "Published", name: published, widget: boolean, default: false,
+          hint: "Uncheck to hide from the home page and the resources index." }
+      - { label: "Thumbnail", name: thumbnail, widget: image, required: false,
+          hint: "Small image shown next to the title in the resources list." }
+      - { label: "Cover Image", name: coverImage, widget: image, required: false,
+          hint: "Optional full-bleed background image for the resource header." }
+      - { label: "OG Image", name: ogImage, widget: image, required: false,
+          hint: "Social sharing image — 1200×630px recommended." }
+      - { label: "Permalink", name: permalink, widget: string,
+          hint: "URL path — e.g. /resources/resource-name/ (include trailing slash)." }
+      - { label: "SEO Description", name: description, widget: text, required: false,
+          hint: "150–160 characters for search results." }
+      - { label: "Body", name: body, widget: markdown,
+          hint: "Main content. Supports Markdown and raw HTML." }
