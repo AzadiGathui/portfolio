@@ -418,18 +418,34 @@
       card.appendChild(ul);
     }
 
-    const actions = document.createElement("div");
-    actions.className = "ws-card__actions";
     const copy = document.createElement("button");
     copy.type = "button";
     copy.className = "ws-copy";
     copy.dataset.copy = c.char;
-    copy.textContent = "Copy character";
-    actions.appendChild(copy);
-    card.appendChild(actions);
+    copy.setAttribute("aria-label", "Copy " + c.name);
+    copy.title = "Copy " + c.name;
+    copy.innerHTML = COPY_ICON_SVG;
+    card.appendChild(copy);
+
+    const deeplink = document.createElement("a");
+    deeplink.className = "ws-deeplink";
+    deeplink.href = "#ws-playground";
+    deeplink.dataset.deeplinkId = c.id;
+    deeplink.textContent = "Use " + c.name + " in playground →";
+    card.appendChild(deeplink);
 
     return card;
   }
+
+  // Inline SVG icons (currentColor, scale with text)
+  const COPY_ICON_SVG = '<svg class="ws-copy__icon" viewBox="0 0 16 16" aria-hidden="true">' +
+    '<rect x="2" y="4" width="9" height="11" fill="none" stroke="currentColor" stroke-width="1"/>' +
+    '<rect x="5" y="1" width="9" height="11" fill="none" stroke="currentColor" stroke-width="1"/>' +
+    '</svg>';
+
+  const CHECK_ICON_SVG = '<svg class="ws-copy__icon" viewBox="0 0 16 16" aria-hidden="true">' +
+    '<polyline points="3,8.5 7,12.5 13,4" fill="none" stroke="currentColor" stroke-width="1.5"/>' +
+    '</svg>';
 
   function buildGrid() {
     grid.innerHTML = "";
@@ -502,12 +518,14 @@
     const ch = btn.dataset.copy;
     if (typeof ch !== "string") return;
     const ok = function () {
+      const prevLabel = btn.getAttribute("aria-label") || "Copy character";
       btn.classList.add("ws-copy--copied");
-      const original = btn.textContent;
-      btn.textContent = "Copied";
+      btn.innerHTML = CHECK_ICON_SVG;
+      btn.setAttribute("aria-label", "Copied");
       setTimeout(function () {
         btn.classList.remove("ws-copy--copied");
-        btn.textContent = original;
+        btn.innerHTML = COPY_ICON_SVG;
+        btn.setAttribute("aria-label", prevLabel);
       }, 1200);
     };
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -615,11 +633,67 @@
     updateCounter();
   }
 
+  // ─── Mobile: "Use in playground →" deep-link ───────────────────────────
+
+  function wireMobileDeepLinks() {
+    root.addEventListener("click", function (e) {
+      const link = e.target.closest(".ws-deeplink");
+      if (!link) return;
+      const id = link.dataset.deeplinkId;
+      const c = CHARACTERS.find(function (x) { return x.id === id; });
+      if (!c || !playgroundInput) return;
+      insertAtCursor(playgroundInput, c.char);
+      // The anchor jumps to #ws-playground; defer focus so iOS keyboards
+      // don't fight the scroll.
+      setTimeout(function () { playgroundInput.focus(); }, 250);
+    });
+  }
+
+  // ─── Mobile: Web Share API (progressive enhancement) ───────────────────
+  // Long-press a copy icon → system share sheet (where supported).
+  // Default tap behaviour (clipboard) is unaffected.
+
+  function wireShareSheet() {
+    if (typeof navigator === "undefined" || !navigator.share) return;
+    let timer = null;
+    let triggered = false;
+
+    function start(e) {
+      const btn = e.target.closest(".ws-copy");
+      if (!btn) return;
+      triggered = false;
+      timer = setTimeout(function () {
+        triggered = true;
+        const ch = btn.dataset.copy;
+        const name = btn.getAttribute("aria-label") || "character";
+        navigator.share({ text: ch, title: name }).catch(function () {});
+      }, 550);
+    }
+    function cancel() {
+      if (timer) { clearTimeout(timer); timer = null; }
+    }
+    root.addEventListener("pointerdown", start, { passive: true });
+    root.addEventListener("pointerup", cancel);
+    root.addEventListener("pointercancel", cancel);
+    root.addEventListener("pointerleave", cancel);
+    // If the share sheet fired, swallow the trailing click so the clipboard
+    // path doesn't also run.
+    root.addEventListener("click", function (e) {
+      if (!triggered) return;
+      if (!e.target.closest(".ws-copy")) return;
+      e.stopPropagation();
+      e.preventDefault();
+      triggered = false;
+    }, true);
+  }
+
   // ─── Init ──────────────────────────────────────────────────────────────
 
   buildGrid();
   makeInsertButtons();
   refreshPlaygroundPreview();
+  wireMobileDeepLinks();
+  wireShareSheet();
 
   // Mark hydrated so CSS can hide the no-script fallback / show controls.
   root.setAttribute("data-hydrated", "true");

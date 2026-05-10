@@ -4,6 +4,7 @@ tagline: A working reference for the invisible glyphs that do the typesetting
 type: Article
 order: 1
 published: true
+coverImage: /assets/images/resources/whitespace-cover.svg
 description: A visual-first reference and interactive playground for whitespace and break characters in digital and print typography — non-breaking spaces, dashes, soft hyphens, and the rest of the family.
 permalink: /resources/whitespace-and-break-characters/
 ---
@@ -17,74 +18,51 @@ You can read a body of text and never see them. You can read it badly because th
 <cite>— a working principle</cite>
 </blockquote>
 
-This is a reference, not an essay. The interactive demo below lets you toggle every whitespace and break character on, see where it sits, watch how it behaves at different measures, and copy it for use in your own work.
-
-<h2 id="at-a-glance">At a glance</h2>
-
-<table>
-  <thead>
-    <tr><th>Glyph</th><th>Name</th><th>Codepoint</th><th>Mac</th><th>Windows</th><th>Primary use</th></tr>
-  </thead>
-  <tbody>
-    <tr><td><code> </code></td><td>Space</td><td><code>U+0020</code></td><td>Spacebar</td><td>Spacebar</td><td>Word separator</td></tr>
-    <tr><td><code>&nbsp;</code></td><td>Non-breaking space</td><td><code>U+00A0</code></td><td>⌥ Space</td><td>Ctrl Shift Space</td><td>Lock two tokens together</td></tr>
-    <tr><td><code>→</code></td><td>Tab</td><td><code>U+0009</code></td><td>Tab</td><td>Tab</td><td>Indent / align columns</td></tr>
-    <tr><td><code>↵</code></td><td>Line break</td><td><code>U+000A</code></td><td>⇧ Return</td><td>Shift Enter</td><td>Soft return inside a paragraph</td></tr>
-    <tr><td><code>¶</code></td><td>Paragraph break</td><td><code>U+000D</code></td><td>Return</td><td>Enter</td><td>New paragraph</td></tr>
-    <tr><td><code> </code></td><td>Em space</td><td><code>U+2003</code></td><td>⇧⌘ M</td><td>Shift Ctrl M</td><td>Wide pause / first-line indent</td></tr>
-    <tr><td><code> </code></td><td>En space</td><td><code>U+2002</code></td><td>⇧⌘ N</td><td>Shift Ctrl N</td><td>Medium pause</td></tr>
-    <tr><td><code> </code></td><td>Thin space</td><td><code>U+2009</code></td><td>—</td><td>—</td><td>Around dashes, before units</td></tr>
-    <tr><td><code> </code></td><td>Hair space</td><td><code>U+200A</code></td><td>—</td><td>—</td><td>Optical balance only</td></tr>
-    <tr><td><code>▢</code></td><td>Zero-width space</td><td><code>U+200B</code></td><td>—</td><td>—</td><td>Invisible break point</td></tr>
-    <tr><td><code>—</code></td><td>Em dash</td><td><code>U+2014</code></td><td>⇧⌥ -</td><td>Alt 0151</td><td>Parenthetical / break</td></tr>
-    <tr><td><code>–</code></td><td>En dash</td><td><code>U+2013</code></td><td>⌥ -</td><td>Alt 0150</td><td>Ranges and relationships</td></tr>
-    <tr><td><code>-</code></td><td>Hyphen-minus</td><td><code>U+002D</code></td><td>-</td><td>-</td><td>Compounds, line-end breaks</td></tr>
-    <tr><td><code>‑</code></td><td>Non-breaking hyphen</td><td><code>U+2011</code></td><td>—</td><td>—</td><td>Locked compound</td></tr>
-    <tr><td><code>·-·</code></td><td>Soft hyphen</td><td><code>U+00AD</code></td><td>⌘ -</td><td>Ctrl -</td><td>Suggested break point</td></tr>
-  </tbody>
-</table>
+This is a reference, not an essay. The interactive playground below lets you toggle every whitespace and break character on, see where it sits, watch how it behaves at different measures, and copy it for use in your own work. The cheat sheet at the end gives the whole inventory in one table.
 
 <h2 id="interactive-reference">Interactive reference</h2>
 
 <p>Each card shows the character in a real before/after, the keyboard shortcut, and the contexts it belongs in. Use the toolbar to filter by category, narrow the measure to see line-breaking behaviour, and turn on the highlight toggle to render every invisible character as a visible mark.</p>
 
-<div class="ws-demo">
-  <noscript>
-    <div class="ws-demo__nojs">The interactive reference requires JavaScript. The cheat-sheet table above contains the same information in static form.</div>
-  </noscript>
+<div class="ws-demo full-bleed">
+  <div class="ws-demo__inner">
+    <noscript>
+      <div class="ws-demo__nojs">The interactive reference requires JavaScript. The cheat sheet near the end of the article contains the same information in static form.</div>
+    </noscript>
 
-  <div class="ws-toolbar" role="toolbar" aria-label="Whitespace demo controls">
-    <div class="ws-toolbar__row ws-toolbar__row--filters">
-      <input type="search" class="ws-search" placeholder="Search name or codepoint" aria-label="Search characters">
-      <button type="button" class="ws-filter" data-category="all" aria-pressed="true">All</button>
-      <button type="button" class="ws-filter" data-category="spacing" aria-pressed="false">Spacing</button>
-      <button type="button" class="ws-filter" data-category="breaks" aria-pressed="false">Breaks</button>
-      <button type="button" class="ws-filter" data-category="dashes" aria-pressed="false">Dashes</button>
-      <button type="button" class="ws-filter" data-category="hidden" aria-pressed="false">Hidden</button>
+    <div class="ws-toolbar" role="toolbar" aria-label="Whitespace demo controls">
+      <div class="ws-toolbar__row ws-toolbar__row--filters">
+        <input type="search" class="ws-search" placeholder="Search name or codepoint" aria-label="Search characters">
+        <button type="button" class="ws-filter" data-category="all" aria-pressed="true">All</button>
+        <button type="button" class="ws-filter" data-category="spacing" aria-pressed="false">Spacing</button>
+        <button type="button" class="ws-filter" data-category="breaks" aria-pressed="false">Breaks</button>
+        <button type="button" class="ws-filter" data-category="dashes" aria-pressed="false">Dashes</button>
+        <button type="button" class="ws-filter" data-category="hidden" aria-pressed="false">Hidden</button>
+      </div>
+      <div class="ws-toolbar__row ws-toolbar__row--controls">
+        <label class="ws-slider-group">
+          Measure
+          <input type="range" class="ws-slider" min="14" max="80" value="40" step="2" aria-label="Example column width in characters">
+          <span class="ws-slider-value">40 ch</span>
+        </label>
+        <label class="ws-toggle-group">
+          Highlight
+          <input type="checkbox" class="ws-toggle" aria-label="Highlight invisible characters">
+        </label>
+      </div>
     </div>
-    <div class="ws-toolbar__row ws-toolbar__row--controls">
-      <label class="ws-slider-group">
-        Measure
-        <input type="range" class="ws-slider" min="14" max="80" value="40" step="2" aria-label="Example column width in characters">
-        <span class="ws-slider-value">40 ch</span>
-      </label>
-      <label class="ws-toggle-group">
-        Highlight
-        <input type="checkbox" class="ws-toggle" aria-label="Highlight invisible characters">
-      </label>
-    </div>
+
+    <div class="ws-grid" aria-live="polite"></div>
+
+    <section id="ws-playground" class="ws-playground" aria-label="Whitespace playground">
+      <h3 class="ws-playground__heading">Playground</h3>
+      <div class="ws-playground__inserts" aria-label="Insert character"></div>
+      <textarea class="ws-playground__input" rows="5" placeholder="Type or paste text here, then insert characters with the buttons above. The preview below shows the same text at the current measure — turn highlight on to see every whitespace and break character."></textarea>
+      <span class="ws-playground__preview-label">Preview at <span class="ws-slider-value">40 ch</span></span>
+      <div class="ws-playground__preview" aria-live="polite"></div>
+      <p class="ws-playground__counter">0 chars · 0 spaces · 0 NBSP · 0 soft hyphens · 0 line breaks</p>
+    </section>
   </div>
-
-  <div class="ws-grid" aria-live="polite"></div>
-
-  <section class="ws-playground" aria-label="Whitespace playground">
-    <h3 class="ws-playground__heading">Playground</h3>
-    <div class="ws-playground__inserts" aria-label="Insert character"></div>
-    <textarea class="ws-playground__input" rows="5" placeholder="Type or paste text here, then insert characters with the buttons above. The preview below shows the same text at the current measure — turn highlight on to see every whitespace and break character."></textarea>
-    <span class="ws-playground__preview-label">Preview at <span class="ws-slider-value">40 ch</span></span>
-    <div class="ws-playground__preview" aria-live="polite"></div>
-    <p class="ws-playground__counter">0 chars · 0 spaces · 0 NBSP · 0 soft hyphens · 0 line breaks</p>
-  </section>
 </div>
 
 <h2 id="digital">Best practices — digital</h2>
@@ -168,6 +146,31 @@ Currency symbol and amount bind with a non-breaking space (or no space at all, d
 <h3>Locale conventions</h3>
 
 Thousands separators, decimal markers, quotation marks, and the space before punctuation all vary by language. The rule is to set them by paragraph style or by locale, not by typing them on demand. Consistency at the document level is invisible; inconsistency is the only thing readers notice.
+
+<h2 id="cheat-sheet">Cheat sheet</h2>
+
+<table class="cheat-sheet">
+  <thead>
+    <tr><th>Glyph</th><th>Name</th><th>Codepoint</th><th>Mac</th><th>Windows</th><th>Primary use</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code> </code></td><td>Space</td><td><code>U+0020</code></td><td>Spacebar</td><td>Spacebar</td><td>Word separator</td></tr>
+    <tr><td><code>&nbsp;</code></td><td>Non-breaking space</td><td><code>U+00A0</code></td><td>⌥ Space</td><td>Ctrl Shift Space</td><td>Lock two tokens together</td></tr>
+    <tr><td><code>→</code></td><td>Tab</td><td><code>U+0009</code></td><td>Tab</td><td>Tab</td><td>Indent / align columns</td></tr>
+    <tr><td><code>↵</code></td><td>Line break</td><td><code>U+000A</code></td><td>⇧ Return</td><td>Shift Enter</td><td>Soft return inside a paragraph</td></tr>
+    <tr><td><code>¶</code></td><td>Paragraph break</td><td><code>U+000D</code></td><td>Return</td><td>Enter</td><td>New paragraph</td></tr>
+    <tr><td><code> </code></td><td>Em space</td><td><code>U+2003</code></td><td>⇧⌘ M</td><td>Shift Ctrl M</td><td>Wide pause / first-line indent</td></tr>
+    <tr><td><code> </code></td><td>En space</td><td><code>U+2002</code></td><td>⇧⌘ N</td><td>Shift Ctrl N</td><td>Medium pause</td></tr>
+    <tr><td><code> </code></td><td>Thin space</td><td><code>U+2009</code></td><td>—</td><td>—</td><td>Around dashes, before units</td></tr>
+    <tr><td><code> </code></td><td>Hair space</td><td><code>U+200A</code></td><td>—</td><td>—</td><td>Optical balance only</td></tr>
+    <tr><td><code>▢</code></td><td>Zero-width space</td><td><code>U+200B</code></td><td>—</td><td>—</td><td>Invisible break point</td></tr>
+    <tr><td><code>—</code></td><td>Em dash</td><td><code>U+2014</code></td><td>⇧⌥ -</td><td>Alt 0151</td><td>Parenthetical / break</td></tr>
+    <tr><td><code>–</code></td><td>En dash</td><td><code>U+2013</code></td><td>⌥ -</td><td>Alt 0150</td><td>Ranges and relationships</td></tr>
+    <tr><td><code>-</code></td><td>Hyphen-minus</td><td><code>U+002D</code></td><td>-</td><td>-</td><td>Compounds, line-end breaks</td></tr>
+    <tr><td><code>‑</code></td><td>Non-breaking hyphen</td><td><code>U+2011</code></td><td>—</td><td>—</td><td>Locked compound</td></tr>
+    <tr><td><code>·-·</code></td><td>Soft hyphen</td><td><code>U+00AD</code></td><td>⌘ -</td><td>Ctrl -</td><td>Suggested break point</td></tr>
+  </tbody>
+</table>
 
 <h2 id="further-reading">Further reading</h2>
 
