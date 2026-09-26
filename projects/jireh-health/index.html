@@ -6,8 +6,8 @@
 
   <link rel="shortcut icon" href="/assets/images/branding/favicon.png">
   <!-- Self-hosted fonts: preload the two faces every page renders first -->
-  <link rel="preload" href="/assets/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="">
+  <link rel="preload" href="/assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="">
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <title>Jireh Health | Azadi Gathui</title>
@@ -23,7 +23,7 @@
 <body>
   <a href="#main" class="skip-link">Skip to main content</a>
   <nav class="nav" aria-label="Main">
-  <a href="/"><img src="/assets/images/branding/AG Favicon Light on Dark.svg" alt="Azadi Gathui, home" class="logo"></a>
+  <a href="/"><img src="/img/rXTz9L4-mZ-33.svg" alt="Azadi Gathui, home" class="logo" loading="eager" decoding="async" width="33" height="33"></a>
   <ul class="nav-ul">
     
     <li class="nav-li"><a href="/resume/">Resume</a></li>
@@ -162,6 +162,18 @@
 
   <p class="footer__copy">&copy; 2026 Azadi Gathui</p>
 </footer>
-
+<script type="speculationrules">
+  {
+    "prefetch": [{
+      "where": {
+        "and": [
+          { "href_matches": "/*" },
+          { "not": { "href_matches": "/admin/*" } }
+        ]
+      },
+      "eagerness": "moderate"
+    }]
+  }
+  </script>
 </body>
 </html>

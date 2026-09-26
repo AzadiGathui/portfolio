@@ -103,6 +103,19 @@ html {
   html {
     scroll-behavior: smooth;
   }
+
+  /* Page transitions: a soft cross-fade between pages instead of a flash.
+     Works in Chrome, Edge and Safari 18.2+; other browsers just navigate as usual.
+     Inside this media query, so visitors who ask for reduced motion don't get it. */
+  @view-transition {
+    navigation: auto;
+  }
+}
+
+/* Give the nav its own name so it stays put while the page content fades
+   (without a name, everything cross-fades together, nav included). */
+.nav {
+  view-transition-name: site-nav;
 }
 
 body {
@@ -130,6 +143,27 @@ select,
 textarea {
   font: inherit;
   color: inherit;
+}
+
+/* Images. The build adds width/height attributes so the browser can reserve
+   space before each image loads (no jumping). Those attributes act like a fixed
+   CSS height, so reset it: height:auto keeps the real proportions whenever CSS
+   changes the width, and lets `aspect-ratio` rules (project cards) work. */
+img {
+  height: auto;
+}
+
+/* The build wraps each <img> in <picture> to offer AVIF/WebP files.
+   `display: contents` makes the wrapper invisible to layout, so grids, flex rows
+   and masonry treat the <img> exactly as they did before it was wrapped. */
+picture {
+  display: contents;
+}
+
+/* ...which would otherwise turn the invisible <source> tags into empty flex/grid
+   items (an extra gap). The browser still reads them to choose a file. */
+picture > source {
+  display: none;
 }
 
 /* One visible focus style for everything keyboard-reachable */

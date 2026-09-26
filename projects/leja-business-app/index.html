@@ -6,8 +6,8 @@
 
   <link rel="shortcut icon" href="/assets/images/branding/favicon.png">
   <!-- Self-hosted fonts: preload the two faces every page renders first -->
-  <link rel="preload" href="/assets/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="">
+  <link rel="preload" href="/assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="">
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <title>Financial inclusion at the Last Mile | Azadi Gathui</title>
@@ -23,7 +23,7 @@
 <body>
   <a href="#main" class="skip-link">Skip to main content</a>
   <nav class="nav" aria-label="Main">
-  <a href="/"><img src="/assets/images/branding/AG Favicon Light on Dark.svg" alt="Azadi Gathui, home" class="logo"></a>
+  <a href="/"><img src="/img/rXTz9L4-mZ-33.svg" alt="Azadi Gathui, home" class="logo" loading="eager" decoding="async" width="33" height="33"></a>
   <ul class="nav-ul">
     
     <li class="nav-li"><a href="/resume/">Resume</a></li>
@@ -35,15 +35,16 @@
 
   <div id="main">
   <header>
-  <div class="cover" style="background: url('/assets/images/projects/lj/LJcover.jpg') lightgray 50% / cover no-repeat;">
+  <div class="cover" style="background: url('/img/AYF_4wM8uV-1920.webp') lightgray 50% / cover no-repeat;">
     
-      <img src="/assets/images/projects/lj/LJmockup.png" alt="Financial inclusion at the Last Mile project mockup" class="pj-mockup">
+      
+      <picture><source type="image/avif" srcset="/img/MoR_i1ov7B-400.avif" sizes="(max-width: 960px) 100vw, 960px"><img loading="eager" decoding="async" src="/img/MoR_i1ov7B-400.webp" alt="Financial inclusion at the Last Mile project mockup" class="pj-mockup" fetchpriority="high" width="400" height="341"></picture>
     
   </div>
 
   <div class="pj-deets">
       
-        <img src="/assets/images/resume/leja/Leja logotype_WhitePink_RGB.svg" alt="Leja Ltd. logo" style="width: 6rem;">
+        <img src="/img/Je3JDAHRfc-1176.svg" alt="Leja Ltd. logo" style="width: 6rem;" sizes="6rem" loading="lazy" decoding="async" width="1176" height="336">
       
       <div class="pj-title">
         <h1>Financial inclusion at the Last Mile</h1>
@@ -74,9 +75,9 @@
       <p>Using Kiswahili and relatable imagery within a traditionally English-dominant field helps humanise the platform as a representation of what happens day-to-day.</p>
       <a href="https://www.nngroup.com/articles/ten-usability-heuristics/#:~:text=2%3A-,Match%20Between%20the%20System%20and%20the%20Real%20World,-The%20design%20should">Nielsen's Usability heuristic #2</a>
     </div>
-    <img src="/assets/images/projects/lj/referrals 01.png" alt="Leja referral screen 1">
-    <img src="/assets/images/projects/lj/referrals 02.png" alt="Leja referral screen 2">
-    <img src="/assets/images/projects/lj/referrals 03.png" alt="Leja referral screen 3">
+    <picture><source type="image/avif" srcset="/img/si71xoWHhv-380.avif" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/si71xoWHhv-380.webp" alt="Leja referral screen 1" width="380" height="660"></picture>
+    <picture><source type="image/avif" srcset="/img/WgNn3vy9Rz-380.avif" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/WgNn3vy9Rz-380.webp" alt="Leja referral screen 2" width="380" height="660"></picture>
+    <picture><source type="image/avif" srcset="/img/n_FyuowJ3e-380.avif" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/n_FyuowJ3e-380.webp" alt="Leja referral screen 3" width="380" height="660"></picture>
   </div>
 </section>
 
@@ -185,6 +186,18 @@
 
   <p class="footer__copy">&copy; 2026 Azadi Gathui</p>
 </footer>
-
+<script type="speculationrules">
+  {
+    "prefetch": [{
+      "where": {
+        "and": [
+          { "href_matches": "/*" },
+          { "not": { "href_matches": "/admin/*" } }
+        ]
+      },
+      "eagerness": "moderate"
+    }]
+  }
+  </script>
 </body>
 </html>

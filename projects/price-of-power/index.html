@@ -6,8 +6,8 @@
 
   <link rel="shortcut icon" href="/assets/images/branding/favicon.png">
   <!-- Self-hosted fonts: preload the two faces every page renders first -->
-  <link rel="preload" href="/assets/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="">
+  <link rel="preload" href="/assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="">
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <title>The Price of Power | Azadi Gathui</title>
@@ -23,7 +23,7 @@
 <body>
   <a href="#main" class="skip-link">Skip to main content</a>
   <nav class="nav" aria-label="Main">
-  <a href="/"><img src="/assets/images/branding/AG Favicon Light on Dark.svg" alt="Azadi Gathui, home" class="logo"></a>
+  <a href="/"><img src="/img/rXTz9L4-mZ-33.svg" alt="Azadi Gathui, home" class="logo" loading="eager" decoding="async" width="33" height="33"></a>
   <ul class="nav-ul">
     
     <li class="nav-li"><a href="/resume/">Resume</a></li>
@@ -35,9 +35,10 @@
 
   <div id="main">
   <header>
-  <div class="cover" style="background: url('/assets/images/projects/ren/Olkaria 1AU.jpg') lightgray 50% / cover no-repeat;">
+  <div class="cover" style="background: url('/img/5j6dS_Korf-1920.webp') lightgray 50% / cover no-repeat;">
     
-      <img src="/assets/images/projects/ren/bills.png" alt="The Price of Power project mockup" class="pj-mockup">
+      
+      <picture><source type="image/avif" srcset="/img/cde3KuXc5p-400.avif 400w, /img/cde3KuXc5p-572.avif 572w" sizes="(max-width: 960px) 100vw, 960px"><img loading="eager" decoding="async" src="/img/cde3KuXc5p-400.webp" alt="The Price of Power project mockup" class="pj-mockup" fetchpriority="high" width="572" height="280" srcset="/img/cde3KuXc5p-400.webp 400w, /img/cde3KuXc5p-572.webp 572w" sizes="(max-width: 960px) 100vw, 960px"></picture>
     
   </div>
 
@@ -68,17 +69,17 @@
     </a>
   </noscript>
   <object class="tableauViz" style="display: none">
-    <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
-    <param name="embed_code_version" value="3" />
-    <param name="path" value="shared&#47;3XGQZ5DYM" />
-    <param name="toolbar" value="yes" />
-    <param name="static_image" value="https://public.tableau.com/static/images/3X/3XGQZ5DYM/1.png" />
-    <param name="animate_transition" value="yes" />
-    <param name="display_static_image" value="yes" />
-    <param name="display_spinner" value="yes" />
-    <param name="display_overlay" value="yes" />
-    <param name="display_count" value="yes" />
-    <param name="language" value="en-US" />
+    <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F">
+    <param name="embed_code_version" value="3">
+    <param name="path" value="shared&#47;3XGQZ5DYM">
+    <param name="toolbar" value="yes">
+    <param name="static_image" value="https://public.tableau.com/static/images/3X/3XGQZ5DYM/1.png">
+    <param name="animate_transition" value="yes">
+    <param name="display_static_image" value="yes">
+    <param name="display_spinner" value="yes">
+    <param name="display_overlay" value="yes">
+    <param name="display_count" value="yes">
+    <param name="language" value="en-US">
   </object>
 </div>
 <script type="text/javascript">
@@ -196,6 +197,18 @@
 
   <p class="footer__copy">&copy; 2026 Azadi Gathui</p>
 </footer>
-
+<script type="speculationrules">
+  {
+    "prefetch": [{
+      "where": {
+        "and": [
+          { "href_matches": "/*" },
+          { "not": { "href_matches": "/admin/*" } }
+        ]
+      },
+      "eagerness": "moderate"
+    }]
+  }
+  </script>
 </body>
 </html>

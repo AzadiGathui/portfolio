@@ -6,8 +6,8 @@
 
   <link rel="shortcut icon" href="/assets/images/branding/favicon.png">
   <!-- Self-hosted fonts: preload the two faces every page renders first -->
-  <link rel="preload" href="/assets/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="">
+  <link rel="preload" href="/assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="">
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <title>Predicting Threat Status for Kenya&#39;s Data Deficient Species | Azadi Gathui</title>
@@ -23,7 +23,7 @@
 <body>
   <a href="#main" class="skip-link">Skip to main content</a>
   <nav class="nav" aria-label="Main">
-  <a href="/"><img src="/assets/images/branding/AG Favicon Light on Dark.svg" alt="Azadi Gathui, home" class="logo"></a>
+  <a href="/"><img src="/img/rXTz9L4-mZ-33.svg" alt="Azadi Gathui, home" class="logo" loading="eager" decoding="async" width="33" height="33"></a>
   <ul class="nav-ul">
     
     <li class="nav-li"><a href="/resume/">Resume</a></li>
@@ -35,7 +35,7 @@
 
   <div id="main">
   <header>
-  <div class="cover" style="background: url('/assets/images/projects/iucn/eda_category_distribution.png') lightgray 50% / cover no-repeat;">
+  <div class="cover" style="background: url('/img/kf49wc6vd7-1184.webp') lightgray 50% / cover no-repeat;">
     
   </div>
 
@@ -94,7 +94,7 @@
 <p>The <a href="https://www.iucnredlist.org/" target="_blank" rel="noopener">IUCN Red List</a> is the world's most comprehensive inventory of species' conservation status. It classifies species from <strong>Least Concern</strong> through to <strong>Extinct</strong> — but a critical subset are labelled <strong>Data Deficient (DD)</strong>: species where available information is too poor to even assign a threat category.</p>
 <p>This is not a safe status. A DD classification often reflects under-resourced field research rather than genuine absence of threat. Left unaddressed, these species fall through the cracks of conservation policy.</p>
 <figure>
-  <img src="/assets/images/projects/iucn/eda_category_distribution.png" alt="Distribution of IUCN Red List categories across all 39,024 species in the dataset">
+  <picture><source type="image/avif" srcset="/img/kf49wc6vd7-400.avif 400w, /img/kf49wc6vd7-800.avif 800w, /img/kf49wc6vd7-1184.avif 1184w" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/kf49wc6vd7-400.webp" alt="Distribution of IUCN Red List categories across all 39,024 species in the dataset" width="1184" height="584" srcset="/img/kf49wc6vd7-400.webp 400w, /img/kf49wc6vd7-800.webp 800w, /img/kf49wc6vd7-1184.webp 1184w" sizes="(max-width: 960px) 100vw, 960px"></picture>
   <figcaption>Distribution of IUCN Red List categories. Least Concern dominates, while Data Deficient (far right) represents 9.3% of the dataset — species with insufficient information to classify.</figcaption>
 </figure>
 <p><strong>The goal:</strong> Train a classification model on species with known threat status, then use it to predict whether Kenya's 335 Data Deficient species are likely to be Threatened or Non-Threatened — surfacing candidates for urgent field research.</p>
@@ -117,12 +117,12 @@
 <h3>Missingness &amp; Deduplication</h3>
 <p>Before analysis, the data needed cleaning. Initial inspection revealed significant missing values across several fields.</p>
 <figure>
-  <img src="/assets/images/projects/iucn/initial_missingness.png" alt="Missingness matrix showing gaps across fields before cleaning">
+  <picture><source type="image/avif" srcset="/img/thnbAo8aEK-400.avif 400w, /img/thnbAo8aEK-800.avif 800w, /img/thnbAo8aEK-1200.avif 1200w" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/thnbAo8aEK-400.webp" alt="Missingness matrix showing gaps across fields before cleaning" width="1200" height="3259" srcset="/img/thnbAo8aEK-400.webp 400w, /img/thnbAo8aEK-800.webp 800w, /img/thnbAo8aEK-1200.webp 1200w" sizes="(max-width: 960px) 100vw, 960px"></picture>
   <figcaption>Initial missingness matrix. Several fields — including population trend, habitat associations, and threat data — have substantial gaps, particularly for Data Deficient species.</figcaption>
 </figure>
 <p>The primary join key (<code>internalTaxonId</code>) had <strong>2,925 duplicated rows</strong>, retained as first occurrences and removed. After deduplication:</p>
 <figure>
-  <img src="/assets/images/projects/iucn/resolved_missingness.png" alt="Missingness matrix after cleaning and deduplication">
+  <picture><source type="image/avif" srcset="/img/NLK9ov969h-400.avif 400w, /img/NLK9ov969h-800.avif 800w, /img/NLK9ov969h-1200.avif 1200w" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/NLK9ov969h-400.webp" alt="Missingness matrix after cleaning and deduplication" width="1200" height="3271" srcset="/img/NLK9ov969h-400.webp 400w, /img/NLK9ov969h-800.webp 800w, /img/NLK9ov969h-1200.webp 1200w" sizes="(max-width: 960px) 100vw, 960px"></picture>
   <figcaption>Missingness after cleaning. The dataset was consolidated to <strong>39,024 unique species</strong>, with 7 processed output files prepared for downstream analysis.</figcaption>
 </figure>
 <hr>
@@ -136,41 +136,41 @@
 </ul>
 <p>Data Deficient species were excluded from training and reserved as prediction targets.</p>
 <figure>
-  <img src="/assets/images/projects/iucn/eda_simplified_categories.png" alt="Simplified Red List category groupings — Threatened vs Non-Threatened vs Extinct">
+  <picture><source type="image/avif" srcset="/img/oH-udO_cTn-400.avif 400w, /img/oH-udO_cTn-800.avif 800w, /img/oH-udO_cTn-1200.avif 1200w" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/oH-udO_cTn-400.webp" alt="Simplified Red List category groupings — Threatened vs Non-Threatened vs Extinct" width="1200" height="455" srcset="/img/oH-udO_cTn-400.webp 400w, /img/oH-udO_cTn-800.webp 800w, /img/oH-udO_cTn-1200.webp 1200w" sizes="(max-width: 960px) 100vw, 960px"></picture>
   <figcaption>Simplified groupings used for binary classification. Non-Threatened (Least Concern + Near Threatened) vastly outnumbers Threatened, creating a class imbalance problem addressed later with SMOTE.</figcaption>
 </figure>
 <h3>Taxonomic Signals</h3>
 <p>Not all taxonomic groups face equal risk. Threat rates vary substantially by phylum and class — making taxonomy a potentially powerful predictor.</p>
 <figure>
-  <img src="/assets/images/projects/iucn/eda_species_by_phylum.png" alt="Species count and threat rate by phylum">
+  <picture><source type="image/avif" srcset="/img/VE9fdgNcXj-400.avif 400w, /img/VE9fdgNcXj-800.avif 800w, /img/VE9fdgNcXj-1200.avif 1200w, /img/VE9fdgNcXj-1584.avif 1584w" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/VE9fdgNcXj-400.webp" alt="Species count and threat rate by phylum" width="1584" height="584" srcset="/img/VE9fdgNcXj-400.webp 400w, /img/VE9fdgNcXj-800.webp 800w, /img/VE9fdgNcXj-1200.webp 1200w, /img/VE9fdgNcXj-1584.webp 1584w" sizes="(max-width: 960px) 100vw, 960px"></picture>
   <figcaption>Species count (left) and threat rate (right) by phylum. Chordata dominates in species count, but some smaller phyla show disproportionately high threat rates.</figcaption>
 </figure>
 <figure>
-  <img src="/assets/images/projects/iucn/eda_category_by_class.png" alt="Red List category proportions by taxonomic class — stacked bar chart">
+  <picture><source type="image/avif" srcset="/img/pzhUNdX6HJ-400.avif 400w, /img/pzhUNdX6HJ-800.avif 800w, /img/pzhUNdX6HJ-1174.avif 1174w" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/pzhUNdX6HJ-400.webp" alt="Red List category proportions by taxonomic class — stacked bar chart" width="1174" height="1584" srcset="/img/pzhUNdX6HJ-400.webp 400w, /img/pzhUNdX6HJ-800.webp 800w, /img/pzhUNdX6HJ-1174.webp 1174w" sizes="(max-width: 960px) 100vw, 960px"></picture>
   <figcaption>Simplified Red List category proportions within each taxonomic class. Classes like AMPHIBIA and CYCADOPSIDA have markedly higher threatened fractions than ACTINOPTERYGII (fish) or INSECTA.</figcaption>
 </figure>
 <h3>Geographic Range</h3>
 <p>Species occurring in fewer countries tend to have narrower ranges, making them more vulnerable to localised threats and habitat loss.</p>
 <figure>
-  <img src="/assets/images/projects/iucn/eda_country_count.png" alt="Country count distribution and boxplot comparing threatened vs non-threatened species">
+  <picture><source type="image/avif" srcset="/img/81-1fCp1X5-400.avif 400w, /img/81-1fCp1X5-800.avif 800w, /img/81-1fCp1X5-1200.avif 1200w" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/81-1fCp1X5-400.webp" alt="Country count distribution and boxplot comparing threatened vs non-threatened species" width="1200" height="419" srcset="/img/81-1fCp1X5-400.webp 400w, /img/81-1fCp1X5-800.webp 800w, /img/81-1fCp1X5-1200.webp 1200w" sizes="(max-width: 960px) 100vw, 960px"></picture>
   <figcaption>Distribution of country occurrences per species (left) and boxplot by threat status (right). Threatened species occur in significantly fewer countries on average — range size is a meaningful signal.</figcaption>
 </figure>
 <h3>Habitat Specialisation</h3>
 <p>Similarly, species dependent on fewer habitat types have less adaptive buffer against environmental change.</p>
 <figure>
-  <img src="/assets/images/projects/iucn/eda_habitat_count.png" alt="Habitat count distribution and boxplot by threat category">
+  <picture><source type="image/avif" srcset="/img/DsvL1HvON6-400.avif 400w, /img/DsvL1HvON6-800.avif 800w, /img/DsvL1HvON6-1200.avif 1200w" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/DsvL1HvON6-400.webp" alt="Habitat count distribution and boxplot by threat category" width="1200" height="419" srcset="/img/DsvL1HvON6-400.webp 400w, /img/DsvL1HvON6-800.webp 800w, /img/DsvL1HvON6-1200.webp 1200w" sizes="(max-width: 960px) 100vw, 960px"></picture>
   <figcaption>Habitat count distribution (left) and boxplot by category (right). Habitat specialists — those relying on 1–2 habitat types — skew toward Threatened status.</figcaption>
 </figure>
 <h3>Threat Documentation</h3>
 <p>Species with more documented threats are, unsurprisingly, more likely to be classified as Threatened. But this also reveals a critical bias:</p>
 <figure>
-  <img src="/assets/images/projects/iucn/eda_threat_count.png" alt="Documented threat count distribution and boxplot by category">
+  <picture><source type="image/avif" srcset="/img/FnHPCdErm8-400.avif 400w, /img/FnHPCdErm8-800.avif 800w, /img/FnHPCdErm8-1200.avif 1200w" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/FnHPCdErm8-400.webp" alt="Documented threat count distribution and boxplot by category" width="1200" height="419" srcset="/img/FnHPCdErm8-400.webp 400w, /img/FnHPCdErm8-800.webp 800w, /img/FnHPCdErm8-1200.webp 1200w" sizes="(max-width: 960px) 100vw, 960px"></picture>
   <figcaption>Threat count by species. Threatened species have substantially more documented threats. However, Data Deficient species have only <strong>35.4%</strong> threat documentation coverage, versus 63.8% for non-DD species — meaning the model may underestimate risk for poorly documented DD species.</figcaption>
 </figure>
 <h3>Data Availability for DD Species</h3>
 <p>A key challenge: Data Deficient species are deficient not just in their Red List assessment, but in the features the model relies on.</p>
 <figure>
-  <img src="/assets/images/projects/iucn/eda_data_availability.png" alt="Data availability comparison between DD and non-DD species across all feature sources">
+  <picture><source type="image/avif" srcset="/img/5o7cFJTM-i-400.avif 400w, /img/5o7cFJTM-i-800.avif 800w" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/5o7cFJTM-i-400.webp" alt="Data availability comparison between DD and non-DD species across all feature sources" width="800" height="393" srcset="/img/5o7cFJTM-i-400.webp 400w, /img/5o7cFJTM-i-800.webp 800w" sizes="(max-width: 960px) 100vw, 960px"></picture>
   <figcaption>Feature data availability for DD (orange) vs non-DD (blue) species. Countries (100%) and habitats (97%) are well covered. Threats (35.4%), uses (17.8%), and conservation records (20.2%) are sparse for DD species — a systematic bias that predictions must be interpreted against.</figcaption>
 </figure>
 <hr>
@@ -194,7 +194,7 @@
 <h2 id="class-imbalance">Handling Class Imbalance</h2>
 <p>Non-Threatened species significantly outnumber Threatened ones — a ratio that would bias a naïve classifier toward the majority class. SMOTE (Synthetic Minority Over-sampling Technique) was applied to the training set to generate synthetic Threatened examples and balance the distribution before fitting.</p>
 <figure>
-  <img src="/assets/images/projects/iucn/model_smote.png" alt="Class distribution before and after SMOTE oversampling">
+  <picture><source type="image/avif" srcset="/img/1IqHfv3xY1-400.avif 400w, /img/1IqHfv3xY1-800.avif 800w, /img/1IqHfv3xY1-1183.avif 1183w" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/1IqHfv3xY1-400.webp" alt="Class distribution before and after SMOTE oversampling" width="1183" height="384" srcset="/img/1IqHfv3xY1-400.webp 400w, /img/1IqHfv3xY1-800.webp 800w, /img/1IqHfv3xY1-1183.webp 1183w" sizes="(max-width: 960px) 100vw, 960px"></picture>
   <figcaption>Training set class distribution before (left) and after (right) SMOTE. The synthetic samples bring Threatened species up to parity with Non-Threatened, allowing the model to learn from both classes equally.</figcaption>
 </figure>
 <hr>
@@ -211,32 +211,32 @@
 </table>
 <p>Random Forest outperformed Logistic Regression on all metrics and was selected for final predictions.</p>
 <figure>
-  <img src="/assets/images/projects/iucn/model_logreg_confusion.png" alt="Logistic Regression confusion matrix on test set">
+  <picture><source type="image/avif" srcset="/img/Rwkxbno6eN-400.avif 400w, /img/Rwkxbno6eN-656.avif 656w" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/Rwkxbno6eN-400.webp" alt="Logistic Regression confusion matrix on test set" width="656" height="484" srcset="/img/Rwkxbno6eN-400.webp 400w, /img/Rwkxbno6eN-656.webp 656w" sizes="(max-width: 960px) 100vw, 960px"></picture>
   <figcaption>Logistic Regression confusion matrix. The model achieves reasonable recall for Threatened species (87%) but with lower precision (72%) — it over-predicts threat status.</figcaption>
 </figure>
 <figure>
-  <img src="/assets/images/projects/iucn/model_rf_confusion.png" alt="Random Forest confusion matrix on test set">
+  <picture><source type="image/avif" srcset="/img/aJdIzmAg3v-400.avif 400w, /img/aJdIzmAg3v-656.avif 656w" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/aJdIzmAg3v-400.webp" alt="Random Forest confusion matrix on test set" width="656" height="484" srcset="/img/aJdIzmAg3v-400.webp 400w, /img/aJdIzmAg3v-656.webp 656w" sizes="(max-width: 960px) 100vw, 960px"></picture>
   <figcaption>Random Forest confusion matrix. Higher precision (79%) and similar recall (87%) for Threatened species — a better balance, with fewer false alarms.</figcaption>
 </figure>
 <h3>Feature Importance</h3>
 <figure>
-  <img src="/assets/images/projects/iucn/model_feature_importance.png" alt="Top 20 most important features in the Random Forest model">
+  <picture><source type="image/avif" srcset="/img/0sWN0yiv-w-400.avif 400w, /img/0sWN0yiv-w-800.avif 800w" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/0sWN0yiv-w-400.webp" alt="Top 20 most important features in the Random Forest model" width="800" height="556" srcset="/img/0sWN0yiv-w-400.webp 400w, /img/0sWN0yiv-w-800.webp 800w" sizes="(max-width: 960px) 100vw, 960px"></picture>
   <figcaption>Top 20 Random Forest feature importances. Numeric count features — particularly <code>n_countries</code>, <code>n_habitats</code>, and <code>n_threats</code> — dominate. Population trend categories and taxonomic class are the most informative categorical signals.</figcaption>
 </figure>
 <hr>
 <h2 id="results">Results: Kenya's Data Deficient Species</h2>
 <p><strong>335 species</strong> occurring in Kenya were identified as Data Deficient. Using the Random Forest model, each was assigned a predicted threat status.</p>
 <figure>
-  <img src="/assets/images/projects/iucn/model_kenya_labelled_baseline.png" alt="Baseline distribution of known threat status for Kenya species with Red List categories">
+  <picture><source type="image/avif" srcset="/img/rDH4ltRRsN-400.avif 400w, /img/rDH4ltRRsN-800.avif 800w, /img/rDH4ltRRsN-1184.avif 1184w" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/rDH4ltRRsN-400.webp" alt="Baseline distribution of known threat status for Kenya species with Red List categories" width="1184" height="1384" srcset="/img/rDH4ltRRsN-400.webp 400w, /img/rDH4ltRRsN-800.webp 800w, /img/rDH4ltRRsN-1184.webp 1184w" sizes="(max-width: 960px) 100vw, 960px"></picture>
   <figcaption>Known threat status distribution for Kenya species that already have Red List categories (i.e. non-DD). This provides a reference baseline for interpreting the DD predictions.</figcaption>
 </figure>
 <figure>
-  <img src="/assets/images/projects/iucn/model_kenya_predictions.png" alt="Random Forest and Logistic Regression predictions for Kenya's 335 Data Deficient species">
+  <picture><source type="image/avif" srcset="/img/NcUUJBXy0J-400.avif 400w, /img/NcUUJBXy0J-800.avif 800w, /img/NcUUJBXy0J-1200.avif 1200w" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/NcUUJBXy0J-400.webp" alt="Random Forest and Logistic Regression predictions for Kenya's 335 Data Deficient species" width="1200" height="419" srcset="/img/NcUUJBXy0J-400.webp 400w, /img/NcUUJBXy0J-800.webp 800w, /img/NcUUJBXy0J-1200.webp 1200w" sizes="(max-width: 960px) 100vw, 960px"></picture>
   <figcaption>Prediction distributions for Kenya's 335 DD species from both models. The Random Forest (right) predicts <strong>291 Non-Threatened (86.9%)</strong> and <strong>44 Threatened (13.1%)</strong>. Logistic Regression is more conservative, flagging 79 as Threatened (23.6%).</figcaption>
 </figure>
 <p>The 44 RF-predicted Threatened species span multiple taxonomic classes — with fish (ACTINOPTERYGII), invertebrates, and mammals most represented among the flagged species.</p>
 <figure>
-  <img src="/assets/images/projects/iucn/model_kenya_by_class.png" alt="Per-class breakdown of predicted Threatened vs Non-Threatened for Kenya's DD species">
+  <picture><source type="image/avif" srcset="/img/EqQLiFpiBe-400.avif 400w, /img/EqQLiFpiBe-800.avif 800w, /img/EqQLiFpiBe-1200.avif 1200w, /img/EqQLiFpiBe-1600.avif 1600w" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/EqQLiFpiBe-400.webp" alt="Per-class breakdown of predicted Threatened vs Non-Threatened for Kenya's DD species" width="1600" height="1154" srcset="/img/EqQLiFpiBe-400.webp 400w, /img/EqQLiFpiBe-800.webp 800w, /img/EqQLiFpiBe-1200.webp 1200w, /img/EqQLiFpiBe-1600.webp 1600w" sizes="(max-width: 960px) 100vw, 960px"></picture>
   <figcaption>Predicted threat status by taxonomic class for Kenya's 335 Data Deficient species. Each panel shows both models' outputs side by side, highlighting where they agree and diverge. Fish and invertebrate classes show the highest absolute counts of predicted-Threatened species.</figcaption>
 </figure>
 <hr>
@@ -363,6 +363,18 @@
 
   <p class="footer__copy">&copy; 2026 Azadi Gathui</p>
 </footer>
-
+<script type="speculationrules">
+  {
+    "prefetch": [{
+      "where": {
+        "and": [
+          { "href_matches": "/*" },
+          { "not": { "href_matches": "/admin/*" } }
+        ]
+      },
+      "eagerness": "moderate"
+    }]
+  }
+  </script>
 </body>
 </html>
