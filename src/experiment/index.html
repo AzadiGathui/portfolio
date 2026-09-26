@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Azadi Gathui — Design for evidence</title>
+  <meta name="description" content="Azadi Gathui designs research publications, products and data analyses for climate, health and conservation.">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/assets/images/branding/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@300;500;600&family=Barlow+Semi+Condensed:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="/assets/css/experiment-home.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="masthead wrap">
+    <a class="wordmark" href="/experiment/">Azadi Gathui</a>
+    <p class="masthead__role">Editorial design, product design <span class="amp">&amp;</span> data science</p>
+    <nav class="masthead__nav" aria-label="Primary">
+      <a href="#work">Work</a>
+      <a href="#practice">Practice</a>
+      <a href="/resume/">Resume</a>
+      <a href="/lab/">Lab</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ Hero ============ -->
+    <section class="hero wrap grid" aria-labelledby="hero-title">
+      <h1 class="hero__title" id="hero-title">
+        <span class="hero__line">Clear figures for</span>
+        <span class="hero__line hero__line--indent">hard problems.</span>
+      </h1>
+
+      <div class="hero__deck">
+        <p class="lede">I’m Azadi Gathui. I design the documents, products and analyses that turn difficult evidence into decisions — and I build the models behind the charts.</p>
+        <p>Since 2020 I’ve laid out research for UN-Habitat, the UNFCCC High-Level Champions and the Children’s Investment Fund Foundation, designed fintech products for Kenya’s small businesses, and trained classifiers on the IUCN Red List.</p>
+        <p class="hero__links">
+          <a class="btn" href="#work">See selected work</a>
+          <a class="textlink" href="/resume/">Read the resume</a>
+        </p>
+      </div>
+
+      <figure class="fig fig--hero" id="fig-1" aria-labelledby="fig-1-cap">
+        <div class="fig__head">
+          <p class="fig__num">Figure 1</p>
+          <div class="seg" role="group" aria-label="Choose model">
+            <button type="button" class="seg__btn" data-model="rf" aria-pressed="true">Random forest</button>
+            <button type="button" class="seg__btn" data-model="lr" aria-pressed="false">Logistic regression</button>
+          </div>
+        </div>
+
+        <div class="dots" role="img" aria-label="335 dots, one per Data Deficient species in Kenya. 44 are marked as predicted threatened by the random forest model.">
+          <svg class="dots__svg" viewBox="0 0 300 168" preserveAspectRatio="xMinYMin meet" focusable="false"></svg>
+        </div>
+
+        <dl class="legend" aria-live="polite">
+          <div class="legend__item legend__item--threat">
+            <dt><span class="key key--threat" aria-hidden="true"></span>Predicted threatened</dt>
+            <dd><span class="legend__n" data-count="threat">44</span><span class="legend__pct" data-pct="threat">13.1%</span></dd>
+          </div>
+          <div class="legend__item">
+            <dt><span class="key" aria-hidden="true"></span>Predicted not threatened</dt>
+            <dd><span class="legend__n" data-count="safe">291</span><span class="legend__pct" data-pct="safe">86.9%</span></dd>
+          </div>
+        </dl>
+
+        <figcaption class="fig__cap" id="fig-1-cap">
+          <strong>Kenya has 335 species too poorly studied to assess.</strong> A model trained on 35,000+ species with known Red List status predicts which of them are most likely at risk — a shortlist for fieldwork, not a verdict. Dot positions are illustrative. <a href="/projects/iucn-dd-species/">Read the case study</a>
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ============ Selected work ============ -->
+    <section class="section wrap" id="work" aria-labelledby="work-title">
+      <header class="section__head grid">
+        <h2 class="section__title" id="work-title">Selected work</h2>
+        <p class="section__standfirst">Four projects where the audience wasn’t specialist, the material was, and the design had to close the gap.</p>
+      </header>
+
+      <div class="work grid">
+
+        <article class="work-item work-item--a">
+          <div class="ph" style="--ar: 4 / 3">
+            <div class="ph__box"><span class="ph__note">Placeholder: spread mockup, chapter opener with energy-mix chart</span></div>
+          </div>
+          <div class="work-item__text">
+            <p class="work-item__figure"><span class="num">200</span> pages</p>
+            <h3 class="work-item__title"><a href="/projects/kenya-energy-atlas/">Kenya Energy Atlas</a></h3>
+            <p>Collaborative research on Kenya’s energy future, consolidated into one navigable publication for the Society for International Development.</p>
+            <dl class="meta">
+              <div><dt>Client</dt><dd>SID Kenya</dd></div>
+              <div><dt>Role</dt><dd>Editorial designer</dd></div>
+              <div><dt>Year</dt><dd>2021</dd></div>
+            </dl>
+          </div>
+        </article>
+
+        <article class="work-item work-item--b">
+          <div class="ph" style="--ar: 16 / 9">
+            <div class="ph__box"><span class="ph__note">Placeholder: Tableau dashboard, tariff breakdown of a monthly bill</span></div>
+          </div>
+          <div class="work-item__text">
+            <h3 class="work-item__title"><a href="/projects/price-of-power/">The Price of Power</a></h3>
+            <p>An interactive investigation of what Kenyans actually pay for electricity, who bears the cost, and what the renewable transition changes.</p>
+            <dl class="meta">
+              <div><dt>Client</dt><dd>Independent</dd></div>
+              <div><dt>Role</dt><dd>Researcher &amp; designer</dd></div>
+              <div><dt>Format</dt><dd>Tableau Public</dd></div>
+            </dl>
+          </div>
+        </article>
+
+        <article class="work-item work-item--c">
+          <div class="ph" style="--ar: 3 / 4">
+            <div class="ph__box"><span class="ph__note">Placeholder: booklet cover, A5 portrait</span></div>
+          </div>
+          <div class="work-item__text">
+            <p class="work-item__figure"><span class="num">36</span> pages</p>
+            <h3 class="work-item__title"><a href="/projects/inclusive-africa-conference/">Inclusive Africa Conference</a></h3>
+            <p>An accessible programme booklet for Africa’s largest accessibility conference — a publication that had to practise what the event preached.</p>
+            <dl class="meta">
+              <div><dt>Client</dt><dd>inABLE</dd></div>
+              <div><dt>Year</dt><dd>2024</dd></div>
+            </dl>
+          </div>
+        </article>
+
+        <article class="work-item work-item--d">
+          <div class="ph" style="--ar: 4 / 5">
+            <div class="ph__box"><span class="ph__note">Placeholder: three phone screens, Kiswahili referral flow</span></div>
+          </div>
+          <div class="work-item__text">
+            <p class="work-item__figure"><span class="num">3</span> years</p>
+            <h3 class="work-item__title"><a href="/projects/leja-business-app/">Financial inclusion at the last mile</a></h3>
+            <p>Referral, onboarding and transaction flows for Leja’s B2B fintech app, localised into Kiswahili for micro and small enterprises.</p>
+            <dl class="meta">
+              <div><dt>Client</dt><dd>Leja</dd></div>
+              <div><dt>Year</dt><dd>2022–25</dd></div>
+            </dl>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============ Practice timeline ============ -->
+    <section class="section wrap" id="practice" aria-labelledby="practice-title">
+      <header class="section__head grid">
+        <h2 class="section__title" id="practice-title">Practice</h2>
+        <p class="section__standfirst">Six years, four disciplines. The overlaps are the point: publications informed by product thinking, products informed by data.</p>
+      </header>
+
+      <figure class="fig fig--timeline" aria-labelledby="fig-2-cap">
+        <p class="fig__num">Figure 2</p>
+        <div class="tl-scroll" tabindex="0" role="region" aria-label="Timeline of engagements, scrollable">
+          <div class="tl">
+            <div class="tl__axis" aria-hidden="true">
+              <span style="--s:1">2020</span><span style="--s:13">2021</span><span style="--s:25">2022</span><span style="--s:37">2023</span><span style="--s:49">2024</span><span style="--s:61">2025</span><span style="--s:73">2026</span>
+            </div>
+
+            <div class="tl__lane">
+              <h3 class="tl__name">Editorial</h3>
+              <ol class="tl__track">
+                <li style="--s:2;--e:3;--r:1"><span class="tl__lbl">3408 Belva</span><span class="vh">, February 2020</span></li>
+                <li style="--s:22;--e:25;--r:1"><span class="tl__lbl">SID Kenya</span><span class="vh">, October to December 2021</span></li>
+                <li style="--s:34;--e:35;--r:1"><span class="tl__lbl">AFRIYOCCC</span><span class="vh">, October 2022</span></li>
+                <li style="--s:34;--e:35;--r:2"><span class="tl__lbl">LCOY Kenya</span><span class="vh">, October 2022</span></li>
+                <li style="--s:48;--e:51;--r:1"><span class="tl__lbl">CIFF</span><span class="vh">, December 2023 to February 2024</span></li>
+                <li style="--s:53;--e:54;--r:2"><span class="tl__lbl">inABLE</span><span class="vh">, May 2024</span></li>
+                <li style="--s:57;--e:58;--r:1"><span class="tl__lbl">UNFCCC Champions</span><span class="vh">, September 2024</span></li>
+                <li style="--s:62;--e:69;--r:2"><span class="tl__lbl">UN-Habitat</span><span class="vh">, February to August 2025</span></li>
+              </ol>
+            </div>
+
+            <div class="tl__lane">
+              <h3 class="tl__name">Product</h3>
+              <ol class="tl__track">
+                <li style="--s:13;--e:37;--r:1"><span class="tl__lbl">Crossover</span><span class="vh">, 2021 to 2022</span></li>
+                <li style="--s:26;--e:67;--r:2"><span class="tl__lbl">Leja</span><span class="vh">, February 2022 to June 2025</span></li>
+                <li style="--s:54;--e:55;--r:1"><span class="tl__lbl">CarNayo</span><span class="vh">, June 2024</span></li>
+                <li class="tl--end" style="--s:61;--e:76;--r:1"><span class="tl__lbl">Impact Initiative Kenya</span><span class="vh">, January 2025 to March 2026</span></li>
+                <li class="tl--end" style="--s:64;--e:76;--r:3"><span class="tl__lbl">Jireh Health</span><span class="vh">, April 2025 to March 2026</span></li>
+              </ol>
+            </div>
+
+            <div class="tl__lane">
+              <h3 class="tl__name">Data</h3>
+              <ol class="tl__track">
+                <li style="--s:13;--e:25;--r:1"><span class="tl__lbl">The Price of Power</span><span class="vh">, 2021</span></li>
+                <li class="tl--end" style="--s:68;--e:76;--r:1"><span class="tl__lbl">IUCN Red List model</span><span class="vh">, August 2025 to March 2026</span></li>
+              </ol>
+            </div>
+
+            <div class="tl__lane">
+              <h3 class="tl__name">Identity</h3>
+              <ol class="tl__track">
+                <li style="--s:6;--e:13;--r:1"><span class="tl__lbl">Herbivore</span><span class="vh">, June to December 2020</span></li>
+                <li style="--s:17;--e:19;--r:1"><span class="tl__lbl">Lizopendwa</span><span class="vh">, May to June 2021</span></li>
+                <li style="--s:19;--e:20;--r:2"><span class="tl__lbl">Belva Homes</span><span class="vh">, July 2021</span></li>
+                <li style="--s:25;--e:26;--r:1"><span class="tl__lbl">Qoba</span><span class="vh">, January 2022</span></li>
+                <li style="--s:50;--e:51;--r:1"><span class="tl__lbl">Lab Owners Hub</span><span class="vh">, February 2024</span></li>
+                <li class="tl--end" style="--s:67;--e:68;--r:2"><span class="tl__lbl">Embassy of Antigua &amp; Barbuda</span><span class="vh">, July 2025</span></li>
+              </ol>
+            </div>
+
+            <div class="tl__today" style="--s:81" aria-hidden="true"><span>Today</span></div>
+          </div>
+        </div>
+        <figcaption class="fig__cap" id="fig-2-cap">
+          <strong>Every engagement since 2020, by discipline.</strong> Bars run from first to last month of each project; single-month projects appear as ticks.
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ============ Clients ============ -->
+    <section class="section wrap" aria-labelledby="clients-title">
+      <header class="section__head grid">
+        <h2 class="section__title" id="clients-title">Designed for</h2>
+      </header>
+      <ul class="clients">
+        <li>UN-Habitat<sup>2025</sup></li>
+        <li>UNFCCC High-Level Champions<sup>2024</sup></li>
+        <li>Children’s Investment Fund Foundation<sup>2024</sup></li>
+        <li>inABLE<sup>2024</sup></li>
+        <li>Jireh Health<sup>2025</sup></li>
+        <li>Leja<sup>2022</sup></li>
+        <li>Zindua School<sup>2025</sup></li>
+        <li>African Youth Conference on Climate Change<sup>2022</sup></li>
+        <li>LCOY Kenya<sup>2022</sup></li>
+        <li>Society for International Development<sup>2021</sup></li>
+        <li>Embassy of Antigua &amp; Barbuda<sup>2025</sup></li>
+      </ul>
+    </section>
+
+    <!-- ============ Principles ============ -->
+    <section class="section wrap" aria-labelledby="how-title">
+      <header class="section__head grid">
+        <h2 class="section__title" id="how-title">How I work</h2>
+      </header>
+      <div class="principles grid">
+        <div class="principle">
+          <h3>Start from the decision.</h3>
+          <p>Before a chart or a chapter, I ask who will act on this and what they need to be sure of. The page is structured around that answer — not around the order the research happened in.</p>
+        </div>
+        <div class="principle">
+          <h3>Colour means something, or it isn’t used.</h3>
+          <p>On this page red marks only the signal: the species at risk, the place your eye should go. An accent spent everywhere is an accent spent nowhere.</p>
+        </div>
+        <div class="principle">
+          <h3>Accessibility is where craft starts.</h3>
+          <p>An accessibility conference needs a booklet everyone can read; a fintech app for small traders needs Kiswahili. Constraints like these make the work sharper for everyone else, too.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ Contact / colophon ============ -->
+  <footer class="footer wrap" id="contact">
+    <p class="footer__ask">Working on climate, health or public data?</p>
+    <a class="footer__mail" href="mailto:gathui@azadi.design">gathui@azadi.design</a>
+    <div class="footer__base grid">
+      <ul class="footer__social">
+        <li><a href="https://linkedin.com/in/azadigathui">LinkedIn</a></li>
+        <li><a href="https://behance.net/azadi_gathui">Behance</a></li>
+        <li><a href="https://github.com/AzadiGathui">GitHub</a></li>
+      </ul>
+      <p class="colophon">Set in Barlow, Barlow Semi Condensed and Barlow Condensed by Jeremy Tribby. Written by hand in HTML and CSS; the figures are drawn from the data, not exported as images.</p>
+      <p class="footer__copy">© 2026 Azadi Gathui</p>
+    </div>
+  </footer>
+
+  <script>
+  /* Figure 1 — 335 Data Deficient species.
+     Counts are real (IUCN case study); positions are an illustrative,
+     seeded shuffle so the page renders identically on every load. */
+  (function () {
+    var TOTAL = 335, COLS = 25, GAP = 12, R = 4;
+    var MODELS = { rf: 44, lr: 79 };
+    var svg = document.querySelector('.dots__svg');
+    if (!svg) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var NS = 'http://www.w3.org/2000/svg';
+
+    // mulberry32 — tiny deterministic PRNG
+    var seed = 20260926;
+    function rand() {
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    }
+    // Fisher–Yates: order[k] = which dot becomes the k-th "threatened" one
+    var order = [];
+    for (var i = 0; i < TOTAL; i++) order.push(i);
+    for (i = TOTAL - 1; i > 0; i--) {
+      var j = Math.floor(rand() * (i + 1)), tmp = order[i];
+      order[i] = order[j]; order[j] = tmp;
+    }
+    var rank = new Array(TOTAL);
+    order.forEach(function (dot, k) { rank[dot] = k; });
+
+    var dots = [];
+    for (i = 0; i < TOTAL; i++) {
+      var c = document.createElementNS(NS, 'circle');
+      c.setAttribute('cx', (i % COLS) * GAP + GAP / 2);
+      c.setAttribute('cy', Math.floor(i / COLS) * GAP + GAP / 2);
+      c.setAttribute('r', R);
+      c.setAttribute('class', 'dot');
+      c.style.setProperty('--i', i);
+      c.style.setProperty('--k', rank[i]);
+      svg.appendChild(c);
+      dots.push(c);
+    }
+
+    var buttons = document.querySelectorAll('.seg__btn');
+    var nThreat = document.querySelector('[data-count="threat"]');
+    var nSafe = document.querySelector('[data-count="safe"]');
+    var pThreat = document.querySelector('[data-pct="threat"]');
+    var pSafe = document.querySelector('[data-pct="safe"]');
+    var fig = document.querySelector('.dots');
+
+    function apply(model) {
+      var n = MODELS[model];
+      dots.forEach(function (d, idx) { d.classList.toggle('is-threat', rank[idx] < n); });
+      nThreat.textContent = n;
+      nSafe.textContent = TOTAL - n;
+      pThreat.textContent = (n / TOTAL * 100).toFixed(1) + '%';
+      pSafe.textContent = ((TOTAL - n) / TOTAL * 100).toFixed(1) + '%';
+      fig.setAttribute('aria-label', '335 dots, one per Data Deficient species in Kenya. ' + n +
+        ' are marked as predicted threatened by the ' +
+        (model === 'rf' ? 'random forest' : 'logistic regression') + ' model.');
+      buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.model === model)); });
+    }
+
+    buttons.forEach(function (b) {
+      b.addEventListener('click', function () { apply(b.dataset.model); });
+    });
+
+    // The one orchestrated moment: dots settle, then the signal appears.
+    if (reduce) {
+      svg.classList.add('is-static');
+      apply('rf');
+    } else {
+      svg.classList.add('is-entering');
+      setTimeout(function () { apply('rf'); }, 950);
+    }
+  })();
+  </script>
+</body>
+</html>
