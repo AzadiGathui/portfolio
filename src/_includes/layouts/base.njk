@@ -27,5 +27,24 @@
   {{ content | safe }}
   </div>
   {% include "partials/footer.njk" %}
+
+  {#- Speculation Rules: when a visitor hovers over (or starts tapping) a link to
+      another page on this site, the browser fetches that page's HTML in advance,
+      so the click feels instant. Chrome and Edge only; other browsers ignore it.
+      "prefetch" downloads just the HTML, not its images, so hovering costs little.
+      /admin/ is excluded (the CMS shouldn't be fetched speculatively). -#}
+  <script type="speculationrules">
+  {
+    "prefetch": [{
+      "where": {
+        "and": [
+          { "href_matches": "/*" },
+          { "not": { "href_matches": "/admin/*" } }
+        ]
+      },
+      "eagerness": "moderate"
+    }]
+  }
+  </script>
 </body>
 </html>

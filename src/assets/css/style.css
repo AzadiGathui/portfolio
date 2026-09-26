@@ -103,6 +103,19 @@ html {
   html {
     scroll-behavior: smooth;
   }
+
+  /* Page transitions: a soft cross-fade between pages instead of a flash.
+     Works in Chrome, Edge and Safari 18.2+; other browsers just navigate as usual.
+     Inside this media query, so visitors who ask for reduced motion don't get it. */
+  @view-transition {
+    navigation: auto;
+  }
+}
+
+/* Give the nav its own name so it stays put while the page content fades
+   (without a name, everything cross-fades together, nav included). */
+.nav {
+  view-transition-name: site-nav;
 }
 
 body {
