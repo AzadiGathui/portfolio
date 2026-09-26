@@ -464,7 +464,7 @@ main.lab {
 
 .expandable__trigger::after {
   content: "+";
-  font-weight: 300;
+  font-weight: 400; /* was 300, but only 400/600/700 are self-hosted; 300 silently rendered as 400 */
   font-size: 1.5rem;
   line-height: 1;
   flex-shrink: 0;
