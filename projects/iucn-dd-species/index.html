@@ -5,11 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="shortcut icon" href="/assets/images/branding/favicon.png">
+  <!-- Self-hosted fonts: preload the two faces every page renders first -->
+  <link rel="preload" href="/assets/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/style.css">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 
   <title>Predicting Threat Status for Kenya&#39;s Data Deficient Species | Azadi Gathui</title>
   <meta name="description" content="A machine learning project predicting IUCN Red List threat categories for Kenya&#39;s 335 Data Deficient species using Random Forest classification trained on 35,000+ species.">
@@ -23,8 +22,8 @@
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to main content</a>
-  <nav class="nav">
-  <a href="/"><img src="/assets/images/branding/AG Favicon Light on Dark.svg" alt="Azadi Gathui logo" class="logo"></a>
+  <nav class="nav" aria-label="Main">
+  <a href="/"><img src="/assets/images/branding/AG Favicon Light on Dark.svg" alt="Azadi Gathui, home" class="logo"></a>
   <ul class="nav-ul">
     
     <li class="nav-li"><a href="/resume/">Resume</a></li>

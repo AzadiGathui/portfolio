@@ -5,11 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="shortcut icon" href="/assets/images/branding/favicon.png">
+  <!-- Self-hosted fonts: preload the two faces every page renders first -->
+  <link rel="preload" href="/assets/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/style.css">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 
   <title>Resume | Azadi Gathui</title>
   <meta name="description" content="Resume of Azadi Gathui — Product Designer &amp; Analyst with experience across fintech, healthcare, climate, and conservation.">
@@ -23,8 +22,8 @@
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to main content</a>
-  <nav class="nav">
-  <a href="/"><img src="/assets/images/branding/AG Favicon Light on Dark.svg" alt="Azadi Gathui logo" class="logo"></a>
+  <nav class="nav" aria-label="Main">
+  <a href="/"><img src="/assets/images/branding/AG Favicon Light on Dark.svg" alt="Azadi Gathui, home" class="logo"></a>
   <ul class="nav-ul">
     
     <li class="nav-li"><a href="/resume/">Resume</a></li>
@@ -52,306 +51,51 @@
   </header>
 
   
-  <section class="resume-section">
-    <span class="label">Product Design</span>
-
+  <section class="resume-statement" aria-label="Personal statement">
     
-    <article class="resume-entry">
-      <div class="resume-entry__meta">
-        <div class="resume-entry__company">
-          
-          <div>
-            <h2>
-              
-                Jireh Health
-              
-            </h2>
-            <p class="resume-entry__role">
-              <span>User Experience Researcher</span>
-              <span class="resume-entry__deliverables">Web app · Marketing graphics · Landing page</span>
-            </p>
-          </div>
-        </div>
-        <time class="resume-entry__period">Apr 2025 – Mar 2026</time>
-      </div>
-
-      
-      <ul class="resume-entry__body">
-        
-        <li>Led UX research for a health-financing web app targeting MSMEs and individual policyholders in Kenya.</li>
-        
-        <li>Designed accessible onboarding flows, marketing assets, and a product landing page from discovery to high-fidelity prototype.</li>
-        
-        <li>Coordinated with clinical and engineering stakeholders to translate compliance constraints into usable product flows.</li>
-        
-      </ul>
-      
-
-      
-      <ul class="resume-entry__skills">
-        
-        <li>UX Research</li>
-        
-        <li>Figma</li>
-        
-        <li>Accessibility</li>
-        
-        <li>Prototyping</li>
-        
-      </ul>
-      
-
-      
-    </article>
+    <p>Designer &amp; researcher with 7+ years of turning gnarly problems into human-centred solutions. I come to every collaboration with genuine curiosity, informed experimentation, and the kind of thinking that connects dots across fields. If it challenges assumptions, connects disciplines, or helps real humans live better, I&#39;m probably already thinking about it.</p>
     
-    <article class="resume-entry">
-      <div class="resume-entry__meta">
-        <div class="resume-entry__company">
-          
-          <div>
-            <h2>
-              
-                <a href="/projects/leja-business-app/" class="resume-entry__client-link">Leja</a>
-              
-            </h2>
-            <p class="resume-entry__role">
-              <span>Product Designer</span>
-              <span class="resume-entry__deliverables">Mobile app · Marketing graphics</span>
-            </p>
-          </div>
-        </div>
-        <time class="resume-entry__period">Feb 2022 – Jun 2025</time>
-      </div>
-
-      
-      <ul class="resume-entry__body">
-        
-        <li>Designed referral, onboarding, and transaction flows for a B2B fintech app serving Kenyan micro and small enterprises.</li>
-        
-        <li>Led Kiswahili localisation, cutting cognitive load for non-English-dominant users and improving usability test completion rates.</li>
-        
-        <li>Maintained a Figma component library and produced marketing graphics across a 3-year engagement.</li>
-        
-      </ul>
-      
-
-      
-      <ul class="resume-entry__skills">
-        
-        <li>Figma</li>
-        
-        <li>Mobile UX</li>
-        
-        <li>User Research</li>
-        
-        <li>Localisation</li>
-        
-      </ul>
-      
-
-      
-      <div class="pj-reel">
-        
-        <img src="/assets/images/resume/leja/LDA1.png" alt="Leja work sample 1" loading="lazy">
-        
-        <img src="/assets/images/resume/leja/LDA2.png" alt="Leja work sample 2" loading="lazy">
-        
-        <img src="/assets/images/resume/leja/LDA3.png" alt="Leja work sample 3" loading="lazy">
-        
-        <img src="/assets/images/resume/leja/LDA4.png" alt="Leja work sample 4" loading="lazy">
-        
-      </div>
-      
-    </article>
-    
-    <article class="resume-entry">
-      <div class="resume-entry__meta">
-        <div class="resume-entry__company">
-          
-          <div>
-            <h2>
-              
-                CarNayo
-              
-            </h2>
-            <p class="resume-entry__role">
-              <span>Product Designer</span>
-              <span class="resume-entry__deliverables">Mobile app design</span>
-            </p>
-          </div>
-        </div>
-        <time class="resume-entry__period">Jun 2024</time>
-      </div>
-
-      
-      <ul class="resume-entry__body">
-        
-        <li>Designed end-to-end UI/UX for a Congolese ride-hailing app, covering separate driver and passenger journeys.</li>
-        
-        <li>Built a design system optimised for low-bandwidth conditions and entry-level Android devices.</li>
-        
-        <li>Unified two distinct user mental models — driver and passenger — within a single navigation structure.</li>
-        
-      </ul>
-      
-
-      
-      <ul class="resume-entry__skills">
-        
-        <li>Figma</li>
-        
-        <li>Mobile UI</li>
-        
-        <li>Design Systems</li>
-        
-        <li>User Flow Mapping</li>
-        
-      </ul>
-      
-
-      
-      <div class="pj-reel">
-        
-        <img src="/assets/images/resume/carnayo/carnayo01.png" alt="CarNayo work sample 1" loading="lazy">
-        
-        <img src="/assets/images/resume/carnayo/carnayo02.png" alt="CarNayo work sample 2" loading="lazy">
-        
-        <img src="/assets/images/resume/carnayo/carnayo03.png" alt="CarNayo work sample 3" loading="lazy">
-        
-        <img src="/assets/images/resume/carnayo/carnayo04.png" alt="CarNayo work sample 4" loading="lazy">
-        
-        <img src="/assets/images/resume/carnayo/carnayo05.png" alt="CarNayo work sample 5" loading="lazy">
-        
-        <img src="/assets/images/resume/carnayo/carnayo06.png" alt="CarNayo work sample 6" loading="lazy">
-        
-        <img src="/assets/images/resume/carnayo/carnayo07.png" alt="CarNayo work sample 7" loading="lazy">
-        
-        <img src="/assets/images/resume/carnayo/carnayo08.png" alt="CarNayo work sample 8" loading="lazy">
-        
-        <img src="/assets/images/resume/carnayo/carnayo09.png" alt="CarNayo work sample 9" loading="lazy">
-        
-      </div>
-      
-    </article>
-    
-    <article class="resume-entry">
-      <div class="resume-entry__meta">
-        <div class="resume-entry__company">
-          
-          <div>
-            <h2>
-              
-                Impact Initiative Kenya
-              
-            </h2>
-            <p class="resume-entry__role">
-              <span>Freelance UI/UX Designer</span>
-              <span class="resume-entry__deliverables">Landing page</span>
-            </p>
-          </div>
-        </div>
-        <time class="resume-entry__period">Jan 2025 – Mar 2026</time>
-      </div>
-
-      
-      <ul class="resume-entry__body">
-        
-        <li>Designed and built a landing page for a Kenyan charity platform focused on grassroots community impact.</li>
-        
-      </ul>
-      
-
-      
-      <ul class="resume-entry__skills">
-        
-        <li>Figma</li>
-        
-        <li>HTML &amp; CSS</li>
-        
-        <li>Landing Page Design</li>
-        
-      </ul>
-      
-
-      
-    </article>
-    
-    <article class="resume-entry">
-      <div class="resume-entry__meta">
-        <div class="resume-entry__company">
-          
-          <div>
-            <h2>
-              
-                Crossover
-              
-            </h2>
-            <p class="resume-entry__role">
-              <span>UX Designer</span>
-              <span class="resume-entry__deliverables">Interactive prototype · UX assessment</span>
-            </p>
-          </div>
-        </div>
-        <time class="resume-entry__period">2021 – 2022</time>
-      </div>
-
-      
-      <ul class="resume-entry__body">
-        
-        <li>Prototyped an AI-powered e-learning platform under timed, competitive conditions for a global UX hiring assessment.</li>
-        
-        <li>Applied end-to-end UX methodology — research synthesis, IA, wireframing, and high-fidelity prototyping — within a constrained timeline.</li>
-        
-      </ul>
-      
-
-      
-      <ul class="resume-entry__skills">
-        
-        <li>Figma</li>
-        
-        <li>Prototyping</li>
-        
-        <li>Information Architecture</li>
-        
-        <li>Wireframing</li>
-        
-      </ul>
-      
-
-      
-      <div class="pj-reel">
-        
-        <img src="/assets/images/resume/crossover/crossover01.png" alt="Crossover work sample 1" loading="lazy">
-        
-        <img src="/assets/images/resume/crossover/crossover02.png" alt="Crossover work sample 2" loading="lazy">
-        
-        <img src="/assets/images/resume/crossover/crossover03.png" alt="Crossover work sample 3" loading="lazy">
-        
-        <img src="/assets/images/resume/crossover/crossover04.png" alt="Crossover work sample 4" loading="lazy">
-        
-        <img src="/assets/images/resume/crossover/crossover05.png" alt="Crossover work sample 5" loading="lazy">
-        
-        <img src="/assets/images/resume/crossover/crossover06.png" alt="Crossover work sample 6" loading="lazy">
-        
-        <img src="/assets/images/resume/crossover/crossover07.png" alt="Crossover work sample 7" loading="lazy">
-        
-        <img src="/assets/images/resume/crossover/crossover08.png" alt="Crossover work sample 8" loading="lazy">
-        
-        <img src="/assets/images/resume/crossover/crossover09.png" alt="Crossover work sample 9" loading="lazy">
-        
-        <img src="/assets/images/resume/crossover/crossover10.png" alt="Crossover work sample 10" loading="lazy">
-        
-        <img src="/assets/images/resume/crossover/crossover11.png" alt="Crossover work sample 11" loading="lazy">
-        
-      </div>
-      
-    </article>
+    <p>Let&#39;s create meaningful, systemic impact together.</p>
     
   </section>
   
+
+  
   <section class="resume-section">
-    <span class="label">Data &amp; Analysis</span>
+    <span class="label">Skills</span>
+    
+    <dl class="resume-skill-groups">
+      
+      <div class="resume-skill-group">
+        <dt>ML &amp; Data Science</dt>
+        <dd>Python, TensorFlow/Keras, scikit-learn, pandas, geopandas, rasterio, SQL, convolutional neural networks, semantic segmentation, remote sensing / satellite imagery, Streamlit, Tableau</dd>
+      </div>
+      
+      <div class="resume-skill-group">
+        <dt>Working Practice</dt>
+        <dd>Claude Code and AI-assisted development as a daily tool for prototyping, data pipelines, and audit/QA of my own work; Git &amp; GitHub; self-directed learning across design, ML and geospatial domains</dd>
+      </div>
+      
+      <div class="resume-skill-group">
+        <dt>Research</dt>
+        <dd>usability testing, tree testing, card sorting, first-click testing, information architecture, information-scent/navigation audits, focus groups, OOUX mapping, persona development, journey mapping, source verification, Amplitude analytics</dd>
+      </div>
+      
+      <div class="resume-skill-group">
+        <dt>Product Design</dt>
+        <dd>Figma (component architecture, design systems, prototyping), dense/data-heavy interface design, permissions &amp; access-control UX, information architecture, usability testing, accessibility (WCAG 2.1)</dd>
+      </div>
+      
+    </dl>
+  </section>
+  
+
+  
+  <section class="resume-section">
+    <span class="label">
+      Data Science &amp; Machine Learning Projects
+      <span class="resume-section__period">Sep 2025 – Jun 2026</span>
+    </span>
 
     
     <article class="resume-entry">
@@ -361,26 +105,114 @@
           <div>
             <h2>
               
-                <a href="/projects/iucn-dd-species/" class="resume-entry__client-link">Zindua School</a>
+                Environmental Degradation Monitor
               
             </h2>
-            <p class="resume-entry__role">
-              <span>Data Analyst</span>
-              <span class="resume-entry__deliverables">Machine learning model · Exploratory analysis · Species predictions</span>
-            </p>
+            
+            
           </div>
         </div>
-        <time class="resume-entry__period">Aug 2025 – Mar 2026</time>
+        
       </div>
+
+      
 
       
       <ul class="resume-entry__body">
         
-        <li>Built a Random Forest classifier predicting IUCN Red List threat status for Kenya&#39;s 335 Data Deficient species, trained on 35,000+ global records.</li>
+        <li>Trained and evaluated a U-Net segmentation model (5.78M parameters) for satellite land-cover classification, and built a complete Streamlit application around it: on-demand Sentinel-2 imagery retrieval, tiled inference, mask-based change detection, and geopandas-based intersection with protected-area boundaries on an interactive map; the full loop from raw imagery to a decision-ready interface.</li>
         
-        <li>Managed end-to-end data pipeline: wrangling 8 IUCN CSV sources, exploratory analysis, feature engineering, and SMOTE for class imbalance.</li>
+        <li>Ran a rigorous domain-shift evaluation and found the model&#39;s accuracy collapsed when applied to real target-region imagery after training on a different geography; diagnosed the cause and scoped the fix, rather than shipping a plausible-looking but unreliable result.</li>
         
-        <li>Achieved 87.5% test accuracy and 90.1% cross-validated F1 score; delivered predictions as a conservation research prioritisation tool.</li>
+      </ul>
+      
+
+      
+      <ul class="resume-entry__skills">
+        
+        <li>Python</li>
+        
+        <li>TensorFlow/Keras</li>
+        
+        <li>Semantic Segmentation</li>
+        
+        <li>Streamlit</li>
+        
+        <li>geopandas</li>
+        
+      </ul>
+      
+
+      
+    </article>
+    
+    <article class="resume-entry">
+      <div class="resume-entry__meta">
+        <div class="resume-entry__company">
+          
+          <div>
+            <h2>
+              
+                Geospatial Deep Learning — Land-Cover Classification
+              
+            </h2>
+            
+            
+          </div>
+        </div>
+        
+      </div>
+
+      
+
+      
+      <ul class="resume-entry__body">
+        
+        <li>Built and hyperparameter-tuned a CNN for satellite land-cover classification (EuroSAT benchmark, 10 classes), reaching 85% held-out accuracy; then built a geospatial pre-processing pipeline (rasterio, geopandas) to extend the same approach to a real, unlabelled region.</li>
+        
+      </ul>
+      
+
+      
+      <ul class="resume-entry__skills">
+        
+        <li>Python</li>
+        
+        <li>CNN</li>
+        
+        <li>rasterio</li>
+        
+        <li>geopandas</li>
+        
+      </ul>
+      
+
+      
+    </article>
+    
+    <article class="resume-entry">
+      <div class="resume-entry__meta">
+        <div class="resume-entry__company">
+          
+          <div>
+            <h2>
+              
+                <a href="/projects/iucn-dd-species/" class="resume-entry__client-link">IUCN Data-Deficient Species Classifier</a>
+              
+            </h2>
+            
+            
+          </div>
+        </div>
+        
+      </div>
+
+      
+
+      
+      <ul class="resume-entry__body">
+        
+        <li>Trained a Random Forest classifier predicting IUCN Red List threat status for Kenya&#39;s Data-Deficient species (35,000+ records, 87.5% test accuracy, 90.1% cross-validated F1), including an explicit, self-authored limitations section on where the model&#39;s predictions should and shouldn&#39;t be trusted.</li>
         
       </ul>
       
@@ -411,24 +243,22 @@
           <div>
             <h2>
               
-                <a href="/projects/price-of-power/" class="resume-entry__client-link">Independent</a>
+                <a href="/projects/price-of-power/" class="resume-entry__client-link">Kenya Power Pricing Analysis</a>
               
             </h2>
-            <p class="resume-entry__role">
-              <span>Researcher &amp; Designer</span>
-              <span class="resume-entry__deliverables">Interactive Tableau dashboard</span>
-            </p>
+            
+            
           </div>
         </div>
-        <time class="resume-entry__period">2021</time>
+        
       </div>
+
+      
 
       
       <ul class="resume-entry__body">
         
-        <li>Built an interactive Tableau dashboard exploring Kenya Power electricity pricing, affordability, and the renewable energy transition.</li>
-        
-        <li>Synthesised government tariff schedules, household income data, and regional generation statistics into a single exploratory tool.</li>
+        <li>Built an interactive Tableau dashboard exploring electricity pricing, affordability, and the renewable-energy transition, synthesising government tariff schedules, household income data, and regional generation statistics.</li>
         
       </ul>
       
@@ -453,7 +283,10 @@
   </section>
   
   <section class="resume-section">
-    <span class="label">Editorial Design</span>
+    <span class="label">
+      Professional Experience
+      
+    </span>
 
     
     <article class="resume-entry">
@@ -463,22 +296,37 @@
           <div>
             <h2>
               
-                UN-Habitat
+                Jireh Health
               
             </h2>
+            
+            
             <p class="resume-entry__role">
-              <span>Freelance Editorial Designer</span>
-              <span class="resume-entry__deliverables">Editorial design</span>
+              <span class="resume-entry__title">User Experience Researcher</span>
+              
             </p>
+            
           </div>
         </div>
-        <time class="resume-entry__period">Feb 2025 – Aug 2025</time>
+        <time class="resume-entry__period">Apr 2025 – Present</time>
       </div>
+
+      
+      <p class="resume-entry__summary">Accessible healthcare-financing web app, serving 4 facilities and 1,800+ users.</p>
+      
 
       
       <ul class="resume-entry__body">
         
-        <li>Delivered editorial design work for the United Nations Human Settlements Programme (UN-Habitat).</li>
+        <li>Sole designer working from PM-defined acceptance criteria through to engineering handoff.</li>
+        
+        <li>Redesigned the onboarding/signup flow, cutting median completion time from 5.2 minutes to 2.1 minutes (59% reduction).</li>
+        
+        <li>Designed and shipped new engagement surfaces (Discovery/Explore, Profile Hub), each reaching 80+ monthly active users within four months of launch, as part of a platform that grew from 396 to 770 monthly active users over the same period.</li>
+        
+        <li>Led Jireh Health’s frontend design-system modernization by introducing reusable primitives, semantic tokens, and consistent UI patterns to improve scalability and maintainability across B2C (mobile) and B2B (web) experiences.</li>
+        
+        <li>Developed an in-house prototyping tool that mirrors the deployed frontend, effectively decoupling UX research and testing from backend dependencies and improving parallel workflows.</li>
         
       </ul>
       
@@ -486,9 +334,15 @@
       
       <ul class="resume-entry__skills">
         
-        <li>Adobe InDesign</li>
+        <li>UX Research</li>
         
-        <li>Editorial Design</li>
+        <li>Figma</li>
+        
+        <li>Design Systems</li>
+        
+        <li>Accessibility</li>
+        
+        <li>Prototyping</li>
         
       </ul>
       
@@ -503,22 +357,266 @@
           <div>
             <h2>
               
+                <a href="/projects/leja-business-app/" class="resume-entry__client-link">Leja</a>
+              
+            </h2>
+            
+            
+            <p class="resume-entry__role">
+              <span class="resume-entry__title">Product Designer</span>
+              
+            </p>
+            
+          </div>
+        </div>
+        <time class="resume-entry__period">Nov 2022 – Jun 2025</time>
+      </div>
+
+      
+      <p class="resume-entry__summary">B2B fintech mobile app serving Kenyan micro and small enterprises (MSMEs).</p>
+      
+
+      
+      <ul class="resume-entry__body">
+        
+        <li>Owned onboarding, referral, and transaction-flow design end-to-end: research, design, developer handoff, and iteration based on usage.</li>
+        
+        <li>Designed for a low-bandwidth, non-technical, non-English-dominant user base.</li>
+        
+        <li>Partnered directly with developers and product managers to ship designs to real users, then iterated based on usability testing and product feedback.</li>
+        
+        <li>Formally led a 2-person design/research team on a dedicated initiative — assigning work and owning outcomes, while remaining hands-on in the craft.</li>
+        
+        <li>Designed interactive prototypes for partnership presentations and product demos using Figma and the Adobe suite.</li>
+        
+        <li>Championed accessibility and usability against W3C/WCAG 2.1 guidelines; produced clear design documentation to ease developer handoff.</li>
+        
+      </ul>
+      
+
+      
+      <ul class="resume-entry__skills">
+        
+        <li>Figma</li>
+        
+        <li>Mobile UX</li>
+        
+        <li>User Research</li>
+        
+        <li>Accessibility</li>
+        
+      </ul>
+      
+
+      
+      
+      <div class="pj-reel" tabindex="0" role="region" aria-label="Leja work samples, scrolls sideways">
+        
+        <img src="/assets/images/resume/leja/LDA1.png" alt="Leja work sample 1" loading="lazy">
+        
+        <img src="/assets/images/resume/leja/LDA2.png" alt="Leja work sample 2" loading="lazy">
+        
+        <img src="/assets/images/resume/leja/LDA3.png" alt="Leja work sample 3" loading="lazy">
+        
+        <img src="/assets/images/resume/leja/LDA4.png" alt="Leja work sample 4" loading="lazy">
+        
+      </div>
+      
+    </article>
+    
+    <article class="resume-entry">
+      <div class="resume-entry__meta">
+        <div class="resume-entry__company">
+          
+          <div>
+            <h2>
+              
+                CarNayo
+              
+            </h2>
+            
+            
+            <p class="resume-entry__role">
+              <span class="resume-entry__title">Product Designer</span>
+              <span class="resume-entry__deliverables">Mobile app design</span>
+            </p>
+            
+          </div>
+        </div>
+        <time class="resume-entry__period">Jun 2024</time>
+      </div>
+
+      
+
+      
+      <ul class="resume-entry__body">
+        
+        <li>Designed end-to-end UI/UX for a Congolese ride-hailing app, covering separate driver and passenger journeys.</li>
+        
+        <li>Built a design system optimised for low-bandwidth conditions and entry-level Android devices.</li>
+        
+        <li>Unified two distinct user mental models — driver and passenger — within a single navigation structure.</li>
+        
+      </ul>
+      
+
+      
+      <ul class="resume-entry__skills">
+        
+        <li>Figma</li>
+        
+        <li>Mobile UI</li>
+        
+        <li>Design Systems</li>
+        
+        <li>User Flow Mapping</li>
+        
+      </ul>
+      
+
+      
+      
+      <div class="pj-reel" tabindex="0" role="region" aria-label="CarNayo work samples, scrolls sideways">
+        
+        <img src="/assets/images/resume/carnayo/carnayo01.png" alt="CarNayo work sample 1" loading="lazy">
+        
+        <img src="/assets/images/resume/carnayo/carnayo02.png" alt="CarNayo work sample 2" loading="lazy">
+        
+        <img src="/assets/images/resume/carnayo/carnayo03.png" alt="CarNayo work sample 3" loading="lazy">
+        
+        <img src="/assets/images/resume/carnayo/carnayo04.png" alt="CarNayo work sample 4" loading="lazy">
+        
+        <img src="/assets/images/resume/carnayo/carnayo05.png" alt="CarNayo work sample 5" loading="lazy">
+        
+        <img src="/assets/images/resume/carnayo/carnayo06.png" alt="CarNayo work sample 6" loading="lazy">
+        
+        <img src="/assets/images/resume/carnayo/carnayo07.png" alt="CarNayo work sample 7" loading="lazy">
+        
+        <img src="/assets/images/resume/carnayo/carnayo08.png" alt="CarNayo work sample 8" loading="lazy">
+        
+        <img src="/assets/images/resume/carnayo/carnayo09.png" alt="CarNayo work sample 9" loading="lazy">
+        
+      </div>
+      
+    </article>
+    
+    <article class="resume-entry">
+      <div class="resume-entry__meta">
+        <div class="resume-entry__company">
+          
+          <div>
+            <h2>
+              
+                Crossover
+              
+            </h2>
+            
+            
+            <p class="resume-entry__role">
+              <span class="resume-entry__title">UX Designer</span>
+              <span class="resume-entry__deliverables">Interactive prototype · UX assessment</span>
+            </p>
+            
+          </div>
+        </div>
+        <time class="resume-entry__period">2021 – 2022</time>
+      </div>
+
+      
+
+      
+      <ul class="resume-entry__body">
+        
+        <li>Prototyped an AI-powered e-learning platform under timed, competitive conditions for a global UX hiring assessment.</li>
+        
+        <li>Applied end-to-end UX methodology — research synthesis, IA, wireframing, and high-fidelity prototyping — within a constrained timeline.</li>
+        
+      </ul>
+      
+
+      
+      <ul class="resume-entry__skills">
+        
+        <li>Figma</li>
+        
+        <li>Prototyping</li>
+        
+        <li>Information Architecture</li>
+        
+        <li>Wireframing</li>
+        
+      </ul>
+      
+
+      
+      
+      <div class="pj-reel" tabindex="0" role="region" aria-label="Crossover work samples, scrolls sideways">
+        
+        <img src="/assets/images/resume/crossover/crossover01.png" alt="Crossover work sample 1" loading="lazy">
+        
+        <img src="/assets/images/resume/crossover/crossover02.png" alt="Crossover work sample 2" loading="lazy">
+        
+        <img src="/assets/images/resume/crossover/crossover03.png" alt="Crossover work sample 3" loading="lazy">
+        
+        <img src="/assets/images/resume/crossover/crossover04.png" alt="Crossover work sample 4" loading="lazy">
+        
+        <img src="/assets/images/resume/crossover/crossover05.png" alt="Crossover work sample 5" loading="lazy">
+        
+        <img src="/assets/images/resume/crossover/crossover06.png" alt="Crossover work sample 6" loading="lazy">
+        
+        <img src="/assets/images/resume/crossover/crossover07.png" alt="Crossover work sample 7" loading="lazy">
+        
+        <img src="/assets/images/resume/crossover/crossover08.png" alt="Crossover work sample 8" loading="lazy">
+        
+        <img src="/assets/images/resume/crossover/crossover09.png" alt="Crossover work sample 9" loading="lazy">
+        
+        <img src="/assets/images/resume/crossover/crossover10.png" alt="Crossover work sample 10" loading="lazy">
+        
+        <img src="/assets/images/resume/crossover/crossover11.png" alt="Crossover work sample 11" loading="lazy">
+        
+      </div>
+      
+    </article>
+    
+  </section>
+  
+  <section class="resume-section">
+    <span class="label">
+      Freelance Editorial &amp; Branding Design
+      <span class="resume-section__period">2020 – 2026</span>
+    </span>
+
+    
+    <article class="resume-entry">
+      <div class="resume-entry__meta">
+        <div class="resume-entry__company">
+          
+          <div>
+            <h2>
+              
                 UNFCCC High-Level Champions
               
             </h2>
+            
+            
             <p class="resume-entry__role">
-              <span>Freelance Editorial Designer</span>
+              
               <span class="resume-entry__deliverables">Position paper layout</span>
             </p>
+            
           </div>
         </div>
         <time class="resume-entry__period">Sep 2024</time>
       </div>
 
       
+
+      
       <ul class="resume-entry__body">
         
-        <li>Laid out a position paper for the UNFCCC High-Level Champions — the official champions of the Paris Agreement.</li>
+        <li>Laid out a position paper for the official champions of the Paris Agreement, presented at the Summit of the Future 2024.</li>
+        
+        <li>Adapted an existing Adobe InDesign template/styleguide under live content changes.</li>
         
       </ul>
       
@@ -546,19 +644,26 @@
                 <a href="/projects/inclusive-africa-conference/" class="resume-entry__client-link">inABLE</a>
               
             </h2>
+            
+            
             <p class="resume-entry__role">
-              <span>Freelance Editorial Designer</span>
+              
               <span class="resume-entry__deliverables">Conference booklet</span>
             </p>
+            
           </div>
         </div>
         <time class="resume-entry__period">May 2024</time>
       </div>
 
       
+
+      
       <ul class="resume-entry__body">
         
-        <li>Designed the Inclusive Africa Conference booklet for inABLE, Kenya&#39;s leading assistive technology and disability advocacy organisation.</li>
+        <li>Designed the 36-page Inclusive Africa Conference booklet.</li>
+        
+        <li>Worked with in-house accessibility consultants on print accessibility requirements.</li>
         
       </ul>
       
@@ -585,22 +690,29 @@
           <div>
             <h2>
               
-                Children&#39;s Investment Fund Foundation (CIFF)
+                Children&#39;s Investment Fund Foundation (CIFF) / COP27
               
             </h2>
+            
+            
             <p class="resume-entry__role">
-              <span>Freelance Editorial Designer</span>
+              
               <span class="resume-entry__deliverables">Event report</span>
             </p>
+            
           </div>
         </div>
         <time class="resume-entry__period">Dec 2023 – Feb 2024</time>
       </div>
 
       
+
+      
       <ul class="resume-entry__body">
         
-        <li>Designed the official event report for the Children &amp; Youth Pavilion at COP27, commissioned by CIFF.</li>
+        <li>Designed the official 47-page event report for the Children &amp; Youth Pavilion at COP27, Egypt.</li>
+        
+        <li>Translated rapporteur notes into visuals highlighting outcomes/recommendations.</li>
         
       </ul>
       
@@ -627,22 +739,78 @@
           <div>
             <h2>
               
-                LCOY Kenya
+                <a href="/projects/kenya-energy-atlas/" class="resume-entry__client-link">Society for International Development (SID)</a>
               
             </h2>
+            
+            
             <p class="resume-entry__role">
-              <span>Volunteer</span>
+              
+              <span class="resume-entry__deliverables">300-page research publication</span>
+            </p>
+            
+          </div>
+        </div>
+        <time class="resume-entry__period">Oct – Dec 2021</time>
+      </div>
+
+      
+
+      
+      <ul class="resume-entry__body">
+        
+        <li>Laid out the 300-page Kenya Energy Atlas (joint SID–government research publication).</li>
+        
+        <li>Integrated maps, charts, long-form academic text across chapters.</li>
+        
+        <li>Adapted for web and high-quality print.</li>
+        
+      </ul>
+      
+
+      
+      <ul class="resume-entry__skills">
+        
+        <li>Adobe InDesign</li>
+        
+        <li>Complex Layouts</li>
+        
+        <li>Data Visualisation</li>
+        
+      </ul>
+      
+
+      
+    </article>
+    
+    <article class="resume-entry">
+      <div class="resume-entry__meta">
+        <div class="resume-entry__company">
+          
+          <div>
+            <h2>
+              
+                Local Conference of Youth (LCOY Kenya)
+              
+            </h2>
+            
+            
+            <p class="resume-entry__role">
+              
               <span class="resume-entry__deliverables">Rebranding · Event graphics</span>
             </p>
+            
           </div>
         </div>
         <time class="resume-entry__period">Oct 2022</time>
       </div>
 
       
+
+      
       <ul class="resume-entry__body">
         
-        <li>Rebranded and produced event graphics for YOUNGO&#39;s annual Local Conference of Youth on Climate Change in Kenya.</li>
+        <li>Rebranded and produced event graphics for YOUNGO&#39;s Local Conference of Youth on Climate Change.</li>
         
       </ul>
       
@@ -672,14 +840,19 @@
                 African Youth Conference on Climate Change (AFRIYOCCC)
               
             </h2>
+            
+            
             <p class="resume-entry__role">
-              <span>Volunteer</span>
+              
               <span class="resume-entry__deliverables">Resource pack · Conference programme</span>
             </p>
+            
           </div>
         </div>
         <time class="resume-entry__period">Oct 2022</time>
       </div>
+
+      
 
       
       <ul class="resume-entry__body">
@@ -709,61 +882,22 @@
           <div>
             <h2>
               
-                <a href="/projects/kenya-energy-atlas/" class="resume-entry__client-link">Society for International Development (SID)</a>
-              
-            </h2>
-            <p class="resume-entry__role">
-              <span>Freelance Editorial Designer</span>
-              <span class="resume-entry__deliverables">300-page research publication</span>
-            </p>
-          </div>
-        </div>
-        <time class="resume-entry__period">Oct – Dec 2021</time>
-      </div>
-
-      
-      <ul class="resume-entry__body">
-        
-        <li>Laid out a 300-page collaborative research publication for the Kenya Energy Atlas, a joint SID–government initiative.</li>
-        
-        <li>Managed complex layouts integrating maps, charts, and long-form academic text across multiple thematic chapters.</li>
-        
-      </ul>
-      
-
-      
-      <ul class="resume-entry__skills">
-        
-        <li>Adobe InDesign</li>
-        
-        <li>Complex Layouts</li>
-        
-        <li>Data Visualisation</li>
-        
-      </ul>
-      
-
-      
-    </article>
-    
-    <article class="resume-entry">
-      <div class="resume-entry__meta">
-        <div class="resume-entry__company">
-          
-          <div>
-            <h2>
-              
                 3408 Belva
               
             </h2>
+            
+            
             <p class="resume-entry__role">
-              <span>Freelance Editorial Designer</span>
+              
               <span class="resume-entry__deliverables">Apartment catalogue</span>
             </p>
+            
           </div>
         </div>
         <time class="resume-entry__period">Feb 2020</time>
       </div>
+
+      
 
       
       <ul class="resume-entry__body">
@@ -789,7 +923,10 @@
   </section>
   
   <section class="resume-section">
-    <span class="label">Branding &amp; Visual Design</span>
+    <span class="label">
+      Branding &amp; Visual Design
+      
+    </span>
 
     
     <article class="resume-entry">
@@ -802,14 +939,19 @@
                 Embassy of Antigua and Barbuda
               
             </h2>
+            
+            
             <p class="resume-entry__role">
-              <span>Freelance Graphics Designer</span>
+              <span class="resume-entry__title">Freelance Graphics Designer</span>
               <span class="resume-entry__deliverables">Graphics</span>
             </p>
+            
           </div>
         </div>
         <time class="resume-entry__period">Jul 2025</time>
       </div>
+
+      
 
       
       <ul class="resume-entry__body">
@@ -842,14 +984,19 @@
                 Lab Owners Hub
               
             </h2>
+            
+            
             <p class="resume-entry__role">
-              <span>Freelance Branding Designer</span>
+              <span class="resume-entry__title">Freelance Branding Designer</span>
               <span class="resume-entry__deliverables">Brand identity</span>
             </p>
+            
           </div>
         </div>
         <time class="resume-entry__period">Feb 2024</time>
       </div>
+
+      
 
       
       <ul class="resume-entry__body">
@@ -882,14 +1029,19 @@
                 Qoba
               
             </h2>
+            
+            
             <p class="resume-entry__role">
-              <span>Freelance Branding Designer</span>
+              <span class="resume-entry__title">Freelance Branding Designer</span>
               <span class="resume-entry__deliverables">Brand identity</span>
             </p>
+            
           </div>
         </div>
         <time class="resume-entry__period">Jan 2022</time>
       </div>
+
+      
 
       
       <ul class="resume-entry__body">
@@ -924,14 +1076,19 @@
                 Belva Homes
               
             </h2>
+            
+            
             <p class="resume-entry__role">
-              <span>Freelance Branding Designer</span>
+              <span class="resume-entry__title">Freelance Branding Designer</span>
               <span class="resume-entry__deliverables">Brand identity</span>
             </p>
+            
           </div>
         </div>
         <time class="resume-entry__period">Jul 2021</time>
       </div>
+
+      
 
       
       <ul class="resume-entry__body">
@@ -966,14 +1123,19 @@
                 Lizopendwa
               
             </h2>
+            
+            
             <p class="resume-entry__role">
-              <span>Freelance Branding Designer</span>
+              <span class="resume-entry__title">Freelance Branding Designer</span>
               <span class="resume-entry__deliverables">Branding · Social media templates · Product design</span>
             </p>
+            
           </div>
         </div>
         <time class="resume-entry__period">May – Jun 2021</time>
       </div>
+
+      
 
       
       <ul class="resume-entry__body">
@@ -1008,14 +1170,19 @@
                 Herbivore Garden Center
               
             </h2>
+            
+            
             <p class="resume-entry__role">
-              <span>Graphics Designer &amp; Social Media Manager</span>
+              <span class="resume-entry__title">Graphics Designer &amp; Social Media Manager</span>
               <span class="resume-entry__deliverables">Social media graphics</span>
             </p>
+            
           </div>
         </div>
         <time class="resume-entry__period">Jun – Dec 2020</time>
       </div>
+
+      
 
       
       <ul class="resume-entry__body">
@@ -1043,36 +1210,23 @@
   </section>
   
 
+  
   <section class="resume-section">
-    <span class="label">Skills</span>
-    <ul class="resume-skills">
-      
-      <li class="label label--muted">UX Research</li>
-      
-      <li class="label label--muted">Interaction Design</li>
-      
-      <li class="label label--muted">Information Architecture</li>
-      
-      <li class="label label--muted">Prototyping &amp; Testing</li>
-      
-      <li class="label label--muted">Data Visualisation</li>
-      
-      <li class="label label--muted">Accessibility Design</li>
-      
-      <li class="label label--muted">Figma</li>
-      
-      <li class="label label--muted">Tableau</li>
-      
-      <li class="label label--muted">Adobe InDesign</li>
-      
-      <li class="label label--muted">Adobe Illustrator</li>
-      
-      <li class="label label--muted">HTML &amp; CSS</li>
-      
-      <li class="label label--muted">Python</li>
-      
+    <span class="label">Education</span>
+    <ul class="resume-simple-list">
+      <li>BSc Environmental Conservation and Natural Resources Management, University of Nairobi</li>
     </ul>
   </section>
+  
+
+  
+  <section class="resume-section">
+    <span class="label">Volunteering</span>
+    <ul class="resume-simple-list">
+      <li>Greenpeace Kenya</li><li>African Youth Initiative on Climate Change (AYICC)</li><li>YOUNGO</li>
+    </ul>
+  </section>
+  
 
 </main>
 

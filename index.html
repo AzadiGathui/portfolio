@@ -5,11 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="shortcut icon" href="/assets/images/branding/favicon.png">
+  <!-- Self-hosted fonts: preload the two faces every page renders first -->
+  <link rel="preload" href="/assets/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/style.css">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 
   <title>Portfolio | Azadi Gathui</title>
   <meta name="description" content="Azadi Gathui — Product Designer &amp; Analyst. Portfolio of UX, editorial, and data visualisation work.">
@@ -23,8 +22,8 @@
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to main content</a>
-  <nav class="nav">
-  <a href="/"><img src="/assets/images/branding/AG Favicon Light on Dark.svg" alt="Azadi Gathui logo" class="logo"></a>
+  <nav class="nav" aria-label="Main">
+  <a href="/"><img src="/assets/images/branding/AG Favicon Light on Dark.svg" alt="Azadi Gathui, home" class="logo"></a>
   <ul class="nav-ul">
     
     <li class="nav-li"><a href="/resume/">Resume</a></li>
@@ -41,11 +40,13 @@
       <h1>Azadi Gathui</h1>
       <p>Product Design & Analyst Portfolio 2026</p>
     </div>
-    <div class="hero-videos">
-      <video src="/assets/images/home/home hero loop 1.mp4" autoplay loop muted playsinline></video>
-      <video src="/assets/images/home/home hero loop 3.mp4" autoplay loop muted playsinline></video>
-      <video src="/assets/images/home/home hero loop 2.mp4" autoplay loop muted playsinline></video>
+    
+    <div class="hero-videos" aria-hidden="true">
+      <video src="/assets/images/home/home hero loop 1.mp4" poster="/assets/images/home/home-hero-loop-1-poster.webp" loop muted playsinline preload="metadata"></video>
+      <video src="/assets/images/home/home hero loop 3.mp4" poster="/assets/images/home/home-hero-loop-3-poster.webp" loop muted playsinline preload="metadata"></video>
+      <video src="/assets/images/home/home hero loop 2.mp4" poster="/assets/images/home/home-hero-loop-2-poster.webp" loop muted playsinline preload="metadata"></video>
     </div>
+    <button type="button" class="hero-motion-toggle" hidden>Pause animation</button>
     <img src="/assets/images/home/scroll.svg" alt="scroll for previous work">
   </div>
 
@@ -59,7 +60,7 @@
       
       <a href="/projects/price-of-power/" class="project-card">
         
-          <img src="/assets/images/projects/ren/bills.png" alt="The Price of Power thumbnail">
+          <img src="/assets/images/projects/ren/bills.png" alt="">
         
         <div class="project-card__body">
           
@@ -72,7 +73,7 @@
       
       <a href="/projects/leja-business-app/" class="project-card">
         
-          <img src="/assets/images/projects/lj/LJmockup.png" alt="Financial inclusion at the Last Mile thumbnail">
+          <img src="/assets/images/projects/lj/LJmockup.png" alt="">
         
         <div class="project-card__body">
           
@@ -85,7 +86,7 @@
       
       <a href="/projects/inclusive-africa-conference/" class="project-card">
         
-          <img src="/assets/images/projects/iac/IAC hero mockup.png" alt="Inclusive Africa Conference thumbnail">
+          <img src="/assets/images/projects/iac/IAC hero mockup.png" alt="">
         
         <div class="project-card__body">
           
@@ -98,7 +99,7 @@
       
       <a href="/projects/kenya-energy-atlas/" class="project-card">
         
-          <img src="/assets/images/projects/efw/EFW hero mockup.png" alt="Kenya Energy Atlas thumbnail">
+          <img src="/assets/images/projects/efw/EFW hero mockup.png" alt="">
         
         <div class="project-card__body">
           
@@ -111,7 +112,7 @@
       
       <a href="/projects/iucn-dd-species/" class="project-card">
         
-          <img src="/assets/images/projects/iucn/model_kenya_by_class.png" alt="Predicting Threat Status for Kenya&#39;s Data Deficient Species thumbnail">
+          <img src="/assets/images/projects/iucn/model_kenya_by_class.png" alt="">
         
         <div class="project-card__body">
           
@@ -125,6 +126,48 @@
     </div>
   </div>
 </main>
+
+<script>
+/* Hero loop control — progressive enhancement.
+   - Respects prefers-reduced-motion (no playback until the visitor opts in).
+   - Provides a visible pause/play button (WCAG 2.2.2 Pause, Stop, Hide). */
+(function () {
+  var videos = document.querySelectorAll('.hero-videos video');
+  var toggle = document.querySelector('.hero-motion-toggle');
+  if (!videos.length || !toggle) return;
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // The label follows what the videos are ACTUALLY doing, not what we asked for.
+  // Browsers can refuse or stop playback on their own (autoplay policy, Safari
+  // Low Power Mode, power saving), and the button must never offer to pause
+  // something that isn't moving.
+  function isPlaying() {
+    return Array.prototype.some.call(videos, function (v) { return !v.paused; });
+  }
+  function updateLabel() {
+    toggle.textContent = isPlaying() ? 'Pause animation' : 'Play animation';
+  }
+  function playAll() {
+    videos.forEach(function (v) {
+      var p = v.play();
+      if (p && p.catch) p.catch(updateLabel); // refused: video stays paused, label says so
+    });
+  }
+  function pauseAll() {
+    videos.forEach(function (v) { v.pause(); });
+  }
+
+  videos.forEach(function (v) {
+    v.addEventListener('play', updateLabel);
+    v.addEventListener('pause', updateLabel);
+  });
+  toggle.hidden = false;
+  toggle.addEventListener('click', function () { isPlaying() ? pauseAll() : playAll(); });
+  updateLabel();
+  if (!reduceMotion) playAll();
+})();
+</script>
 
 
   </div>
