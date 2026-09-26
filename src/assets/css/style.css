@@ -760,7 +760,9 @@ main.resume {
   font-size: 0.875rem;
 }
 
-.resume-entry__role span:first-child {
+/* Named class instead of span:first-child: when an entry has no role,
+   the deliverables span would otherwise become "first" and turn bold. */
+.resume-entry__title {
   font-weight: 600;
 }
 
@@ -773,7 +775,8 @@ main.resume {
   color: var(--color-text-tertiary);
 }
 
-.resume-entry__deliverables::before {
+/* Separator dot only when a role comes before it (the + means "directly after") */
+.resume-entry__title + .resume-entry__deliverables::before {
   content: "·";
   margin-right: 0.5rem;
   opacity: 0.5;
@@ -846,18 +849,71 @@ main.resume {
   color: var(--color-accent-text);
 }
 
-.resume-skills {
+.resume-entry__summary {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+/* Personal statement: body text at a readable line length */
+.resume-statement {
+  max-width: var(--measure);
+  align-items: flex-start; /* global `section` centres its children; keep paragraphs left-aligned */
+  gap: 0;
+}
+
+.resume-statement p {
+  margin: 0 0 var(--space-sm);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+/* Section period sits on the label line, in the muted metadata colour */
+.resume-section__period {
+  /* Spacing comes from the ordinary space before the span in the template, not a margin:
+     a space disappears when the line wraps, so there's no stray indent on phones. */
+  white-space: nowrap; /* keep "SEP 2025 – JUN 2026" together */
+  color: var(--color-text-tertiary);
+}
+
+/* Skill areas: name on the left, items on the right; stacks on mobile */
+.resume-skill-groups {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.resume-skill-group {
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  gap: var(--space-md);
+  padding: var(--space-sm) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.resume-skill-group dt {
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+.resume-skill-group dd {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.resume-simple-list {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
 }
 
-.resume-skills li {
-  padding: 0.3rem 0.75rem;
-  border: 1px solid var(--color-border);
+.resume-simple-list li {
+  padding: var(--space-xs) 0;
+  border-top: 1px solid var(--color-border);
+  font-size: 0.9375rem;
 }
 
 /* Resume responsive */
@@ -881,6 +937,11 @@ main.resume {
 
   .resume-entry__period {
     padding-top: 0;
+  }
+
+  .resume-skill-group {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
   }
 }
 

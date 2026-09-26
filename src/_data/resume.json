@@ -1,46 +1,101 @@
 {
-  "skills": [
-    "UX Research", "Interaction Design", "Information Architecture",
-    "Prototyping & Testing", "Data Visualisation", "Accessibility Design",
-    "Figma", "Tableau", "Adobe InDesign", "Adobe Illustrator",
-    "HTML & CSS", "Python"
+  "statement": [
+    "Designer & researcher with 7+ years of turning gnarly problems into human-centred solutions. I come to every collaboration with genuine curiosity, informed experimentation, and the kind of thinking that connects dots across fields. If it challenges assumptions, connects disciplines, or helps real humans live better, I'm probably already thinking about it.",
+    "Let's create meaningful, systemic impact together."
+  ],
+  "skill_groups": [
+    {
+      "name": "ML & Data Science",
+      "items": "Python, TensorFlow/Keras, scikit-learn, pandas, geopandas, rasterio, SQL, convolutional neural networks, semantic segmentation, remote sensing / satellite imagery, Streamlit, Tableau"
+    },
+    {
+      "name": "Working Practice",
+      "items": "Claude Code and AI-assisted development as a daily tool for prototyping, data pipelines, and audit/QA of my own work; Git & GitHub; self-directed learning across design, ML and geospatial domains"
+    },
+    {
+      "name": "Research",
+      "items": "usability testing, tree testing, card sorting, first-click testing, information architecture, information-scent/navigation audits, focus groups, OOUX mapping, persona development, journey mapping, source verification, Amplitude analytics"
+    },
+    {
+      "name": "Product Design",
+      "items": "Figma (component architecture, design systems, prototyping), dense/data-heavy interface design, permissions & access-control UX, information architecture, usability testing, accessibility (WCAG 2.1)"
+    }
   ],
   "sections": [
     {
-      "title": "Product Design",
+      "title": "Data Science & Machine Learning Projects",
+      "period": "Sep 2025 – Jun 2026",
+      "entries": [
+        {
+          "client": "Environmental Degradation Monitor",
+          "description": [
+            "Trained and evaluated a U-Net segmentation model (5.78M parameters) for satellite land-cover classification, and built a complete Streamlit application around it: on-demand Sentinel-2 imagery retrieval, tiled inference, mask-based change detection, and geopandas-based intersection with protected-area boundaries on an interactive map; the full loop from raw imagery to a decision-ready interface.",
+            "Ran a rigorous domain-shift evaluation and found the model's accuracy collapsed when applied to real target-region imagery after training on a different geography; diagnosed the cause and scoped the fix, rather than shipping a plausible-looking but unreliable result."
+          ],
+          "skills": ["Python", "TensorFlow/Keras", "Semantic Segmentation", "Streamlit", "geopandas"]
+        },
+        {
+          "client": "Geospatial Deep Learning — Land-Cover Classification",
+          "description": [
+            "Built and hyperparameter-tuned a CNN for satellite land-cover classification (EuroSAT benchmark, 10 classes), reaching 85% held-out accuracy; then built a geospatial pre-processing pipeline (rasterio, geopandas) to extend the same approach to a real, unlabelled region."
+          ],
+          "skills": ["Python", "CNN", "rasterio", "geopandas"]
+        },
+        {
+          "client": "IUCN Data-Deficient Species Classifier",
+          "portfolio_url": "/projects/iucn-dd-species/",
+          "description": [
+            "Trained a Random Forest classifier predicting IUCN Red List threat status for Kenya's Data-Deficient species (35,000+ records, 87.5% test accuracy, 90.1% cross-validated F1), including an explicit, self-authored limitations section on where the model's predictions should and shouldn't be trusted."
+          ],
+          "skills": ["Python", "scikit-learn", "pandas", "Machine Learning", "Data Visualisation"]
+        },
+        {
+          "client": "Kenya Power Pricing Analysis",
+          "portfolio_url": "/projects/price-of-power/",
+          "description": [
+            "Built an interactive Tableau dashboard exploring electricity pricing, affordability, and the renewable-energy transition, synthesising government tariff schedules, household income data, and regional generation statistics."
+          ],
+          "skills": ["Tableau", "Data Journalism", "Research", "Data Wrangling"]
+        }
+      ]
+    },
+    {
+      "title": "Professional Experience",
       "entries": [
         {
           "client": "Jireh Health",
-          "industry": "Health Financing",
           "role": "User Experience Researcher",
-          "period": "Apr 2025 – Mar 2026",
-          "deliverables": "Web app · Marketing graphics · Landing page",
+          "period": "Apr 2025 – Present",
+          "summary": "Accessible healthcare-financing web app, serving 4 facilities and 1,800+ users.",
           "description": [
-            "Led UX research for a health-financing web app targeting MSMEs and individual policyholders in Kenya.",
-            "Designed accessible onboarding flows, marketing assets, and a product landing page from discovery to high-fidelity prototype.",
-            "Coordinated with clinical and engineering stakeholders to translate compliance constraints into usable product flows."
+            "Sole designer working from PM-defined acceptance criteria through to engineering handoff.",
+            "Redesigned the onboarding/signup flow, cutting median completion time from 5.2 minutes to 2.1 minutes (59% reduction).",
+            "Designed and shipped new engagement surfaces (Discovery/Explore, Profile Hub), each reaching 80+ monthly active users within four months of launch, as part of a platform that grew from 396 to 770 monthly active users over the same period.",
+            "Led Jireh Health’s frontend design-system modernization by introducing reusable primitives, semantic tokens, and consistent UI patterns to improve scalability and maintainability across B2C (mobile) and B2B (web) experiences.",
+            "Developed an in-house prototyping tool that mirrors the deployed frontend, effectively decoupling UX research and testing from backend dependencies and improving parallel workflows."
           ],
-          "skills": ["UX Research", "Figma", "Accessibility", "Prototyping"]
+          "skills": ["UX Research", "Figma", "Design Systems", "Accessibility", "Prototyping"]
         },
         {
           "client": "Leja",
-          "industry": "Fintech",
           "role": "Product Designer",
-          "period": "Feb 2022 – Jun 2025",
-          "deliverables": "Mobile app · Marketing graphics",
+          "period": "Nov 2022 – Jun 2025",
+          "summary": "B2B fintech mobile app serving Kenyan micro and small enterprises (MSMEs).",
           "portfolio_url": "/projects/leja-business-app/",
           "slug": "leja",
           "description": [
-            "Designed referral, onboarding, and transaction flows for a B2B fintech app serving Kenyan micro and small enterprises.",
-            "Led Kiswahili localisation, cutting cognitive load for non-English-dominant users and improving usability test completion rates.",
-            "Maintained a Figma component library and produced marketing graphics across a 3-year engagement."
+            "Owned onboarding, referral, and transaction-flow design end-to-end: research, design, developer handoff, and iteration based on usage.",
+            "Designed for a low-bandwidth, non-technical, non-English-dominant user base.",
+            "Partnered directly with developers and product managers to ship designs to real users, then iterated based on usability testing and product feedback.",
+            "Formally led a 2-person design/research team on a dedicated initiative — assigning work and owning outcomes, while remaining hands-on in the craft.",
+            "Designed interactive prototypes for partnership presentations and product demos using Figma and the Adobe suite.",
+            "Championed accessibility and usability against W3C/WCAG 2.1 guidelines; produced clear design documentation to ease developer handoff."
           ],
-          "skills": ["Figma", "Mobile UX", "User Research", "Localisation"],
+          "skills": ["Figma", "Mobile UX", "User Research", "Accessibility"],
           "images": ["LDA1.png", "LDA2.png", "LDA3.png", "LDA4.png"]
         },
         {
           "client": "CarNayo",
-          "industry": "Ride-sharing",
           "role": "Product Designer",
           "period": "Jun 2024",
           "deliverables": "Mobile app design",
@@ -58,19 +113,7 @@
           ]
         },
         {
-          "client": "Impact Initiative Kenya",
-          "industry": "Charity",
-          "role": "Freelance UI/UX Designer",
-          "period": "Jan 2025 – Mar 2026",
-          "deliverables": "Landing page",
-          "description": [
-            "Designed and built a landing page for a Kenyan charity platform focused on grassroots community impact."
-          ],
-          "skills": ["Figma", "HTML & CSS", "Landing Page Design"]
-        },
-        {
           "client": "Crossover",
-          "industry": "EdTech",
           "role": "UX Designer",
           "period": "2021 – 2022",
           "deliverables": "Interactive prototype · UX assessment",
@@ -89,100 +132,63 @@
       ]
     },
     {
-      "title": "Data & Analysis",
+      "title": "Freelance Editorial & Branding Design",
+      "period": "2020 – 2026",
       "entries": [
-        {
-          "client": "Zindua School",
-          "industry": "Education / Conservation",
-          "role": "Data Analyst",
-          "period": "Aug 2025 – Mar 2026",
-          "deliverables": "Machine learning model · Exploratory analysis · Species predictions",
-          "portfolio_url": "/projects/iucn-dd-species/",
-          "description": [
-            "Built a Random Forest classifier predicting IUCN Red List threat status for Kenya's 335 Data Deficient species, trained on 35,000+ global records.",
-            "Managed end-to-end data pipeline: wrangling 8 IUCN CSV sources, exploratory analysis, feature engineering, and SMOTE for class imbalance.",
-            "Achieved 87.5% test accuracy and 90.1% cross-validated F1 score; delivered predictions as a conservation research prioritisation tool."
-          ],
-          "skills": ["Python", "scikit-learn", "pandas", "Machine Learning", "Data Visualisation"]
-        },
-        {
-          "client": "Independent",
-          "industry": "Energy & Data Journalism",
-          "role": "Researcher & Designer",
-          "period": "2021",
-          "deliverables": "Interactive Tableau dashboard",
-          "portfolio_url": "/projects/price-of-power/",
-          "description": [
-            "Built an interactive Tableau dashboard exploring Kenya Power electricity pricing, affordability, and the renewable energy transition.",
-            "Synthesised government tariff schedules, household income data, and regional generation statistics into a single exploratory tool."
-          ],
-          "skills": ["Tableau", "Data Journalism", "Research", "Data Wrangling"]
-        }
-      ]
-    },
-    {
-      "title": "Editorial Design",
-      "entries": [
-        {
-          "client": "UN-Habitat",
-          "industry": "Non-profit / International Development",
-          "role": "Freelance Editorial Designer",
-          "period": "Feb 2025 – Aug 2025",
-          "deliverables": "Editorial design",
-          "description": [
-            "Delivered editorial design work for the United Nations Human Settlements Programme (UN-Habitat)."
-          ],
-          "skills": ["Adobe InDesign", "Editorial Design"]
-        },
         {
           "client": "UNFCCC High-Level Champions",
-          "industry": "Climate Policy",
-          "role": "Freelance Editorial Designer",
           "period": "Sep 2024",
           "deliverables": "Position paper layout",
           "description": [
-            "Laid out a position paper for the UNFCCC High-Level Champions — the official champions of the Paris Agreement."
+            "Laid out a position paper for the official champions of the Paris Agreement, presented at the Summit of the Future 2024.",
+            "Adapted an existing Adobe InDesign template/styleguide under live content changes."
           ],
           "skills": ["Adobe InDesign", "Editorial Design"]
         },
         {
           "client": "inABLE",
-          "industry": "Accessibility",
-          "role": "Freelance Editorial Designer",
           "period": "May 2024",
           "deliverables": "Conference booklet",
           "portfolio_url": "/projects/inclusive-africa-conference/",
           "description": [
-            "Designed the Inclusive Africa Conference booklet for inABLE, Kenya's leading assistive technology and disability advocacy organisation."
+            "Designed the 36-page Inclusive Africa Conference booklet.",
+            "Worked with in-house accessibility consultants on print accessibility requirements."
           ],
           "skills": ["Adobe InDesign", "Accessibility", "Editorial Design"]
         },
         {
-          "client": "Children's Investment Fund Foundation (CIFF)",
-          "industry": "Climate / Philanthropy",
-          "role": "Freelance Editorial Designer",
+          "client": "Children's Investment Fund Foundation (CIFF) / COP27",
           "period": "Dec 2023 – Feb 2024",
           "deliverables": "Event report",
           "description": [
-            "Designed the official event report for the Children & Youth Pavilion at COP27, commissioned by CIFF."
+            "Designed the official 47-page event report for the Children & Youth Pavilion at COP27, Egypt.",
+            "Translated rapporteur notes into visuals highlighting outcomes/recommendations."
           ],
           "skills": ["Adobe InDesign", "Report Layout", "Editorial Design"]
         },
         {
-          "client": "LCOY Kenya",
-          "industry": "Climate / Youth",
-          "role": "Volunteer",
+          "client": "Society for International Development (SID)",
+          "period": "Oct – Dec 2021",
+          "deliverables": "300-page research publication",
+          "portfolio_url": "/projects/kenya-energy-atlas/",
+          "description": [
+            "Laid out the 300-page Kenya Energy Atlas (joint SID–government research publication).",
+            "Integrated maps, charts, long-form academic text across chapters.",
+            "Adapted for web and high-quality print."
+          ],
+          "skills": ["Adobe InDesign", "Complex Layouts", "Data Visualisation"]
+        },
+        {
+          "client": "Local Conference of Youth (LCOY Kenya)",
           "period": "Oct 2022",
           "deliverables": "Rebranding · Event graphics",
           "description": [
-            "Rebranded and produced event graphics for YOUNGO's annual Local Conference of Youth on Climate Change in Kenya."
+            "Rebranded and produced event graphics for YOUNGO's Local Conference of Youth on Climate Change."
           ],
           "skills": ["Adobe Illustrator", "Branding", "Event Design"]
         },
         {
           "client": "African Youth Conference on Climate Change (AFRIYOCCC)",
-          "industry": "Climate / Youth",
-          "role": "Volunteer",
           "period": "Oct 2022",
           "deliverables": "Resource pack · Conference programme",
           "description": [
@@ -191,22 +197,7 @@
           "skills": ["Adobe InDesign", "Editorial Design"]
         },
         {
-          "client": "Society for International Development (SID)",
-          "industry": "Energy / Research",
-          "role": "Freelance Editorial Designer",
-          "period": "Oct – Dec 2021",
-          "deliverables": "300-page research publication",
-          "portfolio_url": "/projects/kenya-energy-atlas/",
-          "description": [
-            "Laid out a 300-page collaborative research publication for the Kenya Energy Atlas, a joint SID–government initiative.",
-            "Managed complex layouts integrating maps, charts, and long-form academic text across multiple thematic chapters."
-          ],
-          "skills": ["Adobe InDesign", "Complex Layouts", "Data Visualisation"]
-        },
-        {
           "client": "3408 Belva",
-          "industry": "Real Estate",
-          "role": "Freelance Editorial Designer",
           "period": "Feb 2020",
           "deliverables": "Apartment catalogue",
           "description": [
@@ -221,7 +212,6 @@
       "entries": [
         {
           "client": "Embassy of Antigua and Barbuda",
-          "industry": "Public Sector",
           "role": "Freelance Graphics Designer",
           "period": "Jul 2025",
           "deliverables": "Graphics",
@@ -232,7 +222,6 @@
         },
         {
           "client": "Lab Owners Hub",
-          "industry": "Healthcare",
           "role": "Freelance Branding Designer",
           "period": "Feb 2024",
           "deliverables": "Brand identity",
@@ -243,7 +232,6 @@
         },
         {
           "client": "Qoba",
-          "industry": "ERP / SaaS",
           "role": "Freelance Branding Designer",
           "period": "Jan 2022",
           "deliverables": "Brand identity",
@@ -254,7 +242,6 @@
         },
         {
           "client": "Belva Homes",
-          "industry": "Real Estate",
           "role": "Freelance Branding Designer",
           "period": "Jul 2021",
           "deliverables": "Brand identity",
@@ -265,7 +252,6 @@
         },
         {
           "client": "Lizopendwa",
-          "industry": "Jewellery",
           "role": "Freelance Branding Designer",
           "period": "May – Jun 2021",
           "deliverables": "Branding · Social media templates · Product design",
@@ -276,7 +262,6 @@
         },
         {
           "client": "Herbivore Garden Center",
-          "industry": "Botany / Retail",
           "role": "Graphics Designer & Social Media Manager",
           "period": "Jun – Dec 2020",
           "deliverables": "Social media graphics",
@@ -287,5 +272,13 @@
         }
       ]
     }
+  ],
+  "education": [
+    "BSc Environmental Conservation and Natural Resources Management, University of Nairobi"
+  ],
+  "volunteering": [
+    "Greenpeace Kenya",
+    "African Youth Initiative on Climate Change (AYICC)",
+    "YOUNGO"
   ]
 }
