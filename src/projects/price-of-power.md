@@ -17,7 +17,7 @@ permalink: /projects/price-of-power/
 <div class="tableauPlaceholder" id="viz1769839218089" style="position: relative">
   <noscript>
     <a href="#">
-      <img alt="The Price of Power" src="https://public.tableau.com/static/images/3X/3XGQZ5DYM/1_rss.png" style="border: none">
+      <img eleventy:ignore alt="The Price of Power" src="https://public.tableau.com/static/images/3X/3XGQZ5DYM/1_rss.png" style="border: none">
     </a>
   </noscript>
   <object class="tableauViz" style="display: none">

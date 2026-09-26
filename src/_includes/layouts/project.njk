@@ -2,15 +2,16 @@
 layout: layouts/base.njk
 ---
 <header>
-  <div class="cover" style="background: url('{{ coverImage }}') lightgray 50% / cover no-repeat;">
+  <div class="cover" style="background: url('{{ coverImage | bgImage }}') lightgray 50% / cover no-repeat;">
     {% if mockupImage %}
-      <img src="{{ mockupImage }}" alt="{{ title }} project mockup" class="pj-mockup">
+      {# The mockup is the first big thing on screen: load it straight away, at high priority #}
+      <img src="{{ mockupImage }}" alt="{{ title }} project mockup" class="pj-mockup" loading="eager" fetchpriority="high">
     {% endif %}
   </div>
 
   <div class="pj-deets">
       {% if clientLogo %}
-        <img src="{{ clientLogo }}" alt="{{ client }} logo" style="width: 6rem;">
+        <img src="{{ clientLogo }}" alt="{{ client }} logo" style="width: 6rem;" sizes="6rem">
       {% endif %}
       <div class="pj-title">
         <h1>{{ title }}</h1>

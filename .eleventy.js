@@ -1,8 +1,49 @@
 const markdownIt = require("markdown-it");
 const md = markdownIt({ html: true }); // required: allows raw HTML (Tableau embeds, etc.) in .md files
 
-module.exports = function (eleventyConfig) {
+// async so we can import @11ty/eleventy-img, which is an ES module
+module.exports = async function (eleventyConfig) {
   eleventyConfig.setLibrary("md", md);
+
+  // ------------------------------------------------------------------
+  // IMAGES — optimised at build time (nothing extra is sent to visitors)
+  // ------------------------------------------------------------------
+  const { default: Image, eleventyImageTransformPlugin } = await import("@11ty/eleventy-img");
+
+  // Rewrites every <img> in the finished HTML (templates AND markdown) into a
+  // <picture> with AVIF + WebP files at several widths. The browser downloads
+  // only the size it needs, so a phone never pays for a 4000px original.
+  // It also adds width/height, so the page doesn't jump while images load.
+  eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
+    formats: ["avif", "webp", "svg"], // AVIF is smallest; WebP is the fallback every current browser supports; "svg" lets SVGs pass through (below)
+    widths: [400, 800, 1200, 1600], // never upscales: originals smaller than a width are kept at their own size
+    svgShortCircuit: true, // SVGs are already tiny and sharp; leave them as they are
+    htmlOptions: {
+      imgAttributes: {
+        loading: "lazy", // off-screen images wait until the visitor scrolls near them
+        decoding: "async",
+        // `sizes` tells the browser how wide the image will be SHOWN, so it can pick
+        // the right file before layout. Default = the 960px content column.
+        // Templates override this where a layout differs (lab grid, resume reels…).
+        sizes: "(max-width: 960px) 100vw, 960px",
+      },
+    },
+  });
+
+  // CSS background images (project covers, lab header) aren't <img> tags, so the
+  // transform above can't see them. This filter makes one resized WebP instead:
+  //   style="background: url('{{ coverImage | bgImage }}') …"
+  eleventyConfig.addAsyncFilter("bgImage", async (src, width = 1920) => {
+    // leave SVGs and remote URLs untouched
+    if (!src || src.endsWith(".svg") || /^https?:/.test(src)) return src;
+    const meta = await Image("src" + src, {
+      widths: [width],
+      formats: ["webp"],
+      outputDir: "_site/img/",
+      urlPath: "/img/",
+    });
+    return meta.webp[0].url;
+  });
 
   // Passthrough copies — files Eleventy should serve as-is, without processing
   eleventyConfig.addPassthroughCopy("src/assets");

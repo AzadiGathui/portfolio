@@ -32,7 +32,7 @@ permalink: /
       {% for project in collections.projects %}
       <a href="{{ project.url }}" class="project-card">
         {% if project.data.thumbnail %}
-          <img src="{{ project.data.thumbnail }}" alt="">
+          <img src="{{ project.data.thumbnail }}" alt="" sizes="(max-width: 768px) 100vw, 320px">
         {% endif %}
         <div class="project-card__body">
           {% if project.data.industry %}
