@@ -57,23 +57,34 @@ permalink: /
   if (!videos.length || !toggle) return;
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var playing = false;
 
-  function setPlaying(shouldPlay) {
-    playing = shouldPlay;
+  // The label follows what the videos are ACTUALLY doing, not what we asked for.
+  // Browsers can refuse or stop playback on their own (autoplay policy, Safari
+  // Low Power Mode, power saving), and the button must never offer to pause
+  // something that isn't moving.
+  function isPlaying() {
+    return Array.prototype.some.call(videos, function (v) { return !v.paused; });
+  }
+  function updateLabel() {
+    toggle.textContent = isPlaying() ? 'Pause animation' : 'Play animation';
+  }
+  function playAll() {
     videos.forEach(function (v) {
-      if (shouldPlay) {
-        var p = v.play();
-        if (p && p.catch) p.catch(function () {}); // ignore autoplay-policy rejections
-      } else {
-        v.pause();
-      }
+      var p = v.play();
+      if (p && p.catch) p.catch(updateLabel); // refused: video stays paused, label says so
     });
-    toggle.textContent = shouldPlay ? 'Pause animation' : 'Play animation';
+  }
+  function pauseAll() {
+    videos.forEach(function (v) { v.pause(); });
   }
 
+  videos.forEach(function (v) {
+    v.addEventListener('play', updateLabel);
+    v.addEventListener('pause', updateLabel);
+  });
   toggle.hidden = false;
-  toggle.addEventListener('click', function () { setPlaying(!playing); });
-  setPlaying(!reduceMotion);
+  toggle.addEventListener('click', function () { isPlaying() ? pauseAll() : playAll(); });
+  updateLabel();
+  if (!reduceMotion) playAll();
 })();
 </script>
