@@ -2,31 +2,34 @@
 <html lang="en-GB">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Resume — Azadi Gathui</title>
   <meta name="description" content="Resume of Azadi Gathui: designer, researcher and data scientist working across product, editorial and machine learning.">
   <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#1a1a1a">
   <meta name="robots" content="noindex">
   <link rel="icon" href="/assets/images/branding/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@300;500;600&family=Barlow+Semi+Condensed:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@300;500;600&family=Barlow+Semi+Condensed:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="/assets/css/experiment-home.css">
   <link rel="stylesheet" href="/assets/css/experiment-resume.css">
+  <script src="/assets/js/experiment.js" defer></script>
 </head>
 <body class="page-resume">
   <a class="skip" href="#main">Skip to content</a>
 
-  <header class="masthead wrap">
-    <a class="wordmark" href="/experiment/">Azadi Gathui</a>
-    <p class="masthead__role">Editorial design, product design <span class="amp">&amp;</span> data science</p>
-    <nav class="masthead__nav" aria-label="Primary">
-      <a href="/experiment/#work">Work</a>
-      <a href="/experiment/#practice">Practice</a>
-      <a href="/experiment/resume/" aria-current="page">Resume</a>
-      <a href="/lab/">Lab</a>
-      <a href="#contact">Contact</a>
-    </nav>
+  <header class="topbar" data-topbar>
+    <div class="masthead wrap">
+      <a class="wordmark" href="/experiment/">Azadi Gathui</a>
+      <p class="masthead__role">Editorial design, product design <span class="amp">&amp;</span> data science</p>
+      <nav class="masthead__nav" aria-label="Primary">
+        <a href="/experiment/#work">Work</a>
+        <a href="/experiment/resume/" aria-current="page">Resume</a>
+        <a href="/lab/">Lab</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
   </header>
 
   <main id="main">
@@ -37,66 +40,67 @@
         <h1 class="cv-head__name" id="cv-name">Azadi Gathui</h1>
         <p class="cv-head__role">Designer, researcher &amp; data scientist</p>
       </div>
-
-      <div class="cv-head__statement">
-        <p class="lede">Since 2020 I’ve turned complex evidence into products and publications people can act on.</p>
-        <p>I trained in environmental conservation, and my work still sits where disciplines meet: climate reports for the UNFCCC High-Level Champions and for CIFF at COP27, a health-financing platform used by 1,800+ people, and machine-learning models built on satellite imagery and the IUCN Red List — including the judgement to say when a model shouldn’t be trusted.</p>
-      </div>
-
+      <p class="cv-head__statement lede">Seven years of turning gnarly problems into human-centred solutions — across climate publications, health and fintech products, and machine learning.</p>
       <div class="cv-head__contact">
-        <dl class="contact">
-          <div><dt>Email</dt><dd><a href="mailto:gathui@azadi.design">gathui@azadi.design</a></dd></div>
-          <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/azadigathui/">in/azadigathui</a></dd></div>
-          <div><dt>GitHub</dt><dd><a href="https://github.com/AzadiGathui">AzadiGathui</a></dd></div>
-          <div><dt>Portfolio</dt><dd><a href="https://azadi.design/">azadi.design</a></dd></div>
-        </dl>
-        <button type="button" class="btn btn--ghost" data-print>Print or save as PDF</button>
+        <ul class="contact-row">
+          <li><a href="mailto:gathui@azadi.design">gathui@azadi.design</a></li>
+          <li><a href="https://www.linkedin.com/in/azadigathui/">LinkedIn</a></li>
+          <li><a href="https://github.com/AzadiGathui">GitHub</a></li>
+        </ul>
+        <button type="button" class="btn btn--ghost" data-print>Save as PDF</button>
       </div>
     </section>
+
+    <!-- ============ Sticky section index ============ -->
+    <nav class="cv-index-nav" aria-label="Resume sections" data-spy>
+      <div class="wrap cv-index-nav__inner">
+        <a href="#experience">Experience</a>
+        <a href="#ml">Data &amp; ML</a>
+        <a href="#editorial">Editorial</a>
+        <a href="#skills">Skills</a>
+      </div>
+      <span class="cv-index-nav__progress" aria-hidden="true"></span>
+    </nav>
 
     <!-- ============ Figure 1: index timeline ============ -->
     <section class="wrap cv-index" aria-labelledby="fig-1-cap">
       <figure class="fig fig--timeline">
         <p class="fig__num">Figure 1</p>
-        <div class="tl-scroll" tabindex="0" role="region" aria-label="Timeline of roles and projects, scrollable">
+        <div class="tl-scroll" tabindex="0" role="region" aria-label="Timeline of roles and projects">
           <div class="tl tl--resume">
             <div class="tl__axis" aria-hidden="true">
-              <span style="--s:1">2021</span><span style="--s:13">2022</span><span style="--s:25">2023</span><span style="--s:37">2024</span><span style="--s:49">2025</span><span style="--s:61">2026</span>
+              <span style="--s:1">2020</span><span style="--s:13">2021</span><span style="--s:25">2022</span><span style="--s:37">2023</span><span style="--s:49">2024</span><span style="--s:61">2025</span><span style="--s:73">2026</span>
             </div>
-
             <div class="tl__lane">
               <h3 class="tl__name">Product</h3>
               <ol class="tl__track">
-                <li style="--s:23;--e:55;--r:1"><a class="tl__lbl" href="#leja">Leja</a><span class="vh">, November 2022 to June 2025</span></li>
-                <li class="tl--end" style="--s:52;--e:70;--r:2"><a class="tl__lbl" href="#jireh">Jireh Health</a><span class="vh">, April 2025 to September 2026</span></li>
+                <li style="--s:35;--e:67;--r:1"><a class="tl__lbl" href="#leja">Leja</a><span class="vh">, November 2022 to June 2025</span></li>
+                <li class="tl--end" style="--s:64;--e:82;--r:2"><a class="tl__lbl" href="#jireh">Jireh Health</a><span class="vh">, April 2025 to September 2026</span></li>
               </ol>
             </div>
-
             <div class="tl__lane">
               <h3 class="tl__name">Editorial</h3>
               <ol class="tl__track">
-                <li style="--s:10;--e:13;--r:1"><a class="tl__lbl" href="#editorial">SID Kenya</a><span class="vh">, October to December 2021</span></li>
-                <li style="--s:22;--e:23;--r:1"><a class="tl__lbl" href="#editorial">LCOY Kenya</a><span class="vh">, October 2022</span></li>
-                <li style="--s:36;--e:39;--r:1"><a class="tl__lbl" href="#editorial">CIFF / COP27</a><span class="vh">, December 2023 to February 2024</span></li>
-                <li style="--s:41;--e:42;--r:2"><a class="tl__lbl" href="#editorial">inABLE</a><span class="vh">, May 2024</span></li>
-                <li style="--s:45;--e:46;--r:1"><a class="tl__lbl" href="#editorial">UNFCCC Champions</a><span class="vh">, September 2024</span></li>
+                <li style="--s:2;--e:3;--r:1"><a class="tl__lbl" href="#editorial">3408 Belva</a><span class="vh">, February 2020</span></li>
+                <li style="--s:22;--e:25;--r:1"><a class="tl__lbl" href="#editorial">SID Kenya</a><span class="vh">, October to December 2021</span></li>
+                <li style="--s:34;--e:35;--r:1"><a class="tl__lbl" href="#editorial">AFRIYOCCC</a><span class="vh">, October 2022</span></li>
+                <li style="--s:34;--e:35;--r:2"><a class="tl__lbl" href="#editorial">LCOY Kenya</a><span class="vh">, October 2022</span></li>
+                <li style="--s:48;--e:51;--r:1"><a class="tl__lbl" href="#editorial">CIFF / COP27</a><span class="vh">, December 2023 to February 2024</span></li>
+                <li style="--s:53;--e:54;--r:2"><a class="tl__lbl" href="#editorial">inABLE</a><span class="vh">, May 2024</span></li>
+                <li style="--s:57;--e:58;--r:1"><a class="tl__lbl" href="#editorial">UNFCCC Champions</a><span class="vh">, September 2024</span></li>
               </ol>
             </div>
-
             <div class="tl__lane">
               <h3 class="tl__name">Data &amp; ML</h3>
               <ol class="tl__track">
-                <li style="--s:1;--e:13;--r:1"><a class="tl__lbl" href="#ml">Kenya Power pricing</a><span class="vh">, 2021</span></li>
-                <li class="tl--end" style="--s:57;--e:67;--r:1"><a class="tl__lbl" href="#ml">ML &amp; geospatial projects</a><span class="vh">, September 2025 to June 2026</span></li>
+                <li style="--s:13;--e:25;--r:1"><a class="tl__lbl" href="#ml">Kenya Power pricing</a><span class="vh">, 2021</span></li>
+                <li class="tl--end" style="--s:69;--e:79;--r:1"><a class="tl__lbl" href="#ml">ML &amp; geospatial</a><span class="vh">, September 2025 to June 2026</span></li>
               </ol>
             </div>
-
-            <div class="tl__today" style="--s:69" aria-hidden="true"><span>Today</span></div>
+            <div class="tl__today" style="--s:81" aria-hidden="true"><span>Today</span></div>
           </div>
         </div>
-        <figcaption class="fig__cap" id="fig-1-cap">
-          <strong>Roles and projects, 2021 to today.</strong> Select a label to jump to its entry.
-        </figcaption>
+        <figcaption class="fig__cap"><strong>Roles and projects since 2020.</strong> Select one to jump to it.</figcaption>
       </figure>
     </section>
 
@@ -104,7 +108,6 @@
     <section class="section wrap" id="experience" aria-labelledby="exp-title">
       <header class="section__head grid">
         <h2 class="section__title" id="exp-title">Experience</h2>
-        <p class="section__standfirst">Sole and lead design roles, from research and acceptance criteria through to engineering handoff.</p>
       </header>
 
       <article class="entry grid" id="jireh">
@@ -114,33 +117,41 @@
           <p class="entry__date">Apr 2025 – Sep 2026</p>
         </header>
         <div class="entry__body">
-          <p class="entry__scope">An accessible healthcare-financing web app serving 4 facilities and 1,800+ users. Sole designer, working from PM-defined acceptance criteria to engineering handoff.</p>
-          <ul class="bullets">
-            <li>Redesigned the onboarding and signup flow, cutting median completion time from 5.2 to 2.1 minutes — a 59% reduction.</li>
-            <li>Designed and shipped new engagement surfaces (Discovery/Explore and Profile Hub), each reaching 80+ monthly active users within four months of launch, while the platform grew from 396 to 770 monthly active users.</li>
-            <li>Led the frontend design-system modernisation: reusable primitives, semantic tokens and consistent UI patterns across the B2C mobile and B2B web experiences.</li>
-            <li>Built an in-house prototyping tool that mirrors the deployed frontend, decoupling UX research and testing from backend dependencies so both could run in parallel.</li>
-          </ul>
+          <p class="entry__scope">Sole designer on an accessible health-financing app for 4 facilities and 1,800+ users.</p>
+          <div class="entry__charts">
+            <figure class="spark">
+              <figcaption class="spark__title">Median onboarding time</figcaption>
+              <div class="dumbbell" style="--a: 5.2; --b: 2.1; --max: 6" aria-hidden="true">
+                <span class="dumbbell__line"></span>
+                <span class="dumbbell__pt dumbbell__pt--a"></span>
+                <span class="dumbbell__pt dumbbell__pt--b"></span>
+              </div>
+              <p class="spark__vals"><span class="spark__before">5.2 min before</span><span class="spark__after">2.1 min after</span></p>
+            </figure>
+            <figure class="spark">
+              <figcaption class="spark__title">Monthly active users, four months</figcaption>
+              <div class="bars" style="--max: 800" aria-hidden="true">
+                <span class="bars__bar" style="--v: 396"></span>
+                <span class="bars__bar bars__bar--after" style="--v: 770"></span>
+              </div>
+              <p class="spark__vals"><span class="spark__before">396 at start</span><span class="spark__after">770 after</span></p>
+            </figure>
+          </div>
+          <div class="display display--single" data-display>
+    <ul class="display__track" tabindex="0" aria-label="Jireh Health: 1 image">
+      <li class="display__slide"><img src="/assets/images/experiment/jireh-1-1400.webp" srcset="/assets/images/experiment/jireh-1-700.webp 700w, /assets/images/experiment/jireh-1-1400.webp 1400w" sizes="(max-width: 860px) 84vw, 44vw" width="1400" height="1400" alt="Hand holding a printed Jireh Health flyer beside a phone" loading="lazy" decoding="async"></li>
+    </ul>
+  </div>
+          <details class="more">
+            <summary>More about this role</summary>
+            <ul class="bullets">
+              <li>Redesigned onboarding and signup, cutting median completion time from 5.2 to 2.1 minutes (59%).</li>
+              <li>Shipped Discovery/Explore and Profile Hub, each reaching 80+ monthly active users within four months, as the platform grew from 396 to 770.</li>
+              <li>Led the design-system modernisation: reusable primitives, semantic tokens and shared patterns across B2C mobile and B2B web.</li>
+              <li>Built a prototyping tool that mirrors the live frontend, so research and testing no longer wait on the backend.</li>
+            </ul>
+          </details>
         </div>
-        <aside class="entry__margin" aria-label="Outcomes at Jireh Health">
-          <figure class="spark">
-            <figcaption class="spark__title">Median onboarding time</figcaption>
-            <div class="dumbbell" style="--a: 5.2; --b: 2.1; --max: 6" aria-hidden="true">
-              <span class="dumbbell__line"></span>
-              <span class="dumbbell__pt dumbbell__pt--a"></span>
-              <span class="dumbbell__pt dumbbell__pt--b"></span>
-            </div>
-            <p class="spark__vals"><span class="spark__before">5.2 min before</span><span class="spark__after">2.1 min after</span></p>
-          </figure>
-          <figure class="spark">
-            <figcaption class="spark__title">Monthly active users, over four months</figcaption>
-            <div class="bars" style="--max: 800" aria-hidden="true">
-              <span class="bars__bar" style="--v: 396"></span>
-              <span class="bars__bar bars__bar--after" style="--v: 770"></span>
-            </div>
-            <p class="spark__vals"><span class="spark__before">396 at start</span><span class="spark__after">770 after</span></p>
-          </figure>
-        </aside>
       </article>
 
       <article class="entry grid" id="leja">
@@ -150,192 +161,186 @@
           <p class="entry__date">Nov 2022 – Jun 2025</p>
         </header>
         <div class="entry__body">
-          <p class="entry__scope">A B2B fintech mobile app for Kenyan micro and small enterprises, designed for low-bandwidth, non-technical and non-English-dominant users.</p>
-          <ul class="bullets">
-            <li>Owned onboarding, referral and transaction flows end to end: research, design, developer handoff, and iteration based on usage.</li>
-            <li>Formally led a two-person design and research team on a dedicated initiative — assigning work and owning outcomes while staying hands-on in the craft.</li>
-            <li>Partnered with developers and product managers to ship to real users, then iterated from usability testing and product feedback.</li>
-            <li>Built interactive prototypes for partnership presentations and product demos in Figma and the Adobe suite.</li>
-            <li>Championed accessibility against WCAG 2.1 and wrote design documentation that eased developer handoff.</li>
-          </ul>
+          <p class="entry__scope">Onboarding, referral and transaction flows for a B2B fintech app used by Kenyan small businesses. Led a two-person design and research team.</p>
+          <div class="display" data-display>
+    <ul class="display__track" tabindex="0" aria-label="Leja app and brand: 8 images, scroll sideways">
+      <li class="display__slide"><img src="/assets/images/experiment/leja-1-1400.webp" srcset="/assets/images/experiment/leja-1-700.webp 700w, /assets/images/experiment/leja-1-1400.webp 1400w" sizes="(max-width: 860px) 84vw, 44vw" width="1000" height="1000" alt="Hand holding a phone showing the Leja app home screen" loading="lazy" decoding="async"></li>
+      <li class="display__slide"><img src="/assets/images/experiment/leja-2-1400.webp" srcset="/assets/images/experiment/leja-2-700.webp 700w, /assets/images/experiment/leja-2-1400.webp 1400w" sizes="(max-width: 860px) 84vw, 44vw" width="500" height="500" alt="Leja brand activation: two people holding a social-media photo frame" loading="lazy" decoding="async"></li>
+      <li class="display__slide"><img src="/assets/images/experiment/leja-3-1400.webp" srcset="/assets/images/experiment/leja-3-700.webp 700w, /assets/images/experiment/leja-3-1400.webp 1400w" sizes="(max-width: 860px) 84vw, 44vw" width="500" height="500" alt="Leja exhibition stand: the ultimate finance app for MSMEs in Africa" loading="lazy" decoding="async"></li>
+      <li class="display__slide"><img src="/assets/images/experiment/leja-4-1400.webp" srcset="/assets/images/experiment/leja-4-700.webp 700w, /assets/images/experiment/leja-4-1400.webp 1400w" sizes="(max-width: 860px) 84vw, 44vw" width="360" height="640" alt="Leja onboarding screen featuring a market trader" loading="lazy" decoding="async"></li>
+      <li class="display__slide"><img src="/assets/images/experiment/leja-5-1400.webp" srcset="/assets/images/experiment/leja-5-700.webp 700w, /assets/images/experiment/leja-5-1400.webp 1400w" sizes="(max-width: 860px) 84vw, 44vw" width="360" height="640" alt="Leja weekly summary screen with income and expenses" loading="lazy" decoding="async"></li>
+      <li class="display__slide"><img src="/assets/images/experiment/leja-6-1400.webp" srcset="/assets/images/experiment/leja-6-700.webp 700w, /assets/images/experiment/leja-6-1400.webp 1400w" sizes="(max-width: 860px) 84vw, 44vw" width="380" height="660" alt="Leja referrals screen with a share code" loading="lazy" decoding="async"></li>
+      <li class="display__slide"><img src="/assets/images/experiment/leja-7-1400.webp" srcset="/assets/images/experiment/leja-7-700.webp 700w, /assets/images/experiment/leja-7-1400.webp 1400w" sizes="(max-width: 860px) 84vw, 44vw" width="1400" height="1000" alt="Phone showing the Leja app, held outdoors" loading="lazy" decoding="async"></li>
+      <li class="display__slide"><img src="/assets/images/experiment/leja-8-1400.webp" srcset="/assets/images/experiment/leja-8-700.webp 700w, /assets/images/experiment/leja-8-1400.webp 1400w" sizes="(max-width: 860px) 84vw, 44vw" width="500" height="500" alt="Leja tote bag: transforming lives one business at a time" loading="lazy" decoding="async"></li>
+    </ul>
+    <div class="display__bar">
+      <div class="display__scrub" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <p class="display__count"><span data-cur>1</span> of 8</p>
+      <div class="display__ctrl">
+        <button type="button" data-prev aria-label="Previous image, Leja app and brand"><svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="M12.5 4 6.5 10l6 6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+        <button type="button" data-next aria-label="Next image, Leja app and brand"><svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="m7.5 4 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+      </div>
+    </div>
+  </div>
+          <details class="more">
+            <summary>More about this role</summary>
+            <ul class="bullets">
+              <li>Owned flows end to end: research, design, developer handoff, and iteration from usage.</li>
+              <li>Designed for low-bandwidth, non-technical and non-English-dominant users.</li>
+              <li>Formally led a two-person design and research team on a dedicated initiative, while staying hands-on.</li>
+              <li>Built interactive prototypes for partnership pitches and product demos.</li>
+              <li>Championed WCAG 2.1 accessibility and wrote handoff documentation.</li>
+            </ul>
+          </details>
         </div>
-        <aside class="entry__margin" aria-label="Scope at Leja">
-          <p class="margin-stat"><span class="num">2</span> person design &amp; research team led, while remaining hands-on</p>
-          <p class="margin-stat"><span class="num">32</span> months shipping to Kenyan small businesses</p>
-        </aside>
       </article>
     </section>
 
     <!-- ============ Data science & ML ============ -->
     <section class="section wrap" id="ml" aria-labelledby="ml-title">
       <header class="section__head grid">
-        <h2 class="section__title" id="ml-title">Data science &amp; machine learning</h2>
-        <p class="section__standfirst">From raw satellite imagery to decision-ready interfaces, with the limitations written down.</p>
+        <h2 class="section__title" id="ml-title">Data &amp; machine learning</h2>
       </header>
 
-      <article class="project grid">
-        <p class="project__metric"><span class="num">5.78M</span> parameter U-Net</p>
-        <div class="project__body">
-          <h3 class="project__title">Environmental Degradation Monitor</h3>
-          <p class="project__date">Sep 2025 – Jun 2026</p>
-          <p>Trained and evaluated a U-Net segmentation model for satellite land-cover classification, then built a Streamlit application around it: on-demand Sentinel-2 retrieval, tiled inference, mask-based change detection, and intersection with protected-area boundaries on an interactive map.</p>
-          <blockquote class="finding">
-            <p>When applied to real imagery from the target region, the model’s accuracy collapsed — it had learned a different geography. I diagnosed the domain shift and scoped the fix, rather than shipping a plausible-looking but unreliable result.</p>
-          </blockquote>
-        </div>
-        <ul class="project__tools" aria-label="Tools">
-          <li>TensorFlow / Keras</li><li>Sentinel-2</li><li>geopandas</li><li>Streamlit</li>
-        </ul>
-      </article>
-
-      <article class="project grid">
-        <p class="project__metric"><span class="num">85%</span> held-out accuracy, 10 classes</p>
-        <div class="project__body">
-          <h3 class="project__title">Geospatial deep learning: land-cover classification</h3>
-          <p>Built and tuned a CNN on the EuroSAT benchmark, then a geospatial pre-processing pipeline to extend the same approach to a real, unlabelled region.</p>
-        </div>
-        <ul class="project__tools" aria-label="Tools">
-          <li>CNN</li><li>rasterio</li><li>geopandas</li>
-        </ul>
-      </article>
-
-      <article class="project grid">
-        <p class="project__metric"><span class="num">87.5%</span> test accuracy; 90.1% cross-validated F1</p>
-        <div class="project__body">
-          <h3 class="project__title"><a href="/projects/iucn-dd-species/">IUCN Data-Deficient species classifier</a></h3>
-          <p>A random forest predicting Red List threat status for Kenya’s Data-Deficient species, trained on 35,000+ records — with a self-authored limitations section on where its predictions should and shouldn’t be trusted.</p>
-        </div>
-        <ul class="project__tools" aria-label="Tools">
-          <li>scikit-learn</li><li>pandas</li><li>SMOTE</li>
-        </ul>
-      </article>
-
-      <article class="project grid">
-        <p class="project__metric"><span class="num">3</span> public datasets combined</p>
-        <div class="project__body">
-          <h3 class="project__title"><a href="/projects/price-of-power/">Kenya Power pricing analysis</a></h3>
-          <p>An interactive dashboard on electricity pricing, affordability and the renewable transition, synthesising government tariff schedules, household income data and regional generation statistics.</p>
-        </div>
-        <ul class="project__tools" aria-label="Tools">
-          <li>Tableau</li>
-        </ul>
-      </article>
+      <div class="plates plates--ml">
+        <figure class="plate plate--wide">
+          <div class="plate__img ph"><div class="ph__box" style="--ar: 16 / 9"><span class="ph__note">Placeholder: Streamlit app, change-detection map over a protected area</span></div></div>
+          <figcaption>
+            <p class="plate__metric"><span class="num">5.78M</span> parameter U-Net</p>
+            <p class="plate__title">Environmental Degradation Monitor</p>
+            <p class="plate__meta">Sentinel-2 imagery to a decision-ready map, Sep 2025 – Jun 2026</p>
+            <blockquote class="finding"><p>On real imagery from the target region, accuracy collapsed. I diagnosed the domain shift and scoped the fix instead of shipping a plausible-looking result.</p></blockquote>
+          </figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="plate__img ph"><div class="ph__box" style="--ar: 4 / 3"><span class="ph__note">Placeholder: EuroSAT sample tiles with predicted classes</span></div></div>
+          <figcaption>
+            <p class="plate__metric"><span class="num">85%</span> held-out accuracy</p>
+            <p class="plate__title">Land-cover CNN, EuroSAT</p>
+            <p class="plate__meta">10 classes, extended to an unlabelled region</p>
+          </figcaption>
+        </figure>
+        <figure class="plate">
+          <a class="plate__img" href="/projects/iucn-dd-species/"><img src="/assets/images/experiment/iucn-1-1400.webp" srcset="/assets/images/experiment/iucn-1-700.webp 700w, /assets/images/experiment/iucn-1-1400.webp 1400w" sizes="(max-width: 560px) 84vw, (max-width: 1080px) 44vw, 30vw" width="1400" height="1010" alt="Chart of predicted threat status by taxonomic class for Kenya’s Data Deficient species" loading="lazy" decoding="async"></a>
+          <figcaption>
+            <p class="plate__metric"><span class="num">87.5%</span> test accuracy</p>
+            <p class="plate__title"><a href="/projects/iucn-dd-species/">IUCN Data-Deficient classifier</a></p>
+            <p class="plate__meta">90.1% cross-validated F1, with written limitations</p>
+          </figcaption>
+        </figure>
+        <figure class="plate">
+          <a class="plate__img" href="/projects/price-of-power/"><img src="/assets/images/experiment/power-2-1400.webp" srcset="/assets/images/experiment/power-2-700.webp 700w, /assets/images/experiment/power-2-1400.webp 1400w" sizes="(max-width: 560px) 84vw, (max-width: 1080px) 44vw, 30vw" width="572" height="280" alt="Dashboard excerpt breaking down a Kenya Power bill" loading="lazy" decoding="async"></a>
+          <figcaption>
+            <p class="plate__metric"><span class="num">3</span> public datasets</p>
+            <p class="plate__title"><a href="/projects/price-of-power/">Kenya Power pricing</a></p>
+            <p class="plate__meta">Tableau: tariffs, incomes and generation</p>
+          </figcaption>
+        </figure>
+      </div>
     </section>
 
     <!-- ============ Editorial ============ -->
     <section class="section wrap" id="editorial" aria-labelledby="ed-title">
       <header class="section__head grid">
-        <h2 class="section__title" id="ed-title">Editorial &amp; branding</h2>
-        <p class="section__standfirst">Freelance, 2020 to 2026. Publications for climate, development and accessibility organisations.</p>
+        <h2 class="section__title" id="ed-title">Editorial &amp; identity</h2>
+        <p class="section__standfirst">Freelance since 2020, mostly for climate and development organisations.</p>
       </header>
 
-      <table class="pubs">
-        <caption class="vh">Editorial and branding commissions, newest first</caption>
-        <thead>
-          <tr>
-            <th scope="col">Date</th>
-            <th scope="col">Client and publication</th>
-            <th scope="col" class="pubs__pages-h">Pages</th>
-            <th scope="col">What the job involved</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="pubs__date">Sep 2024</td>
-            <th scope="row"><span class="pubs__client">UNFCCC High-Level Champions</span>Position paper for the official champions of the Paris Agreement, presented at the Summit of the Future 2024</th>
-            <td class="pubs__pages"><span class="pubs__na">Paper</span></td>
-            <td>Adapted an existing InDesign template and style guide while content was still changing.</td>
-          </tr>
-          <tr>
-            <td class="pubs__date">May 2024</td>
-            <th scope="row"><span class="pubs__client">inABLE</span>Inclusive Africa Conference booklet</th>
-            <td class="pubs__pages"><span class="pagebar" style="--p: 36"></span><span class="pubs__n">36</span></td>
-            <td>Worked with in-house accessibility consultants on print accessibility requirements.</td>
-          </tr>
-          <tr>
-            <td class="pubs__date">Dec 2023 – Feb 2024</td>
-            <th scope="row"><span class="pubs__client">Children’s Investment Fund Foundation</span>Official event report, Children &amp; Youth Pavilion at COP27, Egypt</th>
-            <td class="pubs__pages"><span class="pagebar" style="--p: 47"></span><span class="pubs__n">47</span></td>
-            <td>Translated rapporteur notes into visuals that foreground outcomes and recommendations.</td>
-          </tr>
-          <tr>
-            <td class="pubs__date">Oct 2022</td>
-            <th scope="row"><span class="pubs__client">LCOY Kenya</span>Rebrand and event graphics for YOUNGO’s Local Conference of Youth on Climate Change</th>
-            <td class="pubs__pages"><span class="pubs__na">Identity</span></td>
-            <td>Brand system and event collateral for a youth climate conference.</td>
-          </tr>
-          <tr>
-            <td class="pubs__date">Oct – Dec 2021</td>
-            <th scope="row"><span class="pubs__client">Society for International Development</span>Kenya Energy Atlas, a joint SID–government research publication</th>
-            <td class="pubs__pages"><span class="pagebar" style="--p: 300"></span><span class="pubs__n">300</span></td>
-            <td>Integrated maps, charts and long-form academic text across chapters; adapted for web and high-quality print.</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="plates">
+        <figure class="plate">
+          <div class="plate__img"><img src="/assets/images/experiment/unfccc-1-1400.webp" srcset="/assets/images/experiment/unfccc-1-700.webp 700w, /assets/images/experiment/unfccc-1-1400.webp 1400w" sizes="(max-width: 560px) 84vw, (max-width: 1080px) 44vw, 30vw" width="1400" height="788" alt="Position paper cover: non-state actors leading a just transition towards responsible critical-mineral production in Africa" loading="lazy" decoding="async"></div>
+          <figcaption><p class="plate__title">UNFCCC High-Level Champions</p><p class="plate__meta">Position paper, Summit of the Future, Sep 2024</p></figcaption>
+        </figure>
+        <figure class="plate">
+          <a class="plate__img" href="/projects/inclusive-africa-conference/"><img src="/assets/images/experiment/iac-2-1400.webp" srcset="/assets/images/experiment/iac-2-700.webp 700w, /assets/images/experiment/iac-2-1400.webp 1400w" sizes="(max-width: 560px) 84vw, (max-width: 1080px) 44vw, 30vw" width="595" height="842" alt="Booklet cover: Breaking barriers, advancing digital accessibility for a disability-inclusive future in Africa" loading="lazy" decoding="async"></a>
+          <figcaption><p class="plate__title"><a href="/projects/inclusive-africa-conference/">inABLE</a></p><p class="plate__meta">36-page accessible conference booklet, May 2024</p></figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="plate__img"><img src="/assets/images/experiment/ciff-1-1400.webp" srcset="/assets/images/experiment/ciff-1-700.webp 700w, /assets/images/experiment/ciff-1-1400.webp 1400w" sizes="(max-width: 560px) 84vw, (max-width: 1080px) 44vw, 30vw" width="1400" height="1084" alt="Report spread, Impact of the Pavilion, set as large statistics" loading="lazy" decoding="async"></div>
+          <figcaption><p class="plate__title">Children’s Investment Fund Foundation</p><p class="plate__meta">47-page COP27 Children &amp; Youth Pavilion report, 2023–24</p></figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="plate__img"><img src="/assets/images/experiment/lcoy-1-1400.webp" srcset="/assets/images/experiment/lcoy-1-700.webp 700w, /assets/images/experiment/lcoy-1-1400.webp 1400w" sizes="(max-width: 560px) 84vw, (max-width: 1080px) 44vw, 30vw" width="1400" height="1400" alt="Local Conference of Youth Kenya poster, 11 to 13 October 2022" loading="lazy" decoding="async"></div>
+          <figcaption><p class="plate__title">LCOY Kenya</p><p class="plate__meta">Rebrand and event graphics, Oct 2022</p></figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="plate__img"><img src="/assets/images/experiment/afriyoccc-1-1400.webp" srcset="/assets/images/experiment/afriyoccc-1-700.webp 700w, /assets/images/experiment/afriyoccc-1-1400.webp 1400w" sizes="(max-width: 560px) 84vw, (max-width: 1080px) 44vw, 30vw" width="1400" height="1046" alt="Resource pack spread organised as Learn, Play and Act" loading="lazy" decoding="async"></div>
+          <figcaption><p class="plate__title">AFRIYOCCC</p><p class="plate__meta">Resource pack and programme, Oct 2022</p></figcaption>
+        </figure>
+        <figure class="plate">
+          <a class="plate__img" href="/projects/kenya-energy-atlas/"><img src="/assets/images/experiment/sid-1-1400.webp" srcset="/assets/images/experiment/sid-1-700.webp 700w, /assets/images/experiment/sid-1-1400.webp 1400w" sizes="(max-width: 560px) 84vw, (max-width: 1080px) 44vw, 30vw" width="1400" height="793" alt="Kenya Energy Atlas spread on energy sources and uses in Kenya" loading="lazy" decoding="async"></a>
+          <figcaption><p class="plate__title"><a href="/projects/kenya-energy-atlas/">Society for International Development</a></p><p class="plate__meta">300-page Kenya Energy Atlas, 2021</p></figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="plate__img"><img src="/assets/images/experiment/belva-1-1400.webp" srcset="/assets/images/experiment/belva-1-700.webp 700w, /assets/images/experiment/belva-1-1400.webp 1400w" sizes="(max-width: 560px) 84vw, (max-width: 1080px) 44vw, 30vw" width="1400" height="717" alt="3408 Belva apartment catalogue with a green geometric cover" loading="lazy" decoding="async"></div>
+          <figcaption><p class="plate__title">3408 Belva</p><p class="plate__meta">Apartment catalogue, Feb 2020</p></figcaption>
+        </figure>
+      </div>
     </section>
 
-    <!-- ============ Skills ============ -->
-    <section class="section wrap" aria-labelledby="skills-title">
-      <header class="section__head grid">
-        <h2 class="section__title" id="skills-title">Skills</h2>
+    <!-- ============ Skills matrix ============ -->
+    <section class="section wrap" id="skills" aria-labelledby="skills-title">
+      <div class="skills-layout grid">
+      <header class="skills-layout__head">
+        <h2 class="section__title" id="skills-title">Skills, by where I used them</h2>
+        <p class="fig__cap matrix__note">Also: SQL, Amplitude analytics, tree testing, card sorting, OOUX, journey mapping, Git, and Claude Code for prototyping and QA.</p>
       </header>
-      <div class="skills grid">
-        <div class="skill">
-          <h3>Product design</h3>
-          <ul>
-            <li>Figma: component architecture, design systems, prototyping</li>
-            <li>Dense, data-heavy interfaces</li>
-            <li>Permissions &amp; access-control UX</li>
-            <li>Information architecture</li>
-            <li>Accessibility (WCAG 2.1)</li>
-          </ul>
-        </div>
-        <div class="skill">
-          <h3>Research</h3>
-          <ul>
-            <li>Usability, tree and first-click testing</li>
-            <li>Card sorting &amp; navigation audits</li>
-            <li>Focus groups</li>
-            <li>OOUX mapping, personas, journey maps</li>
-            <li>Source verification</li>
-            <li>Amplitude analytics</li>
-          </ul>
-        </div>
-        <div class="skill">
-          <h3>ML &amp; data science</h3>
-          <ul>
-            <li>Python, SQL, pandas</li>
-            <li>scikit-learn, TensorFlow / Keras</li>
-            <li>CNNs &amp; semantic segmentation</li>
-            <li>Remote sensing: rasterio, geopandas</li>
-            <li>Streamlit, Tableau</li>
-          </ul>
-        </div>
-        <div class="skill">
-          <h3>Working practice</h3>
-          <ul>
-            <li>Claude Code and AI-assisted development for prototyping, data pipelines and QA of my own work</li>
-            <li>Git &amp; GitHub</li>
-            <li>Self-directed learning across design, ML and geospatial</li>
-          </ul>
-        </div>
+
+      <div class="matrix-scroll">
+        <table class="matrix">
+          <caption class="vh">Skills and the projects that used them</caption>
+          <colgroup><col><col class="grp"><col><col class="grp"><col><col><col><col class="grp"><col><col><col><col></colgroup>
+          <thead>
+            <tr class="matrix__groups" aria-hidden="true">
+              <td></td><th colspan="2">Product</th><th colspan="4">Data &amp; ML</th><th colspan="5">Editorial</th>
+            </tr>
+            <tr>
+              <td></td>
+              <th scope="col"><span>Jireh Health</span></th>
+              <th scope="col"><span>Leja</span></th>
+              <th scope="col"><span>Degradation Monitor</span></th>
+              <th scope="col"><span>EuroSAT CNN</span></th>
+              <th scope="col"><span>IUCN classifier</span></th>
+              <th scope="col"><span>Kenya Power</span></th>
+              <th scope="col"><span>Energy Atlas</span></th>
+              <th scope="col"><span>CIFF COP27</span></th>
+              <th scope="col"><span>inABLE</span></th>
+              <th scope="col"><span>UNFCCC</span></th>
+              <th scope="col"><span>LCOY Kenya</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 1 = used; order: Jireh, Leja, EDM, EuroSAT, IUCN, Power, Atlas, CIFF, inABLE, UNFCCC, LCOY -->
+            <tr><th scope="row">Product &amp; interaction design</th><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th scope="row">User research &amp; usability testing</th><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th scope="row">Design systems</th><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th scope="row">Prototyping</th><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th scope="row">Accessibility (WCAG 2.1)</th><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td></td><td></td></tr>
+            <tr><th scope="row">Editorial layout (InDesign)</th><td></td><td></td><td></td><td></td><td></td><td></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td></td></tr>
+            <tr><th scope="row">Information design &amp; charts</th><td></td><td></td><td></td><td></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td></td><td></td><td></td></tr>
+            <tr><th scope="row">Brand identity</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td></tr>
+            <tr><th scope="row">Python &amp; pandas</th><td></td><td></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th scope="row">scikit-learn</th><td></td><td></td><td></td><td></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th scope="row">TensorFlow / Keras</th><td></td><td></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th scope="row">Geospatial: rasterio, geopandas</th><td></td><td></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th scope="row">Streamlit</th><td></td><td></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th scope="row">Tableau</th><td></td><td></td><td></td><td></td><td></td><td><span class="mdot" aria-hidden="true"></span><span class="vh">Used</span></td><td></td><td></td><td></td><td></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
       </div>
     </section>
 
     <!-- ============ Education & volunteering ============ -->
-    <section class="section wrap" aria-labelledby="edu-title">
+    <section class="section wrap" aria-label="Education and volunteering">
       <div class="edu grid">
         <div class="edu__col">
-          <h2 class="section__title" id="edu-title">Education</h2>
-          <p class="edu__item"><strong>BSc Environmental Conservation and Natural Resources Management</strong>University of Nairobi</p>
+          <h2 class="edu__h">Education</h2>
+          <p><strong>BSc Environmental Conservation &amp; Natural Resources Management</strong>, University of Nairobi</p>
         </div>
         <div class="edu__col">
-          <h2 class="section__title">Volunteering</h2>
-          <ul class="edu__list">
-            <li>Greenpeace Kenya</li>
-            <li>African Youth Initiative on Climate Change (AYICC)</li>
-            <li>YOUNGO</li>
-          </ul>
+          <h2 class="edu__h">Volunteering</h2>
+          <p>Greenpeace Kenya, African Youth Initiative on Climate Change, YOUNGO</p>
         </div>
       </div>
     </section>
@@ -343,7 +348,7 @@
   </main>
 
   <footer class="footer wrap" id="contact">
-    <p class="footer__ask">Working on climate, health or public data?</p>
+    <p class="footer__voice">Let’s create meaningful, systemic impact together.</p>
     <a class="footer__mail" href="mailto:gathui@azadi.design">gathui@azadi.design</a>
     <div class="footer__base grid">
       <ul class="footer__social">
@@ -351,13 +356,14 @@
         <li><a href="https://behance.net/azadi_gathui">Behance</a></li>
         <li><a href="https://github.com/AzadiGathui">GitHub</a></li>
       </ul>
-      <p class="colophon">Set in Barlow, Barlow Semi Condensed and Barlow Condensed by Jeremy Tribby. This page prints as an A4 resume.</p>
+      <p class="colophon">This page prints as an A4 resume.</p>
       <p class="footer__copy">© 2026 Azadi Gathui</p>
     </div>
   </footer>
 
-  <script>
-    document.querySelector('[data-print]').addEventListener('click', function () { window.print(); });
-  </script>
+  <div class="actionbar" aria-label="Quick actions">
+    <button type="button" class="actionbar__btn" data-print>Save as PDF</button>
+    <a class="actionbar__btn actionbar__btn--primary" href="mailto:gathui@azadi.design">Email Azadi</a>
+  </div>
 </body>
 </html>
