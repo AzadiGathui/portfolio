@@ -67,7 +67,8 @@ permalink: /resume/
       {% endif %}
 
       {% if job.images and job.images.length %}
-      <div class="pj-reel">
+      {# tabindex + label: lets keyboard users focus the reel and scroll it with arrow keys (WCAG 2.1.1) #}
+      <div class="pj-reel" tabindex="0" role="region" aria-label="{{ job.client }} work samples, scrolls sideways">
         {% for img in job.images %}
         <img src="/assets/images/resume/{{ job.slug }}/{{ img }}" alt="{{ job.client }} work sample {{ loop.index }}" loading="lazy">
         {% endfor %}

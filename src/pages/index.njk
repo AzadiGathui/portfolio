@@ -10,11 +10,15 @@ permalink: /
       <h1>Azadi Gathui</h1>
       <p>Product Design & Analyst Portfolio 2026</p>
     </div>
-    <div class="hero-videos">
-      <video src="/assets/images/home/home hero loop 1.mp4" autoplay loop muted playsinline></video>
-      <video src="/assets/images/home/home hero loop 3.mp4" autoplay loop muted playsinline></video>
-      <video src="/assets/images/home/home hero loop 2.mp4" autoplay loop muted playsinline></video>
+    {# Decorative loops. No `autoplay` attribute: the script below starts them
+       only when the visitor has not asked for reduced motion, and offers a
+       pause control. Without JS, the poster frames show instead. #}
+    <div class="hero-videos" aria-hidden="true">
+      <video src="/assets/images/home/home hero loop 1.mp4" poster="/assets/images/home/home-hero-loop-1-poster.webp" loop muted playsinline preload="metadata"></video>
+      <video src="/assets/images/home/home hero loop 3.mp4" poster="/assets/images/home/home-hero-loop-3-poster.webp" loop muted playsinline preload="metadata"></video>
+      <video src="/assets/images/home/home hero loop 2.mp4" poster="/assets/images/home/home-hero-loop-2-poster.webp" loop muted playsinline preload="metadata"></video>
     </div>
+    <button type="button" class="hero-motion-toggle" hidden>Pause animation</button>
     <img src="/assets/images/home/scroll.svg" alt="scroll for previous work">
   </div>
 
@@ -28,7 +32,7 @@ permalink: /
       {% for project in collections.projects %}
       <a href="{{ project.url }}" class="project-card">
         {% if project.data.thumbnail %}
-          <img src="{{ project.data.thumbnail }}" alt="{{ project.data.title }} thumbnail">
+          <img src="{{ project.data.thumbnail }}" alt="">
         {% endif %}
         <div class="project-card__body">
           {% if project.data.industry %}
@@ -42,3 +46,34 @@ permalink: /
     </div>
   </div>
 </main>
+
+<script>
+/* Hero loop control — progressive enhancement.
+   - Respects prefers-reduced-motion (no playback until the visitor opts in).
+   - Provides a visible pause/play button (WCAG 2.2.2 Pause, Stop, Hide). */
+(function () {
+  var videos = document.querySelectorAll('.hero-videos video');
+  var toggle = document.querySelector('.hero-motion-toggle');
+  if (!videos.length || !toggle) return;
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var playing = false;
+
+  function setPlaying(shouldPlay) {
+    playing = shouldPlay;
+    videos.forEach(function (v) {
+      if (shouldPlay) {
+        var p = v.play();
+        if (p && p.catch) p.catch(function () {}); // ignore autoplay-policy rejections
+      } else {
+        v.pause();
+      }
+    });
+    toggle.textContent = shouldPlay ? 'Pause animation' : 'Play animation';
+  }
+
+  toggle.hidden = false;
+  toggle.addEventListener('click', function () { setPlaying(!playing); });
+  setPlaying(!reduceMotion);
+})();
+</script>
