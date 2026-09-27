@@ -23,44 +23,7 @@
   ],
   "sections": [
     {
-      "title": "Data Science & Machine Learning Projects",
-      "period": "Sep 2025 – Jun 2026",
-      "entries": [
-        {
-          "client": "Environmental Degradation Monitor",
-          "description": [
-            "Trained and evaluated a U-Net segmentation model (5.78M parameters) for satellite land-cover classification, and built a complete Streamlit application around it: on-demand Sentinel-2 imagery retrieval, tiled inference, mask-based change detection, and geopandas-based intersection with protected-area boundaries on an interactive map; the full loop from raw imagery to a decision-ready interface.",
-            "Ran a rigorous domain-shift evaluation and found the model's accuracy collapsed when applied to real target-region imagery after training on a different geography; diagnosed the cause and scoped the fix, rather than shipping a plausible-looking but unreliable result."
-          ],
-          "skills": ["Python", "TensorFlow/Keras", "Semantic Segmentation", "Streamlit", "geopandas"]
-        },
-        {
-          "client": "Geospatial Deep Learning — Land-Cover Classification",
-          "description": [
-            "Built and hyperparameter-tuned a CNN for satellite land-cover classification (EuroSAT benchmark, 10 classes), reaching 85% held-out accuracy; then built a geospatial pre-processing pipeline (rasterio, geopandas) to extend the same approach to a real, unlabelled region."
-          ],
-          "skills": ["Python", "CNN", "rasterio", "geopandas"]
-        },
-        {
-          "client": "IUCN Data-Deficient Species Classifier",
-          "portfolio_url": "/projects/iucn-dd-species/",
-          "description": [
-            "Trained a Random Forest classifier predicting IUCN Red List threat status for Kenya's Data-Deficient species (35,000+ records, 87.5% test accuracy, 90.1% cross-validated F1), including an explicit, self-authored limitations section on where the model's predictions should and shouldn't be trusted."
-          ],
-          "skills": ["Python", "scikit-learn", "pandas", "Machine Learning", "Data Visualisation"]
-        },
-        {
-          "client": "Kenya Power Pricing Analysis",
-          "portfolio_url": "/projects/price-of-power/",
-          "description": [
-            "Built an interactive Tableau dashboard exploring electricity pricing, affordability, and the renewable-energy transition, synthesising government tariff schedules, household income data, and regional generation statistics."
-          ],
-          "skills": ["Tableau", "Data Journalism", "Research", "Data Wrangling"]
-        }
-      ]
-    },
-    {
-      "title": "Professional Experience",
+      "title": "Product Design",
       "entries": [
         {
           "client": "Jireh Health",
@@ -74,12 +37,18 @@
             "Led Jireh Health’s frontend design-system modernization by introducing reusable primitives, semantic tokens, and consistent UI patterns to improve scalability and maintainability across B2C (mobile) and B2B (web) experiences.",
             "Developed an in-house prototyping tool that mirrors the deployed frontend, effectively decoupling UX research and testing from backend dependencies and improving parallel workflows."
           ],
-          "skills": ["UX Research", "Figma", "Design Systems", "Accessibility", "Prototyping"]
+          "skills": [
+            "UX Research",
+            "Figma",
+            "Design Systems",
+            "Accessibility",
+            "Prototyping"
+          ]
         },
         {
           "client": "Leja",
           "role": "Product Designer",
-          "period": "Nov 2022 – Jun 2025",
+          "period": "Feb 2022 – Jun 2025",
           "summary": "B2B fintech mobile app serving Kenyan micro and small enterprises (MSMEs).",
           "portfolio_url": "/projects/leja-business-app/",
           "slug": "leja",
@@ -91,8 +60,38 @@
             "Designed interactive prototypes for partnership presentations and product demos using Figma and the Adobe suite.",
             "Championed accessibility and usability against W3C/WCAG 2.1 guidelines; produced clear design documentation to ease developer handoff."
           ],
-          "skills": ["Figma", "Mobile UX", "User Research", "Accessibility"],
-          "images": ["LDA1.png", "LDA2.png", "LDA3.png", "LDA4.png"]
+          "skills": [
+            "Figma",
+            "Mobile UX",
+            "User Research",
+            "Accessibility"
+          ],
+          "images": [
+            {
+              "src": "/assets/images/resume/leja/LDA4.png",
+              "alt": "Two Leja users posing with a pink social-media photo frame reading ‘Furaha ya biashara, furaha yetu’"
+            },
+            {
+              "src": "/assets/images/resume/leja/LDA1.png",
+              "alt": "Leja tote bag printed with ‘Transforming lives one business at a time’"
+            },
+            {
+              "src": "/assets/images/resume/leja/LDA3.png",
+              "alt": "Leja exhibition stand with a pull-up banner: ‘The ultimate finance app for MSMEs in Africa’"
+            },
+            {
+              "src": "/assets/images/resume/leja/LDA2.png",
+              "alt": "Branded Leja water bottle and merchandise"
+            },
+            {
+              "src": "/assets/images/resume/leja/event-stand.jpg",
+              "alt": "A visitor at a Leja event backdrop, photographed in low light"
+            },
+            {
+              "src": "/assets/images/resume/leja/ad-hustle-mode.png",
+              "alt": "Leja M-Pesa promotion ad: ‘Hustle mode activated! Sell M-Pesa float above KES 8,000 and earn KES 20 airtime’"
+            }
+          ]
         },
         {
           "client": "CarNayo",
@@ -105,10 +104,21 @@
             "Built a design system optimised for low-bandwidth conditions and entry-level Android devices.",
             "Unified two distinct user mental models — driver and passenger — within a single navigation structure."
           ],
-          "skills": ["Figma", "Mobile UI", "Design Systems", "User Flow Mapping"],
+          "skills": [
+            "Figma",
+            "Mobile UI",
+            "Design Systems",
+            "User Flow Mapping"
+          ],
           "images": [
-            "carnayo01.png", "carnayo02.png", "carnayo03.png", "carnayo04.png",
-            "carnayo05.png", "carnayo06.png", "carnayo07.png", "carnayo08.png",
+            "carnayo01.png",
+            "carnayo02.png",
+            "carnayo03.png",
+            "carnayo04.png",
+            "carnayo05.png",
+            "carnayo06.png",
+            "carnayo07.png",
+            "carnayo08.png",
             "carnayo09.png"
           ]
         },
@@ -122,17 +132,89 @@
             "Prototyped an AI-powered e-learning platform under timed, competitive conditions for a global UX hiring assessment.",
             "Applied end-to-end UX methodology — research synthesis, IA, wireframing, and high-fidelity prototyping — within a constrained timeline."
           ],
-          "skills": ["Figma", "Prototyping", "Information Architecture", "Wireframing"],
+          "skills": [
+            "Figma",
+            "Prototyping",
+            "Information Architecture",
+            "Wireframing"
+          ],
           "images": [
-            "crossover01.png", "crossover02.png", "crossover03.png", "crossover04.png",
-            "crossover05.png", "crossover06.png", "crossover07.png", "crossover08.png",
-            "crossover09.png", "crossover10.png", "crossover11.png"
+            "crossover01.png",
+            "crossover02.png",
+            "crossover03.png",
+            "crossover04.png",
+            "crossover05.png",
+            "crossover06.png",
+            "crossover07.png",
+            "crossover08.png",
+            "crossover09.png",
+            "crossover10.png",
+            "crossover11.png"
           ]
         }
       ]
     },
     {
-      "title": "Freelance Editorial & Branding Design",
+      "title": "Data & Analysis",
+      "period": "Sep 2025 – Jun 2026",
+      "entries": [
+        {
+          "client": "Environmental Degradation Monitor",
+          "description": [
+            "Trained and evaluated a U-Net segmentation model (5.78M parameters) for satellite land-cover classification, and built a complete Streamlit application around it: on-demand Sentinel-2 imagery retrieval, tiled inference, mask-based change detection, and geopandas-based intersection with protected-area boundaries on an interactive map; the full loop from raw imagery to a decision-ready interface.",
+            "Ran a rigorous domain-shift evaluation and found the model's accuracy collapsed when applied to real target-region imagery after training on a different geography; diagnosed the cause and scoped the fix, rather than shipping a plausible-looking but unreliable result."
+          ],
+          "skills": [
+            "Python",
+            "TensorFlow/Keras",
+            "Semantic Segmentation",
+            "Streamlit",
+            "geopandas"
+          ]
+        },
+        {
+          "client": "Geospatial Deep Learning — Land-Cover Classification",
+          "description": [
+            "Built and hyperparameter-tuned a CNN for satellite land-cover classification (EuroSAT benchmark, 10 classes), reaching 85% held-out accuracy; then built a geospatial pre-processing pipeline (rasterio, geopandas) to extend the same approach to a real, unlabelled region."
+          ],
+          "skills": [
+            "Python",
+            "CNN",
+            "rasterio",
+            "geopandas"
+          ]
+        },
+        {
+          "client": "IUCN Data-Deficient Species Classifier",
+          "portfolio_url": "/projects/iucn-dd-species/",
+          "description": [
+            "Trained a Random Forest classifier predicting IUCN Red List threat status for Kenya's Data-Deficient species (35,000+ records, 87.5% test accuracy, 90.1% cross-validated F1), including an explicit, self-authored limitations section on where the model's predictions should and shouldn't be trusted."
+          ],
+          "skills": [
+            "Python",
+            "scikit-learn",
+            "pandas",
+            "Machine Learning",
+            "Data Visualisation"
+          ]
+        },
+        {
+          "client": "Kenya Power Pricing Analysis",
+          "portfolio_url": "/projects/price-of-power/",
+          "description": [
+            "Built an interactive Tableau dashboard exploring electricity pricing, affordability, and the renewable-energy transition, synthesising government tariff schedules, household income data, and regional generation statistics."
+          ],
+          "skills": [
+            "Tableau",
+            "Data Journalism",
+            "Research",
+            "Data Wrangling"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Editorial Design",
       "period": "2020 – 2026",
       "entries": [
         {
@@ -143,7 +225,44 @@
             "Laid out a position paper for the official champions of the Paris Agreement, presented at the Summit of the Future 2024.",
             "Adapted an existing Adobe InDesign template/styleguide under live content changes."
           ],
-          "skills": ["Adobe InDesign", "Editorial Design"]
+          "skills": [
+            "Adobe InDesign",
+            "Editorial Design"
+          ],
+          "role": "Freelance Editorial Designer",
+          "portfolio_url": "/projects/african-energy-transition-minerals/",
+          "images": [
+            {
+              "src": "/assets/images/projects/aetm/spread-01-cover.jpg",
+              "alt": "Position paper cover: a hand holding a turquoise mineral",
+              "fit": "contain"
+            },
+            {
+              "src": "/assets/images/projects/aetm/spread-10-case-cwenga.jpg",
+              "alt": "Cwenga Technologies case study spread",
+              "fit": "contain"
+            },
+            {
+              "src": "/assets/images/projects/aetm/spread-03-executive-summary.jpg",
+              "alt": "Executive summary spread with an acacia tree photo",
+              "fit": "contain"
+            },
+            {
+              "src": "/assets/images/projects/aetm/spread-06-looking-forward.jpg",
+              "alt": "Looking forward: five numbered priorities",
+              "fit": "contain"
+            },
+            {
+              "src": "/assets/images/projects/aetm/spread-07-case-irma.jpg",
+              "alt": "IRMA case study spread",
+              "fit": "contain"
+            },
+            {
+              "src": "/assets/images/projects/aetm/spread-14-back-cover.jpg",
+              "alt": "Back cover: turquoise mineral rocks with partner logos",
+              "fit": "contain"
+            }
+          ]
         },
         {
           "client": "inABLE",
@@ -154,7 +273,44 @@
             "Designed the 36-page Inclusive Africa Conference booklet.",
             "Worked with in-house accessibility consultants on print accessibility requirements."
           ],
-          "skills": ["Adobe InDesign", "Accessibility", "Editorial Design"]
+          "skills": [
+            "Adobe InDesign",
+            "Accessibility",
+            "Editorial Design"
+          ],
+          "role": "Freelance Editorial Designer",
+          "images": [
+            {
+              "src": "/assets/images/projects/iac/booklet-01.jpg",
+              "alt": "Inclusive Africa Conference booklet cover",
+              "fit": "contain"
+            },
+            {
+              "src": "/assets/images/projects/iac/booklet-04-05.jpg",
+              "alt": "Welcome remarks spread",
+              "fit": "contain"
+            },
+            {
+              "src": "/assets/images/projects/iac/booklet-14-15.jpg",
+              "alt": "Keynote speakers spread",
+              "fit": "contain"
+            },
+            {
+              "src": "/assets/images/projects/iac/booklet-22-23.jpg",
+              "alt": "AT Innovation Village spread",
+              "fit": "contain"
+            },
+            {
+              "src": "/assets/images/projects/iac/booklet-26-27.jpg",
+              "alt": "inABLE 2023 Impact Report spread",
+              "fit": "contain"
+            },
+            {
+              "src": "/assets/images/projects/iac/booklet-32-33.jpg",
+              "alt": "Accessibility sponsors and partners spread",
+              "fit": "contain"
+            }
+          ]
         },
         {
           "client": "Children's Investment Fund Foundation (CIFF) / COP27",
@@ -164,7 +320,110 @@
             "Designed the official 47-page event report for the Children & Youth Pavilion at COP27, Egypt.",
             "Translated rapporteur notes into visuals highlighting outcomes/recommendations."
           ],
-          "skills": ["Adobe InDesign", "Report Layout", "Editorial Design"]
+          "skills": [
+            "Adobe InDesign",
+            "Report Layout",
+            "Editorial Design"
+          ],
+          "role": "Freelance Editorial Designer",
+          "portfolio_url": "/projects/children-youth-pavilion/",
+          "images": [
+            {
+              "src": "/assets/images/projects/cyp/mockup.png",
+              "alt": "Report mockup open on the Impact of the Pavilion statistics",
+              "fit": "contain"
+            },
+            {
+              "src": "/assets/images/projects/cyp/spread-05-executive-summary.jpg",
+              "alt": "Executive summary spread",
+              "fit": "contain"
+            },
+            {
+              "src": "/assets/images/projects/cyp/spread-08-outcomes.jpg",
+              "alt": "Outcomes of the pavilion spread",
+              "fit": "contain"
+            },
+            {
+              "src": "/assets/images/projects/cyp/spread-14-conclusion-appendices.jpg",
+              "alt": "Conclusion and next steps spread",
+              "fit": "contain"
+            },
+            {
+              "src": "/assets/images/resume/ciff/spread-action-for-climate-empowerment.jpg",
+              "alt": "Action for Climate Empowerment spread with event photos",
+              "fit": "contain"
+            },
+            {
+              "src": "/assets/images/resume/ciff/spread-acknowledgements.jpg",
+              "alt": "Acknowledgements spread with partner logos",
+              "fit": "contain"
+            }
+          ]
+        },
+        {
+          "client": "Local Conference of Youth (LCOY Kenya)",
+          "period": "Oct 2022",
+          "deliverables": "Rebranding · Event graphics",
+          "description": [
+            "Rebranded and produced event graphics for YOUNGO's Local Conference of Youth on Climate Change."
+          ],
+          "skills": [
+            "Adobe Illustrator",
+            "Branding",
+            "Event Design"
+          ],
+          "role": "Volunteer",
+          "images": [
+            {
+              "src": "/assets/images/resume/lcoy/poster-participants-white.jpg",
+              "alt": "LCOY Kenya 2022 participant call poster in green on white, with a QR code"
+            },
+            {
+              "src": "/assets/images/resume/lcoy/poster-register-to-exhibit.jpg",
+              "alt": "LCOY Kenya ‘Register to Exhibit!’ poster on dark green"
+            },
+            {
+              "src": "/assets/images/resume/lcoy/poster-participants-green.jpg",
+              "alt": "LCOY Kenya participant poster on mid green, with wind turbine illustrations"
+            },
+            {
+              "src": "/assets/images/resume/lcoy/poster-participants-pale-green.jpg",
+              "alt": "LCOY Kenya participant poster on pale green, with farm illustrations"
+            },
+            {
+              "src": "/assets/images/resume/lcoy/poster-participants-mint.jpg",
+              "alt": "LCOY Kenya participant poster on mint, with transport illustrations"
+            },
+            {
+              "src": "/assets/images/resume/lcoy/logo.png",
+              "alt": "LCOY Kenya logo"
+            }
+          ]
+        },
+        {
+          "client": "African Youth Conference on Climate Change (AFRIYOCCC)",
+          "period": "Oct 2022",
+          "deliverables": "Resource pack · Conference programme",
+          "description": [
+            "Designed the attendee resource pack and conference programme for the African Youth Conference on Climate Change."
+          ],
+          "skills": [
+            "Adobe InDesign",
+            "Editorial Design"
+          ],
+          "role": "Volunteer",
+          "images": [
+            {
+              "src": "/assets/images/resume/afriyoccc/mockup-learn-play-act.png",
+              "alt": "Conference programme mockup: the Learn, Play and Act spread",
+              "fit": "contain"
+            },
+            {
+              "src": "/assets/images/resume/afriyoccc/mockup-background.png",
+              "alt": "Resource pack mockup: the Background spread with a savannah photo",
+              "fit": "contain"
+            }
+          ]
         },
         {
           "client": "Society for International Development (SID)",
@@ -176,25 +435,39 @@
             "Integrated maps, charts, long-form academic text across chapters.",
             "Adapted for web and high-quality print."
           ],
-          "skills": ["Adobe InDesign", "Complex Layouts", "Data Visualisation"]
-        },
-        {
-          "client": "Local Conference of Youth (LCOY Kenya)",
-          "period": "Oct 2022",
-          "deliverables": "Rebranding · Event graphics",
-          "description": [
-            "Rebranded and produced event graphics for YOUNGO's Local Conference of Youth on Climate Change."
+          "skills": [
+            "Adobe InDesign",
+            "Complex Layouts",
+            "Data Visualisation"
           ],
-          "skills": ["Adobe Illustrator", "Branding", "Event Design"]
-        },
-        {
-          "client": "African Youth Conference on Climate Change (AFRIYOCCC)",
-          "period": "Oct 2022",
-          "deliverables": "Resource pack · Conference programme",
-          "description": [
-            "Designed the attendee resource pack and conference programme for the African Youth Conference on Climate Change."
-          ],
-          "skills": ["Adobe InDesign", "Editorial Design"]
+          "role": "Freelance Editorial Designer",
+          "images": [
+            {
+              "src": "/assets/images/projects/efw/EFW hero mockup.png",
+              "alt": "Kenya Energy Atlas mockup",
+              "fit": "contain"
+            },
+            {
+              "src": "/assets/images/projects/efw/ch11-woodfuel-use.jpg",
+              "alt": "Woodfuel use infographic on a green page"
+            },
+            {
+              "src": "/assets/images/projects/efw/ch02-firewood-solar-lighting.jpg",
+              "alt": "Bar charts of firewood and solar use for lighting by county"
+            },
+            {
+              "src": "/assets/images/projects/efw/infographic-carbon-pricing.jpg",
+              "alt": "Purple carbon pricing illustration"
+            },
+            {
+              "src": "/assets/images/resume/sid/spread-energy-supply-demand.jpg",
+              "alt": "Kenya’s energy supply and demand, with two pie charts"
+            },
+            {
+              "src": "/assets/images/projects/efw/infographic-regional-power-map.jpg",
+              "alt": "Map of interconnected power projects in Eastern Africa"
+            }
+          ]
         },
         {
           "client": "3408 Belva",
@@ -203,7 +476,37 @@
           "description": [
             "Designed a property catalogue for a green-living residential development in Parklands, Nairobi."
           ],
-          "skills": ["Adobe InDesign", "Editorial Layout"]
+          "skills": [
+            "Adobe InDesign",
+            "Editorial Layout"
+          ],
+          "role": "Freelance Editorial Designer",
+          "images": [
+            {
+              "src": "/assets/images/resume/belva/cover.jpg",
+              "alt": "3408 Belva catalogue cover: the logo on green with a gold hexagon pattern"
+            },
+            {
+              "src": "/assets/images/resume/belva/brochure-mockup.jpg",
+              "alt": "The catalogue shown closed and open"
+            },
+            {
+              "src": "/assets/images/resume/belva/spread-architects-view.jpg",
+              "alt": "Architect’s View spread, left page"
+            },
+            {
+              "src": "/assets/images/resume/belva/spread-salon-wellness.jpg",
+              "alt": "Salon and Wellness Centre spread, right page"
+            },
+            {
+              "src": "/assets/images/resume/belva/spread-finishes.jpg",
+              "alt": "Finishes spread, left page"
+            },
+            {
+              "src": "/assets/images/resume/belva/spread-fittings.jpg",
+              "alt": "Fittings spread, right page"
+            }
+          ]
         }
       ]
     },
@@ -218,7 +521,10 @@
           "description": [
             "Designed graphics for the Embassy of Antigua and Barbuda."
           ],
-          "skills": ["Adobe Illustrator", "Graphic Design"]
+          "skills": [
+            "Adobe Illustrator",
+            "Graphic Design"
+          ]
         },
         {
           "client": "Lab Owners Hub",
@@ -228,7 +534,10 @@
           "description": [
             "Developed brand identity for a healthcare lab management and owner networking platform."
           ],
-          "skills": ["Adobe Illustrator", "Brand Identity"]
+          "skills": [
+            "Adobe Illustrator",
+            "Brand Identity"
+          ]
         },
         {
           "client": "Qoba",
@@ -238,7 +547,11 @@
           "description": [
             "Designed brand identity for an SME point-of-sale SaaS product."
           ],
-          "skills": ["Adobe Illustrator", "Brand Identity", "SaaS Branding"]
+          "skills": [
+            "Adobe Illustrator",
+            "Brand Identity",
+            "SaaS Branding"
+          ]
         },
         {
           "client": "Belva Homes",
@@ -248,7 +561,11 @@
           "description": [
             "Created brand identity for a luxury residential real estate company in Nairobi."
           ],
-          "skills": ["Adobe Illustrator", "Brand Identity", "Logo Design"]
+          "skills": [
+            "Adobe Illustrator",
+            "Brand Identity",
+            "Logo Design"
+          ]
         },
         {
           "client": "Lizopendwa",
@@ -258,7 +575,11 @@
           "description": [
             "Built full brand identity, social media templates, and product packaging design for a Kenyan brass jewellery brand."
           ],
-          "skills": ["Adobe Illustrator", "Brand Identity", "Product Design"]
+          "skills": [
+            "Adobe Illustrator",
+            "Brand Identity",
+            "Product Design"
+          ]
         },
         {
           "client": "Herbivore Garden Center",
@@ -268,7 +589,11 @@
           "description": [
             "Created social media graphics and managed digital content for a Nairobi-based garden centre."
           ],
-          "skills": ["Adobe Illustrator", "Social Media Design", "Content Management"]
+          "skills": [
+            "Adobe Illustrator",
+            "Social Media Design",
+            "Content Management"
+          ]
         }
       ]
     }
@@ -280,5 +605,6 @@
     "Greenpeace Kenya",
     "African Youth Initiative on Climate Change (AYICC)",
     "YOUNGO"
-  ]
+  ],
+  "masthead_title": "Designer & Researcher"
 }

@@ -2,7 +2,7 @@
 title: Children & Youth Pavilion Report
 titleSup: COP27
 tagline: Post-event report for COP27
-client: UN Climate Change High-Level Champions
+client: Children's Investment Fund Foundation (CIFF)
 industry: Climate & Youth Advocacy
 role: Editorial Designer
 deliverables: Post-event report — layout, typesetting and colour system

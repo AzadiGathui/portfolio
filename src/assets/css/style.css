@@ -48,6 +48,13 @@
   font-style: italic;
   font-display: swap;
 }
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* ============================================
    CSS CUSTOM PROPERTIES
@@ -70,6 +77,9 @@
   --color-border: #e6e6e650;
   --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
   --font-body: "Barlow", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; /* labels, dates, tags */
+  --color-text-label: #b3b3b3;      /*  8.3:1 — mono labels, dates, supporting text (Figma "text-ghost") */
+  --color-surface: #333333;         /*  panels and tag chips; #b3b3b3 on it is 6.0:1 */
   --space-xs: 0.5rem;
   --space-sm: 1rem;
   --space-md: 2rem;
@@ -328,9 +338,13 @@ section img {
 /* ============================================
    TABLES
    ============================================ */
+/* Table headers use the mono label style (project details: CLIENT, ROLE…) */
 th {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
   font-weight: 400;
-  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  color: var(--color-text-label);
 }
 
 th,
@@ -431,30 +445,53 @@ td {
 }
 
 /* ============================================
-   LAB MASONRY GRID
-   Uses CSS columns for native masonry layout
+   LAB GRID
+   Layout from the Figma "lab" frame (15:1254): a 6-column grid where each
+   piece has a set place, leaving deliberate empty space. Place a piece with
+   inline --col / --row (grid lines); --w narrows a small piece within its cell.
    ============================================ */
-/* Lab keeps its full-width gallery: opt out of the global <main> constraints */
 main.lab {
-  max-width: none;
-  padding: 0;
-  gap: 0;
+  padding-top: var(--space-lg);
+  container-type: inline-size; /* lets row 12 be sized relative to the grid width */
+  overflow-x: clip; /* the mandala runs off the left edge without adding a sideways scroll */
 }
 
-.lab-masonry {
-  columns: 4;
-  column-gap: 0.5rem;
-  padding: var(--space-md);
-  width: 100%;
-  box-sizing: border-box;
+.lab-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  /* Rows fit their content, except row 12: an empty band under the mandala
+     parts, 233.58px in the 960px design (24.33% of the width) */
+  grid-template-rows: repeat(11, auto) 24.33cqi;
+  grid-auto-rows: auto;
+  gap: var(--space-sm);
+  align-self: stretch;
 }
 
-.lab-masonry img {
-  display: block;
-  width: 100%;
+/* Descendant selectors, not `>`: the image pipeline wraps each <img> in a
+   <picture> (display: contents), so the img is a grid item but not a child */
+.lab-grid img {
+  grid-column: var(--col);
+  grid-row: var(--row);
+  width: var(--w, 100%);
   height: auto;
-  margin-bottom: 0.5rem;
-  break-inside: avoid;
+  display: block;
+}
+
+.lab-grid .is-start {
+  align-self: start;
+}
+
+.lab-grid .is-end {
+  align-self: end;
+}
+
+/* The mandala: 796px wide in the design, anchored to the right edge of
+   columns 1–2 so most of it hangs off the left of the page */
+.lab-grid .lab-grid__bleed {
+  width: 257.3%;
+  max-width: none;
+  justify-self: end;
+  align-self: start;
 }
 
 .pj-reel {
@@ -544,15 +581,17 @@ main.lab {
 
 /* ============================================
    EDITORIAL LABELS
-   Small uppercase category tag above headings.
+   Small uppercase category tag above headings — the Figma "label" text
+   style (JetBrains Mono 12px), used site-wide.
    Usage: <span class="label">Editorial Design</span>
           <span class="label label--muted">2024</span>
    ============================================ */
 .label {
-  font-family: var(--font-body);
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
   text-transform: uppercase;
   color: var(--color-accent-text);
   display: block;
@@ -817,6 +856,8 @@ figcaption {
 
 /* ============================================
    RESUME PAGE
+   Layout from the Figma "Resume / Desktop" frame (15:817):
+   every row is a 1fr | 2fr grid — details on the left, the work on the right.
    ============================================ */
 main.resume {
   padding-top: var(--space-lg);
@@ -826,47 +867,43 @@ main.resume {
 
 .resume-masthead {
   display: flex;
-  flex-direction: row;
+  flex-direction: row; /* the global `header` rule stacks its children */
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: var(--space-md);
   padding-bottom: var(--space-md);
-  border-bottom: 1px solid var(--color-border);
   width: 100%;
 }
 
 .resume-masthead h1 {
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-size: 4rem;
+  line-height: 0.9;
+  letter-spacing: -1px;
   text-align: left;
-  letter-spacing: -2px;
-  margin: 0;
-  line-height: 1;
 }
 
 .resume-masthead__title {
-  font-family: var(--font-body);
-  font-size: 0.9375rem;
-  color: var(--color-text-secondary);
-  margin: 0.4rem 0 0;
-  letter-spacing: 0.05em;
+  margin: var(--space-xs) 0 0;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  color: var(--color-text-label);
 }
 
 .resume-masthead__contact {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.4rem;
+  gap: var(--space-sm);
   flex-shrink: 0;
 }
 
 .resume-contact-link {
-  font-family: var(--font-body);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--color-text-tertiary);
+  color: var(--color-text-label);
   transition: color 0.15s;
 }
 
@@ -874,149 +911,62 @@ main.resume {
   color: var(--color-accent-text);
 }
 
+/* The shared row: 1 part details, 2 parts content, 16px gutter */
+.resume-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: var(--space-sm);
+  padding: var(--space-md) 0;
+}
+
 .resume-section {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: stretch; /* global `section` centres its children */
   gap: 0;
   width: 100%;
 }
 
-.resume-section > .label {
-  margin-bottom: var(--space-sm);
-  align-self: flex-start;
+/* Section titles: 32px Barlow in the accent red. #e50000 is 3.6:1 on the
+   background, which passes WCAG for large text (24px+) only — keep it large. */
+.resume-section__title {
+  font-family: var(--font-body);
+  font-size: 2rem;
+  line-height: 0.9;
+  letter-spacing: -1px;
+  text-align: left;
+  color: var(--color-accent);
+  margin: 0 0 var(--space-sm);
 }
 
-.resume-entry {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  padding: var(--space-md) 0;
-  border-top: 1px solid var(--color-border);
+.resume-section__period {
+  /* Sits after the title; a plain space (not a margin) separates them,
+     so there's no stray indent when the line wraps on phones. */
+  display: inline;
+  vertical-align: middle;
+  white-space: nowrap;
 }
 
+/* Left column: organisation, role, dates */
 .resume-entry__meta {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-md);
+  gap: var(--space-xs);
 }
 
-.resume-entry__company {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-}
-
-.resume-entry__logo {
-  flex-shrink: 0;
-  height: auto;
-  max-height: 2rem;
-  width: auto !important; /* override inline style on small screens */
-  max-width: 7rem;
-  object-fit: contain;
-}
-
-.resume-entry__company h2 {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  letter-spacing: -0.5px;
-  line-height: 1.1;
+.resume-entry__client {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  line-height: 1.2;
   text-align: left;
   margin: 0;
 }
 
-.resume-entry__role {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  align-items: center;
-  margin: 0.3rem 0 0;
-  font-size: 0.875rem;
-}
-
-/* Named class instead of span:first-child: when an entry has no role,
-   the deliverables span would otherwise become "first" and turn bold. */
-.resume-entry__title {
-  font-weight: 600;
-}
-
-.resume-entry__deliverables {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-text-tertiary);
-}
-
-/* Separator dot only when a role comes before it (the + means "directly after") */
-.resume-entry__title + .resume-entry__deliverables::before {
-  content: "·";
-  margin-right: 0.5rem;
-  opacity: 0.5;
-}
-
-.resume-entry__period {
-  font-family: var(--font-body);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-text-tertiary);
-  white-space: nowrap;
-  flex-shrink: 0;
-  padding-top: 0.2rem;
-}
-
-.resume-entry__body {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  padding-left: 0;
-}
-
-.resume-entry__body li {
-  font-size: 0.9375rem;
-  line-height: 1.6;
-  color: var(--color-text-secondary);
-  padding-left: 1.2rem;
-  position: relative;
-}
-
-.resume-entry__body li::before {
-  content: "—";
-  position: absolute;
-  left: 0;
-  opacity: 0.35;
-}
-
-.resume-entry__skills {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-}
-
-.resume-entry__skills li {
-  font-family: var(--font-body);
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-text-tertiary);
-  padding: 0.2rem 0.6rem;
-  border: 1px solid var(--color-border);
-}
-
 .resume-entry__client-link {
   color: inherit;
-  text-decoration: none;
+  text-decoration-color: var(--color-border);
+  text-underline-offset: 0.2em;
   transition: color 0.15s;
 }
 
@@ -1024,59 +974,135 @@ main.resume {
   color: var(--color-accent-text);
 }
 
-.resume-entry__summary {
+.resume-entry__role {
   margin: 0;
-  font-size: 0.9375rem;
-  font-style: italic;
-  color: var(--color-text-secondary);
+  line-height: 1.4;
 }
 
-/* Personal statement: body text at a readable line length */
-.resume-statement {
-  max-width: var(--measure);
-  align-items: flex-start; /* global `section` centres its children; keep paragraphs left-aligned */
-  gap: 0;
+.resume-entry__deliverables,
+.resume-entry__period {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--color-text-label);
+}
+
+/* Right column: text and skill tags side by side, then the reel */
+.resume-entry__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-width: 0; /* lets the reel scroll instead of widening the grid */
+}
+
+.resume-entry__details {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: flex-start;
+}
+
+.resume-entry__text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.resume-entry__summary {
+  margin: 0;
+  line-height: 1.4;
+  color: var(--color-text-label);
+}
+
+/* The Figma sets bullets at 75% opacity; the site's rule is hierarchy by
+   colour, not opacity, so the equivalent grey is used instead. */
+.resume-entry__body {
+  margin: 0;
+  padding-left: 1.5rem;
+  line-height: 1.4;
+  color: var(--color-text-label);
+}
+
+.resume-entry__skills {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-xs);
+  flex-shrink: 0;
+}
+
+.resume-entry__skills li {
+  padding: var(--space-xs);
+  background: var(--color-surface);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-text-label);
+}
+
+/* Work samples: a recessed panel that scrolls sideways. Every image is the
+   same height and keeps its own shape, so the gaps between them stay even
+   whether a piece is a phone screen or a two-page spread. */
+.resume-reel {
+  --reel-height: 17.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: var(--color-surface);
+  box-shadow: inset 0 0 20px 10px rgb(0 0 0 / 0.25);
+  overflow-x: auto;
+  /* No scroll snapping: it re-snaps to a later image when the layout
+     changes (images loading, resizing), so a reel could open part-scrolled */
+}
+
+.resume-reel img {
+  flex: 0 0 auto;
+  height: var(--reel-height);
+  width: auto; /* the width/height attributes supply the aspect ratio */
+  max-width: none;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 0.25);
+}
+
+/* Transparent mockups: shadow the artwork's own outline
+   (drop-shadow follows transparency; box-shadow would draw a rectangle) */
+.resume-reel img.is-contain {
+  box-shadow: none;
+  filter: drop-shadow(0 4px 10px rgb(0 0 0 / 0.25));
+}
+
+/* Personal statement: in the right-hand column, like the entries' text */
+.resume-statement > div {
+  grid-column: 2;
 }
 
 .resume-statement p {
   margin: 0 0 var(--space-sm);
-  font-size: 1.0625rem;
-  line-height: 1.6;
+  font-size: 1.25rem;
+  line-height: 1.4;
 }
 
-/* Section period sits on the label line, in the muted metadata colour */
-.resume-section__period {
-  /* Spacing comes from the ordinary space before the span in the template, not a margin:
-     a space disappears when the line wraps, so there's no stray indent on phones. */
-  white-space: nowrap; /* keep "SEP 2025 – JUN 2026" together */
-  color: var(--color-text-tertiary);
-}
-
-/* Skill areas: name on the left, items on the right; stacks on mobile */
+/* Skills: area name on the left, items on the right */
 .resume-skill-groups {
   margin: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.resume-skill-group {
-  display: grid;
-  grid-template-columns: 12rem 1fr;
-  gap: var(--space-md);
-  padding: var(--space-sm) 0;
-  border-top: 1px solid var(--color-border);
 }
 
 .resume-skill-group dt {
-  font-weight: 600;
-  font-size: 0.9375rem;
+  font-size: 1.25rem;
+  line-height: 1.2;
 }
 
 .resume-skill-group dd {
   margin: 0;
-  font-size: 0.9375rem;
-  line-height: 1.6;
-  color: var(--color-text-secondary);
+  line-height: 1.4;
+  color: var(--color-text-label);
 }
 
 .resume-simple-list {
@@ -1086,37 +1112,48 @@ main.resume {
 }
 
 .resume-simple-list li {
-  padding: var(--space-xs) 0;
-  border-top: 1px solid var(--color-border);
-  font-size: 0.9375rem;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  padding: var(--space-sm) 0;
 }
 
 /* Resume responsive */
 @media (max-width: 768px) {
   .resume-masthead {
     flex-direction: column;
-    align-items: flex-start;
+  }
+
+  .resume-masthead h1 {
+    font-size: 3rem;
   }
 
   .resume-masthead__contact {
     align-items: flex-start;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: var(--space-sm);
   }
 
-  .resume-entry__meta {
-    flex-direction: column;
-    gap: var(--space-xs);
-  }
-
-  .resume-entry__period {
-    padding-top: 0;
-  }
-
-  .resume-skill-group {
+  .resume-row {
     grid-template-columns: 1fr;
-    gap: 0.25rem;
+  }
+
+  .resume-statement > div {
+    grid-column: 1;
+  }
+
+  .resume-entry__details {
+    flex-direction: column;
+  }
+
+  .resume-entry__skills {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .resume-reel {
+    --reel-height: 12.5rem;
+    padding: var(--space-sm);
   }
 }
 
@@ -1307,8 +1344,24 @@ main.resume {
     letter-spacing: -1px;
   }
 
-  .lab-masonry {
-    columns: 2;
+  .lab-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+  }
+
+  .lab-grid img {
+    grid-column: auto;
+    grid-row: auto;
+    width: 100%;
+    align-self: start;
+  }
+
+  .lab-grid .is-wide {
+    grid-column: 1 / -1;
+  }
+
+  .lab-grid .lab-grid__bleed {
+    width: 100%;
   }
 
   .pj-reel {
