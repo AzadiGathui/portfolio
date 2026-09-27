@@ -6,7 +6,7 @@ client: Children's Investment Fund Foundation (CIFF)
 industry: Climate & Youth Advocacy
 role: Editorial Designer
 deliverables: Post-event report — layout, typesetting and colour system
-order: 7
+order: 5
 coverImage: /assets/images/projects/cyp/cover.jpg
 mockupImage: /assets/images/projects/cyp/mockup.png
 thumbnail: /assets/images/projects/cyp/mockup.png
