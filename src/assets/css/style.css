@@ -578,8 +578,13 @@ details[open] .expandable__trigger::after {
    Usage: <div class="article-body"> ... </div>
    ============================================ */
 .article-body {
-  max-width: var(--measure);
   margin: 0 auto;
+}
+
+/* The reading measure applies to TEXT only. Figures, charts and tables
+   aren't read line by line, so they keep the full column width and stay legible. */
+.article-body > :is(p, ul, ol, h2, h3, h4, blockquote, hr) {
+  max-width: var(--measure);
 }
 
 .article-body p {
@@ -669,8 +674,8 @@ details[open] .expandable__trigger::after {
   overflow-x: hidden;
 }
 
-/* Keep the reading measure inside the project column (the old override
-   stretched lines past 75 characters). Align left, next to the contents list. */
+/* Inside the project column: align left, next to the contents list.
+   (Text is held to --measure by the .article-body rule above; figures use the full column.) */
 .pj-content .article-body {
   margin-inline: 0;
 }
