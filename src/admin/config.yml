@@ -34,6 +34,8 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: "Title", name: title, widget: string }
+      - { label: "Title Superscript", name: titleSup, widget: string, required: false,
+          hint: "Small raised text after the project page title, e.g. a year or edition (2024, COP27)." }
       - { label: "Tagline", name: tagline, widget: string,
           hint: "Short descriptor shown on homepage list and under the title on project pages." }
       - { label: "Client", name: client, widget: string }

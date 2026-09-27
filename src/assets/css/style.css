@@ -304,6 +304,14 @@ header {
   align-self: stretch;
 }
 
+/* Edition or year after the title (front matter `titleSup`) */
+.pj-title__sup {
+  font-size: 0.4em;
+  letter-spacing: 0;
+  vertical-align: top;
+  line-height: 1;
+}
+
 section {
   display: flex;
   gap: var(--space-sm);
@@ -352,6 +360,74 @@ td {
   grid-template-rows: min-content;
   /* Responsive column behavior */
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+/* ============================================
+   SPREAD GRID — art-directed collages of editorial pages
+   A 12-column grid matching the Figma layouts (16px gutter at 960px).
+   Place any item with an inline column range:  style="--at: 3 / 7"
+   (default: full width). A .stack is a vertical column of items that
+   shares the parent's 12 columns via subgrid, so a stack can sit beside
+   another of a different height and everything still aligns to the grid.
+   Inside a stack, columns count from the stack's own first column
+   (a stack at 7 / 13 has columns 1–6 of its own).
+   Usage:
+     <div class="spread-grid">
+       <div class="stack" style="--at: 1 / 7">
+         <img style="--at: 3 / 7" …> <img …>
+       </div>
+       <img style="--at: 7 / 13" …>
+     </div>
+   ============================================ */
+/* Not inherited, so images in a stack don't pick up the stack's own range */
+@property --at {
+  syntax: "*";
+  inherits: false;
+}
+
+.spread-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-sm);
+  align-items: start;
+  align-self: stretch;
+}
+
+/* Collages are separate "chapters": double the usual gap between them */
+.spread-grid + .spread-grid {
+  margin-top: var(--space-lg);
+}
+
+.spread-grid > .stack {
+  display: grid;
+  grid-template-columns: subgrid;
+  gap: var(--space-sm);
+  align-content: start;
+}
+
+.spread-grid > .stack,
+.spread-grid img {
+  grid-column: var(--at, 1 / -1);
+}
+
+.spread-grid img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Sit an item on the bottom edge of its row (a small page beside a large one) */
+.spread-grid .is-end {
+  align-self: end;
+}
+
+/* Short, centred text block between collages (e.g. "Behind the scenes") */
+.pj-intro {
+  max-width: 25rem;
+}
+
+.pj-intro h2 {
+  text-align: left;
 }
 
 /* ============================================
@@ -1237,6 +1313,17 @@ main.resume {
 
   .pj-reel {
     grid-auto-columns: 80%;
+  }
+
+  /* Collages read top-to-bottom, one page per row */
+  .spread-grid,
+  .spread-grid > .stack {
+    grid-template-columns: 1fr;
+  }
+
+  .spread-grid > .stack,
+  .spread-grid img {
+    grid-column: 1 / -1;
   }
 
   .pull-quote {
