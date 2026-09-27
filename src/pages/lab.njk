@@ -4,40 +4,35 @@ title: The Lab
 description: Experiments, explorations and creative work by Azadi Gathui.
 permalink: /lab/
 ---
-<header>
-  <div class="cover" style="background: url('{{ "/assets/images/lab/Phone Wallpaper.png" | bgImage }}') lightgray 50% / cover no-repeat;">
-    <img src="/assets/images/lab/Hand.png" loading="eager" fetchpriority="high" alt="open page layout with text and data visualisations">
-  </div>
-  <div class="pj-deets">
-    <div>
-      <h1>The Lab</h1>
-      <p>Experiments, explorations and just plain fun!</p>
-    </div>
-  </div>
-</header>
-
+{# Layout from the Figma "lab" frame (15:1254): a 6-column grid where each piece
+   has a set place (--col / --row), leaving deliberate empty space.
+   Pieces are listed in reading order, which is also the order on phones. #}
 <main class="lab">
-<section>
-  {# sizes: 4 columns on desktop, 2 on phones #}
-  <div class="lab-masonry">
-    <img src="/assets/images/lab/Arts 1.png" loading="lazy" sizes="(max-width: 768px) 50vw, 25vw" alt="Digital art piece with bold graphic forms">
-    <img src="/assets/images/lab/Arts 2.png" loading="lazy" sizes="(max-width: 768px) 50vw, 25vw" alt="Digital art piece with bold graphic forms">
-    <img src="/assets/images/lab/Arts 3.png" loading="lazy" sizes="(max-width: 768px) 50vw, 25vw" alt="Digital art piece with bold graphic forms">
-    <img src="/assets/images/lab/Anthuriums 1.png" loading="lazy" sizes="(max-width: 768px) 50vw, 25vw" alt="Illustrated anthurium flower in red and green">
-    <img src="/assets/images/lab/Anthuriums 2.png" loading="lazy" sizes="(max-width: 768px) 50vw, 25vw" alt="Illustrated anthurium flowers, stylised composition">
-    <img src="/assets/images/lab/Anthuriums 3.png" loading="lazy" sizes="(max-width: 768px) 50vw, 25vw" alt="Illustrated anthurium flowers, close-up view">
-    <img src="/assets/images/lab/Anxiety.png" loading="lazy" sizes="(max-width: 768px) 50vw, 25vw" alt="Expressive illustration exploring the theme of anxiety">
-    <img src="/assets/images/lab/Abstract.png" loading="lazy" sizes="(max-width: 768px) 50vw, 25vw" alt="Abstract digital artwork with layered shapes and colour">
-    <img src="/assets/images/lab/Fabulous Black bg.png" loading="lazy" sizes="(max-width: 768px) 50vw, 25vw" alt="Stylised portrait illustration on a black background">
-    <img src="/assets/images/lab/Can.png" loading="lazy" sizes="(max-width: 768px) 50vw, 25vw" alt="Illustrated beverage can with graphic label design">
-    <img src="/assets/images/lab/Ernie.png" loading="lazy" sizes="(max-width: 768px) 50vw, 25vw" alt="Character illustration of Ernie">
-    <img src="/assets/images/lab/Dino.png" loading="lazy" sizes="(max-width: 768px) 50vw, 25vw" alt="Playful dinosaur character illustration">
-    <img src="/assets/images/lab/Feesh.png" loading="lazy" sizes="(max-width: 768px) 50vw, 25vw" alt="Stylised fish character illustration">
-    <img src="/assets/images/lab/Heli.png" loading="lazy" sizes="(max-width: 768px) 50vw, 25vw" alt="Illustrated helicopter in a graphic style">
-    <img src="/assets/images/lab/Inktober.png" loading="lazy" sizes="(max-width: 768px) 50vw, 25vw" alt="Inktober challenge ink drawing">
-    <img src="/assets/images/lab/Max.png" loading="lazy" sizes="(max-width: 768px) 50vw, 25vw" alt="Character illustration of Max">
-    <img src="/assets/images/lab/Ralph.png" loading="lazy" sizes="(max-width: 768px) 50vw, 25vw" alt="Character illustration of Ralph">
-    <img src="/assets/images/lab/Shelf.png" loading="lazy" sizes="(max-width: 768px) 50vw, 25vw" alt="Illustrated shelf with objects and decorative items">
+  <h1 class="visually-hidden">The Lab</h1>
+
+  <div class="lab-grid">
+    <img class="is-wide" style="--col: 1 / span 2; --row: 1 / span 2" sizes="(max-width: 768px) 100vw, 320px" src="/assets/images/lab/poster-lorem-ipsum.jpg" alt="Typographic poster: 'Lorem ipsum' in bold white capitals over a photo of a flowering tree against blue sky">
+    <img style="--col: 6; --row: 1" sizes="(max-width: 768px) 50vw, 160px" src="/assets/images/lab/isometric-bedroom.jpg" alt="Isometric illustration of a cosy bedroom in reds and pinks, with plants, a wardrobe and a desk">
+    <img class="is-end" style="--col: 3; --row: 2" sizes="(max-width: 768px) 50vw, 160px" src="/assets/images/lab/poster-lorem-ipsum-small.jpg" alt="Smaller version of the 'Lorem ipsum' tree poster">
+    <img class="is-end" style="--col: 5; --row: 2" sizes="(max-width: 768px) 50vw, 160px" src="/assets/images/lab/ink-bulb.jpg" alt="Bold black ink drawing of a bulb shape made of curved strokes">
+    <img class="is-start is-wide" style="--col: 2 / span 2; --row: 3" sizes="(max-width: 768px) 100vw, 320px" src="/assets/images/lab/poster-lorem-dolor-sit-amet.jpg" alt="Typographic poster: 'Lorem dolor sit amet' in black capitals across a white band, below the flowering tree photo">
+    <img class="is-end is-wide" style="--col: 5 / span 2; --row: 4 / span 2" sizes="(max-width: 768px) 100vw, 320px" src="/assets/images/lab/poster-breathe-out-the-old.jpg" alt="Poster in rust brown: 'Breathe out the old' in tall thin lettering beside an arch of dried autumn leaves">
+    <img style="--col: 1; --row: 5" sizes="(max-width: 768px) 50vw, 160px" src="/assets/images/lab/hand-with-floral-pattern.jpg" alt="Grey illustration of an open hand decorated with small flower patterns">
+    <img class="is-start" style="--col: 3; --row: 6" sizes="(max-width: 768px) 50vw, 160px" src="/assets/images/lab/ink-flower-on-script.jpg" alt="Black ink flower drawn over a background of handwritten script">
+    <img class="is-start is-wide" style="--col: 4 / span 2; --row: 6" sizes="(max-width: 768px) 100vw, 320px" src="/assets/images/lab/poster-breathe-in-the-new.jpg" alt="Poster in rust brown: 'Breathe in the new' in tall thin lettering beside an arch of leaves">
+    <img style="--col: 6; --row: 6" sizes="(max-width: 768px) 50vw, 160px" src="/assets/images/lab/poster-hold-it.jpg" alt="Poster in rust brown: 'Hold it' set inside an arch of dark roses">
+    <img class="is-end" style="--col: 2; --row: 7" sizes="(max-width: 768px) 50vw, 160px" src="/assets/images/lab/hand-on-lined-paper.jpg" alt="Pencil drawing of a hand on lined notebook paper">
+    <img class="is-wide" style="--col: 2 / span 3; --row: 8" sizes="(max-width: 768px) 100vw, 480px" src="/assets/images/lab/poster-hot-weather.jpg" alt="Poster: 'Hot weather please love me back' in large tan letters over a warm, dim photo of a room with curtains">
+    <img class="is-wide" style="--col: 5 / span 2; --row: 8" sizes="(max-width: 768px) 100vw, 320px" src="/assets/images/lab/poster-sandals.jpg" alt="Poster: 'Sandals' above a photo of three pairs of sandals by a sunlit window">
+    <img class="lab-grid__bleed is-wide" style="--col: 1 / span 2; --row: 9 / span 4" sizes="(max-width: 768px) 100vw, 800px" src="/assets/images/lab/mandala-peacock.png" alt="Large mandala in gold, amber and deep brown, built from rings of peacock feathers and ornate petals">
+    <img class="is-end" style="--col: 4; --row: 10; --w: 65%" sizes="(max-width: 768px) 50vw, 100px" src="/assets/images/lab/mandala-part-gold-outer.png" alt="Mandala detail: an ornate gold teardrop ornament">
+    <img style="--col: 5; --row: 10" sizes="(max-width: 768px) 50vw, 160px" src="/assets/images/lab/mandala-part-sun-ring.png" alt="Mandala detail: a gold and maroon sun ring of wavy rays">
+    <img class="is-end" style="--col: 4; --row: 11; --w: 64%" sizes="(max-width: 768px) 50vw, 100px" src="/assets/images/lab/mandala-part-gold-inner.png" alt="Mandala detail: a gold ornament with a green teardrop centre">
+    <img style="--col: 5; --row: 11; --w: 49%" sizes="(max-width: 768px) 50vw, 80px" src="/assets/images/lab/mandala-part-feather-inner.png" alt="Mandala detail: a small peacock feather">
+    <img style="--col: 6; --row: 11; --w: 65%" sizes="(max-width: 768px) 50vw, 100px" src="/assets/images/lab/mandala-part-feather-outer.png" alt="Mandala detail: a larger peacock feather">
+    <img class="is-start" style="--col: 5; --row: 13" sizes="(max-width: 768px) 50vw, 160px" src="/assets/images/lab/sawa-boss-lettering.jpg" alt="'Sawa boss' in bubbly white graffiti-style lettering with turquoise outlines on black">
+    <img class="is-wide" style="--col: 3 / span 2; --row: 14" sizes="(max-width: 768px) 100vw, 320px" src="/assets/images/lab/nymph-ladies-blades.jpg" alt="Brand design on dark green: 'Nymph ladies blades' in white script among orange star-shaped flowers">
+    <img class="is-wide" style="--col: 2 / span 3; --row: 15" sizes="(max-width: 768px) 100vw, 480px" src="/assets/images/lab/star-flowers-on-red.jpg" alt="Black and white star-shaped flowers scattered across a bright red background">
+    <img class="is-wide" style="--col: 5 / span 2; --row: 15" sizes="(max-width: 768px) 100vw, 320px" src="/assets/images/lab/poster-emerson-this-is-my-wish.jpg" alt="Typographic poster of Ralph Waldo Emerson's 'This is my wish for you', in teal and black with pink and red circles">
   </div>
-</section>
 </main>

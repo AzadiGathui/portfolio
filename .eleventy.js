@@ -39,7 +39,9 @@ module.exports = async function (eleventyConfig) {
     const meta = await Image("src" + src, {
       widths: [width],
       formats: ["webp"],
-      outputDir: "_site/img/",
+      // the real output folder (usually _site), read when the filter runs,
+      // so a build to another folder still gets its cover images
+      outputDir: require("node:path").join(eleventyConfig.directories.output, "img"),
       urlPath: "/img/",
     });
     return meta.webp[0].url;

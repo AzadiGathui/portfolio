@@ -15,10 +15,10 @@ jobs:
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: "24" # current LTS; Node 20 reached end of life in April 2026
           cache: "npm"
@@ -30,7 +30,7 @@ jobs:
       # Keep them between deploys; the image tool skips files that already exist.
       # The key changes whenever an image or the image settings change.
       - name: Restore optimised images
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: _site/img
           key: img-${{ hashFiles('src/assets/images/**', '.eleventy.js', 'package-lock.json') }}

@@ -14,7 +14,7 @@ layout: layouts/base.njk
         <img src="{{ clientLogo }}" alt="{{ client }} logo" style="width: 6rem;" sizes="6rem">
       {% endif %}
       <div class="pj-title">
-        <h1>{{ title }}</h1>
+        <h1>{{ title }}{% if titleSup %} <sup class="pj-title__sup">{{ titleSup }}</sup>{% endif %}</h1>
         {% if tagline %}<p>{{ tagline }}</p>{% endif %}
       </div>
 

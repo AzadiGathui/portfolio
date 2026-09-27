@@ -1,16 +1,18 @@
 ---
 layout: layouts/page.njk
 title: Resume
-description: Resume of Azadi Gathui — Product Designer & Analyst with experience across fintech, healthcare, climate, and conservation.
+description: Resume of Azadi Gathui — Designer & Researcher with experience across fintech, healthcare, climate, and conservation.
 permalink: /resume/
 ---
 
+{# Layout follows the Figma "Resume / Desktop" frame: each row is a 1fr | 2fr
+   grid (.resume-row), details on the left and the work on the right. #}
 <main class="resume">
 
   <header class="resume-masthead">
     <div class="resume-masthead__identity">
       <h1>{{ site.author }}</h1>
-      <p class="resume-masthead__title">Product Designer &amp; Analyst</p>
+      <p class="resume-masthead__title">{{ site.role }}</p>
     </div>
     <nav class="resume-masthead__contact" aria-label="Contact links">
       <a href="mailto:{{ site.email }}" class="resume-contact-link">{{ site.email }}</a>
@@ -21,21 +23,83 @@ permalink: /resume/
   </header>
 
   {% if resume.statement %}
-  <section class="resume-statement" aria-label="Personal statement">
-    {% for para in resume.statement %}
-    <p>{{ para }}</p>
-    {% endfor %}
+  <section class="resume-statement resume-row" aria-label="Personal statement">
+    <div>
+      {% for para in resume.statement %}
+      <p>{{ para }}</p>
+      {% endfor %}
+    </div>
   </section>
   {% endif %}
 
+  {% for section in resume.sections %}
+  <section class="resume-section">
+    <h2 class="resume-section__title">
+      {{ section.title }}
+      {% if section.period %}<span class="resume-section__period label label--muted">{{ section.period }}</span>{% endif %}
+    </h2>
+
+    {% for job in section.entries %}
+    <article class="resume-entry resume-row">
+      <div class="resume-entry__meta">
+        <h3 class="resume-entry__client">
+          {% if job.portfolio_url %}
+            <a href="{{ job.portfolio_url }}" class="resume-entry__client-link">{{ job.client }}</a>
+          {% else %}
+            {{ job.client }}
+          {% endif %}
+        </h3>
+        {# Role and deliverables are optional: project entries don't have a job title #}
+        {% if job.role %}<p class="resume-entry__role">{{ job.role }}</p>{% endif %}
+        {% if job.deliverables %}<p class="resume-entry__deliverables">{{ job.deliverables }}</p>{% endif %}
+        {% if job.period %}<time class="resume-entry__period">{{ job.period }}</time>{% endif %}
+      </div>
+
+      <div class="resume-entry__main">
+        <div class="resume-entry__details">
+          <div class="resume-entry__text">
+            {% if job.summary %}<p class="resume-entry__summary">{{ job.summary }}</p>{% endif %}
+            {% if job.description %}
+            <ul class="resume-entry__body">
+              {% for point in job.description %}<li>{{ point }}</li>{% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+
+          {% if job.skills %}
+          <ul class="resume-entry__skills" aria-label="Skills">
+            {% for skill in job.skills %}<li>{{ skill }}</li>{% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+
+        {% if job.images and job.images.length %}
+        {# tabindex + label: lets keyboard users focus the reel and scroll it with arrow keys (WCAG 2.1.1).
+           An image is either {src, alt, fit} or, for older entries, a file name in /resume/<slug>/. #}
+        <div class="resume-reel" tabindex="0" role="region" aria-label="{{ job.client }} work samples, scrolls sideways">
+          {% for img in job.images.slice(0, 5) %}{# five samples at most #}
+            {% if img.src %}
+            <img src="{{ img.src }}" alt="{{ img.alt }}"{% if img.fit == "contain" %} class="is-contain"{% endif %} loading="lazy" sizes="(max-width: 768px) 360px, 500px">
+            {% else %}
+            <img src="/assets/images/resume/{{ job.slug }}/{{ img }}" alt="{{ job.client }} work sample {{ loop.index }}" loading="lazy" sizes="(max-width: 768px) 360px, 500px">
+            {% endif %}
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </article>
+    {% endfor %}
+  </section>
+  {% endfor %}
+
   {% if resume.skill_groups %}
   <section class="resume-section">
-    <span class="label">Skills</span>
+    <h2 class="resume-section__title">Skills</h2>
     {# A description list (<dl>) pairs each skill area with its items,
        which screen readers announce as term + definition. #}
     <dl class="resume-skill-groups">
       {% for group in resume.skill_groups %}
-      <div class="resume-skill-group">
+      <div class="resume-skill-group resume-row">
         <dt>{{ group.name }}</dt>
         <dd>{{ group.items }}</dd>
       </div>
@@ -44,79 +108,9 @@ permalink: /resume/
   </section>
   {% endif %}
 
-  {% for section in resume.sections %}
-  <section class="resume-section">
-    <span class="label">
-      {{ section.title }}
-      {% if section.period %}<span class="resume-section__period">{{ section.period }}</span>{% endif %}
-    </span>
-
-    {% for job in section.entries %}
-    <article class="resume-entry">
-      <div class="resume-entry__meta">
-        <div class="resume-entry__company">
-          {# Logo placeholder — to be provided
-          {% if job.logo %}
-            <img src="{{ job.logo.src }}" alt="{{ job.logo.alt }}" class="resume-entry__logo" style="width: {{ job.logo.width }};">
-          {% endif %}
-          #}
-          <div>
-            <h2>
-              {% if job.portfolio_url %}
-                <a href="{{ job.portfolio_url }}" class="resume-entry__client-link">{{ job.client }}</a>
-              {% else %}
-                {{ job.client }}
-              {% endif %}
-            </h2>
-            {# Role and deliverables are optional: project and freelance entries
-               don't have a job title, so only print the parts that exist. #}
-            {% if job.role or job.deliverables %}
-            <p class="resume-entry__role">
-              {% if job.role %}<span class="resume-entry__title">{{ job.role }}</span>{% endif %}
-              {% if job.deliverables %}<span class="resume-entry__deliverables">{{ job.deliverables }}</span>{% endif %}
-            </p>
-            {% endif %}
-          </div>
-        </div>
-        {% if job.period %}<time class="resume-entry__period">{{ job.period }}</time>{% endif %}
-      </div>
-
-      {% if job.summary %}
-      <p class="resume-entry__summary">{{ job.summary }}</p>
-      {% endif %}
-
-      {% if job.description %}
-      <ul class="resume-entry__body">
-        {% for point in job.description %}
-        <li>{{ point }}</li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-
-      {% if job.skills %}
-      <ul class="resume-entry__skills">
-        {% for skill in job.skills %}
-        <li>{{ skill }}</li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-
-      {% if job.images and job.images.length %}
-      {# tabindex + label: lets keyboard users focus the reel and scroll it with arrow keys (WCAG 2.1.1) #}
-      <div class="pj-reel" tabindex="0" role="region" aria-label="{{ job.client }} work samples, scrolls sideways">
-        {% for img in job.images %}
-        <img src="/assets/images/resume/{{ job.slug }}/{{ img }}" alt="{{ job.client }} work sample {{ loop.index }}" loading="lazy" sizes="(max-width: 768px) 80vw, 200px">
-        {% endfor %}
-      </div>
-      {% endif %}
-    </article>
-    {% endfor %}
-  </section>
-  {% endfor %}
-
   {% if resume.education %}
   <section class="resume-section">
-    <span class="label">Education</span>
+    <h2 class="resume-section__title">Education</h2>
     <ul class="resume-simple-list">
       {% for item in resume.education %}<li>{{ item }}</li>{% endfor %}
     </ul>
@@ -125,7 +119,7 @@ permalink: /resume/
 
   {% if resume.volunteering %}
   <section class="resume-section">
-    <span class="label">Volunteering</span>
+    <h2 class="resume-section__title">Volunteering</h2>
     <ul class="resume-simple-list">
       {% for item in resume.volunteering %}<li>{{ item }}</li>{% endfor %}
     </ul>
