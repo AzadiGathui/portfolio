@@ -15,10 +15,10 @@ permalink: /resume/
       <p class="resume-masthead__title">{{ site.role }}</p>
     </div>
     <nav class="resume-masthead__contact" aria-label="Contact links">
-      <a href="mailto:{{ site.email }}" class="resume-contact-link">{{ site.email }}</a>
-      <a href="{{ site.social.linkedin }}" class="resume-contact-link" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="{{ site.social.behance }}" class="resume-contact-link" target="_blank" rel="noopener">Behance</a>
-      <a href="{{ site.social.github }}" class="resume-contact-link" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:{{ site.email }}" class="resume-contact-link label">{{ site.email }}</a>
+      <a href="{{ site.social.linkedin }}" class="resume-contact-link label" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="{{ site.social.behance }}" class="resume-contact-link label" target="_blank" rel="noopener">Behance</a>
+      <a href="{{ site.social.github }}" class="resume-contact-link label" target="_blank" rel="noopener">GitHub</a>
     </nav>
   </header>
 
@@ -36,7 +36,7 @@ permalink: /resume/
   <section class="resume-section">
     <h2 class="resume-section__title">
       {{ section.title }}
-      {% if section.period %}<span class="resume-section__period label label--muted">{{ section.period }}</span>{% endif %}
+      {% if section.period %}<span class="resume-section__period label">{{ section.period }}</span>{% endif %}
     </h2>
 
     {% for job in section.entries %}
@@ -51,8 +51,8 @@ permalink: /resume/
         </h3>
         {# Role and deliverables are optional: project entries don't have a job title #}
         {% if job.role %}<p class="resume-entry__role">{{ job.role }}</p>{% endif %}
-        {% if job.deliverables %}<p class="resume-entry__deliverables">{{ job.deliverables }}</p>{% endif %}
-        {% if job.period %}<time class="resume-entry__period">{{ job.period }}</time>{% endif %}
+        {% if job.deliverables %}<p class="resume-entry__deliverables label">{{ job.deliverables }}</p>{% endif %}
+        {% if job.period %}<time class="resume-entry__period label">{{ job.period }}</time>{% endif %}
       </div>
 
       <div class="resume-entry__main">
@@ -68,7 +68,7 @@ permalink: /resume/
 
           {% if job.skills %}
           <ul class="resume-entry__skills" aria-label="Skills">
-            {% for skill in job.skills %}<li>{{ skill }}</li>{% endfor %}
+            {% for skill in job.skills %}<li class="label">{{ skill }}</li>{% endfor %}
           </ul>
           {% endif %}
         </div>
