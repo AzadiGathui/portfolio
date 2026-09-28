@@ -1,12 +1,12 @@
 ---
-title: The Price of Power
+title: The cost of electricity in Kenya
 tagline: Energy & Affordability
 client: Independent
-industry: Energy & Data Visualisation
+industry: Energy & Data
 role: Researcher & Designer
 deliverables: Interactive data visualisation (Tableau Public)
 order: 1
-coverImage: /assets/images/projects/ren/Olkaria 1AU.jpg
+coverImage: /assets/images/projects/ren/cover-header.jpg
 mockupImage: /assets/images/projects/ren/bills.png
 thumbnail: /assets/images/projects/ren/bills.png
 ogImage: /assets/images/projects/ren/bills.png

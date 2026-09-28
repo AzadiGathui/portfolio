@@ -56,7 +56,7 @@
             "Owned onboarding, referral, and transaction-flow design end-to-end: research, design, developer handoff, and iteration based on usage.",
             "Designed for a low-bandwidth, non-technical, non-English-dominant user base.",
             "Partnered directly with developers and product managers to ship designs to real users, then iterated based on usability testing and product feedback.",
-            "Formally led a 2-person design/research team on a dedicated initiative — assigning work and owning outcomes, while remaining hands-on in the craft.",
+            "Formally led a 2-person design/research team on a dedicated initiative, assigning work and owning outcomes while remaining hands-on in the craft.",
             "Designed interactive prototypes for partnership presentations and product demos using Figma and the Adobe suite.",
             "Championed accessibility and usability against W3C/WCAG 2.1 guidelines; produced clear design documentation to ease developer handoff."
           ],
@@ -102,7 +102,7 @@
           "description": [
             "Designed end-to-end UI/UX for a Congolese ride-hailing app, covering separate driver and passenger journeys.",
             "Built a design system optimised for low-bandwidth conditions and entry-level Android devices.",
-            "Unified two distinct user mental models — driver and passenger — within a single navigation structure."
+            "Unified two distinct user mental models (driver and passenger) within a single navigation structure."
           ],
           "skills": [
             "Figma",
@@ -130,7 +130,7 @@
           "slug": "crossover",
           "description": [
             "Prototyped an AI-powered e-learning platform under timed, competitive conditions for a global UX hiring assessment.",
-            "Applied end-to-end UX methodology — research synthesis, IA, wireframing, and high-fidelity prototyping — within a constrained timeline."
+            "Applied end-to-end UX methodology (research synthesis, IA, wireframing, and high-fidelity prototyping) within a constrained timeline."
           ],
           "skills": [
             "Figma",
@@ -173,7 +173,7 @@
           ]
         },
         {
-          "client": "Geospatial Deep Learning — Land-Cover Classification",
+          "client": "Geospatial Deep Learning: Land-Cover Classification",
           "description": [
             "Built and hyperparameter-tuned a CNN for satellite land-cover classification (EuroSAT benchmark, 10 classes), reaching 85% held-out accuracy; then built a geospatial pre-processing pipeline (rasterio, geopandas) to extend the same approach to a real, unlabelled region."
           ],

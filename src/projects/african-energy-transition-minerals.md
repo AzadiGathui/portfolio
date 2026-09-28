@@ -1,12 +1,12 @@
 ---
-title: African Energy Transition Minerals
+title: A just transition for Africa's critical minerals
 tagline: Case study report on a just minerals transition
 client: UN Climate Change High-Level Champions
-industry: Climate & Critical Minerals
+industry: Critical Minerals
 role: Editorial Designer
-deliverables: Case study report — layout and typesetting
+deliverables: "Case study report: layout and typesetting"
 order: 3
-coverImage: /assets/images/projects/aetm/cover.jpg
+coverImage: /assets/images/projects/aetm/cover-header.jpg
 thumbnail: /assets/images/projects/aetm/spread-01-cover.jpg
 ogImage: /assets/images/projects/aetm/spread-01-cover.jpg
 description: Report design for "Non-State Actors Leading a 'Just Transition'", a September 2024 case study report on responsible critical energy transition mineral production in Africa.

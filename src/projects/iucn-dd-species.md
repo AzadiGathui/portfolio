@@ -1,12 +1,12 @@
 ---
-title: "Predicting Threat Status for Kenya's Data Deficient Species"
+title: "Predicting threat status for Kenya's data-deficient species"
 tagline: Machine learning for biodiversity conservation
 client: Zindua School (Academic Project)
-industry: Conservation / Data Science
+industry: Conservation
 role: Data Scientist
 deliverables: Data wrangling pipeline, exploratory analysis, Random Forest classification model, species-level predictions
 order: 8
-coverImage: /assets/images/projects/iucn/eda_category_distribution.png
+coverImage: /assets/images/projects/iucn/cover-header.jpg
 thumbnail: /assets/images/projects/iucn/model_kenya_by_class.png
 ogImage: /assets/images/projects/iucn/model_kenya_by_class.png
 description: A machine learning project predicting IUCN Red List threat categories for Kenya's 335 Data Deficient species using Random Forest classification trained on 35,000+ species.
@@ -17,16 +17,16 @@ permalink: /projects/iucn-dd-species/
 
 <h2 id="overview">Overview</h2>
 
-The <a href="https://www.iucnredlist.org/" target="_blank" rel="noopener">IUCN Red List</a> is the world's most comprehensive inventory of species' conservation status. It classifies species from **Least Concern** through to **Extinct** — but a critical subset are labelled **Data Deficient (DD)**: species where available information is too poor to even assign a threat category.
+The <a href="https://www.iucnredlist.org/" target="_blank" rel="noopener">IUCN Red List</a> is the world's most comprehensive inventory of species' conservation status. It classifies species from **Least Concern** through to **Extinct**, but a critical subset are labelled **Data Deficient (DD)**: species where available information is too poor to even assign a threat category.
 
 This is not a safe status. A DD classification often reflects under-resourced field research rather than genuine absence of threat. Left unaddressed, these species fall through the cracks of conservation policy.
 
 <figure>
   <img src="/assets/images/projects/iucn/eda_category_distribution.png" alt="Distribution of IUCN Red List categories across all 39,024 species in the dataset">
-  <figcaption>Distribution of IUCN Red List categories. Least Concern dominates, while Data Deficient (far right) represents 9.3% of the dataset — species with insufficient information to classify.</figcaption>
+  <figcaption>Distribution of IUCN Red List categories. Least Concern dominates, while Data Deficient (far right) represents 9.3% of the dataset: species with insufficient information to classify.</figcaption>
 </figure>
 
-**The goal:** Train a classification model on species with known threat status, then use it to predict whether Kenya's 335 Data Deficient species are likely to be Threatened or Non-Threatened — surfacing candidates for urgent field research.
+**The goal:** Train a classification model on species with known threat status, then use it to predict whether Kenya's 335 Data Deficient species are likely to be Threatened or Non-Threatened, surfacing candidates for urgent field research.
 
 ---
 
@@ -54,7 +54,7 @@ Before analysis, the data needed cleaning. Initial inspection revealed significa
 
 <figure>
   <img src="/assets/images/projects/iucn/initial_missingness.png" alt="Missingness matrix showing gaps across fields before cleaning">
-  <figcaption>Initial missingness matrix. Several fields — including population trend, habitat associations, and threat data — have substantial gaps, particularly for Data Deficient species.</figcaption>
+  <figcaption>Initial missingness matrix. Several fields (including population trend, habitat associations, and threat data) have substantial gaps, particularly for Data Deficient species.</figcaption>
 </figure>
 
 The primary join key (`internalTaxonId`) had **2,925 duplicated rows**, retained as first occurrences and removed. After deduplication:
@@ -72,20 +72,20 @@ The primary join key (`internalTaxonId`) had **2,925 duplicated rows**, retained
 
 For modelling purposes, the 13 IUCN categories were collapsed into three simplified groups:
 
-- **Threatened** — Vulnerable, Endangered, Critically Endangered
-- **Non-Threatened** — Least Concern, Near Threatened, Lower Risk/\*
-- **Extinct** — Extinct, Extinct in the Wild, Regionally Extinct
+- **Threatened:** Vulnerable, Endangered, Critically Endangered
+- **Non-Threatened:** Least Concern, Near Threatened, Lower Risk/\*
+- **Extinct:** Extinct, Extinct in the Wild, Regionally Extinct
 
 Data Deficient species were excluded from training and reserved as prediction targets.
 
 <figure>
-  <img src="/assets/images/projects/iucn/eda_simplified_categories.png" alt="Simplified Red List category groupings — Threatened vs Non-Threatened vs Extinct">
+  <img src="/assets/images/projects/iucn/eda_simplified_categories.png" alt="Simplified Red List category groupings: Threatened vs Non-Threatened vs Extinct">
   <figcaption>Simplified groupings used for binary classification. Non-Threatened (Least Concern + Near Threatened) vastly outnumbers Threatened, creating a class imbalance problem addressed later with SMOTE.</figcaption>
 </figure>
 
 ### Taxonomic Signals
 
-Not all taxonomic groups face equal risk. Threat rates vary substantially by phylum and class — making taxonomy a potentially powerful predictor.
+Not all taxonomic groups face equal risk. Threat rates vary substantially by phylum and class, making taxonomy a potentially powerful predictor.
 
 <figure>
   <img src="/assets/images/projects/iucn/eda_species_by_phylum.png" alt="Species count and threat rate by phylum">
@@ -93,7 +93,7 @@ Not all taxonomic groups face equal risk. Threat rates vary substantially by phy
 </figure>
 
 <figure>
-  <img src="/assets/images/projects/iucn/eda_category_by_class.png" alt="Red List category proportions by taxonomic class — stacked bar chart">
+  <img src="/assets/images/projects/iucn/eda_category_by_class.png" alt="Red List category proportions by taxonomic class, as a stacked bar chart">
   <figcaption>Simplified Red List category proportions within each taxonomic class. Classes like AMPHIBIA and CYCADOPSIDA have markedly higher threatened fractions than ACTINOPTERYGII (fish) or INSECTA.</figcaption>
 </figure>
 
@@ -103,7 +103,7 @@ Species occurring in fewer countries tend to have narrower ranges, making them m
 
 <figure>
   <img src="/assets/images/projects/iucn/eda_country_count.png" alt="Country count distribution and boxplot comparing threatened vs non-threatened species">
-  <figcaption>Distribution of country occurrences per species (left) and boxplot by threat status (right). Threatened species occur in significantly fewer countries on average — range size is a meaningful signal.</figcaption>
+  <figcaption>Distribution of country occurrences per species (left) and boxplot by threat status (right). Threatened species occur in significantly fewer countries on average: range size is a meaningful signal.</figcaption>
 </figure>
 
 ### Habitat Specialisation
@@ -112,7 +112,7 @@ Similarly, species dependent on fewer habitat types have less adaptive buffer ag
 
 <figure>
   <img src="/assets/images/projects/iucn/eda_habitat_count.png" alt="Habitat count distribution and boxplot by threat category">
-  <figcaption>Habitat count distribution (left) and boxplot by category (right). Habitat specialists — those relying on 1–2 habitat types — skew toward Threatened status.</figcaption>
+  <figcaption>Habitat count distribution (left) and boxplot by category (right). Habitat specialists (those relying on 1–2 habitat types) skew toward Threatened status.</figcaption>
 </figure>
 
 ### Threat Documentation
@@ -121,7 +121,7 @@ Species with more documented threats are, unsurprisingly, more likely to be clas
 
 <figure>
   <img src="/assets/images/projects/iucn/eda_threat_count.png" alt="Documented threat count distribution and boxplot by category">
-  <figcaption>Threat count by species. Threatened species have substantially more documented threats. However, Data Deficient species have only <strong>35.4%</strong> threat documentation coverage, versus 63.8% for non-DD species — meaning the model may underestimate risk for poorly documented DD species.</figcaption>
+  <figcaption>Threat count by species. Threatened species have substantially more documented threats. However, Data Deficient species have only <strong>35.4%</strong> threat documentation coverage, versus 63.8% for non-DD species, meaning the model may underestimate risk for poorly documented DD species.</figcaption>
 </figure>
 
 ### Data Availability for DD Species
@@ -130,7 +130,7 @@ A key challenge: Data Deficient species are deficient not just in their Red List
 
 <figure>
   <img src="/assets/images/projects/iucn/eda_data_availability.png" alt="Data availability comparison between DD and non-DD species across all feature sources">
-  <figcaption>Feature data availability for DD (orange) vs non-DD (blue) species. Countries (100%) and habitats (97%) are well covered. Threats (35.4%), uses (17.8%), and conservation records (20.2%) are sparse for DD species — a systematic bias that predictions must be interpreted against.</figcaption>
+  <figcaption>Feature data availability for DD (orange) vs non-DD (blue) species. Countries (100%) and habitats (97%) are well covered. Threats (35.4%), uses (17.8%), and conservation records (20.2%) are sparse for DD species: a systematic bias that predictions must be interpreted against.</figcaption>
 </figure>
 
 ---
@@ -159,7 +159,7 @@ Eight candidate features were selected based on EDA findings and data availabili
 
 <h2 id="class-imbalance">Handling Class Imbalance</h2>
 
-Non-Threatened species significantly outnumber Threatened ones — a ratio that would bias a naïve classifier toward the majority class. SMOTE (Synthetic Minority Over-sampling Technique) was applied to the training set to generate synthetic Threatened examples and balance the distribution before fitting.
+Non-Threatened species significantly outnumber Threatened ones, a ratio that would bias a naïve classifier toward the majority class. SMOTE (Synthetic Minority Over-sampling Technique) was applied to the training set to generate synthetic Threatened examples and balance the distribution before fitting.
 
 <figure>
   <img src="/assets/images/projects/iucn/model_smote.png" alt="Class distribution before and after SMOTE oversampling">
@@ -186,19 +186,19 @@ Random Forest outperformed Logistic Regression on all metrics and was selected f
 
 <figure>
   <img src="/assets/images/projects/iucn/model_logreg_confusion.png" alt="Logistic Regression confusion matrix on test set">
-  <figcaption>Logistic Regression confusion matrix. The model achieves reasonable recall for Threatened species (87%) but with lower precision (72%) — it over-predicts threat status.</figcaption>
+  <figcaption>Logistic Regression confusion matrix. The model achieves reasonable recall for Threatened species (87%) but with lower precision (72%): it over-predicts threat status.</figcaption>
 </figure>
 
 <figure>
   <img src="/assets/images/projects/iucn/model_rf_confusion.png" alt="Random Forest confusion matrix on test set">
-  <figcaption>Random Forest confusion matrix. Higher precision (79%) and similar recall (87%) for Threatened species — a better balance, with fewer false alarms.</figcaption>
+  <figcaption>Random Forest confusion matrix. Higher precision (79%) and similar recall (87%) for Threatened species: a better balance, with fewer false alarms.</figcaption>
 </figure>
 
 ### Feature Importance
 
 <figure>
   <img src="/assets/images/projects/iucn/model_feature_importance.png" alt="Top 20 most important features in the Random Forest model">
-  <figcaption>Top 20 Random Forest feature importances. Numeric count features — particularly <code>n_countries</code>, <code>n_habitats</code>, and <code>n_threats</code> — dominate. Population trend categories and taxonomic class are the most informative categorical signals.</figcaption>
+  <figcaption>Top 20 Random Forest feature importances. Numeric count features (particularly <code>n_countries</code>, <code>n_habitats</code>, and <code>n_threats</code>) dominate. Population trend categories and taxonomic class are the most informative categorical signals.</figcaption>
 </figure>
 
 ---
@@ -217,7 +217,7 @@ Random Forest outperformed Logistic Regression on all metrics and was selected f
   <figcaption>Prediction distributions for Kenya's 335 DD species from both models. The Random Forest (right) predicts <strong>291 Non-Threatened (86.9%)</strong> and <strong>44 Threatened (13.1%)</strong>. Logistic Regression is more conservative, flagging 79 as Threatened (23.6%).</figcaption>
 </figure>
 
-The 44 RF-predicted Threatened species span multiple taxonomic classes — with fish (ACTINOPTERYGII), invertebrates, and mammals most represented among the flagged species.
+The 44 RF-predicted Threatened species span multiple taxonomic classes, with fish (ACTINOPTERYGII), invertebrates, and mammals most represented among the flagged species.
 
 <figure>
   <img src="/assets/images/projects/iucn/model_kenya_by_class.png" alt="Per-class breakdown of predicted Threatened vs Non-Threatened for Kenya's DD species">
@@ -232,7 +232,7 @@ These predictions are best treated as **research prioritisation hypotheses**, no
 
 - **Sparse data bias:** DD species are data-deficient by definition. With only 35% threat documentation coverage (vs 64% for non-DD), the model sees a less complete picture and may systematically underestimate risk.
 - **SMOTE caveats:** Synthetic oversampling generates plausible but artificial training examples. Edge cases near class boundaries may not reflect real ecological patterns.
-- **Collapsed categories:** Binary Threatened / Non-Threatened classification loses meaningful nuance — a Vulnerable and a Critically Endangered species are treated identically.
+- **Collapsed categories:** Binary Threatened / Non-Threatened classification loses meaningful nuance: a Vulnerable and a Critically Endangered species are treated identically.
 - **Count features only:** Threat *type* and habitat *type* were reduced to simple counts. Qualitative differences (e.g., habitat destruction vs invasive species) are invisible to the model.
 - **No external validation:** Predictions have not been validated against expert assessments or field surveys. They should prompt investigation, not replace it.
 
