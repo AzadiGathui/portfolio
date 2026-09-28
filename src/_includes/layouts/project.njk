@@ -1,9 +1,20 @@
 ---
 layout: layouts/base.njk
 ---
-<header>
-  <div class="cover" style="background: url('{{ coverImage | bgImage }}') lightgray 50% / cover no-repeat;">
-    {% if mockupImage %}
+{# layoutGrid: swiss (set for every project in src/projects/projects.json): one
+   12-column grid for the whole page. Labels and the contents list sit in columns
+   1–3; the title, the details and the body start at column 5. A project can set
+   `layoutGrid: centred` to get the older centred header. Styles: "SWISS GRID". #}
+{% set onGrid = layoutGrid == "swiss" %}
+
+<header{% if onGrid %} class="pj-swiss"{% endif %}>
+  {# coverPosition (optional): which part of the photo the wide cover keeps, e.g. "50% 20%"
+     to hold the faces in a portrait photo. Default: the centre. #}
+  <div class="cover" style="background: url('{{ coverImage | bgImage }}') lightgray {{ coverPosition or '50%' }} / cover no-repeat;">
+    {% if mockupImage and mockupFrame == "phone" %}
+      {# A single mobile screen: shown in the shared phone frame #}
+      {% phone { src: mockupImage, alt: title + " app screen", priority: true } %}
+    {% elif mockupImage %}
       {# The mockup is the first big thing on screen: load it straight away, at high priority #}
       <img src="{{ mockupImage }}" alt="{{ title }} project mockup" class="pj-mockup" loading="eager" fetchpriority="high">
     {% endif %}
@@ -18,12 +29,26 @@ layout: layouts/base.njk
         {% if tagline %}<p>{{ tagline }}</p>{% endif %}
       </div>
 
+    {% if onGrid %}
+    {# Label/value pairs: a description list, each row on the page grid #}
+    <dl class="pj-facts">
+      <div><dt class="label">Client</dt><dd>{{ client }}</dd></div>
+      {% if industry %}<div><dt class="label">Industry</dt><dd>{{ industry }}</dd></div>{% endif %}
+      <div><dt class="label">Role</dt><dd>{{ role }}</dd></div>
+      {% if timeline %}<div><dt class="label">Timeline</dt><dd>{{ timeline }}</dd></div>{% endif %}
+      {% if platform %}<div><dt class="label">Platform</dt><dd>{{ platform }}</dd></div>{% endif %}
+      <div><dt class="label">Deliverables</dt><dd>{{ deliverables }}</dd></div>
+    </dl>
+    {% else %}
     <table class="pj-deets__table">
       <tr><th>Client</th><td>{{ client }}</td></tr>
       {% if industry %}<tr><th>Industry</th><td>{{ industry }}</td></tr>{% endif %}
       <tr><th>Role</th><td>{{ role }}</td></tr>
+      {% if timeline %}<tr><th>Timeline</th><td>{{ timeline }}</td></tr>{% endif %}
+      {% if platform %}<tr><th>Platform</th><td>{{ platform }}</td></tr>{% endif %}
       <tr><th>Deliverables</th><td>{{ deliverables }}</td></tr>
     </table>
+    {% endif %}
   </div>
 </header>
 
@@ -38,7 +63,7 @@ layout: layouts/base.njk
    Driven by CSS alone (scroll-driven animation); browsers without it just see the border. #}
 <div class="read-progress" aria-hidden="true"></div>
 
-<main class="pj-main">
+<main class="pj-main{% if onGrid %} pj-swiss{% endif %}">
   {% if tocItems.length %}
   <div class="pj-layout">
     <aside class="pj-toc-sidebar" aria-label="Table of contents">
@@ -94,6 +119,7 @@ layout: layouts/base.njk
 {% endif %}
 
 <script src="/assets/js/spread-zoom.js" defer></script>
+<script src="/assets/js/phone-reel.js" defer></script>
 
 <script>
 // Runs once the whole page is parsed: the previous/next links and the footer
@@ -190,9 +216,6 @@ document.addEventListener('DOMContentLoaded', function () {
         {% endif %}
         <span class="label">← Previous</span>
         <span class="pj-nav__title">{{ prevProject.data.title }}</span>
-        {% if prevProject.data.tagline %}
-          <span class="pj-nav__tagline caption">{{ prevProject.data.tagline }}</span>
-        {% endif %}
       </a>
     {% endif %}
   </div>
@@ -204,9 +227,6 @@ document.addEventListener('DOMContentLoaded', function () {
         {% endif %}
         <span class="label">Next →</span>
         <span class="pj-nav__title">{{ nextProject.data.title }}</span>
-        {% if nextProject.data.tagline %}
-          <span class="pj-nav__tagline caption">{{ nextProject.data.tagline }}</span>
-        {% endif %}
       </a>
     {% endif %}
   </div>

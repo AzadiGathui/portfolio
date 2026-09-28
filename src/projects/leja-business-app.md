@@ -1,15 +1,16 @@
 ---
-title: Financial inclusion at the Last Mile
+title: Financial inclusion at the last mile
 tagline: Mobile application research & design
 client: Leja Ltd.
 industry: B2B Fintech
 role: Product (UI/UX) Designer
 deliverables: Mobile application UX research & design
 order: 2
-coverImage: /assets/images/projects/lj/LJcover.jpg
-mockupImage: /assets/images/projects/lj/LJmockup.png
+coverImage: /assets/images/projects/lj/cover-header.jpg
+mockupImage: /assets/images/projects/lj/phone-home.png
+mockupFrame: phone
 clientLogo: /assets/images/resume/leja/Leja logotype_WhitePink_RGB.svg
-thumbnail: /assets/images/projects/lj/LJmockup.png
+thumbnail: /assets/images/projects/lj/thumbnail.png
 ogImage: /assets/images/projects/lj/LJmockup.png
 description: Formalising MSMEs to promote access to financial services. Product design for Leja Ltd., a B2B fintech platform.
 permalink: /projects/leja-business-app/

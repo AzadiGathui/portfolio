@@ -6,11 +6,11 @@ industry: Energy
 role: Editorial Designer
 deliverables: 200-page publication
 order: 6
-coverImage: /assets/images/projects/efw/EFW hero cover.jpg
+coverImage: /assets/images/projects/efw/cover-header.jpg
 mockupImage: /assets/images/projects/efw/EFW hero mockup.png
 thumbnail: /assets/images/projects/efw/EFW hero mockup.png
 ogImage: /assets/images/projects/efw/EFW hero mockup.png
-description: A 200-page compilation of collaborative research into contemporary Kenyan energy concerns — designed for SID Kenya.
+description: A 200-page compilation of collaborative research into contemporary Kenyan energy concerns, designed for SID Kenya.
 permalink: /projects/kenya-energy-atlas/
 ---
 

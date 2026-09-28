@@ -1,7 +1,7 @@
 ---
 layout: layouts/page.njk
 title: Portfolio
-description: Azadi Gathui — Designer & Researcher. Portfolio of UX, editorial, and data visualisation work.
+description: Azadi Gathui, Designer & Researcher. Portfolio of UX, editorial, and data visualisation work.
 permalink: /
 ---
 <main>
@@ -39,7 +39,7 @@ permalink: /
             <span class="label">{{ project.data.industry }}</span>
           {% endif %}
           <h3>{{ project.data.title }}</h3>
-          <p class="caption">{{ project.data.tagline }}</p>
+          <p class="caption">{{ project.data.deliverables }}</p>
         </div>
       </a>
       {% endfor %}
@@ -48,7 +48,7 @@ permalink: /
 </main>
 
 <script>
-/* Hero loop control — progressive enhancement.
+/* Hero loop control: progressive enhancement.
    - Respects prefers-reduced-motion (no playback until the visitor opts in).
    - Provides a visible pause/play button (WCAG 2.2.2 Pause, Stop, Hide). */
 (function () {
