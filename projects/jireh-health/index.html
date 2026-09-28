@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="shortcut icon" href="/assets/images/branding/favicon.png">
+  <link rel="icon" href="/assets/images/branding/AG Favicon Light on Dark.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/images/branding/favicon.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/assets/images/branding/apple-touch-icon.png">
   <!-- Self-hosted fonts: preload the two faces every page renders first -->
   <link rel="preload" href="/assets/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="">
   <link rel="preload" href="/assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="">
@@ -26,7 +28,9 @@
   <a href="/"><img src="/img/rXTz9L4-mZ-33.svg" alt="Azadi Gathui, home" class="logo" loading="eager" decoding="async" width="33" height="33"></a>
   <ul class="nav-ul">
     
-    <li class="nav-li"><a href="/resume/">Resume</a></li>
+    <li class="nav-li"><a href="/">Work</a></li>
+    
+    <li class="nav-li"><a href="/resume/">CV</a></li>
     
     <li class="nav-li"><a href="/lab/">Lab</a></li>
     
@@ -46,7 +50,7 @@
         <p>Accessible healthcare financing</p>
       </div>
 
-    <table style="align-self: stretch;">
+    <table class="pj-deets__table">
       <tr><th>Client</th><td>Jireh Innovations Ltd.</td></tr>
       <tr><th>Industry</th><td>Healthcare Fintech</td></tr>
       <tr><th>Role</th><td>UX Researcher &amp; Designer</td></tr>
@@ -57,7 +61,15 @@
 
 
 
-<main>
+
+
+
+
+
+
+<div class="read-progress" aria-hidden="true"></div>
+
+<main class="pj-main">
   
   <section>
   <div class="pj-text">
@@ -69,43 +81,98 @@
 </main>
 
 
+<div class="reading-bar">
+  
+  <a href="#" class="to-top" aria-label="Back to top">↑</a>
+</div>
 
 
+
+<script src="/assets/js/spread-zoom.js" defer=""></script>
 
 <script>
-(function () {
-  // Scroll to bottom
-  var bottomLink = document.getElementById('toc-bottom-link');
-  if (bottomLink) {
-    bottomLink.addEventListener('click', function (e) {
-      e.preventDefault();
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    });
-  }
-
-  // Active section highlight
+// Runs once the whole page is parsed: the previous/next links and the footer
+// come after this script, and the reading bar needs to find them
+document.addEventListener('DOMContentLoaded', function () {
+  // Active section highlight: the desktop sidebar and the mobile sheet list the
+  // same sections in the same order, so one index drives both
   var links = [...document.querySelectorAll('.toc__link[href^="#"]:not([href="#"])')];
-  if (!links.length) return;
+  var sheetLinks = [...document.querySelectorAll('.toc-sheet__link[href^="#"]:not([href="#"])')];
 
   var headings = links.map(function (l) {
     return document.querySelector(l.getAttribute('href'));
   }).filter(Boolean);
 
-  function setActive() {
+  // Mobile reading bar. The contents pill shows once the reader is into the
+  // article and hides at the end, so it never covers the previous/next links.
+  // The ↑ button shows only while the reader is scrolling back up: the moment
+  // they're most likely looking for the top.
+  var pill = document.querySelector('.toc-pill');
+  var pillSection = pill && pill.querySelector('.toc-pill__section');
+  var pillCount = pill && pill.querySelector('.toc-pill__count');
+  var toTop = document.querySelector('.to-top');
+  var main = document.querySelector('.pj-main');
+  var footer = document.querySelector('.footer');
+  var end = document.querySelector('.pj-nav') || footer;
+  var lastY = window.scrollY;
+  var goingUp = false;
+
+  function update() {
     var threshold = window.innerHeight * 0.25;
-    var active = null;
+    var index = -1;
     for (var i = 0; i < headings.length; i++) {
-      if (headings[i].getBoundingClientRect().top <= threshold) {
-        active = links[i];
-      }
+      if (headings[i].getBoundingClientRect().top <= threshold) index = i;
     }
-    links.forEach(function (l) { l.classList.remove('toc__link--active'); });
-    if (active) active.classList.add('toc__link--active');
+    links.forEach(function (l, i) { l.classList.toggle('toc__link--active', i === index); });
+    sheetLinks.forEach(function (l, i) {
+      l.classList.toggle('toc-sheet__link--active', i === index);
+      if (i === index) l.setAttribute('aria-current', 'location');
+      else l.removeAttribute('aria-current');
+    });
+
+    // Direction, ignoring small jitters (e.g. the address bar resizing the page)
+    var y = window.scrollY;
+    if (Math.abs(y - lastY) > 8) {
+      goingUp = y < lastY;
+      lastY = y;
+    }
+
+    var inArticle = main.getBoundingClientRect().top < window.innerHeight * 0.6;
+    var atEnd = end && end.getBoundingClientRect().top < window.innerHeight;
+    // ...but not over the footer, where it would sit on top of its links
+    var footerInView = footer && footer.getBoundingClientRect().top < window.innerHeight;
+    toTop.classList.toggle('is-visible', inArticle && goingUp && !footerInView);
+
+    if (!pill) return;
+    pillSection.textContent = index >= 0 ? sheetLinks[index].textContent : 'Contents';
+    pillCount.textContent = index >= 0 ? (index + 1) + '/' + headings.length : '';
+    pill.classList.toggle('is-visible', inArticle && !atEnd);
   }
 
-  window.addEventListener('scroll', setActive, { passive: true });
-  setActive();
-})();
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
+
+  // Contents sheet (a modal <dialog>: focus is trapped inside it, and Esc or
+  // the Android back gesture closes it)
+  var sheet = document.getElementById('toc-sheet');
+  if (!pill || !sheet) return;
+
+  pill.addEventListener('click', function () { sheet.showModal(); });
+  sheet.querySelector('.toc-sheet__close').addEventListener('click', function () { sheet.close(); });
+
+  // Picking a section closes the sheet; the link then scrolls as normal
+  sheet.querySelectorAll('.toc-sheet__link').forEach(function (l) {
+    l.addEventListener('click', function () { sheet.close(); });
+  });
+
+  // A tap on the dimmed backdrop (outside the sheet's box) closes it too
+  sheet.addEventListener('click', function (e) {
+    if (e.target !== sheet) return; // clicks on the links and close button are handled above
+    var r = sheet.getBoundingClientRect();
+    if (e.clientY < r.top || e.clientY > r.bottom || e.clientX < r.left || e.clientX > r.right) sheet.close();
+  });
+});
 </script>
 
 
@@ -116,10 +183,13 @@
   <div class="pj-nav__item pj-nav__item--next">
     
       <a href="/projects/price-of-power/" class="pj-nav__link">
-        <span class="label label--muted">Next →</span>
+        
+          <picture><source type="image/avif" srcset="/img/cde3KuXc5p-400.avif 400w, /img/cde3KuXc5p-572.avif 572w" sizes="(max-width: 768px) 50vw, 440px"><img loading="lazy" decoding="async" src="/img/cde3KuXc5p-400.webp" alt="" class="pj-nav__thumb" width="572" height="280" srcset="/img/cde3KuXc5p-400.webp 400w, /img/cde3KuXc5p-572.webp 572w" sizes="(max-width: 768px) 50vw, 440px"></picture>
+        
+        <span class="label">Next →</span>
         <span class="pj-nav__title">The Price of Power</span>
         
-          <span class="pj-nav__tagline">Energy &amp; Affordability</span>
+          <span class="pj-nav__tagline caption">Energy &amp; Affordability</span>
         
       </a>
     
@@ -131,32 +201,33 @@
   <footer class="footer">
   <div class="footer__brand">
     <a href="/" class="footer__name">Azadi Gathui</a>
-    <p class="footer__role">Designer &amp; Researcher</p>
+    <p class="footer__role caption">Designer &amp; Researcher</p>
   </div>
 
   <nav class="footer__nav" aria-label="Footer navigation">
     <ul class="footer__nav-list">
-      <li><a href="/" class="footer__nav-link">Work</a></li>
       
-      <li><a href="/resume/" class="footer__nav-link">Resume</a></li>
+      <li><a href="/" class="footer__nav-link caption">Work</a></li>
       
-      <li><a href="/lab/" class="footer__nav-link">Lab</a></li>
+      <li><a href="/resume/" class="footer__nav-link caption">CV</a></li>
+      
+      <li><a href="/lab/" class="footer__nav-link caption">Lab</a></li>
       
     </ul>
   </nav>
 
   <div class="footer__social">
     
-      <a href="https://linkedin.com/in/azadigathui" class="footer__social-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://linkedin.com/in/azadigathui" class="footer__social-link caption" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     
     
-      <a href="https://behance.net/azadi_gathui" class="footer__social-link" target="_blank" rel="noopener noreferrer">Behance</a>
+      <a href="https://behance.net/azadi_gathui" class="footer__social-link caption" target="_blank" rel="noopener noreferrer">Behance</a>
     
     
-      <a href="https://github.com/AzadiGathui" class="footer__social-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://github.com/AzadiGathui" class="footer__social-link caption" target="_blank" rel="noopener noreferrer">GitHub</a>
     
     
-      <a href="mailto:gathui@azadi.design" class="footer__social-link">gathui@azadi.design</a>
+      <a href="mailto:gathui@azadi.design" class="footer__social-link caption">gathui@azadi.design</a>
     
   </div>
 

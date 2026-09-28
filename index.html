@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="shortcut icon" href="/assets/images/branding/favicon.png">
+  <link rel="icon" href="/assets/images/branding/AG Favicon Light on Dark.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/images/branding/favicon.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/assets/images/branding/apple-touch-icon.png">
   <!-- Self-hosted fonts: preload the two faces every page renders first -->
   <link rel="preload" href="/assets/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="">
   <link rel="preload" href="/assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="">
@@ -26,7 +28,9 @@
   <a href="/"><img src="/img/rXTz9L4-mZ-33.svg" alt="Azadi Gathui, home" class="logo" loading="eager" decoding="async" width="33" height="33"></a>
   <ul class="nav-ul">
     
-    <li class="nav-li"><a href="/resume/">Resume</a></li>
+    <li class="nav-li"><a href="/">Work</a></li>
+    
+    <li class="nav-li"><a href="/resume/">CV</a></li>
     
     <li class="nav-li"><a href="/lab/">Lab</a></li>
     
@@ -36,7 +40,7 @@
   <div id="main">
   <main>
   <div class="hero-intro">
-    <div style="text-align: center;">
+    <div class="hero-title">
       <h1>Azadi Gathui</h1>
       <p>Product Design & Analyst Portfolio 2026</p>
     </div>
@@ -50,8 +54,8 @@
     <img src="/img/JPA2wmlFwk-149.svg" alt="scroll for previous work" loading="lazy" decoding="async" width="149" height="28">
   </div>
 
-  <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
-    <div>
+  <div class="projects">
+    <div class="projects__title">
       <p class="hero-section-label">Professional <br> Experience</p>
       <h2 class="projects-heading">Projects</h2>
     </div>
@@ -64,10 +68,10 @@
         
         <div class="project-card__body">
           
-            <span class="label label--muted">Energy &amp; Data Visualisation</span>
+            <span class="label">Energy &amp; Data Visualisation</span>
           
           <h3>The Price of Power</h3>
-          <p>Energy &amp; Affordability</p>
+          <p class="caption">Energy &amp; Affordability</p>
         </div>
       </a>
       
@@ -77,10 +81,10 @@
         
         <div class="project-card__body">
           
-            <span class="label label--muted">B2B Fintech</span>
+            <span class="label">B2B Fintech</span>
           
           <h3>Financial inclusion at the Last Mile</h3>
-          <p>Mobile application research &amp; design</p>
+          <p class="caption">Mobile application research &amp; design</p>
         </div>
       </a>
       
@@ -90,10 +94,10 @@
         
         <div class="project-card__body">
           
-            <span class="label label--muted">Climate &amp; Critical Minerals</span>
+            <span class="label">Climate &amp; Critical Minerals</span>
           
           <h3>African Energy Transition Minerals</h3>
-          <p>Case study report on a just minerals transition</p>
+          <p class="caption">Case study report on a just minerals transition</p>
         </div>
       </a>
       
@@ -103,10 +107,10 @@
         
         <div class="project-card__body">
           
-            <span class="label label--muted">Accessibility &amp; Inclusivity</span>
+            <span class="label">Accessibility &amp; Inclusivity</span>
           
           <h3>Inclusive Africa Conference Report</h3>
-          <p>Accessibility conference booklet</p>
+          <p class="caption">Accessibility conference booklet</p>
         </div>
       </a>
       
@@ -116,10 +120,10 @@
         
         <div class="project-card__body">
           
-            <span class="label label--muted">Climate &amp; Youth Advocacy</span>
+            <span class="label">Climate &amp; Youth Advocacy</span>
           
           <h3>Children &amp; Youth Pavilion Report</h3>
-          <p>Post-event report for COP27</p>
+          <p class="caption">Post-event report for COP27</p>
         </div>
       </a>
       
@@ -129,10 +133,10 @@
         
         <div class="project-card__body">
           
-            <span class="label label--muted">Energy</span>
+            <span class="label">Energy</span>
           
           <h3>Kenya Energy Atlas</h3>
-          <p>Consolidated research publication</p>
+          <p class="caption">Consolidated research publication</p>
         </div>
       </a>
       
@@ -142,10 +146,10 @@
         
         <div class="project-card__body">
           
-            <span class="label label--muted">Conservation / Data Science</span>
+            <span class="label">Conservation / Data Science</span>
           
           <h3>Predicting Threat Status for Kenya&#39;s Data Deficient Species</h3>
-          <p>Machine learning for biodiversity conservation</p>
+          <p class="caption">Machine learning for biodiversity conservation</p>
         </div>
       </a>
       
@@ -200,32 +204,33 @@
   <footer class="footer">
   <div class="footer__brand">
     <a href="/" class="footer__name">Azadi Gathui</a>
-    <p class="footer__role">Designer &amp; Researcher</p>
+    <p class="footer__role caption">Designer &amp; Researcher</p>
   </div>
 
   <nav class="footer__nav" aria-label="Footer navigation">
     <ul class="footer__nav-list">
-      <li><a href="/" class="footer__nav-link">Work</a></li>
       
-      <li><a href="/resume/" class="footer__nav-link">Resume</a></li>
+      <li><a href="/" class="footer__nav-link caption">Work</a></li>
       
-      <li><a href="/lab/" class="footer__nav-link">Lab</a></li>
+      <li><a href="/resume/" class="footer__nav-link caption">CV</a></li>
+      
+      <li><a href="/lab/" class="footer__nav-link caption">Lab</a></li>
       
     </ul>
   </nav>
 
   <div class="footer__social">
     
-      <a href="https://linkedin.com/in/azadigathui" class="footer__social-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://linkedin.com/in/azadigathui" class="footer__social-link caption" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     
     
-      <a href="https://behance.net/azadi_gathui" class="footer__social-link" target="_blank" rel="noopener noreferrer">Behance</a>
+      <a href="https://behance.net/azadi_gathui" class="footer__social-link caption" target="_blank" rel="noopener noreferrer">Behance</a>
     
     
-      <a href="https://github.com/AzadiGathui" class="footer__social-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://github.com/AzadiGathui" class="footer__social-link caption" target="_blank" rel="noopener noreferrer">GitHub</a>
     
     
-      <a href="mailto:gathui@azadi.design" class="footer__social-link">gathui@azadi.design</a>
+      <a href="mailto:gathui@azadi.design" class="footer__social-link caption">gathui@azadi.design</a>
     
   </div>
 
