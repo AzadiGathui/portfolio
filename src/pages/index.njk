@@ -6,7 +6,7 @@ permalink: /
 ---
 <main>
   <div class="hero-intro">
-    <div style="text-align: center;">
+    <div class="hero-title">
       <h1>Azadi Gathui</h1>
       <p>Product Design & Analyst Portfolio 2026</p>
     </div>
@@ -22,8 +22,8 @@ permalink: /
     <img src="/assets/images/home/scroll.svg" alt="scroll for previous work">
   </div>
 
-  <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
-    <div>
+  <div class="projects">
+    <div class="projects__title">
       <p class="hero-section-label">Professional <br> Experience</p>
       <h2 class="projects-heading">Projects</h2>
     </div>
@@ -36,10 +36,10 @@ permalink: /
         {% endif %}
         <div class="project-card__body">
           {% if project.data.industry %}
-            <span class="label label--muted">{{ project.data.industry }}</span>
+            <span class="label">{{ project.data.industry }}</span>
           {% endif %}
           <h3>{{ project.data.title }}</h3>
-          <p>{{ project.data.tagline }}</p>
+          <p class="caption">{{ project.data.tagline }}</p>
         </div>
       </a>
       {% endfor %}

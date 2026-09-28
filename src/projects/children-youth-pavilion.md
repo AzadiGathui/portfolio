@@ -30,7 +30,7 @@ permalink: /projects/children-youth-pavilion/
 </div>
 
 <div class="article-body pj-intro">
-  <span class="label label--muted">Behind the scenes</span>
+  <span class="label">Behind the scenes</span>
   <h2>Using the existing brand to determine structure &amp; layout.</h2>
   <p>With the colour palette and typeface already decided by the team that did the branding, I worked to typeset the text on a precise grid in Adobe InDesign.</p>
   <p>I harmonised the colours into a logical scheme, grouped by thematic area and content type i.e. health was yellow, recommendations were blue etc.</p>

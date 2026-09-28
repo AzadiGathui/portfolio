@@ -67,9 +67,10 @@
 :root {
   --color-bg: #1a1a1a;
   --color-bg-transparent: #1a1a1a00;
+  /* Two text colours: primary and muted. Muted is the Figma "text-ghost" grey,
+     and covers everything supporting: captions, taglines, labels, dates. */
   --color-text: #e6e6e6;            /* 13.9:1 — primary text */
-  --color-text-secondary: #a3a3a3;  /*  6.9:1 — captions, taglines, supporting text */
-  --color-text-tertiary: #8c8c8c;   /*  5.2:1 — metadata, dates, muted labels */
+  --color-text-muted: #b3b3b3;      /*  8.3:1 — all supporting text; 6.0:1 on --color-surface */
   --color-text-ghost: #e6e6e610;    /* decorative only — never for content */
   --color-accent: #e50000;          /*  3.6:1 — fills, rules, borders, focus rings (not small text) */
   --color-accent-text: #ff5c5c;     /*  5.8:1 — red text and link hover */
@@ -78,19 +79,51 @@
   --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
   --font-body: "Barlow", "Helvetica Neue", Arial, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; /* labels, dates, tags */
-  --color-text-label: #b3b3b3;      /*  8.3:1 — mono labels, dates, supporting text (Figma "text-ghost") */
-  --color-surface: #333333;         /*  panels and tag chips; #b3b3b3 on it is 6.0:1 */
+  --color-surface: #333333;         /*  panels and tag chips */
+
+  /* Type scale. Every font-size in this file is one of these seven steps.
+     Sizes are fixed; the display sizes step down for small screens in the
+     media queries just below :root, so nothing else needs its own override. */
+  --text-xs: 0.75rem;    /* 12px — mono labels, fine print */
+  --text-sm: 0.875rem;   /* 14px — captions, taglines, secondary links */
+  --text-base: 1rem;     /* 16px — body, h4–h6 */
+  --text-md: 1.25rem;    /* 20px — h3, lead text */
+  --text-lg: 1.5rem;     /* 24px — footer name, prev/next titles */
+  --text-xl: 2rem;       /* 32px — h2, pull quotes */
+  --text-2xl: 4rem;      /* 64px — h1 */
+  --leading-none: 1;     /* single-line labels and chips */
+  --leading-tight: 0.9;  /* h1 */
+  --leading-snug: 1.2;   /* headings, large text */
+  --leading-normal: 1.4; /* body text (set on <body>) */
+  --tracking-tight: -0.03em; /* display sizes; em, so it scales with the size */
+  --tracking-wide: 0.05em;   /* small uppercase body text */
+
   --space-xs: 0.5rem;
   --space-sm: 1rem;
   --space-md: 2rem;
   --space-lg: 4rem;
   --space-xl: 8rem;
+  --nav-height: 4.5rem;             /* the fixed nav is ~71px tall; content starts below this */
   --max-width: 960px;
   /* Reading measure. `ch` is the width of "0", which is wider than Barlow's
      average character, so 55ch lands at roughly 65–70 characters per line
      (the 45–75 editorial range). Measured, not guessed: re-check if the body
      font or size changes. */
   --measure: 55ch;
+}
+
+/* Responsive type: the display sizes step down with the screen */
+@media (max-width: 768px) {
+  :root {
+    --text-2xl: 3.5rem;  /* 56px */
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --text-2xl: 3rem;    /* 48px */
+    --text-xl: 1.75rem;  /* 28px */
+  }
 }
 
 /* ============================================
@@ -133,18 +166,85 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
+  font-size: var(--text-base);
   font-weight: 400;
-  line-height: 1.4; /* unitless, so it scales with each element's own font-size */
+  line-height: var(--leading-normal); /* unitless, so it scales with each element's own font-size */
 }
 
-/* Headings default to bold in browsers; this system uses weight 400
-   (Instrument Serif only ships 400). Components opt into heavier weights. */
+/* HEADINGS: defined once, here, and never restyled by components.
+   h1 is the only serif heading; h2 onwards are Barlow (inherited from body).
+   All weight 400, left-aligned, no margins: a container that wants its
+   headings centred (e.g. .pj-title) sets text-align on itself, and prose
+   containers (.article-body) add the spacing between sections. */
 h1, h2, h3, h4, h5, h6 {
+  margin: 0;
   font-weight: 400;
+  line-height: var(--leading-snug);
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+h2 {
+  font-size: var(--text-xl);
+  letter-spacing: var(--tracking-tight);
+}
+
+h3 {
+  font-size: var(--text-md);
+}
+
+h4, h5, h6 {
+  font-size: var(--text-base);
+}
+
+/* TEXT STYLES: the two looks that aren't headings, each defined once.
+   Apply the class instead of re-declaring font, size and colour.
+   Neither has margins, so they drop into any container; the container
+   spaces them. */
+
+/* Label: the Figma "label" style (JetBrains Mono 12px, uppercase). Muted by
+   default; .label--accent for red. Table headers share the look.
+   Usage: <span class="label">2024</span>
+          <span class="label label--accent">Timeline</span> */
+.label,
+th {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  line-height: var(--leading-none);
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.label {
+  display: block;
+}
+
+.label--accent {
+  color: var(--color-accent-text);
+}
+
+/* A label directly above a heading belongs to it: sit it close */
+.label + :is(h1, h2, h3) {
+  margin-top: var(--space-xs);
+}
+
+/* Caption: small supporting text (figure captions, taglines, notes) */
+figcaption,
+.caption {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
 }
 
 a {
   color: inherit;
+  transition: color 0.15s;
 }
 
 button,
@@ -158,8 +258,11 @@ textarea {
 /* Images. The build adds width/height attributes so the browser can reserve
    space before each image loads (no jumping). Those attributes act like a fixed
    CSS height, so reset it: height:auto keeps the real proportions whenever CSS
-   changes the width, and lets `aspect-ratio` rules (project cards) work. */
+   changes the width, and lets `aspect-ratio` rules (project cards) work.
+   max-width keeps every image inside its column; the few that deliberately
+   overflow (lab mandala, resume reel, zoomed spread) set max-width: none. */
 img {
+  max-width: 100%;
   height: auto;
 }
 
@@ -182,33 +285,16 @@ picture > source {
   outline-offset: 2px;
 }
 
+/* The content column: a vertical stack of full-width blocks. It doesn't
+   centre its children; a block that wants centring says so itself. */
 main {
   display: flex;
   padding: 0 var(--space-md) var(--space-md) var(--space-md);
   flex-direction: column;
-  align-items: center;
   gap: var(--space-lg);
   max-width: var(--max-width);
   width: 100%;
   margin-inline: auto;
-}
-
-h1 {
-  font-family: var(--font-display);
-  font-size: 4em;
-  line-height: 90%;
-  letter-spacing: -2px;
-  text-align: center;
-  margin: 0;
-}
-
-h2 {
-  font-family: var(--font-display);
-  font-size: 3em;
-  line-height: 90%;
-  letter-spacing: -1px;
-  text-align: center;
-  margin: 0;
 }
 
 a:hover {
@@ -240,10 +326,12 @@ a:hover {
   padding: var(--space-sm);
   justify-content: space-between;
   align-items: center;
+  gap: var(--space-sm); /* keeps the logo off the links on narrow screens */
+  min-height: var(--nav-height); /* a set height, so everything offset by --nav-height lines up */
   position: fixed;
   z-index: 10;
-  background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-transparent) 100%);
-  backdrop-filter: blur(2.5px);
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .nav-ul {
@@ -254,7 +342,6 @@ a:hover {
   list-style: none;
   margin: 0;
   padding: 0;
-  color: var(--color-text);
 }
 
 .nav-li {
@@ -277,11 +364,10 @@ a:hover {
 /* ============================================
    LAYOUT
    ============================================ */
-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-self: stretch;
+/* Anything a link jumps to (contents links, #id anchors) stops below the fixed
+   nav instead of behind it */
+main [id] {
+  scroll-margin-top: calc(var(--nav-height) + var(--space-sm));
 }
 
 .cover {
@@ -290,7 +376,6 @@ header {
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  align-self: stretch;
   height: 80vh;
 }
 
@@ -298,10 +383,14 @@ header {
   max-width: 240px;
 }
 
+/* Sits outside <main>, so it carries main's side padding itself, plus the same
+   gap main puts between its sections before the body content starts */
 .pj-deets {
   display: flex;
-  margin-top: var(--space-md);
-  max-width: 30rem;
+  margin: var(--space-md) auto 0;
+  padding: 0 var(--space-md) var(--space-lg);
+  width: 100%;
+  max-width: calc(30rem + 2 * var(--space-md)); /* padding sits outside the 30rem column */
   flex-direction: column;
   align-items: center;
   gap: var(--space-md);
@@ -319,34 +408,22 @@ header {
   font-size: 0.4em;
   letter-spacing: 0;
   vertical-align: top;
-  line-height: 1;
+  line-height: var(--leading-none);
 }
 
-section {
-  display: flex;
-  gap: var(--space-sm);
-  flex-direction: column;
-  align-items: center;
-  align-self: stretch;
+/* Client logo and details table under the project title */
+.pj-deets__logo {
+  width: 6rem;
 }
 
-section img {
-  max-width: 100%;
+.pj-deets__table {
   align-self: stretch;
 }
 
 /* ============================================
    TABLES
    ============================================ */
-/* Table headers use the mono label style (project details: CLIENT, ROLE…) */
-th {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 400;
-  text-transform: uppercase;
-  color: var(--color-text-label);
-}
-
+/* Table headers take the label style (defined with .label above) */
 th,
 td {
   border-top: var(--color-border) solid 1px;
@@ -363,8 +440,30 @@ td {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  align-self: stretch;
   gap: var(--space-sm);
+}
+
+/* A headline figure in a bordered box: label, value, caption.
+   Usage: <div class="stat-card">
+            <span class="label label--accent">Timeline</span>
+            <p class="stat-card__value">14 weeks</p>
+            <p class="caption">Oct 2024 – Jan 2025</p>
+          </div> */
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+  border: 1px solid var(--color-border);
+}
+
+.stat-card p {
+  margin: 0;
+}
+
+.stat-card__value {
+  font-size: var(--text-xl);
+  line-height: var(--leading-snug);
 }
 
 .pj-row {
@@ -404,7 +503,6 @@ td {
   grid-template-columns: repeat(12, 1fr);
   gap: var(--space-sm);
   align-items: start;
-  align-self: stretch;
 }
 
 /* Collages are separate "chapters": double the usual gap between them */
@@ -426,7 +524,6 @@ td {
 
 .spread-grid img {
   width: 100%;
-  height: auto;
   display: block;
 }
 
@@ -440,10 +537,6 @@ td {
   max-width: 25rem;
 }
 
-.pj-intro h2 {
-  text-align: left;
-}
-
 /* ============================================
    LAB GRID
    Layout from the Figma "lab" frame (15:1254): a 6-column grid where each
@@ -451,7 +544,7 @@ td {
    inline --col / --row (grid lines); --w narrows a small piece within its cell.
    ============================================ */
 main.lab {
-  padding-top: var(--space-lg);
+  padding-top: calc(var(--nav-height) + var(--space-md)); /* clear the fixed nav */
   container-type: inline-size; /* lets row 12 be sized relative to the grid width */
   overflow-x: clip; /* the mandala runs off the left edge without adding a sideways scroll */
 }
@@ -464,7 +557,6 @@ main.lab {
   grid-template-rows: repeat(11, auto) 24.33cqi;
   grid-auto-rows: auto;
   gap: var(--space-sm);
-  align-self: stretch;
 }
 
 /* Descendant selectors, not `>`: the image pipeline wraps each <img> in a
@@ -473,7 +565,6 @@ main.lab {
   grid-column: var(--col);
   grid-row: var(--row);
   width: var(--w, 100%);
-  height: auto;
   display: block;
 }
 
@@ -507,7 +598,6 @@ main.lab {
 .pj-reel > * {
   scroll-snap-align: start;
   justify-self: stretch;
-  gap: var(--space-sm);
 }
 
 /* ============================================
@@ -533,7 +623,6 @@ main.lab {
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-sm);
-  width: 100%;
 }
 
 .tableau-facade[hidden] {
@@ -569,37 +658,6 @@ main.lab {
 
 .tableau-facade__note {
   margin: 0;
-  font-size: 0.8125rem;
-  color: var(--color-text-tertiary);
-}
-
-.grid_layout {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1em;
-}
-
-/* ============================================
-   EDITORIAL LABELS
-   Small uppercase category tag above headings — the Figma "label" text
-   style (JetBrains Mono 12px), used site-wide.
-   Usage: <span class="label">Editorial Design</span>
-          <span class="label label--muted">2024</span>
-   ============================================ */
-.label {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: 0;
-  text-transform: uppercase;
-  color: var(--color-accent-text);
-  display: block;
-  margin-bottom: var(--space-xs);
-}
-
-.label--muted {
-  color: var(--color-text-tertiary);
 }
 
 /* ============================================
@@ -612,10 +670,10 @@ main.lab {
    ============================================ */
 .pull-quote {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-size: var(--text-xl);
   font-style: italic;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
   margin: var(--space-md) 0;
   padding-left: var(--space-md);
   border-left: 3px solid var(--color-accent);
@@ -626,13 +684,13 @@ main.lab {
 .pull-quote cite {
   display: block;
   font-family: var(--font-body);
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   font-style: normal;
   font-weight: 600;
-  letter-spacing: 0.05em;
+  letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
   margin-top: var(--space-xs);
-  color: var(--color-text-tertiary);
+  color: var(--color-text-muted);
 }
 
 /* ============================================
@@ -654,10 +712,7 @@ main.lab {
 }
 
 .expandable__trigger {
-  font-family: var(--font-body);
-  font-size: 1rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
   cursor: pointer;
   list-style: none;
   display: flex;
@@ -674,8 +729,8 @@ main.lab {
 .expandable__trigger::after {
   content: "+";
   font-weight: 400; /* was 300, but only 400/600/700 are self-hosted; 300 silently rendered as 400 */
-  font-size: 1.5rem;
-  line-height: 1;
+  font-size: var(--text-lg);
+  line-height: var(--leading-none);
   flex-shrink: 0;
 }
 
@@ -702,31 +757,21 @@ details[open] .expandable__trigger::after {
   max-width: var(--measure);
 }
 
+/* Spacing only: headings look the same here as everywhere else.
+   :where() keeps these at element-level specificity, so a more specific
+   rule (e.g. a label sitting above a heading) can adjust them. */
 .article-body p {
-  font-family: var(--font-body);
-  font-size: 1.0625rem;
-  line-height: 1.65;
   margin-bottom: 1.25em;
 }
 
-.article-body h2 {
-  font-family: var(--font-display);
-  font-size: clamp(1.75rem, 4vw, 2.75rem);
-  letter-spacing: -0.02em;
-  line-height: 1.05;
+:where(.article-body) h2 {
   margin-top: var(--space-lg);
   margin-bottom: var(--space-sm);
 }
 
-.article-body h3 {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+:where(.article-body) h3 {
   margin-top: var(--space-md);
   margin-bottom: var(--space-xs);
-  color: var(--color-text-secondary);
 }
 
 /* ============================================
@@ -738,7 +783,10 @@ details[open] .expandable__trigger::after {
   gap: var(--space-sm);
   border-top: 1px solid var(--color-border);
   padding: var(--space-lg) var(--space-md);
-  align-self: stretch;
+  /* Held to the content column, like the footer below it */
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
 }
 
 .pj-nav__item--next {
@@ -752,22 +800,31 @@ details[open] .expandable__trigger::after {
   text-decoration: none;
 }
 
+/* Project thumbnail on the previous/next cards, shown like the homepage cards:
+   the whole mockup, sitting on the text, pushed toward the card's outer edge */
+.pj-nav__thumb {
+  /* Same width as a homepage card: a third of the content column, less the
+     column's side padding and the two gaps between cards */
+  width: min(100%, (var(--max-width) - 4 * var(--space-md)) / 3);
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  object-position: left bottom;
+  margin-bottom: var(--space-xs);
+}
+
+.pj-nav__item--next .pj-nav__thumb {
+  align-self: flex-end; /* sits on the right, over the right-aligned text */
+  object-position: right bottom;
+}
+
 .pj-nav__link:hover .pj-nav__title {
   color: var(--color-accent-text);
 }
 
 .pj-nav__title {
-  font-family: var(--font-display);
-  font-size: clamp(1.25rem, 3vw, 2rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-size: var(--text-lg);
+  line-height: var(--leading-snug);
   transition: color 0.15s;
-}
-
-.pj-nav__tagline {
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  color: var(--color-text-secondary);
 }
 
 /* ============================================
@@ -778,7 +835,6 @@ details[open] .expandable__trigger::after {
   grid-template-columns: 220px 1fr;
   gap: var(--space-lg);
   align-items: start;
-  width: 100%;
 }
 
 .pj-content {
@@ -797,7 +853,7 @@ details[open] .expandable__trigger::after {
 
 .pj-toc-sidebar {
   position: sticky;
-  top: 4.5rem; /* sits flush under fixed nav */
+  top: var(--nav-height); /* sits flush under fixed nav */
 }
 
 .toc__list {
@@ -810,12 +866,10 @@ details[open] .expandable__trigger::after {
 }
 
 .toc__link {
-  font-size: 0.8125rem;
+  font-size: var(--text-sm);
   text-decoration: none;
-  transition: color 0.15s;
-  line-height: 1.4;
   display: block;
-  color: var(--color-text-tertiary);
+  color: var(--color-text-muted);
 }
 
 .toc__link:hover,
@@ -829,8 +883,305 @@ details[open] .expandable__trigger::after {
   border-top: 1px solid var(--color-border);
 }
 
-.toc__link--bottom {
-  margin-top: 0;
+.toc__link--next {
+  margin-top: var(--space-xs);
+}
+
+/* ============================================
+   READING AIDS (project pages)
+   ============================================ */
+/* The page behind a sheet or zoomed image stays still */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
+/* --- Reading progress ---
+   A 2px red line laid over the nav's bottom border. It fills as the article
+   (<main>) scrolls past: empty when the article's top reaches the nav, full
+   when its end reaches the bottom of the screen. */
+.read-progress {
+  display: none;
+  position: fixed;
+  top: calc(var(--nav-height) - 2px);
+  left: 0;
+  width: 100%;
+  height: 2px;
+  z-index: 11; /* above the nav (10) */
+  background-color: var(--color-accent);
+  transform-origin: left;
+  transform: scaleX(0);
+  pointer-events: none;
+}
+
+@supports (animation-timeline: view()) {
+  /* Lets the bar (outside <main>) see the timeline <main> defines */
+  body {
+    timeline-scope: --article;
+  }
+
+  .pj-main {
+    view-timeline: --article block;
+    view-timeline-inset: var(--nav-height) 0; /* count the article as started once it reaches the nav */
+  }
+
+  .read-progress {
+    display: block;
+    animation: read-progress linear both;
+    animation-timeline: --article; /* after the shorthand, which would reset it */
+    animation-range: contain 0% contain 100%;
+  }
+}
+
+@keyframes read-progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* --- Reading bar: contents pill + back-to-top (phones and tablets, where the
+   sidebar is hidden). A centred row fixed to the bottom, in thumb reach. --- */
+.reading-bar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .reading-bar {
+    position: fixed;
+    inset-inline: 0;
+    bottom: calc(var(--space-sm) + env(safe-area-inset-bottom, 0px));
+    z-index: 9;
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xs);
+    padding-inline: var(--space-md);
+    pointer-events: none; /* the empty row doesn't block taps; the buttons turn it back on */
+  }
+
+  .toc-pill,
+  .to-top {
+    display: flex;
+    align-items: center;
+    min-height: 44px; /* comfortable tap target */
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    pointer-events: auto;
+    /* hidden until needed; visibility also takes them out of the tab order
+       and the screen-reader tree while hidden */
+    opacity: 0;
+    visibility: hidden;
+    translate: 0 0.5rem;
+  }
+
+  .toc-pill {
+    gap: var(--space-xs);
+    min-width: 0;
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--text-sm);
+    cursor: pointer;
+  }
+
+  .to-top {
+    justify-content: center;
+    flex-shrink: 0;
+    width: 44px;
+    font-size: var(--text-md);
+    text-decoration: none;
+  }
+
+  .toc-pill.is-visible,
+  .to-top.is-visible {
+    opacity: 1;
+    visibility: visible;
+    translate: 0 0;
+  }
+
+  /* Hidden buttons give up their space, so a lone one stays centred */
+  .toc-pill:not(.is-visible),
+  .to-top:not(.is-visible) {
+    position: absolute;
+  }
+}
+
+.toc-pill__count:empty {
+  display: none;
+}
+
+.toc-pill__section {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.toc-pill__section::after {
+  content: " ▴";
+  color: var(--color-text-muted);
+}
+
+/* A bottom sheet: the modal <dialog>, pinned to the bottom edge */
+.toc-sheet {
+  width: 100%;
+  max-width: none;
+  max-height: 70svh;
+  margin: auto 0 0;
+  padding: var(--space-sm) var(--space-md) calc(var(--space-md) + env(safe-area-inset-bottom, 0px));
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  border-radius: 12px 12px 0 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.toc-sheet::backdrop {
+  background-color: rgb(0 0 0 / 0.6);
+}
+
+.toc-sheet__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toc-sheet__close,
+.zoom__close {
+  min-width: 44px;
+  min-height: 44px;
+  border: 0;
+  background: none;
+  color: var(--color-text);
+  font-size: var(--text-base);
+  cursor: pointer;
+}
+
+.toc-sheet__close {
+  margin-right: calc(-1 * var(--space-sm)); /* lines the ✕ up with the text edge */
+}
+
+.toc-sheet__list {
+  list-style: none;
+  margin: var(--space-xs) 0 0;
+  padding: 0;
+}
+
+.toc-sheet__link {
+  display: block;
+  padding: 0.75rem 0; /* ~44px rows */
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.toc-sheet__link--active {
+  color: var(--color-text);
+}
+
+.toc-sheet__link--active::before {
+  content: "● ";
+  color: var(--color-accent);
+  font-size: var(--text-xs);
+  vertical-align: middle;
+}
+
+/* --- Tap-to-zoom for publication spreads (assets/js/spread-zoom.js) --- */
+.spread-grid img[role="button"] {
+  cursor: zoom-in;
+}
+
+.zoom {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.zoom::backdrop {
+  background-color: var(--color-bg);
+}
+
+/* The scrollable area: the zoomed image is dragged around by scrolling it.
+   margin:auto on the image centres it when it fits, without clipping it when it's bigger. */
+.zoom__stage {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: var(--space-md);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.zoom__stage img {
+  margin: auto;
+  width: auto;
+  height: auto;
+  max-height: 100%;
+  cursor: zoom-in;
+}
+
+.zoom__stage.is-zoomed {
+  padding: 0;
+}
+
+.zoom__stage.is-zoomed img {
+  max-width: none;
+  max-height: none;
+  cursor: zoom-out;
+}
+
+.zoom__close {
+  position: fixed;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  border-radius: 999px;
+  background-color: var(--color-surface);
+}
+
+.zoom__hint {
+  position: fixed;
+  inset-inline: 0;
+  bottom: calc(var(--space-sm) + env(safe-area-inset-bottom, 0px));
+  width: max-content;
+  margin: 0 auto;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: 999px;
+  background-color: var(--color-surface);
+  pointer-events: none;
+}
+
+/* Motion only for visitors who haven't asked for less of it */
+@media (prefers-reduced-motion: no-preference) {
+  .toc-pill,
+  .to-top {
+    transition: opacity 0.2s, translate 0.2s, visibility 0.2s;
+  }
+
+  .toc-sheet[open] {
+    animation: sheet-up 0.25s ease-out;
+  }
+
+  .zoom[open] {
+    animation: fade-in 0.2s ease-out;
+  }
+}
+
+@keyframes sheet-up {
+  from {
+    translate: 0 100%;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
 }
 
 /* ============================================
@@ -838,8 +1189,6 @@ details[open] .expandable__trigger::after {
    ============================================ */
 .pj-content img,
 .article-body img {
-  max-width: 100%;
-  height: auto;
   display: block;
 }
 
@@ -848,10 +1197,7 @@ figure {
 }
 
 figcaption {
-  font-size: 0.8125rem;
-  color: var(--color-text-secondary);
-  margin-top: 0.5rem;
-  line-height: 1.5;
+  margin-top: var(--space-xs);
 }
 
 /* ============================================
@@ -860,33 +1206,22 @@ figcaption {
    every row is a 1fr | 2fr grid — details on the left, the work on the right.
    ============================================ */
 main.resume {
-  padding-top: var(--space-lg);
-  gap: var(--space-lg);
-  align-items: stretch;
+  padding-top: calc(var(--nav-height) + var(--space-md)); /* clear the fixed nav */
 }
 
 .resume-masthead {
   display: flex;
-  flex-direction: row; /* the global `header` rule stacks its children */
   justify-content: space-between;
   align-items: flex-start;
   gap: var(--space-md);
   padding-bottom: var(--space-md);
-  width: 100%;
-}
-
-.resume-masthead h1 {
-  font-size: 4rem;
-  line-height: 0.9;
-  letter-spacing: -1px;
-  text-align: left;
 }
 
 .resume-masthead__title {
   margin: var(--space-xs) 0 0;
-  font-size: 1.25rem;
-  line-height: 1.2;
-  color: var(--color-text-label);
+  font-size: var(--text-md);
+  line-height: var(--leading-snug);
+  color: var(--color-text-muted);
 }
 
 .resume-masthead__contact {
@@ -898,17 +1233,7 @@ main.resume {
 }
 
 .resume-contact-link {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  line-height: 1;
-  text-transform: uppercase;
   text-decoration: none;
-  color: var(--color-text-label);
-  transition: color 0.15s;
-}
-
-.resume-contact-link:hover {
-  color: var(--color-accent-text);
 }
 
 /* The shared row: 1 part details, 2 parts content, 16px gutter */
@@ -919,24 +1244,9 @@ main.resume {
   padding: var(--space-md) 0;
 }
 
-.resume-section {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch; /* global `section` centres its children */
-  gap: 0;
-  width: 100%;
-}
-
-/* Section titles: 32px Barlow in the accent red. #e50000 is 3.6:1 on the
-   background, which passes WCAG for large text (24px+) only — keep it large. */
+/* Section titles are plain h2s; this only spaces them from the first row */
 .resume-section__title {
-  font-family: var(--font-body);
-  font-size: 2rem;
-  line-height: 0.9;
-  letter-spacing: -1px;
-  text-align: left;
-  color: var(--color-accent);
-  margin: 0 0 var(--space-sm);
+  margin-bottom: var(--space-sm);
 }
 
 .resume-section__period {
@@ -955,37 +1265,13 @@ main.resume {
   gap: var(--space-xs);
 }
 
-.resume-entry__client {
-  font-family: var(--font-body);
-  font-size: 1.25rem;
-  line-height: 1.2;
-  text-align: left;
-  margin: 0;
-}
-
 .resume-entry__client-link {
-  color: inherit;
   text-decoration-color: var(--color-border);
   text-underline-offset: 0.2em;
-  transition: color 0.15s;
-}
-
-.resume-entry__client-link:hover {
-  color: var(--color-accent-text);
 }
 
 .resume-entry__role {
   margin: 0;
-  line-height: 1.4;
-}
-
-.resume-entry__deliverables,
-.resume-entry__period {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  line-height: 1;
-  text-transform: uppercase;
-  color: var(--color-text-label);
 }
 
 /* Right column: text and skill tags side by side, then the reel */
@@ -1012,8 +1298,7 @@ main.resume {
 
 .resume-entry__summary {
   margin: 0;
-  line-height: 1.4;
-  color: var(--color-text-label);
+  color: var(--color-text-muted);
 }
 
 /* The Figma sets bullets at 75% opacity; the site's rule is hierarchy by
@@ -1021,8 +1306,7 @@ main.resume {
 .resume-entry__body {
   margin: 0;
   padding-left: 1.5rem;
-  line-height: 1.4;
-  color: var(--color-text-label);
+  color: var(--color-text-muted);
 }
 
 .resume-entry__skills {
@@ -1039,12 +1323,7 @@ main.resume {
 .resume-entry__skills li {
   padding: var(--space-xs);
   background: var(--color-surface);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  line-height: 1;
-  text-transform: uppercase;
   white-space: nowrap;
-  color: var(--color-text-label);
 }
 
 /* Work samples: a recessed panel that scrolls sideways. Every image is the
@@ -1085,8 +1364,7 @@ main.resume {
 
 .resume-statement p {
   margin: 0 0 var(--space-sm);
-  font-size: 1.25rem;
-  line-height: 1.4;
+  font-size: var(--text-md);
 }
 
 /* Skills: area name on the left, items on the right */
@@ -1095,14 +1373,13 @@ main.resume {
 }
 
 .resume-skill-group dt {
-  font-size: 1.25rem;
-  line-height: 1.2;
+  font-size: var(--text-md);
+  line-height: var(--leading-snug);
 }
 
 .resume-skill-group dd {
   margin: 0;
-  line-height: 1.4;
-  color: var(--color-text-label);
+  color: var(--color-text-muted);
 }
 
 .resume-simple-list {
@@ -1112,8 +1389,8 @@ main.resume {
 }
 
 .resume-simple-list li {
-  font-size: 1.25rem;
-  line-height: 1.2;
+  font-size: var(--text-md);
+  line-height: var(--leading-snug);
   padding: var(--space-sm) 0;
 }
 
@@ -1121,10 +1398,6 @@ main.resume {
 @media (max-width: 768px) {
   .resume-masthead {
     flex-direction: column;
-  }
-
-  .resume-masthead h1 {
-    font-size: 3rem;
   }
 
   .resume-masthead__contact {
@@ -1168,7 +1441,6 @@ main.resume {
   justify-content: center;
   gap: 3em;
   padding-top: 10rem;
-  width: 100%;
 }
 
 .hero-videos {
@@ -1193,31 +1465,38 @@ main.resume {
   border: 1px solid var(--color-border);
   border-radius: 4px;
   padding: var(--space-xs) var(--space-sm);
-  font-size: 0.8125rem;
-  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
   cursor: pointer;
 }
 
 .hero-motion-toggle:hover {
   color: var(--color-text);
-  border-color: var(--color-text-secondary);
+  border-color: var(--color-text-muted);
 }
 
+.hero-title {
+  text-align: center;
+}
+
+/* "Professional Experience" backdrop text with the "Projects" heading
+   pulled up over it, then the grid of project cards */
+.projects__title {
+  text-align: center;
+}
+
+/* Decorative backdrop text behind the "Projects" heading */
 .hero-section-label {
-  font-family: var(--font-body);
   font-weight: 700;
-  font-size: 4em;
-  letter-spacing: -2px;
+  font-size: var(--text-2xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
   color: var(--color-text-ghost);
   margin: 0;
-  line-height: 80%;
-  text-align: center;
 }
 
+/* Pulled up to overlap the backdrop text above it */
 .projects-heading {
-  text-align: center;
-  font-family: var(--font-display);
-  font-size: 3em;
   margin-top: -1.5em;
   margin-bottom: 2em;
 }
@@ -1226,21 +1505,21 @@ main.resume {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-md);
-  width: 100%;
 }
 
 .project-card {
   display: flex;
   flex-direction: column;
   text-decoration: none;
-  color: inherit;
   gap: 0.75em;
 }
 
 .project-card img {
   width: 100%;
   aspect-ratio: 4 / 3;
-  object-fit: cover;
+  /* Show the whole mockup at its own ratio, sitting on the caption below */
+  object-fit: contain;
+  object-position: bottom;
 }
 
 .project-card__body {
@@ -1249,15 +1528,8 @@ main.resume {
   gap: 0.25em;
 }
 
-.project-card__body h3 {
-  margin: 0;
-  font-size: 1rem;
-}
-
 .project-card__body p {
   margin: 0;
-  font-size: 0.875rem;
-  color: var(--color-text-secondary);
 }
 
 /* ============================================
@@ -1276,16 +1548,12 @@ main.resume {
 }
 
 .footer__name {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  letter-spacing: -0.02em;
+  font-size: var(--text-lg);
   text-decoration: none;
   display: block;
 }
 
 .footer__role {
-  font-size: 0.8125rem;
-  color: var(--color-text-tertiary);
   margin: var(--space-xs) 0 0 0;
 }
 
@@ -1298,11 +1566,11 @@ main.resume {
   gap: var(--space-xs);
 }
 
-.footer__nav-link {
-  font-size: 0.875rem;
+/* Both link lists use the caption style; page links brighten on hover,
+   social links turn red like every other link */
+.footer__nav-link,
+.footer__social-link {
   text-decoration: none;
-  color: var(--color-text-secondary);
-  transition: color 0.15s;
 }
 
 .footer__nav-link:hover {
@@ -1315,21 +1583,10 @@ main.resume {
   gap: var(--space-xs);
 }
 
-.footer__social-link {
-  font-size: 0.875rem;
-  text-decoration: none;
-  color: var(--color-text-secondary);
-  transition: color 0.15s;
-}
-
-.footer__social-link:hover {
-  color: var(--color-accent-text);
-}
-
 .footer__copy {
   grid-column: 1 / -1;
-  font-size: 0.75rem;
-  color: var(--color-text-tertiary);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
   margin: var(--space-sm) 0 0 0;
   border-top: 1px solid var(--color-border);
   padding-top: var(--space-sm);
@@ -1339,11 +1596,6 @@ main.resume {
    RESPONSIVE ADJUSTMENTS
    ============================================ */
 @media (max-width: 768px) {
-  h1 {
-    font-size: 3.5em;
-    letter-spacing: -1px;
-  }
-
   .lab-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: none;
@@ -1388,20 +1640,7 @@ main.resume {
     gap: 1.5em;
   }
 
-
-  .hero-section-label {
-    font-size: 2.5em;
-  }
-
-  .projects-heading {
-    font-size: 2em;
-  }
-
   .projects-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .grid_layout {
     grid-template-columns: 1fr;
   }
 
@@ -1413,20 +1652,30 @@ main.resume {
     display: none;
   }
 
+  /* Name on its own row, then page links and social links side by side */
   .footer {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .footer__brand {
+    grid-column: 1 / -1;
   }
 }
 
 @media (max-width: 480px) {
-  h1 {
-    font-size: 3em;
-  }
-  h2 {
-    font-size: 2em;
+  /* Shorter project cover, so the title is on the first screen. svh = the
+     height with the address bar showing, so the cover doesn't jump when it hides */
+  .cover {
+    height: 60svh;
   }
 
-  .footer {
-    grid-template-columns: 1fr;
+  /* Tighter cells so the project details table fits inside the side padding */
+  .pj-deets th,
+  .pj-deets td {
+    padding-right: var(--space-sm);
+  }
+
+  .pj-deets td {
+    overflow-wrap: anywhere;
   }
 }

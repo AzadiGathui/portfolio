@@ -23,7 +23,7 @@ permalink: /projects/price-of-power/
     <button type="button" class="tableau-facade__button" id="tableau-load" hidden>Load interactive dashboard</button>
     <a href="https://public.tableau.com/app/profile/azadi.gathui/viz/shared/3XGQZ5DYM" target="_blank" rel="noopener">Open in Tableau Public<span class="visually-hidden"> (opens in a new tab)</span></a>
   </div>
-  <p class="tableau-facade__note">The interactive version loads about 1.6 MB from Tableau Public.</p>
+  <p class="tableau-facade__note caption">The interactive version loads about 1.6 MB from Tableau Public.</p>
 </div>
 <div class="tableauPlaceholder" id="viz1769839218089" style="position: relative" tabindex="-1" hidden>
   <object class="tableauViz" style="display: none">

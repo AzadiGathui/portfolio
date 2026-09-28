@@ -11,14 +11,14 @@ layout: layouts/base.njk
 
   <div class="pj-deets">
       {% if clientLogo %}
-        <img src="{{ clientLogo }}" alt="{{ client }} logo" style="width: 6rem;" sizes="6rem">
+        <img src="{{ clientLogo }}" alt="{{ client }} logo" class="pj-deets__logo" sizes="6rem">
       {% endif %}
       <div class="pj-title">
         <h1>{{ title }}{% if titleSup %} <sup class="pj-title__sup">{{ titleSup }}</sup>{% endif %}</h1>
         {% if tagline %}<p>{{ tagline }}</p>{% endif %}
       </div>
 
-    <table style="align-self: stretch;">
+    <table class="pj-deets__table">
       <tr><th>Client</th><td>{{ client }}</td></tr>
       {% if industry %}<tr><th>Industry</th><td>{{ industry }}</td></tr>{% endif %}
       <tr><th>Role</th><td>{{ role }}</td></tr>
@@ -29,18 +29,29 @@ layout: layouts/base.njk
 
 {% set tocItems = content | tocEntries %}
 
-<main>
+{# Set here (not by the previous/next links below) so the sidebar can link ahead too #}
+{% set currentIndex = collections.projects | getProjectIndex(page.url) %}
+{% set prevProject = collections.projects[currentIndex - 1] if currentIndex > 0 else null %}
+{% set nextProject = collections.projects[currentIndex + 1] if currentIndex < collections.projects.length - 1 else null %}
+
+{# Reading progress: a red line over the nav's bottom border that fills as you read.
+   Driven by CSS alone (scroll-driven animation); browsers without it just see the border. #}
+<div class="read-progress" aria-hidden="true"></div>
+
+<main class="pj-main">
   {% if tocItems.length %}
   <div class="pj-layout">
     <aside class="pj-toc-sidebar" aria-label="Table of contents">
       <nav class="toc">
-        <span class="label label--muted">Contents</span>
+        <span class="label">Contents</span>
         <ul class="toc__list">
           {% for item in tocItems %}
           <li><a href="#{{ item.id }}" class="toc__link">{{ item.text }}</a></li>
           {% endfor %}
           <li><a href="#" class="toc__link toc__link--top">↑ Back to top</a></li>
-          <li><a href="#" class="toc__link toc__link--bottom" id="toc-bottom-link">↓ Scroll to bottom</a></li>
+          {% if nextProject %}
+          <li><a href="{{ nextProject.url }}" class="toc__link toc__link--next">Next: {{ nextProject.data.title }} →</a></li>
+          {% endif %}
         </ul>
       </nav>
     </aside>
@@ -53,44 +64,120 @@ layout: layouts/base.njk
   {% endif %}
 </main>
 
-{% set currentIndex = collections.projects | getProjectIndex(page.url) %}
-{% set prevProject = collections.projects[currentIndex - 1] if currentIndex > 0 else null %}
-{% set nextProject = collections.projects[currentIndex + 1] if currentIndex < collections.projects.length - 1 else null %}
+{# Phones and tablets: floating controls at the bottom of the screen, in thumb reach.
+   The contents pill (pages with sections) shows the current section and opens the
+   contents sheet; the ↑ button appears when the reader scrolls back up. #}
+<div class="reading-bar">
+  {% if tocItems.length %}
+  <button type="button" class="toc-pill" aria-haspopup="dialog" aria-controls="toc-sheet">
+    <span class="visually-hidden">Contents: </span>
+    <span class="toc-pill__count label"></span>
+    <span class="toc-pill__section">Contents</span>
+  </button>
+  {% endif %}
+  <a href="#" class="to-top" aria-label="Back to top">↑</a>
+</div>
+
+{% if tocItems.length %}
+<dialog class="toc-sheet" id="toc-sheet" aria-labelledby="toc-sheet-title">
+  <div class="toc-sheet__head">
+    <span class="label" id="toc-sheet-title">Contents</span>
+    <button type="button" class="toc-sheet__close" aria-label="Close contents">✕</button>
+  </div>
+  <ul class="toc-sheet__list">
+    {% for item in tocItems %}
+    <li><a href="#{{ item.id }}" class="toc-sheet__link">{{ item.text }}</a></li>
+    {% endfor %}
+    <li><a href="#" class="toc-sheet__link toc-sheet__link--top">↑ Back to top</a></li>
+  </ul>
+</dialog>
+{% endif %}
+
+<script src="/assets/js/spread-zoom.js" defer></script>
 
 <script>
-(function () {
-  // Scroll to bottom
-  var bottomLink = document.getElementById('toc-bottom-link');
-  if (bottomLink) {
-    bottomLink.addEventListener('click', function (e) {
-      e.preventDefault();
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    });
-  }
-
-  // Active section highlight
+// Runs once the whole page is parsed: the previous/next links and the footer
+// come after this script, and the reading bar needs to find them
+document.addEventListener('DOMContentLoaded', function () {
+  // Active section highlight: the desktop sidebar and the mobile sheet list the
+  // same sections in the same order, so one index drives both
   var links = [...document.querySelectorAll('.toc__link[href^="#"]:not([href="#"])')];
-  if (!links.length) return;
+  var sheetLinks = [...document.querySelectorAll('.toc-sheet__link[href^="#"]:not([href="#"])')];
 
   var headings = links.map(function (l) {
     return document.querySelector(l.getAttribute('href'));
   }).filter(Boolean);
 
-  function setActive() {
+  // Mobile reading bar. The contents pill shows once the reader is into the
+  // article and hides at the end, so it never covers the previous/next links.
+  // The ↑ button shows only while the reader is scrolling back up: the moment
+  // they're most likely looking for the top.
+  var pill = document.querySelector('.toc-pill');
+  var pillSection = pill && pill.querySelector('.toc-pill__section');
+  var pillCount = pill && pill.querySelector('.toc-pill__count');
+  var toTop = document.querySelector('.to-top');
+  var main = document.querySelector('.pj-main');
+  var footer = document.querySelector('.footer');
+  var end = document.querySelector('.pj-nav') || footer;
+  var lastY = window.scrollY;
+  var goingUp = false;
+
+  function update() {
     var threshold = window.innerHeight * 0.25;
-    var active = null;
+    var index = -1;
     for (var i = 0; i < headings.length; i++) {
-      if (headings[i].getBoundingClientRect().top <= threshold) {
-        active = links[i];
-      }
+      if (headings[i].getBoundingClientRect().top <= threshold) index = i;
     }
-    links.forEach(function (l) { l.classList.remove('toc__link--active'); });
-    if (active) active.classList.add('toc__link--active');
+    links.forEach(function (l, i) { l.classList.toggle('toc__link--active', i === index); });
+    sheetLinks.forEach(function (l, i) {
+      l.classList.toggle('toc-sheet__link--active', i === index);
+      if (i === index) l.setAttribute('aria-current', 'location');
+      else l.removeAttribute('aria-current');
+    });
+
+    // Direction, ignoring small jitters (e.g. the address bar resizing the page)
+    var y = window.scrollY;
+    if (Math.abs(y - lastY) > 8) {
+      goingUp = y < lastY;
+      lastY = y;
+    }
+
+    var inArticle = main.getBoundingClientRect().top < window.innerHeight * 0.6;
+    var atEnd = end && end.getBoundingClientRect().top < window.innerHeight;
+    // ...but not over the footer, where it would sit on top of its links
+    var footerInView = footer && footer.getBoundingClientRect().top < window.innerHeight;
+    toTop.classList.toggle('is-visible', inArticle && goingUp && !footerInView);
+
+    if (!pill) return;
+    pillSection.textContent = index >= 0 ? sheetLinks[index].textContent : 'Contents';
+    pillCount.textContent = index >= 0 ? (index + 1) + '/' + headings.length : '';
+    pill.classList.toggle('is-visible', inArticle && !atEnd);
   }
 
-  window.addEventListener('scroll', setActive, { passive: true });
-  setActive();
-})();
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
+
+  // Contents sheet (a modal <dialog>: focus is trapped inside it, and Esc or
+  // the Android back gesture closes it)
+  var sheet = document.getElementById('toc-sheet');
+  if (!pill || !sheet) return;
+
+  pill.addEventListener('click', function () { sheet.showModal(); });
+  sheet.querySelector('.toc-sheet__close').addEventListener('click', function () { sheet.close(); });
+
+  // Picking a section closes the sheet; the link then scrolls as normal
+  sheet.querySelectorAll('.toc-sheet__link').forEach(function (l) {
+    l.addEventListener('click', function () { sheet.close(); });
+  });
+
+  // A tap on the dimmed backdrop (outside the sheet's box) closes it too
+  sheet.addEventListener('click', function (e) {
+    if (e.target !== sheet) return; // clicks on the links and close button are handled above
+    var r = sheet.getBoundingClientRect();
+    if (e.clientY < r.top || e.clientY > r.bottom || e.clientX < r.left || e.clientX > r.right) sheet.close();
+  });
+});
 </script>
 
 {% if prevProject or nextProject %}
@@ -98,10 +185,13 @@ layout: layouts/base.njk
   <div class="pj-nav__item pj-nav__item--prev">
     {% if prevProject %}
       <a href="{{ prevProject.url }}" class="pj-nav__link">
-        <span class="label label--muted">← Previous</span>
+        {% if prevProject.data.thumbnail %}
+          <img src="{{ prevProject.data.thumbnail }}" alt="" class="pj-nav__thumb" sizes="(max-width: 768px) 50vw, 440px">
+        {% endif %}
+        <span class="label">← Previous</span>
         <span class="pj-nav__title">{{ prevProject.data.title }}</span>
         {% if prevProject.data.tagline %}
-          <span class="pj-nav__tagline">{{ prevProject.data.tagline }}</span>
+          <span class="pj-nav__tagline caption">{{ prevProject.data.tagline }}</span>
         {% endif %}
       </a>
     {% endif %}
@@ -109,10 +199,13 @@ layout: layouts/base.njk
   <div class="pj-nav__item pj-nav__item--next">
     {% if nextProject %}
       <a href="{{ nextProject.url }}" class="pj-nav__link">
-        <span class="label label--muted">Next →</span>
+        {% if nextProject.data.thumbnail %}
+          <img src="{{ nextProject.data.thumbnail }}" alt="" class="pj-nav__thumb" sizes="(max-width: 768px) 50vw, 440px">
+        {% endif %}
+        <span class="label">Next →</span>
         <span class="pj-nav__title">{{ nextProject.data.title }}</span>
         {% if nextProject.data.tagline %}
-          <span class="pj-nav__tagline">{{ nextProject.data.tagline }}</span>
+          <span class="pj-nav__tagline caption">{{ nextProject.data.tagline }}</span>
         {% endif %}
       </a>
     {% endif %}
