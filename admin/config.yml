@@ -55,9 +55,9 @@ collections:
       - { label: "Thumbnail", name: thumbnail, widget: image,
           hint: "Small image shown next to title in the homepage project list." }
       - { label: "OG Image", name: ogImage, widget: image, required: false,
-          hint: "Social sharing image — 1200×630px recommended." }
+          hint: "Social sharing image: 1200×630px recommended." }
       - { label: "Permalink", name: permalink, widget: string,
-          hint: "URL path — e.g. /projects/project-name/ (include trailing slash)." }
+          hint: "URL path, e.g. /projects/project-name/ (include trailing slash)." }
       - { label: "SEO Description", name: description, widget: text, required: false,
           hint: "150–160 characters for search results." }
       - { label: "Body", name: body, widget: markdown,

@@ -69,11 +69,11 @@
   --color-bg-transparent: #1a1a1a00;
   /* Two text colours: primary and muted. Muted is the Figma "text-ghost" grey,
      and covers everything supporting: captions, taglines, labels, dates. */
-  --color-text: #e6e6e6;            /* 13.9:1 — primary text */
-  --color-text-muted: #b3b3b3;      /*  8.3:1 — all supporting text; 6.0:1 on --color-surface */
-  --color-text-ghost: #e6e6e610;    /* decorative only — never for content */
-  --color-accent: #e50000;          /*  3.6:1 — fills, rules, borders, focus rings (not small text) */
-  --color-accent-text: #ff5c5c;     /*  5.8:1 — red text and link hover */
+  --color-text: #e6e6e6;            /* 13.9:1, primary text */
+  --color-text-muted: #b3b3b3;      /*  8.3:1, all supporting text; 6.0:1 on --color-surface */
+  --color-text-ghost: #e6e6e610;    /* decorative only, never for content */
+  --color-accent: #e50000;          /*  3.6:1, fills, rules, borders, focus rings (not small text) */
+  --color-accent-text: #ff5c5c;     /*  5.8:1, red text and link hover */
   --color-on-accent: #ffffff;       /*  4.9:1 on --color-accent */
   --color-border: #e6e6e650;
   --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
@@ -84,13 +84,13 @@
   /* Type scale. Every font-size in this file is one of these seven steps.
      Sizes are fixed; the display sizes step down for small screens in the
      media queries just below :root, so nothing else needs its own override. */
-  --text-xs: 0.75rem;    /* 12px — mono labels, fine print */
-  --text-sm: 0.875rem;   /* 14px — captions, taglines, secondary links */
-  --text-base: 1rem;     /* 16px — body, h4–h6 */
-  --text-md: 1.25rem;    /* 20px — h3, lead text */
-  --text-lg: 1.5rem;     /* 24px — footer name, prev/next titles */
-  --text-xl: 2rem;       /* 32px — h2, pull quotes */
-  --text-2xl: 4rem;      /* 64px — h1 */
+  --text-xs: 0.75rem;    /* 12px: mono labels, fine print */
+  --text-sm: 0.875rem;   /* 14px: captions, taglines, secondary links */
+  --text-base: 1rem;     /* 16px: body, h4–h6 */
+  --text-md: 1.25rem;    /* 20px: h3, lead text */
+  --text-lg: 1.5rem;     /* 24px: footer name, prev/next titles */
+  --text-xl: 2rem;       /* 32px: h2, pull quotes */
+  --text-2xl: 4rem;      /* 64px: h1 */
   --leading-none: 1;     /* single-line labels and chips */
   --leading-tight: 0.9;  /* h1 */
   --leading-snug: 1.2;   /* headings, large text */
@@ -163,6 +163,13 @@ html {
 
 body {
   margin: 0;
+  /* Anything that runs off the side of the page (a phone row reaching the
+     window edge) is cut there instead of adding a sideways scroll. `clip`,
+     not `hidden`: it keeps sticky elements like the contents list working. */
+  overflow-x: clip;
+  /* Lets anything inside measure the page's width with cqw units. Unlike vw,
+     that excludes the scrollbar, so a phone row can end exactly at the edge. */
+  container-type: inline-size;
   background-color: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
@@ -176,6 +183,13 @@ body {
    All weight 400, left-aligned, no margins: a container that wants its
    headings centred (e.g. .pj-title) sets text-align on itself, and prose
    containers (.article-body) add the spacing between sections. */
+h1, h2, h3, h4, h5, h6,
+.pj-nav__title {
+  /* Lines of a wrapping heading come out about even, never one word hanging
+     on the last line. Browsers without it wrap as normal. */
+  text-wrap: balance;
+}
+
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
   font-weight: 400;
@@ -371,16 +385,39 @@ main [id] {
 }
 
 .cover {
+  --cover-height: 80vh; /* shorter on phones (see RESPONSIVE) */
+  /* The fixed nav overlaps the cover's top, so a mockup gets the cover's
+     height less the nav and the padding above and below it */
+  --mockup-max-height: calc(var(--cover-height) - var(--nav-height) - 2 * var(--space-md));
   display: flex;
   padding: var(--space-md);
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  height: 80vh;
+  height: var(--cover-height);
 }
 
+/* A mockup never grows taller than the cover has room for: it keeps its
+   shape and narrows instead, so a tall phone never reaches under the nav */
 .cover img {
   max-width: 240px;
+  max-height: var(--mockup-max-height);
+  width: auto;
+}
+
+/* A phone-framed mockup shrinks to its (possibly narrowed) screen. The screen's
+   limits are fixed lengths, not percentages: a percentage inside a box that
+   sizes itself to its contents is circular, and browsers then ignore it.
+   Width: the frame's 15rem less its padding and border, so the screen stays
+   inside the frame. Height: the same room as a bare mockup, less the frame. */
+.cover .phone {
+  width: fit-content;
+}
+
+.cover .phone .phone__screen {
+  --frame-edge: calc(2 * (0.375rem + 1px)); /* .phone__frame padding + border, both sides */
+  max-width: calc(15rem - var(--frame-edge));
+  max-height: calc(var(--mockup-max-height) - var(--frame-edge));
 }
 
 /* Sits outside <main>, so it carries main's side padding itself, plus the same
@@ -476,7 +513,7 @@ td {
 }
 
 /* ============================================
-   SPREAD GRID — art-directed collages of editorial pages
+   SPREAD GRID: art-directed collages of editorial pages
    A 12-column grid matching the Figma layouts (16px gutter at 960px).
    Place any item with an inline column range:  style="--at: 3 / 7"
    (default: full width). A .stack is a vertical column of items that
@@ -601,6 +638,185 @@ main.lab {
 }
 
 /* ============================================
+   PHONE SCREENS
+   A mobile screen in a device frame, with an optional caption. Shared by every
+   project that shows phone layouts. Written with the {% phone %} and
+   {% phones %} shortcodes (see .eleventy.js), not by hand.
+   A phone with no image is an empty frame labelled with its title, so a
+   page can be laid out before its screens are final.
+   --phone-ratio: screen width / height. Screenshots default to their own shape;
+   empty frames to 1 / 2, the shape of the current layouts (640 × 1280).
+   ============================================ */
+.phone {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  max-width: 15rem;
+}
+
+.phone__frame {
+  padding: 0.375rem;
+  border: 1px solid var(--color-border);
+  border-radius: 1.75rem;
+  background: var(--color-surface);
+}
+
+/* A screenshot keeps its own proportions, so nothing is cropped. No aspect-ratio
+   here: the browser takes it from the width and height the build adds, which
+   holds the space open before a lazy image loads (setting one would collapse it). */
+.phone__screen {
+  display: block;
+  width: 100%;
+  border-radius: 1.375rem; /* the frame's radius minus its padding, so the corners run parallel */
+}
+
+/* `ratio` given: force that shape, cropping a taller screenshot from the bottom */
+.phone--ratio .phone__screen {
+  aspect-ratio: var(--phone-ratio);
+  object-fit: cover;
+  object-position: top; /* a long screenshot keeps its header, not its middle */
+}
+
+.phone__screen--empty {
+  aspect-ratio: var(--phone-ratio, 1 / 2);
+  display: grid;
+  place-items: center;
+  padding: var(--space-sm);
+  text-align: center;
+  background: var(--color-bg);
+}
+
+.phone figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.phone figcaption strong {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* A row of phones, all the same width however many there are: large enough to
+   read the screen. The row starts under the text but runs on to the right edge
+   of the window, so a wide screen shows as many phones as it has room for; the
+   window's edge cuts off the next one, which says the row scrolls.
+   min() keeps a cut-off phone in view on narrow screens too. */
+.phone-reel {
+  /* From the content column's right edge to the window's: the space beside a
+     centred --max-width column, plus main's side padding. 100cqw is the body's
+     width (see body), so the scrollbar isn't counted. */
+  --reel-bleed: calc((100cqw - min(100cqw, var(--max-width))) / 2 + var(--space-md));
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(15rem, 70%);
+  justify-content: start; /* a short row stays at this width, not stretched apart */
+  gap: var(--space-md);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  margin-block: var(--space-md);
+  margin-right: calc(-1 * var(--reel-bleed));
+  padding-right: var(--space-md); /* the last phone stops a gutter short of the window edge */
+  padding-bottom: var(--space-sm); /* room for the scrollbar under the captions */
+}
+
+.phone-reel > .phone {
+  scroll-snap-align: start;
+}
+
+/* One row of controls under a row of phones (added by phone-reel.js): the count,
+   a scroll bar, then the arrow buttons, all inside the content column and in
+   thumb reach under the screens. With the controls in place the browser's own
+   scroll bar is hidden; without JavaScript it stays. */
+.phone-reel--controlled {
+  scrollbar-width: none;
+  padding-bottom: 0;
+}
+
+.phone-reel--controlled::-webkit-scrollbar {
+  display: none;
+}
+
+.phone-reel:has(+ .phone-reel__bar:not([hidden])) {
+  margin-bottom: 0;
+}
+
+/* Held to the same width as the body text (--measure), so its right end lines
+   up with the paragraphs: only the screens themselves run wider */
+.phone-reel__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  max-width: var(--measure);
+  margin-block: var(--space-sm) var(--space-md);
+}
+
+.phone-reel__bar[hidden] {
+  display: none; /* the flex rule above would otherwise override `hidden` */
+}
+
+.phone-reel__count {
+  flex-shrink: 0;
+  margin-right: var(--space-xs);
+}
+
+/* The scroll bar: a hairline with a light grey thumb (the text colour), in a
+   44px-tall strip so it's easy to grab. Drag the thumb or tap the line. */
+.phone-reel__track {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 2.75rem;
+  cursor: pointer;
+  touch-action: none; /* dragging here scrolls the row, not the page */
+}
+
+.phone-reel__track::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.phone-reel__thumb {
+  position: absolute;
+  top: calc(50% - 2px);
+  left: var(--thumb-left, 0%);
+  width: var(--thumb-width, 100%);
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-text);
+}
+
+/* 2.75rem: a 44px target, comfortable for a thumb */
+.phone-reel__btn {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--color-text);
+  font-size: var(--text-md);
+  line-height: var(--leading-none);
+  cursor: pointer;
+}
+
+.phone-reel__btn:hover:not(:disabled) {
+  border-color: var(--color-accent-text);
+  color: var(--color-accent-text);
+}
+
+.phone-reel__btn:disabled {
+  color: var(--color-text-muted);
+  cursor: default;
+}
+
+/* ============================================
    UTILITY
    ============================================ */
 /* Hidden on screen but still read by screen readers
@@ -665,7 +881,7 @@ main.lab {
    Large Instrument Serif italic quote.
    Usage: <blockquote class="pull-quote">
             Text here
-            <cite>— Source</cite>
+            <cite>Source</cite>
           </blockquote>
    ============================================ */
 .pull-quote {
@@ -821,10 +1037,20 @@ details[open] .expandable__trigger::after {
   color: var(--color-accent-text);
 }
 
+/* Styled as a homepage card title (h3 size), not a section heading: these are
+   small cards, and a larger size breaks long titles into a tall column */
 .pj-nav__title {
-  font-size: var(--text-lg);
+  font-size: var(--text-md);
   line-height: var(--leading-snug);
   transition: color 0.15s;
+}
+
+/* On phones each card is half the screen wide: body size keeps long titles to
+   a few lines */
+@media (max-width: 768px) {
+  .pj-nav__title {
+    font-size: var(--text-base);
+  }
 }
 
 /* ============================================
@@ -842,7 +1068,8 @@ details[open] .expandable__trigger::after {
   flex-direction: column;
   gap: var(--space-lg);
   min-width: 0; /* prevents grid blowout */
-  overflow-x: hidden;
+  /* No overflow clipping here: phone rows run past this column to the window
+     edge (the body clips them there) */
 }
 
 /* Inside the project column: align left, next to the contents list.
@@ -885,6 +1112,175 @@ details[open] .expandable__trigger::after {
 
 .toc__link--next {
   margin-top: var(--space-xs);
+}
+
+/* ============================================
+   SWISS GRID (project pages with `layoutGrid: swiss`, previewing on Jireh Health)
+   One 12-column grid, the same box as <main> (--max-width, --space-md sides),
+   for the cover, the header and the body:
+     columns 1–3   labels: detail names, the contents list
+     column 4      gutter
+     columns 5–12  content: mockup, title, detail values, body text, figures
+   Flush left, ragged right; every gap is a spacing token.
+   ============================================ */
+.pj-swiss {
+  --grid-gap: var(--space-sm);
+  --grid: repeat(12, minmax(0, 1fr));
+}
+
+/* Cover: the band stays full width; its mockup sits on the grid, at column 5.
+   The side padding turns the band's inner box into <main>'s box. */
+.pj-swiss .cover {
+  display: grid;
+  grid-template-columns: var(--grid);
+  column-gap: var(--grid-gap);
+  align-content: end;
+  padding-inline: max(var(--space-md), (100% - var(--max-width)) / 2 + var(--space-md));
+}
+
+/* The image build wraps a plain mockup in <picture> (display: contents), so
+   the <img> inside is what the grid places */
+.pj-swiss .cover > *,
+.pj-swiss .cover > picture > img {
+  grid-column: 5 / -1;
+  justify-self: start;
+}
+
+/* Header: title and tagline in the content columns, details as full-width rows */
+.pj-swiss .pj-deets {
+  display: grid;
+  grid-template-columns: var(--grid);
+  column-gap: var(--grid-gap);
+  row-gap: var(--space-md);
+  max-width: var(--max-width);
+  margin: var(--space-lg) auto 0;
+  /* Bottom: the same section gap <main> puts between its blocks */
+  padding: 0 var(--space-md) var(--space-lg);
+}
+
+.pj-swiss .pj-deets__logo,
+.pj-swiss .pj-title {
+  grid-column: 5 / -1;
+  justify-self: start;
+  text-align: left;
+}
+
+.pj-swiss .pj-title {
+  gap: var(--space-xs);
+}
+
+.pj-swiss .pj-title p {
+  margin: 0;
+}
+
+/* The details sit in the content columns (5–12), under the title: each is one
+   row under one rule, the name in the first 2 of those columns, the value in
+   the other 6. Inside a subgrid, columns count from its own first column. */
+.pj-facts {
+  grid-column: 5 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  margin: 0;
+}
+
+.pj-facts > div {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-items: baseline;
+  padding-block: var(--space-xs) var(--space-sm);
+  border-top: 1px solid var(--color-border);
+}
+
+.pj-facts > div:last-child {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.pj-facts dt {
+  grid-column: 1 / 3;
+}
+
+.pj-facts dd {
+  grid-column: 3 / -1;
+  margin: 0;
+}
+
+/* Body: the contents list in columns 1–3, the article from column 5 */
+.pj-swiss .pj-layout {
+  grid-template-columns: var(--grid);
+  column-gap: var(--grid-gap);
+}
+
+.pj-swiss .pj-toc-sidebar {
+  grid-column: 1 / 4;
+  /* Clear of the nav by the same gap a section heading stops at below */
+  top: calc(var(--nav-height) + var(--space-md));
+}
+
+.pj-swiss .pj-content {
+  grid-column: 5 / -1;
+}
+
+/* A jump to a section lands its heading level with "Contents" */
+.pj-swiss [id] {
+  scroll-margin-top: calc(var(--nav-height) + var(--space-md));
+}
+
+/* The first heading starts level with "Contents", not a section gap below it */
+.pj-swiss .article-body > h2:first-child {
+  margin-top: 0;
+}
+
+/* Pages with no contents list (no section headings): <main> is the grid itself.
+   Text and everything else starts at column 5, under the title; visuals made on
+   these same 12 columns (spread-grid collages, the Tableau dashboard) span all
+   of them, so their images still land on the page's column lines. */
+main.pj-swiss:not(:has(> .pj-layout)) {
+  display: grid;
+  grid-template-columns: var(--grid);
+  column-gap: var(--grid-gap);
+  row-gap: var(--space-lg); /* the gap <main> keeps between blocks everywhere */
+  align-content: start;
+}
+
+main.pj-swiss:not(:has(> .pj-layout)) > * {
+  grid-column: 5 / -1;
+  min-width: 0;
+}
+
+/* Flush left on the grid: .article-body otherwise centres itself, which would
+   push a narrow text block (.pj-intro) off column 5 */
+main.pj-swiss .article-body {
+  margin-inline: 0;
+}
+
+main.pj-swiss:not(:has(> .pj-layout)) > :is(.spread-grid, .tableau-facade, .tableauPlaceholder) {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 768px) {
+  /* One column: the contents list moves to the reading bar (as on every project)
+     and everything takes the full width, still flush left, so the mockup sits
+     right above the title as it does on desktop */
+  .pj-swiss .cover > *,
+  .pj-swiss .cover > picture > img,
+  main.pj-swiss:not(:has(> .pj-layout)) > *,
+  .pj-swiss .pj-deets__logo,
+  .pj-swiss .pj-title,
+  .pj-swiss .pj-content,
+  .pj-facts,
+  .pj-facts > div {
+    grid-column: 1 / -1;
+  }
+
+  /* Details keep their two columns: a third for the name, the rest for the value */
+  .pj-facts dt {
+    grid-column: 1 / 5;
+  }
+
+  .pj-facts dd {
+    grid-column: 5 / -1;
+  }
 }
 
 /* ============================================
@@ -1185,7 +1581,7 @@ html:has(dialog[open]) {
 }
 
 /* ============================================
-   PROJECT CONTENT — figures & images
+   PROJECT CONTENT: figures & images
    ============================================ */
 .pj-content img,
 .article-body img {
@@ -1203,7 +1599,7 @@ figcaption {
 /* ============================================
    RESUME PAGE
    Layout from the Figma "Resume / Desktop" frame (15:817):
-   every row is a 1fr | 2fr grid — details on the left, the work on the right.
+   every row is a 1fr | 2fr grid: details on the left, the work on the right.
    ============================================ */
 main.resume {
   padding-top: calc(var(--nav-height) + var(--space-md)); /* clear the fixed nav */
@@ -1517,19 +1913,35 @@ main.resume {
 .project-card img {
   width: 100%;
   aspect-ratio: 4 / 3;
-  /* Show the whole mockup at its own ratio, sitting on the caption below */
+  /* Mockups fit the left 80% of the box (it stays full size, so every card's
+     text starts at the same height). Wide mockups stop short of the edge like
+     the tall phone ones do, so the two kinds sit together in the grid. */
+  padding-right: 20%;
+  /* Show the whole mockup at its own ratio, sitting on the caption below and
+     lined up with its left-aligned text (as the prev/next thumbnails are) */
   object-fit: contain;
-  object-position: bottom;
+  object-position: left bottom;
 }
 
+/* Tag, title and description: one gap between each, and nothing else. */
 .project-card__body {
   display: flex;
   flex-direction: column;
-  gap: 0.25em;
+  gap: var(--space-xs);
 }
 
-.project-card__body p {
+/* Two classes, so this beats the site-wide ".label + h3" margin that would
+   otherwise add extra space between the tag and the title */
+.project-card .project-card__body > * {
   margin: 0;
+}
+
+/* The tag stays on one line. Tags are written to fit a phone's two-column
+   card (about 18 characters); a longer one is cut short, not wrapped. */
+.project-card__body .label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ============================================
@@ -1620,6 +2032,20 @@ main.resume {
     grid-auto-columns: 80%;
   }
 
+  /* A cover mockup takes at most half the cover's height, so the photo still
+     reads around it, as it does on a wide screen */
+  .cover {
+    --mockup-max-height: calc(var(--cover-height) / 2);
+  }
+
+  /* Phone rows run to both edges of the screen. The first phone still snaps
+     into line with the text margin. */
+  .phone-reel {
+    margin-left: calc(-1 * var(--space-md));
+    padding-left: var(--space-md);
+    scroll-padding-left: var(--space-md);
+  }
+
   /* Collages read top-to-bottom, one page per row */
   .spread-grid,
   .spread-grid > .stack {
@@ -1640,8 +2066,10 @@ main.resume {
     gap: 1.5em;
   }
 
+  /* Two columns, with a tighter gap between them so each card keeps its width */
   .projects-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-sm);
   }
 
   .pj-layout {
@@ -1666,7 +2094,7 @@ main.resume {
   /* Shorter project cover, so the title is on the first screen. svh = the
      height with the address bar showing, so the cover doesn't jump when it hides */
   .cover {
-    height: 60svh;
+    --cover-height: 60svh;
   }
 
   /* Tighter cells so the project details table fits inside the side padding */
