@@ -30,6 +30,7 @@
           "role": "User Experience Researcher",
           "period": "Apr 2025 – Present",
           "summary": "Accessible healthcare-financing web app, serving 4 facilities and 1,800+ users.",
+          "portfolio_url": "/projects/jireh-health/",
           "description": [
             "Sole designer working from PM-defined acceptance criteria through to engineering handoff.",
             "Redesigned the onboarding/signup flow, cutting median completion time from 5.2 minutes to 2.1 minutes (59% reduction).",
@@ -43,6 +44,28 @@
             "Design Systems",
             "Accessibility",
             "Prototyping"
+          ],
+          "images": [
+            {
+              "src": "/assets/images/projects/jh/home-cashback.png",
+              "alt": "Jireh home with the Cashback card selected: KES 3,200 cashback earned, Redeem and Share buttons, and discounts and offers below"
+            },
+            {
+              "src": "/assets/images/projects/jh/circle-home.png",
+              "alt": "My Jireh Circle: the user's photo at the centre with four Circle members around them, and a Dependants row below"
+            },
+            {
+              "src": "/assets/images/projects/jh/counter-split.png",
+              "alt": "Select how you want to pay: allocation bar full at KES 3,450 of 3,450, from a Jireh Medical Loan and cashback, with M-Pesa available to add"
+            },
+            {
+              "src": "/assets/images/projects/jh/counter-result.png",
+              "alt": "Transaction result: KES 3,450 paid to Cana Hospital, split into a KES 1,600 loan and KES 1,850 from the Care Fund, with a View receipt button"
+            },
+            {
+              "src": "/assets/images/projects/jh/ask-home.png",
+              "alt": "Ask Jireh: a greeting that invites questions about your health records, a message box, suggested topics such as paying a bill and 0% interest loans, and a link to past chats"
+            }
           ]
         },
         {
@@ -69,7 +92,7 @@
           "images": [
             {
               "src": "/assets/images/resume/leja/LDA4.png",
-              "alt": "Two Leja users posing with a pink social-media photo frame reading ‘Furaha ya biashara, furaha yetu’"
+              "alt": "Two Leja users posing with a pink social-media photo frame reading ‘Furaha ya wateja, furaha yetu’"
             },
             {
               "src": "/assets/images/resume/leja/LDA1.png",

@@ -4,10 +4,16 @@ tagline: Mobile web app research & design
 client: Jireh Innovations Ltd.
 industry: Healthcare Fintech
 role: UX Researcher & Designer
-timeline: Sept 2024 – present
+timeline: Apr 2025 – present
 platform: Installable web app (PWA), Android first
 deliverables: B2C web app, B2B admin dashboards, user research & usability testing
-order: 7
+team:
+  - { name: Terach Franchi, role: CEO, url: "https://www.linkedin.com/in/terachfranchi/" }
+  - { name: Athman Gude, role: Product manager, url: "https://www.linkedin.com/in/athmangude/" }
+  - { name: Sheila Sharon, role: Engineer, url: "https://www.linkedin.com/in/devsheilasharon/" }
+  - { name: Helina Mbuthia Muhia, role: Marketing, url: "https://www.linkedin.com/in/helina-mbuthia-muhia-99b087166/" }
+  - { name: Gloria Kerubo, role: Business development, url: "https://www.linkedin.com/in/gloria-kerubo-2b9a88312/" }
+order: 1
 coverImage: /assets/images/projects/jh/cover.jpg
 coverPosition: 50% 20%
 mockupImage: /assets/images/projects/jh/home-cashback.png
@@ -123,5 +129,38 @@ The newest feature is an assistant in the centre of the tab bar. It answers ques
 <h2 id="testing">Testing with patients</h2>
 
 To test in person, I split the patient app off into a standalone prototype. It runs in the browser on fake data and uses the same components as production, so what people test is what ships. A facilitator panel can drop a participant at any point in the journey (before their name, before ID, fully onboarded) and reset between sessions.
+
+<h2 id="results">Results</h2>
+
+These numbers belong to a team. I was its designer, working from the acceptance criteria that [Athman Gude](https://www.linkedin.com/in/athmangude/), our product manager, defined, through to handoff to engineering, with [Sheila Sharon](https://www.linkedin.com/in/devsheilasharon/) as the engineer and [Terach Franchi](https://www.linkedin.com/in/terachfranchi/) as CEO.
+
+Reaching 1,800+ users across 4 facilities took business development and marketing as much as design: [Gloria Kerubo](https://www.linkedin.com/in/gloria-kerubo-2b9a88312/) helped bring in users and new partners, and [Helina Mbuthia Muhia](https://www.linkedin.com/in/helina-mbuthia-muhia-99b087166/) worked in marketing.
+
+<div class="pj-row">
+  <div class="stat-card">
+    <span class="label label--accent">Reach</span>
+    <p class="stat-card__value">1,800+ users</p>
+    <p class="caption">Served across 4 facilities</p>
+  </div>
+  <div class="stat-card">
+    <span class="label label--accent">Sign-up time</span>
+    <p class="stat-card__value">5.2 → 2.1 min</p>
+    <p class="caption">Median completion time after the onboarding redesign, down 59%</p>
+  </div>
+  <div class="stat-card">
+    <span class="label label--accent">New surfaces</span>
+    <p class="stat-card__value">80+ each</p>
+    <p class="caption">Monthly active users on Discovery/Explore and the Profile Hub within four months of launch</p>
+  </div>
+  <div class="stat-card">
+    <span class="label label--accent">Platform</span>
+    <p class="stat-card__value">396 → 770</p>
+    <p class="caption">Monthly active users over the same four months</p>
+  </div>
+</div>
+
+The sign-up figure is the flow described under Onboarding: a phone number, an SMS code, a name and a PIN, with identity checks held back until they're needed. Discovery/Explore and the Profile Hub are the two engagement surfaces I designed and the team shipped. They are part of the platform's growth, not all of it: monthly active users across the whole platform grew from 396 to 770 over the same four months.
+
+Behind the screens, I led the frontend's design-system modernisation, alongside engineering: reusable primitives, semantic tokens and consistent patterns, so the patient app on mobile and the facility dashboards on the web share one set of rules and stay easy to change.
 
 </div>

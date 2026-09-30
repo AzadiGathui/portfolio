@@ -1205,6 +1205,26 @@ details[open] .expandable__trigger::after {
   margin: 0;
 }
 
+/* Team: one person per line, the name linked to their profile, the role beside it in grey */
+.pj-team {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-xs);
+}
+
+/* Flex so a long role drops to its own line whole, not split mid-phrase */
+.pj-team li {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--space-xs);
+}
+
+.pj-team__role {
+  color: var(--color-text-muted);
+}
+
 /* Body: the contents list in columns 1–3, the article from column 5 */
 .pj-swiss .pj-layout {
   grid-template-columns: var(--grid);

@@ -5,7 +5,7 @@ client: SID (Society for International Development)
 industry: Energy
 role: Editorial Designer
 deliverables: 200-page publication
-order: 6
+order: 8
 coverImage: /assets/images/projects/efw/cover-header.jpg
 mockupImage: /assets/images/projects/efw/EFW hero mockup.png
 thumbnail: /assets/images/projects/efw/EFW hero mockup.png
