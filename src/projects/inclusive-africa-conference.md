@@ -6,7 +6,7 @@ client: InABLE
 industry: Accessibility
 role: Editorial Designer
 deliverables: 36-page conference booklet
-order: 4
+order: 6
 coverImage: /assets/images/projects/iac/cover-header.jpg
 mockupImage: /assets/images/projects/iac/IAC hero mockup.png
 thumbnail: /assets/images/projects/iac/IAC hero mockup.png

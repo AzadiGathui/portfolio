@@ -5,7 +5,7 @@ client: Leja Ltd.
 industry: B2B Fintech
 role: Product (UI/UX) Designer
 deliverables: Mobile application UX research & design
-order: 2
+order: 4
 coverImage: /assets/images/projects/lj/cover-header.jpg
 mockupImage: /assets/images/projects/lj/phone-home.png
 mockupFrame: phone

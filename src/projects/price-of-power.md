@@ -5,7 +5,7 @@ client: Independent
 industry: Energy & Data
 role: Researcher & Designer
 deliverables: Interactive data visualisation (Tableau Public)
-order: 1
+order: 3
 coverImage: /assets/images/projects/ren/cover-header.jpg
 mockupImage: /assets/images/projects/ren/bills.png
 thumbnail: /assets/images/projects/ren/bills.png

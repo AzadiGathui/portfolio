@@ -38,6 +38,16 @@ layout: layouts/base.njk
       {% if timeline %}<div><dt class="label">Timeline</dt><dd>{{ timeline }}</dd></div>{% endif %}
       {% if platform %}<div><dt class="label">Platform</dt><dd>{{ platform }}</dd></div>{% endif %}
       <div><dt class="label">Deliverables</dt><dd>{{ deliverables }}</dd></div>
+      {% if team %}
+      {# team (optional): the people who did the work with me: [{ name, role, url? }], each linked to a profile #}
+      <div><dt class="label">Team</dt><dd>
+        <ul class="pj-team">
+          {% for member in team %}
+          <li>{% if member.url %}<a href="{{ member.url }}" target="_blank" rel="noopener" aria-label="{{ member.name }} on LinkedIn">{{ member.name }}</a>{% else %}{{ member.name }}{% endif %} <span class="pj-team__role">{{ member.role }}</span></li>
+          {% endfor %}
+        </ul>
+      </dd></div>
+      {% endif %}
     </dl>
     {% else %}
     <table class="pj-deets__table">
@@ -47,6 +57,9 @@ layout: layouts/base.njk
       {% if timeline %}<tr><th>Timeline</th><td>{{ timeline }}</td></tr>{% endif %}
       {% if platform %}<tr><th>Platform</th><td>{{ platform }}</td></tr>{% endif %}
       <tr><th>Deliverables</th><td>{{ deliverables }}</td></tr>
+      {% if team %}
+      <tr><th>Team</th><td>{% for member in team %}{% if member.url %}<a href="{{ member.url }}" target="_blank" rel="noopener" aria-label="{{ member.name }} on LinkedIn">{{ member.name }}</a>{% else %}{{ member.name }}{% endif %}, {{ member.role }}{% if not loop.last %}<br>{% endif %}{% endfor %}</td></tr>
+      {% endif %}
     </table>
     {% endif %}
   </div>

@@ -5,7 +5,7 @@ client: UN Climate Change High-Level Champions
 industry: Critical Minerals
 role: Editorial Designer
 deliverables: "Case study report: layout and typesetting"
-order: 3
+order: 5
 coverImage: /assets/images/projects/aetm/cover-header.jpg
 thumbnail: /assets/images/projects/aetm/spread-01-cover.jpg
 ogImage: /assets/images/projects/aetm/spread-01-cover.jpg
