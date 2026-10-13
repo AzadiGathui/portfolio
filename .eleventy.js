@@ -118,6 +118,25 @@ module.exports = async function (eleventyConfig) {
     return `<div class="phone-reel" role="region" tabindex="0" aria-label="${escapeAttr(label)}">${phones}</div>`;
   });
 
+  // ------------------------------------------------------------------
+  // TABLES: every bare <table> (the ones written in the case studies; a table
+  // with a class is part of a layout, like the project details) is wrapped so a
+  // wide one scrolls sideways inside its own box on a phone, not the whole page.
+  // tabindex + role make the box reachable by keyboard; its label is the
+  // table's column headings. Styles: "TABLES" in style.css.
+  // ------------------------------------------------------------------
+  eleventyConfig.addTransform("scrollable-tables", function (content) {
+    const out = this.page && this.page.outputPath;
+    if (typeof out !== "string" || !out.endsWith(".html")) return content;
+    return content.replace(/<table>([\s\S]*?)<\/table>/g, (table, inner) => {
+      const heads = [...inner.matchAll(/<th[^>]*>([\s\S]*?)<\/th>/g)]
+        .map(([, h]) => h.replace(/<[^>]+>/g, "").trim())
+        .filter(Boolean);
+      const label = heads.length ? `Table: ${heads.join(", ")}` : "Table";
+      return `<div class="table-scroll" role="region" tabindex="0" aria-label="${escapeAttr(label)}">${table}</div>`;
+    });
+  });
+
   return {
     dir: {
       input: "src",
