@@ -5,7 +5,7 @@ client: Zindua School (Academic Project)
 industry: Conservation
 role: Data Scientist
 deliverables: Data wrangling pipeline, exploratory analysis, Random Forest classification model, species-level predictions
-order: 2
+order: 3
 coverImage: /assets/images/projects/iucn/cover-header.jpg
 thumbnail: /assets/images/projects/iucn/model_kenya_by_class.png
 ogImage: /assets/images/projects/iucn/model_kenya_by_class.png
