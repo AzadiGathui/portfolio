@@ -470,6 +470,27 @@ td {
   padding-right: var(--space-md);
 }
 
+/* Wide tables scroll sideways inside their own box instead of pushing the page
+   wider. The build wraps every bare <table> in .table-scroll (see .eleventy.js);
+   it is focusable so keyboard users can scroll it too. */
+.table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.table-scroll:focus-visible {
+  outline: 2px solid var(--color-accent-text);
+  outline-offset: 2px;
+}
+
+/* On phones a table with three or more columns keeps readable columns and
+   scrolls, rather than squeezing each column into a few letters */
+@media (max-width: 768px) {
+  .table-scroll table:has(th:nth-child(3)) {
+    min-width: 34rem;
+  }
+}
+
 /* ============================================
    PROJECT COMPONENTS
    ============================================ */
@@ -895,6 +916,9 @@ main.lab {
   border-left: 3px solid var(--color-accent);
   color: var(--color-text);
   max-width: 36ch;
+  /* Lines come out about even, never one word hanging on the last line.
+     Browsers without it wrap as normal. */
+  text-wrap: balance;
 }
 
 .pull-quote cite {
@@ -969,7 +993,7 @@ details[open] .expandable__trigger::after {
 
 /* The reading measure applies to TEXT only. Figures, charts and tables
    aren't read line by line, so they keep the full column width and stay legible. */
-.article-body > :is(p, ul, ol, h2, h3, h4, blockquote, hr) {
+.article-body > :is(p, ul, ol, h2, h3, h4, blockquote) {
   max-width: var(--measure);
 }
 

@@ -122,10 +122,9 @@
   <figcaption>Distribution of IUCN Red List categories. Least Concern dominates, while Data Deficient (3,620 species, fourth bar from the top) represents 9.3% of the dataset: species with insufficient information to classify.</figcaption>
 </figure>
 <p><strong>The goal:</strong> Train a classification model on species with known threat status, then use it to predict whether Kenya's 335 Data Deficient species are likely to be Threatened or Non-Threatened, surfacing candidates for urgent field research.</p>
-<hr>
 <h2 id="the-dataset">The Dataset</h2>
 <p>Data was sourced from the IUCN Red List bulk download, comprising <strong>8 CSV files</strong> covering different aspects of species records:</p>
-<table>
+<div class="table-scroll" role="region" tabindex="0" aria-label="Table: File, Rows, Description"><table>
   <thead><tr><th>File</th><th>Rows</th><th>Description</th></tr></thead>
   <tbody>
     <tr><td>simple_summary</td><td>41,949</td><td>Core taxonomy, Red List category, population trend</td></tr>
@@ -137,7 +136,7 @@
     <tr><td>usetrade</td><td>18,524</td><td>Human use and trade records</td></tr>
     <tr><td>countries</td><td>431,396</td><td>Country-level occurrence records</td></tr>
   </tbody>
-</table>
+</table></div>
 <h3>Missingness &amp; Deduplication</h3>
 <p>Before analysis, the data needed cleaning. Initial inspection revealed significant missing values across several fields.</p>
 <figure>
@@ -149,7 +148,6 @@
   <picture><source type="image/avif" srcset="/img/NLK9ov969h-400.avif 400w, /img/NLK9ov969h-800.avif 800w, /img/NLK9ov969h-1200.avif 1200w" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/NLK9ov969h-400.webp" alt="Missingness matrix after cleaning and deduplication" width="1200" height="3271" srcset="/img/NLK9ov969h-400.webp 400w, /img/NLK9ov969h-800.webp 800w, /img/NLK9ov969h-1200.webp 1200w" sizes="(max-width: 960px) 100vw, 960px"></picture>
   <figcaption>Missingness after cleaning. The dataset was consolidated to <strong>39,024 unique species</strong>, with 7 processed output files prepared for downstream analysis.</figcaption>
 </figure>
-<hr>
 <h2 id="eda">Exploratory Data Analysis</h2>
 <h3>Red List Category Imbalance</h3>
 <p>For modelling purposes, the 13 IUCN categories were collapsed into three simplified groups:</p>
@@ -197,10 +195,9 @@
   <picture><source type="image/avif" srcset="/img/5o7cFJTM-i-400.avif 400w, /img/5o7cFJTM-i-800.avif 800w" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/5o7cFJTM-i-400.webp" alt="Data availability comparison between DD and non-DD species across all feature sources" width="800" height="393" srcset="/img/5o7cFJTM-i-400.webp 400w, /img/5o7cFJTM-i-800.webp 800w" sizes="(max-width: 960px) 100vw, 960px"></picture>
   <figcaption>Feature data availability for DD (grey) vs non-DD (blue) species. Countries (100%) and habitats (97%) are well covered. Threats (35.4%), uses (17.8%), and conservation records (20.2%) are sparse for DD species: a systematic bias that predictions must be interpreted against. The one exception is research-needed records, which DD species have <em>more</em> of (82.9% against 57.7%), as expected for species flagged as needing further study.</figcaption>
 </figure>
-<hr>
 <h2 id="features">Feature Engineering</h2>
 <p>Eight candidate features were selected based on EDA findings and data availability across DD species:</p>
-<table>
+<div class="table-scroll" role="region" tabindex="0" aria-label="Table: Feature, Type, Source, Rationale"><table>
   <thead><tr><th>Feature</th><th>Type</th><th>Source</th><th>Rationale</th></tr></thead>
   <tbody>
     <tr><td>className</td><td>Categorical</td><td>simple_summary</td><td>Taxonomic group is a proxy for ecological vulnerability</td></tr>
@@ -212,19 +209,17 @@
     <tr><td>n_conservation</td><td>Numeric</td><td>conservation_needed (count)</td><td>Level of conservation attention</td></tr>
     <tr><td>n_research</td><td>Numeric</td><td>research_needed (count)</td><td>Documented knowledge gaps</td></tr>
   </tbody>
-</table>
+</table></div>
 <p><code>className</code> and <code>populationTrend</code> were one-hot encoded, producing <strong>52 total features</strong> (6 numeric + 46 binary). The dataset was split 80/20 into training (28,163 species) and test (7,041 species) sets.</p>
-<hr>
 <h2 id="class-imbalance">Handling Class Imbalance</h2>
 <p>Non-Threatened species outnumber Threatened ones by about 1.8 to 1 (18,217 against 9,946 in the training set), enough to bias a naïve classifier toward the majority class. SMOTE (Synthetic Minority Over-sampling Technique) was applied to the training set to generate synthetic Threatened examples and balance the distribution before fitting.</p>
 <figure>
   <picture><source type="image/avif" srcset="/img/1IqHfv3xY1-400.avif 400w, /img/1IqHfv3xY1-800.avif 800w, /img/1IqHfv3xY1-1183.avif 1183w" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/1IqHfv3xY1-400.webp" alt="Class distribution before and after SMOTE oversampling" width="1183" height="384" srcset="/img/1IqHfv3xY1-400.webp 400w, /img/1IqHfv3xY1-800.webp 800w, /img/1IqHfv3xY1-1183.webp 1183w" sizes="(max-width: 960px) 100vw, 960px"></picture>
   <figcaption>Training set class distribution before (left) and after (right) SMOTE. The synthetic samples bring Threatened species up to parity with Non-Threatened, allowing the model to learn from both classes equally.</figcaption>
 </figure>
-<hr>
 <h2 id="modelling">Model Training + Evaluation</h2>
 <p>Two classifiers were trained and evaluated: <strong>Logistic Regression</strong> and <strong>Random Forest</strong>.</p>
-<table>
+<div class="table-scroll" role="region" tabindex="0" aria-label="Table: Model, Test Accuracy, Test F1 (weighted), 5-Fold CV F1"><table>
   <thead>
     <tr><th>Model</th><th>Test Accuracy</th><th>Test F1 (weighted)</th><th>5-Fold CV F1</th></tr>
   </thead>
@@ -232,7 +227,7 @@
     <tr><td>Logistic Regression</td><td>83.4%</td><td>83.7%</td><td>84.0% ± 0.5%</td></tr>
     <tr><td><strong>Random Forest</strong></td><td><strong>87.5%</strong></td><td><strong>87.6%</strong></td><td><strong>90.1% ± 1.8%</strong></td></tr>
   </tbody>
-</table>
+</table></div>
 <p>Random Forest outperformed Logistic Regression on all metrics and was selected for final predictions.</p>
 <p>The cross-validation scores were computed on the SMOTE-resampled training set, so synthetic samples can land in both the training and validation folds. That makes them optimistic, which is why the Random Forest's CV F1 sits above its held-out test F1. The test-set figures are the more reliable estimate.</p>
 <figure>
@@ -248,7 +243,6 @@
   <picture><source type="image/avif" srcset="/img/0sWN0yiv-w-400.avif 400w, /img/0sWN0yiv-w-800.avif 800w" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/0sWN0yiv-w-400.webp" alt="Top 20 most important features in the Random Forest model" width="800" height="556" srcset="/img/0sWN0yiv-w-400.webp 400w, /img/0sWN0yiv-w-800.webp 800w" sizes="(max-width: 960px) 100vw, 960px"></picture>
   <figcaption>Top 20 Random Forest feature importances. Numeric count features (particularly <code>n_countries</code>, <code>n_habitats</code>, and <code>n_threats</code>) dominate. Population trend categories and taxonomic class are the most informative categorical signals.</figcaption>
 </figure>
-<hr>
 <h2 id="results">Results: Kenya's Data Deficient Species</h2>
 <p><strong>335 species</strong> occurring in Kenya were identified as Data Deficient. Using the Random Forest model, each was assigned a predicted threat status.</p>
 <figure>
@@ -264,7 +258,6 @@
   <picture><source type="image/avif" srcset="/img/EqQLiFpiBe-400.avif 400w, /img/EqQLiFpiBe-800.avif 800w, /img/EqQLiFpiBe-1200.avif 1200w, /img/EqQLiFpiBe-1600.avif 1600w" sizes="(max-width: 960px) 100vw, 960px"><img loading="lazy" decoding="async" src="/img/EqQLiFpiBe-400.webp" alt="Per-class breakdown of predicted Threatened vs Non-Threatened for Kenya's DD species" width="1600" height="1154" srcset="/img/EqQLiFpiBe-400.webp 400w, /img/EqQLiFpiBe-800.webp 800w, /img/EqQLiFpiBe-1200.webp 1200w, /img/EqQLiFpiBe-1600.webp 1600w" sizes="(max-width: 960px) 100vw, 960px"></picture>
   <figcaption>Kenya's species counts by taxonomic class before (pale) and after (solid) adding the Random Forest's predictions for the 335 Data Deficient species. Percentages show the change relative to the species already assessed, so small classes show large swings (for example, 4 to 6 Threatened Malacostraca is +50%). Fish and invertebrate classes gain the most predicted-Threatened species.</figcaption>
 </figure>
-<hr>
 <h2 id="limitations">Limitations</h2>
 <p>These predictions are best treated as <strong>research prioritisation hypotheses</strong>, not definitive assessments.</p>
 <ul>
@@ -274,7 +267,6 @@
 <li><strong>Count features only:</strong> Threat <em>type</em> and habitat <em>type</em> were reduced to simple counts. Qualitative differences (e.g., habitat destruction vs invasive species) are invisible to the model.</li>
 <li><strong>No external validation:</strong> Predictions have not been validated against expert assessments or field surveys. They should prompt investigation, not replace it.</li>
 </ul>
-<hr>
 <h2 id="references">References + Acknowledgements</h2>
 <p><strong>Data Source</strong></p>
 <p>IUCN Red List of Threatened Species. Version 2024-2. <a href="https://www.iucnredlist.org" target="_blank" rel="noopener">www.iucnredlist.org</a>. Downloaded November 2024.</p>
@@ -429,12 +421,12 @@ document.addEventListener('DOMContentLoaded', function () {
 <nav class="pj-nav" aria-label="Project navigation">
   <div class="pj-nav__item pj-nav__item--prev">
     
-      <a href="/projects/jireh-health/" class="pj-nav__link">
+      <a href="/projects/environmental-degradation-monitor/" class="pj-nav__link">
         
-          <picture><source type="image/avif" srcset="/img/esMm89nSd_-384.avif" sizes="(max-width: 768px) 50vw, 440px"><img loading="lazy" decoding="async" src="/img/esMm89nSd_-384.webp" alt="" class="pj-nav__thumb" width="384" height="744"></picture>
+          <picture><source type="image/avif" srcset="/img/pyfeX8ql-c-400.avif 400w, /img/pyfeX8ql-c-800.avif 800w" sizes="(max-width: 768px) 50vw, 440px"><img loading="lazy" decoding="async" src="/img/pyfeX8ql-c-400.webp" alt="" class="pj-nav__thumb" width="800" height="927" srcset="/img/pyfeX8ql-c-400.webp 400w, /img/pyfeX8ql-c-800.webp 800w" sizes="(max-width: 768px) 50vw, 440px"></picture>
         
         <span class="label">← Previous</span>
-        <span class="pj-nav__title">Accessible healthcare financing</span>
+        <span class="pj-nav__title">Measuring encroachment on Kenya&#39;s protected areas from space</span>
       </a>
     
   </div>
