@@ -28,8 +28,6 @@ This is not a safe status. A DD classification often reflects under-resourced fi
 
 **The goal:** Train a classification model on species with known threat status, then use it to predict whether Kenya's 335 Data Deficient species are likely to be Threatened or Non-Threatened, surfacing candidates for urgent field research.
 
----
-
 <h2 id="the-dataset">The Dataset</h2>
 
 Data was sourced from the IUCN Red List bulk download, comprising **8 CSV files** covering different aspects of species records:
@@ -63,8 +61,6 @@ The primary join key (`internalTaxonId`) appeared on **2,925 duplicate rows**; o
   <img src="/assets/images/projects/iucn/resolved_missingness.png" alt="Missingness matrix after cleaning and deduplication">
   <figcaption>Missingness after cleaning. The dataset was consolidated to <strong>39,024 unique species</strong>, with 7 processed output files prepared for downstream analysis.</figcaption>
 </figure>
-
----
 
 <h2 id="eda">Exploratory Data Analysis</h2>
 
@@ -133,8 +129,6 @@ A key challenge: Data Deficient species are deficient not just in their Red List
   <figcaption>Feature data availability for DD (grey) vs non-DD (blue) species. Countries (100%) and habitats (97%) are well covered. Threats (35.4%), uses (17.8%), and conservation records (20.2%) are sparse for DD species: a systematic bias that predictions must be interpreted against. The one exception is research-needed records, which DD species have <em>more</em> of (82.9% against 57.7%), as expected for species flagged as needing further study.</figcaption>
 </figure>
 
----
-
 <h2 id="features">Feature Engineering</h2>
 
 Eight candidate features were selected based on EDA findings and data availability across DD species:
@@ -155,8 +149,6 @@ Eight candidate features were selected based on EDA findings and data availabili
 
 `className` and `populationTrend` were one-hot encoded, producing **52 total features** (6 numeric + 46 binary). The dataset was split 80/20 into training (28,163 species) and test (7,041 species) sets.
 
----
-
 <h2 id="class-imbalance">Handling Class Imbalance</h2>
 
 Non-Threatened species outnumber Threatened ones by about 1.8 to 1 (18,217 against 9,946 in the training set), enough to bias a naïve classifier toward the majority class. SMOTE (Synthetic Minority Over-sampling Technique) was applied to the training set to generate synthetic Threatened examples and balance the distribution before fitting.
@@ -165,8 +157,6 @@ Non-Threatened species outnumber Threatened ones by about 1.8 to 1 (18,217 again
   <img src="/assets/images/projects/iucn/model_smote.png" alt="Class distribution before and after SMOTE oversampling">
   <figcaption>Training set class distribution before (left) and after (right) SMOTE. The synthetic samples bring Threatened species up to parity with Non-Threatened, allowing the model to learn from both classes equally.</figcaption>
 </figure>
-
----
 
 <h2 id="modelling">Model Training + Evaluation</h2>
 
@@ -203,8 +193,6 @@ The cross-validation scores were computed on the SMOTE-resampled training set, s
   <figcaption>Top 20 Random Forest feature importances. Numeric count features (particularly <code>n_countries</code>, <code>n_habitats</code>, and <code>n_threats</code>) dominate. Population trend categories and taxonomic class are the most informative categorical signals.</figcaption>
 </figure>
 
----
-
 <h2 id="results">Results: Kenya's Data Deficient Species</h2>
 
 **335 species** occurring in Kenya were identified as Data Deficient. Using the Random Forest model, each was assigned a predicted threat status.
@@ -226,8 +214,6 @@ The 44 RF-predicted Threatened species span multiple taxonomic classes, with fis
   <figcaption>Kenya's species counts by taxonomic class before (pale) and after (solid) adding the Random Forest's predictions for the 335 Data Deficient species. Percentages show the change relative to the species already assessed, so small classes show large swings (for example, 4 to 6 Threatened Malacostraca is +50%). Fish and invertebrate classes gain the most predicted-Threatened species.</figcaption>
 </figure>
 
----
-
 <h2 id="limitations">Limitations</h2>
 
 These predictions are best treated as **research prioritisation hypotheses**, not definitive assessments.
@@ -237,8 +223,6 @@ These predictions are best treated as **research prioritisation hypotheses**, no
 - **Collapsed categories:** Binary Threatened / Non-Threatened classification loses meaningful nuance: a Vulnerable and a Critically Endangered species are treated identically.
 - **Count features only:** Threat *type* and habitat *type* were reduced to simple counts. Qualitative differences (e.g., habitat destruction vs invasive species) are invisible to the model.
 - **No external validation:** Predictions have not been validated against expert assessments or field surveys. They should prompt investigation, not replace it.
-
----
 
 <h2 id="references">References + Acknowledgements</h2>
 
