@@ -16,7 +16,7 @@ module.exports = async function (eleventyConfig) {
   // It also adds width/height, so the page doesn't jump while images load.
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
     formats: ["avif", "webp", "svg"], // AVIF is smallest; WebP is the fallback every current browser supports; "svg" lets SVGs pass through (below)
-    widths: [400, 800, 1200, 1600], // never upscales: originals smaller than a width are kept at their own size
+    widths: [400, 800, 1200], // never upscales: originals smaller than a width are kept at their own size. Capped at 1200 so no print-size copy is published
     svgShortCircuit: true, // SVGs are already tiny and sharp; leave them as they are
     htmlOptions: {
       imgAttributes: {
@@ -47,8 +47,29 @@ module.exports = async function (eleventyConfig) {
     return meta.webp[0].url;
   });
 
-  // Passthrough copies: files Eleventy should serve as-is, without processing
-  eleventyConfig.addPassthroughCopy("src/assets");
+  // Social preview images (og:image) are read by Facebook, LinkedIn etc., which
+  // don't all accept AVIF/WebP, so this makes one 1200px JPEG instead.
+  eleventyConfig.addAsyncFilter("ogImage", async (src) => {
+    if (!src || src.endsWith(".svg") || /^https?:/.test(src)) return src;
+    const meta = await Image("src" + src, {
+      widths: [1200],
+      formats: ["jpeg"],
+      outputDir: require("node:path").join(eleventyConfig.directories.output, "img"),
+      urlPath: "/img/",
+    });
+    return meta.jpeg[0].url;
+  });
+
+  // Passthrough copies: files Eleventy should serve as-is, without processing.
+  // Full-size originals in src/assets/images are NOT copied: pages only get the
+  // resized files in /img/ above, so the originals never become public URLs.
+  // Only images that must stay as raw files are copied:
+  eleventyConfig.addPassthroughCopy("src/assets/css");
+  eleventyConfig.addPassthroughCopy("src/assets/fonts");
+  eleventyConfig.addPassthroughCopy("src/assets/js");
+  eleventyConfig.addPassthroughCopy("src/assets/images/branding"); // favicons, apple-touch-icon
+  eleventyConfig.addPassthroughCopy("src/assets/images/home"); // hero <video> files and their posters
+  eleventyConfig.addPassthroughCopy("src/assets/images/**/*.svg"); // vector logos are served as-is
   eleventyConfig.addPassthroughCopy("src/admin");
   eleventyConfig.addPassthroughCopy("CNAME"); // critical: preserves azadi.design custom domain on every deploy
 
