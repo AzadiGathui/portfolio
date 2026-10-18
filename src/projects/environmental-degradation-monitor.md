@@ -10,6 +10,7 @@ deliverables: Land-cover segmentation model, change-detection pipeline, Kenya ev
 order: 2
 coverImage: /assets/images/projects/edm/cover-header.jpg
 thumbnail: /assets/images/projects/edm/thumbnail-placeholder.png
+thumbnailKind: print   # phone | print | book: how the artefact is laid on the homepage card and case-study cover
 ogImage: /assets/images/projects/edm/cover-header.jpg
 description: An end-to-end pipeline that segments Sentinel-2 imagery with a U-Net, compares 2016 with 2025 and measures new built-up land inside Kenya's protected areas, plus an honest evaluation of how well it works in Kenya.
 permalink: /projects/environmental-degradation-monitor/

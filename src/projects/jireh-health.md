@@ -17,8 +17,8 @@ order: 1
 coverImage: /assets/images/projects/jh/cover.jpg
 coverPosition: 50% 20%
 mockupImage: /assets/images/projects/jh/home-cashback.png
-mockupFrame: phone
 thumbnail: /assets/images/projects/jh/thumbnail.png
+thumbnailKind: phone   # phone | print | book: how the artefact is laid on the homepage card and case-study cover
 ogImage: /assets/images/projects/jh/home-cashback.png
 description: UX research and design for Jireh, a mobile-first web app where Kenyan patients pay medical bills with M-Pesa, cashback and 0% interest loans backed by people they trust.
 permalink: /projects/jireh-health/

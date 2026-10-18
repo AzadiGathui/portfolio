@@ -1,6 +1,5 @@
 ---
 title: Inclusive Africa Conference 2024
-titleSup: "2024"
 tagline: Accessibility conference booklet
 client: InABLE
 industry: Accessibility
@@ -10,6 +9,7 @@ order: 7
 coverImage: /assets/images/projects/iac/cover-header.jpg
 mockupImage: /assets/images/projects/iac/IAC hero mockup.png
 thumbnail: /assets/images/projects/iac/IAC hero mockup.png
+thumbnailKind: book   # phone | print | book: how the artefact is laid on the homepage card and case-study cover
 ogImage: /assets/images/projects/iac/IAC hero mockup.png
 description: "Conference booklet design for the 2024 edition of the Inclusive Africa Conference: a 36-page accessible publication for InABLE."
 permalink: /projects/inclusive-africa-conference/

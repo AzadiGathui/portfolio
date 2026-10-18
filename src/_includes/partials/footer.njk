@@ -1,31 +1,13 @@
-<footer class="footer">
-  <div class="footer__brand">
-    <a href="/" class="footer__name">{{ site.title }}</a>
-    <p class="footer__role caption">{{ site.role }}</p>
-  </div>
-
-  <nav class="footer__nav" aria-label="Footer navigation">
-    <ul class="footer__nav-list">
-      {% for item in navigation %}
-      <li><a href="{{ item.url }}" class="footer__nav-link caption">{{ item.label }}</a></li>
-      {% endfor %}
+{#- The closing contact block on every page: the ask, the email large, then
+    LinkedIn and GitHub (styles: "Footer" in style.css). The Contact key
+    jumps here (#contact). -#}
+<footer class="sheet foot" id="contact" data-snap>
+  <p class="foot__ask">Let’s create meaningful, systemic impact together.</p>
+  <a class="foot__mail" href="mailto:{{ site.email }}">{{ site.email }}</a>
+  <div class="foot__base">
+    <ul class="icon-links">
+      {%- include "partials/social-links.njk" %}
     </ul>
-  </nav>
-
-  <div class="footer__social">
-    {% if site.social.linkedin %}
-      <a href="{{ site.social.linkedin }}" class="footer__social-link caption" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-    {% endif %}
-    {% if site.social.behance %}
-      <a href="{{ site.social.behance }}" class="footer__social-link caption" target="_blank" rel="noopener noreferrer">Behance</a>
-    {% endif %}
-    {% if site.social.github %}
-      <a href="{{ site.social.github }}" class="footer__social-link caption" target="_blank" rel="noopener noreferrer">GitHub</a>
-    {% endif %}
-    {% if site.email %}
-      <a href="mailto:{{ site.email }}" class="footer__social-link caption">{{ site.email }}</a>
-    {% endif %}
+    <span class="foot__copy">© {{ "" | currentYear }} {{ site.author }}</span>
   </div>
-
-  <p class="footer__copy">&copy; {{ "" | currentYear }} {{ site.author }}</p>
 </footer>

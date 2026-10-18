@@ -68,7 +68,6 @@ module.exports = async function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets/fonts");
   eleventyConfig.addPassthroughCopy("src/assets/js");
   eleventyConfig.addPassthroughCopy("src/assets/images/branding"); // favicons, apple-touch-icon
-  eleventyConfig.addPassthroughCopy("src/assets/images/home"); // hero <video> files and their posters
   eleventyConfig.addPassthroughCopy("src/assets/images/**/*.svg"); // vector logos are served as-is
   eleventyConfig.addPassthroughCopy("src/admin");
   eleventyConfig.addPassthroughCopy("CNAME"); // critical: preserves azadi.design custom domain on every deploy
@@ -99,44 +98,32 @@ module.exports = async function (eleventyConfig) {
   });
 
   // ------------------------------------------------------------------
-  // PHONE SCREENS: a mobile screen in a device frame, for any project that
-  // shows phone layouts (Jireh, Leja, …). Styles: "PHONE SCREENS" in style.css.
+  // PHONE SCREENS: a row of mobile screens, each in the phone mockup with
+  // its step, title and caption beside it, in a reel (styles: "Reel" and
+  // "Phone mockup" in style.css; previous / next buttons: reels.js).
   //
   //   {% phones "Fast Track screens" %}
   //     {% phone { src: "/assets/images/projects/jh/code.png", alt: "…", step: "Step 1", title: "Find the counter", caption: "…" } %}
-  //     {% phone { title: "Invoice and patient", caption: "…" } %}
   //   {% endphones %}
-  //
-  // Leave out `src` and the phone is an empty frame labelled with its title,
-  // ready for the screen to be added later. A screenshot keeps its own shape;
-  // `ratio` (width / height, e.g. "9 / 16") forces one, and sets the empty frame's
-  // shape (default 1 / 2). `priority: true` loads
-  // the screen straight away (the project cover's mockup: front matter `mockupFrame: phone`).
   // ------------------------------------------------------------------
   const escapeAttr = (s) =>
     String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 
-  eleventyConfig.addShortcode("phone", ({ src, alt = "", step, title, caption, ratio, priority } = {}) => {
-    const style = ratio ? ` class="phone phone--ratio" style="--phone-ratio: ${escapeAttr(ratio)}"` : ` class="phone"`;
-    const loading = priority ? ` loading="eager" fetchpriority="high"` : "";
-    // Shown at most ~15rem wide, so the browser picks a small file, not the 960px column default
-    const screen = src
-      ? `<img class="phone__screen" src="${escapeAttr(src)}" alt="${escapeAttr(alt)}" sizes="(max-width: 768px) 60vw, 15rem"${loading}>`
-      : `<div class="phone__screen phone__screen--empty" aria-hidden="true"><span class="label">${title || "Screen"}</span></div>`;
+  eleventyConfig.addShortcode("phone", ({ src, alt = "", step, title, caption } = {}) => {
     const text = [
-      step && `<span class="label label--accent">${step}</span>`,
+      step && `<span class="label">${step}</span>`,
       title && `<strong>${title}</strong>`,
       caption,
     ].filter(Boolean).join(" ");
-    return `<figure${style}><div class="phone__frame">${screen}</div>${text ? `<figcaption>${text}</figcaption>` : ""}</figure>`;
+    return `<figure class="reel__item"><span class="phone-frame"><img src="${escapeAttr(src)}" alt="${escapeAttr(alt)}" sizes="(max-width: 720px) 30vw, 160px" loading="lazy"></span>${text ? `<figcaption>${text}</figcaption>` : ""}</figure>`;
   });
 
-  // A sideways-scrolling row of phones. Output goes on one line: markdown ends a
-  // raw HTML block at the first blank line, which would break the row apart.
+  // Output goes on one line: markdown ends a raw HTML block at the first
+  // blank line, which would break the reel apart.
   eleventyConfig.addPairedShortcode("phones", (content, label = "Screens") => {
-    const phones = content.split("\n").map((line) => line.trim()).filter(Boolean).join("");
+    const phones = content.split("\n").map((line) => line.trim()).filter(Boolean);
     // tabindex: a scrolling region must be reachable by keyboard to be scrolled
-    return `<div class="phone-reel" role="region" tabindex="0" aria-label="${escapeAttr(label)}">${phones}</div>`;
+    return `<div class="sheet frame reel"><div class="reel__track" tabindex="0" role="region" aria-label="${escapeAttr(label)}: ${phones.length} images, scroll sideways">${phones.join("")}</div></div>`;
   });
 
   // ------------------------------------------------------------------

@@ -5,12 +5,12 @@ client: Leja Ltd.
 industry: B2B Fintech
 role: Product (UI/UX) Designer
 deliverables: Mobile application UX research & design
-order: 5
+order: 4
 coverImage: /assets/images/projects/lj/cover-header.jpg
 mockupImage: /assets/images/projects/lj/phone-home.png
-mockupFrame: phone
 clientLogo: /assets/images/resume/leja/Leja logotype_WhitePink_RGB.svg
 thumbnail: /assets/images/projects/lj/thumbnail.png
+thumbnailKind: phone   # phone | print | book: how the artefact is laid on the homepage card and case-study cover
 ogImage: /assets/images/projects/lj/LJmockup.png
 description: Formalising MSMEs to promote access to financial services. Product design for Leja Ltd., a B2B fintech platform.
 permalink: /projects/leja-business-app/
@@ -21,12 +21,12 @@ permalink: /projects/leja-business-app/
     <h2>The Solution</h2>
     <p>Using established best practices in context.</p>
   </header>
+  <div class="pj-text">
+    <h3>Match between the system and the real world.</h3>
+    <p>Using Kiswahili and relatable imagery within a traditionally English-dominant field helps humanise the platform as a representation of what happens day-to-day.</p>
+    <a href="https://www.nngroup.com/articles/ten-usability-heuristics/#:~:text=2%3A-,Match%20Between%20the%20System%20and%20the%20Real%20World,-The%20design%20should">Nielsen's Usability heuristic #2</a>
+  </div>
   <div class="pj-row">
-    <div class="pj-text">
-      <h3>Match between the system and the real world.</h3>
-      <p>Using Kiswahili and relatable imagery within a traditionally English-dominant field helps humanise the platform as a representation of what happens day-to-day.</p>
-      <a href="https://www.nngroup.com/articles/ten-usability-heuristics/#:~:text=2%3A-,Match%20Between%20the%20System%20and%20the%20Real%20World,-The%20design%20should">Nielsen's Usability heuristic #2</a>
-    </div>
     <img src="/assets/images/projects/lj/referrals 01.png" alt="Leja referral screen 1">
     <img src="/assets/images/projects/lj/referrals 02.png" alt="Leja referral screen 2">
     <img src="/assets/images/projects/lj/referrals 03.png" alt="Leja referral screen 3">

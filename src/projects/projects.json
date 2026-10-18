@@ -1,5 +1,4 @@
 {
   "layout": "layouts/project.njk",
-  "tags": "projects",
-  "layoutGrid": "swiss"
+  "tags": "projects"
 }

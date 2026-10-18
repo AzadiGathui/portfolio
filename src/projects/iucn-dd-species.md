@@ -8,6 +8,7 @@ deliverables: Data wrangling pipeline, exploratory analysis, Random Forest class
 order: 3
 coverImage: /assets/images/projects/iucn/cover-header.jpg
 thumbnail: /assets/images/projects/iucn/model_kenya_by_class.png
+thumbnailKind: print   # phone | print | book: how the artefact is laid on the homepage card and case-study cover
 ogImage: /assets/images/projects/iucn/model_kenya_by_class.png
 description: A machine learning project predicting IUCN Red List threat categories for Kenya's 335 Data Deficient species using Random Forest classification trained on 35,000+ species.
 permalink: /projects/iucn-dd-species/

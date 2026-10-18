@@ -4,13 +4,14 @@ tagline: Consolidated research publication
 client: SID (Society for International Development)
 industry: Energy
 role: Editorial Designer
-deliverables: 200-page publication
+deliverables: Research publication, 280+ pages
 order: 9
 coverImage: /assets/images/projects/efw/cover-header.jpg
 mockupImage: /assets/images/projects/efw/EFW hero mockup.png
 thumbnail: /assets/images/projects/efw/EFW hero mockup.png
+thumbnailKind: book   # phone | print | book: how the artefact is laid on the homepage card and case-study cover
 ogImage: /assets/images/projects/efw/EFW hero mockup.png
-description: A 200-page compilation of collaborative research into contemporary Kenyan energy concerns, designed for SID Kenya.
+description: A compilation of more than 280 pages of collaborative research into contemporary Kenyan energy concerns, designed for SID Kenya.
 permalink: /projects/kenya-energy-atlas/
 ---
 

@@ -8,6 +8,7 @@ deliverables: "Case study report: layout and typesetting"
 order: 6
 coverImage: /assets/images/projects/aetm/cover-header.jpg
 thumbnail: /assets/images/projects/aetm/spread-01-cover.jpg
+thumbnailKind: book   # phone | print | book: how the artefact is laid on the homepage card and case-study cover
 ogImage: /assets/images/projects/aetm/spread-01-cover.jpg
 description: Report design for "Non-State Actors Leading a 'Just Transition'", a September 2024 case study report on responsible critical energy transition mineral production in Africa.
 permalink: /projects/african-energy-transition-minerals/
