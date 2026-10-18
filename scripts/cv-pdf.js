@@ -3,7 +3,7 @@
 //
 // Run it with the dev server going (npm start), after any CV change:
 //   npm run cv:pdf
-// Optional: CV_URL=http://localhost:3000/experiment/resume/ BROWSER=/path/to/chrome
+// Optional: CV_URL=http://localhost:3000/resume/ BROWSER=/path/to/chrome
 //
 // It drives an installed Chromium browser (Edge or Chrome) in headless mode,
 // so nothing new needs installing.
@@ -12,7 +12,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const os = require("node:os");
 
-const url = process.env.CV_URL || "http://localhost:3000/experiment/resume/";
+const url = process.env.CV_URL || "http://localhost:3000/resume/";
 const out = path.resolve(__dirname, "../src/assets/files/azadi-gathui-cv.pdf");
 
 const candidates = [

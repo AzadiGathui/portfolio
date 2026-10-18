@@ -1,8 +1,0 @@
-/* Self-hosted fonts for the experiment pages: the same files and faces as
-   style.css (Barlow for everything, JetBrains Mono for labels and table
-   headers). Only these weights exist: 400, 400 italic, 600, 700. */
-@font-face { font-family: "Barlow"; src: url("/assets/fonts/barlow-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: "Barlow"; src: url("/assets/fonts/barlow-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
-@font-face { font-family: "Barlow"; src: url("/assets/fonts/barlow-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
-@font-face { font-family: "Barlow"; src: url("/assets/fonts/barlow-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
-@font-face { font-family: "JetBrains Mono"; src: url("/assets/fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }

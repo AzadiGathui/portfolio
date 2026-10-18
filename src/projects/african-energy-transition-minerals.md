@@ -2,15 +2,13 @@
 title: A just transition for Africa's critical minerals
 tagline: Case study report on a just minerals transition
 client: UN Climate Change High-Level Champions
-clientShort: "UNFCCC Champions"   # short name for homepage lists
 industry: Critical Minerals
 role: Editorial Designer
 deliverables: "Case study report: layout and typesetting"
 order: 6
-layers: [Page]   # homepage card key: Data, Model, Journey, Screen, Page
 coverImage: /assets/images/projects/aetm/cover-header.jpg
 thumbnail: /assets/images/projects/aetm/spread-01-cover.jpg
-thumbnailKind: book   # phone | print | book: how the thumbnail is shown on /craft/
+thumbnailKind: book   # phone | print | book: how the artefact is laid on the homepage card and case-study cover
 ogImage: /assets/images/projects/aetm/spread-01-cover.jpg
 description: Report design for "Non-State Actors Leading a 'Just Transition'", a September 2024 case study report on responsible critical energy transition mineral production in Africa.
 permalink: /projects/african-energy-transition-minerals/

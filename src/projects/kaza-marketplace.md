@@ -47,12 +47,12 @@ permalink: /projects/kaza-marketplace/
 <p>We conducted 18 in-depth interviews split evenly across two user groups: homeowners in Nairobi's middle-income estates and independent artisans operating through word-of-mouth networks. Sessions were conducted in Swahili and English, recorded with consent, and synthesised through affinity mapping. We supplemented qualitative findings with a competitive audit of 6 existing platforms operating in Sub-Saharan Africa.</p>
 </div>
 
-<div class="pj-reel">
+<div class="sheet frame reel"><div class="reel__track" tabindex="0" role="region" aria-label="Kaza screens: 4 images, scroll sideways">
   <img src="https://placehold.co/600x400/222222/e6e6e6?text=Affinity+Map" alt="Affinity mapping session">
   <img src="https://placehold.co/600x400/222222/e6e6e6?text=Interview+Notes" alt="Interview notes synthesis">
   <img src="https://placehold.co/600x400/222222/e6e6e6?text=Competitive+Audit" alt="Competitive audit matrix">
   <img src="https://placehold.co/600x400/222222/e6e6e6?text=User+Journey+Map" alt="User journey map">
-</div>
+</div></div>
 
 <details class="expandable">
   <summary class="expandable__trigger">Key interview insights</summary>
@@ -123,14 +123,14 @@ permalink: /projects/kaza-marketplace/
   <img src="https://placehold.co/600x500/1a1a1a/e6e6e6?text=Booking+Confirmation" alt="Booking confirmation mockup">
 </div>
 
-<div class="pj-reel">
+<div class="sheet frame reel"><div class="reel__track" tabindex="0" role="region" aria-label="Kaza screens: 6 images, scroll sideways">
   <img src="https://placehold.co/400x700/111111/e6e6e6?text=Onboarding+1" alt="Onboarding screen 1">
   <img src="https://placehold.co/400x700/111111/e6e6e6?text=Onboarding+2" alt="Onboarding screen 2">
   <img src="https://placehold.co/400x700/111111/e6e6e6?text=Browse+Services" alt="Browse services screen">
   <img src="https://placehold.co/400x700/111111/e6e6e6?text=Book+Provider" alt="Book provider screen">
   <img src="https://placehold.co/400x700/111111/e6e6e6?text=Job+Tracker" alt="Job tracker screen">
   <img src="https://placehold.co/400x700/111111/e6e6e6?text=Review+Flow" alt="Review flow screen">
-</div>
+</div></div>
 
 <h2 id="outcomes">Outcomes & Impact</h2>
 

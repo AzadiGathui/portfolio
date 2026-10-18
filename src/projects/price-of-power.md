@@ -2,16 +2,14 @@
 title: The cost of electricity in Kenya
 tagline: Energy & Affordability
 client: Independent
-clientShort: "Independent"   # short name for homepage lists
 industry: Energy & Data
 role: Researcher & Designer
 deliverables: Interactive data visualisation (Tableau Public)
-order: 4
-layers: [Data, Screen]   # homepage card key: Data, Model, Journey, Screen, Page
+order: 5
 coverImage: /assets/images/projects/ren/cover-header.jpg
 mockupImage: /assets/images/projects/ren/bills.png
 thumbnail: /assets/images/projects/ren/bills.png
-thumbnailKind: print   # phone | print | book: how the thumbnail is shown on /craft/
+thumbnailKind: print   # phone | print | book: how the artefact is laid on the homepage card and case-study cover
 ogImage: /assets/images/projects/ren/bills.png
 description: An exploration into your monthly Kenya Power electricity bill, equitable distribution and the renewable energy transition.
 permalink: /projects/price-of-power/
@@ -23,7 +21,7 @@ permalink: /projects/price-of-power/
 <div class="tableau-facade" id="tableau-facade">
   <img src="/assets/images/projects/ren/price-of-power-dashboard-preview.png" alt="Preview of the Price of Power dashboard: the title, and a collage of 2025 news headlines about Kenya's energy sector" class="tableau-facade__preview">
   <div class="tableau-facade__actions">
-    <button type="button" class="tableau-facade__button" id="tableau-load" hidden>Load interactive dashboard</button>
+    <button type="button" class="btn" id="tableau-load" hidden>Load interactive dashboard</button>
     <a href="https://public.tableau.com/app/profile/azadi.gathui/viz/shared/3XGQZ5DYM" target="_blank" rel="noopener">Open in Tableau Public<span class="visually-hidden"> (opens in a new tab)</span></a>
   </div>
   <p class="tableau-facade__note caption">The interactive version loads about 1.6 MB from Tableau Public.</p>

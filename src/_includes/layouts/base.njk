@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#242322">
 
   <link rel="icon" href="/assets/images/branding/AG Favicon Light on Dark.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/images/branding/favicon.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="/assets/images/branding/apple-touch-icon.png">
-  <!-- Self-hosted fonts: preload the two faces every page renders first -->
+  <!-- Self-hosted fonts: preload the face every page renders first -->
   <link rel="preload" href="/assets/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/style.css">
-  <link rel="stylesheet" href="/assets/css/chrome.css">
 
   <title>{% if title %}{{ title }} | {% endif %}{{ site.title }}</title>
   <meta name="description" content="{{ description | default(site.description) }}">
@@ -22,14 +22,50 @@
   <meta property="og:image" content="{{ ogImage | default('/assets/images/branding/AG Favicon Light on Dark.svg') | ogImage }}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+
+  {#- Every page: snap.js fits blocks to the mat's squares, tools.js lets the
+      tools be moved. A page or layout lists any others in `scripts`. #}
+  <script src="/assets/js/snap.js" defer></script>
+  <script src="/assets/js/tools.js" defer></script>
+  {%- for script in scripts %}
+  <script src="/assets/js/{{ script }}.js" defer></script>
+  {%- endfor %}
+  {#- Set before first paint, so anything JS will fold (the CV on a phone) starts folded #}
+  <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
-  <a href="#main" class="skip-link">Skip to main content</a>
-  {% include "partials/site-header.njk" %}
-  <div id="main">
-  {{ content | safe }}
+  <a class="skip" href="#main">Skip to content</a>
+
+  {#- The page: a cutting mat on a desk. Blocks are placed in mat cells
+      (--w / --h, see "Blocks" in style.css); .gap blocks are empty rows. #}
+  <div class="desk">
+    <div class="mat">
+      {% include "partials/nav.njk" %}
+
+      <main class="mat__content" id="main">
+        {{ content | safe }}
+
+        <div class="gap" aria-hidden="true"></div>
+        {% include "partials/footer.njk" %}
+      </main>
+
+      {#- Tools lying on the mat, from the page's or layout's `tools` list.
+          Each is placed by cell: --c column, --r row, --w / --h size,
+          --cs / --rs / --ws / --hs the same on a phone, --rot a tilt.
+          `edge` is the side it hangs over (l, r or t). #}
+      {%- if tools %}
+      <div class="mat__tools" aria-hidden="true">
+        {%- for tool in tools %}
+        <div class="tool tool--{{ tool.edge }}" style="{{ tool.at }}">{{ tool.name }}</div>
+        {%- endfor %}
+      </div>
+      {%- endif %}
+    </div>
   </div>
-  {% include "partials/site-footer.njk" %}
+
+  {#- Outside the desk: the desk is a size container, which would hold the
+      bar's position: fixed to the desk instead of the screen -#}
+  {%- if readingBar %}{% include "partials/reading-bar.njk" %}{% endif %}
 
   {#- Speculation Rules: when a visitor hovers over (or starts tapping) a link to
       another page on this site, the browser fetches that page's HTML in advance,

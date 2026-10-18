@@ -3,18 +3,14 @@ title: Children & Youth Pavilion at COP27
 titleSup: COP27
 tagline: Post-event report for COP27
 client: Children's Investment Fund Foundation (CIFF)
-clientShort: "CIFF"   # short name for homepage lists
 industry: Youth & Climate
 role: Editorial Designer
 deliverables: "Post-event report: layout, typesetting and colour system"
 order: 8
-layers: [Page]   # homepage card key: Data, Model, Journey, Screen, Page
-stat: "47"
-statLabel: "pages"
 coverImage: /assets/images/projects/cyp/cover-header.jpg
 mockupImage: /assets/images/projects/cyp/mockup.png
 thumbnail: /assets/images/projects/cyp/mockup.png
-thumbnailKind: book   # phone | print | book: how the thumbnail is shown on /craft/
+thumbnailKind: book   # phone | print | book: how the artefact is laid on the homepage card and case-study cover
 ogImage: /assets/images/projects/cyp/mockup.png
 description: Report design for the Children & Youth Pavilion at COP27 in Sharm el-Sheikh, built on the pavilion's existing brand and typeset on a precise InDesign grid.
 permalink: /projects/children-youth-pavilion/

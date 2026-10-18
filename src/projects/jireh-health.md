@@ -2,7 +2,6 @@
 title: Accessible healthcare financing
 tagline: Mobile web app research & design
 client: Jireh Innovations Ltd.
-clientShort: "Jireh Health"   # short name for homepage lists
 industry: Healthcare Fintech
 role: UX Researcher & Designer
 timeline: Apr 2025 – present
@@ -15,19 +14,14 @@ team:
   - { name: Helina Mbuthia Muhia, role: Marketing, url: "https://www.linkedin.com/in/helina-mbuthia-muhia-99b087166/" }
   - { name: Gloria Kerubo, role: Business development, url: "https://www.linkedin.com/in/gloria-kerubo-2b9a88312/" }
 order: 1
-layers: [Journey, Screen]   # homepage card key: Data, Model, Journey, Screen, Page
-stat: "59%"
-statLabel: "less time to finish onboarding (median, after the redesign)"
 coverImage: /assets/images/projects/jh/cover.jpg
 coverPosition: 50% 20%
 mockupImage: /assets/images/projects/jh/home-cashback.png
-mockupFrame: phone
 thumbnail: /assets/images/projects/jh/thumbnail.png
-thumbnailKind: phone   # phone | print | book: how the thumbnail is shown on /craft/
+thumbnailKind: phone   # phone | print | book: how the artefact is laid on the homepage card and case-study cover
 ogImage: /assets/images/projects/jh/home-cashback.png
 description: UX research and design for Jireh, a mobile-first web app where Kenyan patients pay medical bills with M-Pesa, cashback and 0% interest loans backed by people they trust.
 permalink: /projects/jireh-health/
-craftPage: true   # also rendered on the /craft/ mat, at /craft/projects/jireh-health/
 ---
 
 <div class="article-body">

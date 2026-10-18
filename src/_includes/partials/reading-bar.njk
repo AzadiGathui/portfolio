@@ -1,0 +1,25 @@
+{#- Case studies on a phone: the section you are in, which opens the
+    contents, and an up arrow while scrolling back up (reading-bar.js;
+    styles: "Reading bar" in style.css). Set `readingBar: true` to use it. -#}
+{%- set toc = content | tocEntries %}
+<div class="reading-bar">
+  {%- if toc.length %}
+  <button type="button" class="toc-pill" aria-haspopup="dialog" aria-controls="toc-sheet">
+    <span class="visually-hidden">Contents: </span><span class="toc-pill__count label"></span><span class="toc-pill__section">Contents</span>
+  </button>
+  {%- endif %}
+  <a href="#" class="to-top" aria-label="Back to top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></a>
+</div>
+{%- if toc.length %}
+<dialog class="toc-sheet" id="toc-sheet" aria-labelledby="toc-sheet-title">
+  <div class="toc-sheet__head">
+    <span class="label" id="toc-sheet-title">Contents</span>
+    <button type="button" class="toc-sheet__close" aria-label="Close contents">&#x2715;</button>
+  </div>
+  <ol>
+    {%- for item in toc %}
+    <li><a href="#{{ item.id }}">{{ item.text }}</a></li>
+    {%- endfor %}
+  </ol>
+</dialog>
+{%- endif %}
