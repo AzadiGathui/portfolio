@@ -37,29 +37,35 @@ collections:
       - { label: "Title Superscript", name: titleSup, widget: string, required: false,
           hint: "Small raised text after the project page title, e.g. a year or edition (2024, COP27)." }
       - { label: "Tagline", name: tagline, widget: string,
-          hint: "Short descriptor shown on homepage list and under the title on project pages." }
+          required: false,
+          hint: "Not shown on the site at the moment: the description is shown under the title instead." }
       - { label: "Client", name: client, widget: string }
-      - { label: "Industry", name: industry, widget: string, required: false }
+      - { label: "Industry", name: industry, widget: string, required: false,
+          hint: "The label above the title, on the homepage card and the project page." }
       - { label: "Role", name: role, widget: string }
-      - { label: "Deliverables", name: deliverables, widget: string }
+      - { label: "Deliverables", name: deliverables, widget: string,
+          hint: "Shown under the title on the homepage card, and in the project's facts." }
       - { label: "Homepage Order", name: order, widget: number, value_type: int,
-          hint: "Lower number = appears earlier on homepage. Use 1, 2, 3…" }
+          hint: "Lower number = earlier on the homepage. The first five are Selected work. Use 1, 2, 3…" }
       - { label: "Published", name: published, widget: boolean, default: true,
           hint: "Uncheck to hide from homepage without deleting the page." }
       - { label: "Cover Image", name: coverImage, widget: image,
-          hint: "Full-bleed 80vh background image for the project header." }
+          hint: "The photo behind the artefact, in grey, on the homepage card and the project page." }
       - { label: "Mockup Image", name: mockupImage, widget: image, required: false,
-          hint: "Foreground PNG overlaid on the cover (max-width 30rem)." }
+          hint: "A phone screen, shown in the phone mockup when Artefact kind is phone." }
       - { label: "Client Logo", name: clientLogo, widget: image, required: false,
-          hint: "SVG or PNG logo shown above the title in the project details panel." }
+          hint: "Not shown on the site at the moment." }
       - { label: "Thumbnail", name: thumbnail, widget: image,
-          hint: "Small image shown next to title in the homepage project list." }
+          hint: "The artefact laid on the cover (a print or report mockup, cut out on transparency), and the thumbnail in lists." }
+      - { label: "Artefact kind", name: thumbnailKind, widget: select, required: false,
+          options: ["phone", "print", "book"],
+          hint: "How the artefact is laid on the cover: a framed phone (uses the Mockup Image), a paper print (charts, maps), or a book/report mockup." }
       - { label: "OG Image", name: ogImage, widget: image, required: false,
           hint: "Social sharing image: 1200×630px recommended." }
       - { label: "Permalink", name: permalink, widget: string,
           hint: "URL path, e.g. /projects/project-name/ (include trailing slash)." }
       - { label: "SEO Description", name: description, widget: text, required: false,
-          hint: "150–160 characters for search results." }
+          hint: "Shown under the title on the project page, and in search results. 150–160 characters." }
       - { label: "Body", name: body, widget: markdown,
           hint: "Main case study content. Supports Markdown and raw HTML (for Tableau embeds, galleries, etc.)." }
 

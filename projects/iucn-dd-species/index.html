@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#242322">
 
   <link rel="icon" href="/assets/images/branding/AG Favicon Light on Dark.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/images/branding/favicon.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="/assets/images/branding/apple-touch-icon.png">
-  <!-- Self-hosted fonts: preload the two faces every page renders first -->
+  <!-- Self-hosted fonts: preload the face every page renders first -->
   <link rel="preload" href="/assets/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="">
-  <link rel="preload" href="/assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="">
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <title>Predicting threat status for Kenya&#39;s data-deficient species | Azadi Gathui</title>
@@ -21,99 +22,75 @@
   <meta property="og:image" content="/img/EqQLiFpiBe-1200.jpeg">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://azadi.design/projects/iucn-dd-species/">
+  <script src="/assets/js/snap.js" defer=""></script>
+  <script src="/assets/js/tools.js" defer=""></script>
+  <script src="/assets/js/reels.js" defer=""></script>
+  <script src="/assets/js/reading-bar.js" defer=""></script>
+  <script src="/assets/js/spread-zoom.js" defer=""></script>
+  <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
-  <a href="#main" class="skip-link">Skip to main content</a>
-  <nav class="nav" aria-label="Main">
-  <a href="/"><img src="/img/rXTz9L4-mZ-33.svg" alt="Azadi Gathui, home" class="logo" loading="eager" decoding="async" width="33" height="33"></a>
-  <ul class="nav-ul">
-    
-    <li class="nav-li"><a href="/">Work</a></li>
-    
-    <li class="nav-li"><a href="/resume/">CV</a></li>
-    
-    <li class="nav-li"><a href="/lab/">Lab</a></li>
-    
-  </ul>
-</nav>
-
-  <div id="main">
-  
-
-
-<header class="pj-swiss">
-  
-  <div class="cover" style="background: url('/img/LNXvz5oq86-1184.webp') lightgray 50% / cover no-repeat;">
-    
-  </div>
-
-  <div class="pj-deets">
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="desk">
+    <div class="mat">
       
-      <div class="pj-title">
-        <h1>Predicting threat status for Kenya&#39;s data-deficient species</h1>
-        <p>Machine learning for biodiversity conservation</p>
-      </div>
+<div class="mat__keys">
+  <nav class="keys" aria-label="Main">
+    <a class="key" href="/" style="--k: 1; --kw: 2; --ks: 1" aria-current="true"><span>Azadi<br>Gathui</span></a>
+    <a class="key key--icon" href="#contact" style="--k: 12; --ks: 4"><span>Contact</span><svg class="key__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"></rect><path d="m3.5 7 8.5 6.5L20.5 7"></path></svg></a>
+    <a class="key" href="/resume/" style="--k: 13; --ks: 5"><span>CV</span></a>
+    <a class="key key--icon" href="/lab/" style="--k: 14; --ks: 6"><span>Lab</span><svg class="key__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3h5M10.5 3v6.2L5 18.4A1.7 1.7 0 0 0 6.5 21h11a1.7 1.7 0 0 0 1.5-2.6L13.5 9.2V3"></path><path d="M7.4 15h9.2"></path></svg></a>
+  </nav>
+</div>
+<script>
+  // Once the page has scrolled, a soft mat-coloured fade sits behind the keys
+  // so text no longer shows between them (styles: .is-scrolled in style.css)
+  (() => {
+    const root = document.documentElement;
+    const update = () => root.classList.toggle("is-scrolled", scrollY > 8);
+    addEventListener("scroll", update, { passive: true });
+    update();
+  })();
+</script>
 
-    
-    
-    <dl class="pj-facts">
-      <div><dt class="label">Client</dt><dd>Zindua School (Academic Project)</dd></div>
-      <div><dt class="label">Industry</dt><dd>Conservation</dd></div>
-      <div><dt class="label">Role</dt><dd>Data Scientist</dd></div>
-      
-      
-      <div><dt class="label">Deliverables</dt><dd>Data wrangling pipeline, exploratory analysis, Random Forest classification model, species-level predictions</dd></div>
-      
-    </dl>
-    
-  </div>
+
+      <main class="mat__content" id="main">
+        
+
+<header class="sheet" style="--w: 10; --h: 4" data-snap="">
+  <span class="label">Conservation</span>
+  <h1>Predicting threat status for Kenya&#39;s data-deficient species</h1>
+  <p>A machine learning project predicting IUCN Red List threat categories for Kenya&#39;s 335 Data Deficient species using Random Forest classification trained on 35,000+ species.</p>
 </header>
 
+<figure class="sheet cover" style="--h: 6">
+  <div class="frame frame--plain"><picture><source type="image/avif" srcset="/img/LNXvz5oq86-400.avif 400w, /img/LNXvz5oq86-800.avif 800w, /img/LNXvz5oq86-1184.avif 1184w" sizes="(max-width: 720px) 90vw, 880px"><img loading="eager" decoding="async" src="/img/LNXvz5oq86-400.webp" alt="" width="1184" height="584" srcset="/img/LNXvz5oq86-400.webp 400w, /img/LNXvz5oq86-800.webp 800w, /img/LNXvz5oq86-1184.webp 1184w" sizes="(max-width: 720px) 90vw, 880px"></picture></div>
+  <span class="card__art card__art--print"><picture><source type="image/avif" srcset="/img/EqQLiFpiBe-400.avif 400w, /img/EqQLiFpiBe-800.avif 800w, /img/EqQLiFpiBe-1200.avif 1200w" sizes="220px"><img loading="eager" decoding="async" src="/img/EqQLiFpiBe-400.webp" alt="" width="1200" height="865" srcset="/img/EqQLiFpiBe-400.webp 400w, /img/EqQLiFpiBe-800.webp 800w, /img/EqQLiFpiBe-1200.webp 1200w" sizes="220px"></picture></span>
+</figure>
 
+<dl class="sheet facts" style="--x: 6; --w: 7; --h: 3" data-snap="">
+  <div><dt class="label">Client</dt><dd>Zindua School (Academic Project)</dd></div><div><dt class="label">Role</dt><dd>Data Scientist</dd></div><div><dt class="label">Deliverables</dt><dd>Data wrangling pipeline, exploratory analysis, Random Forest classification model, species-level predictions</dd></div>
+</dl>
 
+<div class="gap" aria-hidden="true"></div>
 
-
-
-
-
-
-<div class="read-progress" aria-hidden="true"></div>
-
-<main class="pj-main pj-swiss">
-  
-  <div class="pj-layout">
-    <aside class="pj-toc-sidebar" aria-label="Table of contents">
-      <nav class="toc">
-        <span class="label">Contents</span>
-        <ul class="toc__list">
-          
-          <li><a href="#overview" class="toc__link">Overview</a></li>
-          
-          <li><a href="#the-dataset" class="toc__link">The Dataset</a></li>
-          
-          <li><a href="#eda" class="toc__link">Exploratory Data Analysis</a></li>
-          
-          <li><a href="#features" class="toc__link">Feature Engineering</a></li>
-          
-          <li><a href="#class-imbalance" class="toc__link">Handling Class Imbalance</a></li>
-          
-          <li><a href="#modelling" class="toc__link">Model Training + Evaluation</a></li>
-          
-          <li><a href="#results" class="toc__link">Results: Kenya&#39;s Data Deficient Species</a></li>
-          
-          <li><a href="#limitations" class="toc__link">Limitations</a></li>
-          
-          <li><a href="#references" class="toc__link">References + Acknowledgements</a></li>
-          
-          <li><a href="#" class="toc__link toc__link--top">↑ Back to top</a></li>
-          
-          <li><a href="/projects/price-of-power/" class="toc__link toc__link--next">Next: The cost of electricity in Kenya →</a></li>
-          
-        </ul>
-      </nav>
-    </aside>
-    <div class="pj-content">
-      <div class="article-body">
+<!-- The story: contents on the left stick while the body scrolls -->
+<div class="sheet area study" data-snap="">
+  <nav class="toc" aria-label="On this page">
+    <ol>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#the-dataset">The Dataset</a></li>
+      <li><a href="#eda">Exploratory Data Analysis</a></li>
+      <li><a href="#features">Feature Engineering</a></li>
+      <li><a href="#class-imbalance">Handling Class Imbalance</a></li>
+      <li><a href="#modelling">Model Training + Evaluation</a></li>
+      <li><a href="#results">Results: Kenya&#39;s Data Deficient Species</a></li>
+      <li><a href="#limitations">Limitations</a></li>
+      <li><a href="#references">References + Acknowledgements</a></li>
+    </ol>
+  </nav>
+  <div class="area study__body">
+    <div class="sheet prose" data-snap=""><div class="article-body">
 <h2 id="overview">Overview</h2>
 <p>The <a href="https://www.iucnredlist.org/" target="_blank" rel="noopener">IUCN Red List</a> is the world's most comprehensive inventory of species' conservation status. It classifies species from <strong>Least Concern</strong> through to <strong>Extinct</strong>, but a critical subset are labelled <strong>Data Deficient (DD)</strong>: species where available information is too poor to even assign a threat category.</p>
 <p>This is not a safe status. A DD classification often reflects under-resourced field research rather than genuine absence of threat. Left unaddressed, these species fall through the cracks of conservation policy.</p>
@@ -280,206 +257,71 @@
 <p><strong>Acknowledgements</strong></p>
 <p>This project was completed as part of the Machine Learning module at <a href="https://zinduaschool.com" target="_blank" rel="noopener">Zindua School</a>, Nairobi. Thanks to the IUCN Red List team for making bulk species data publicly available to researchers.</p>
 </div>
-
-    </div>
+</div>
   </div>
-  
-</main>
-
-
-<div class="reading-bar">
-  
-  <button type="button" class="toc-pill" aria-haspopup="dialog" aria-controls="toc-sheet">
-    <span class="visually-hidden">Contents: </span>
-    <span class="toc-pill__count label"></span>
-    <span class="toc-pill__section">Contents</span>
-  </button>
-  
-  <a href="#" class="to-top" aria-label="Back to top">↑</a>
 </div>
 
+<div class="gap" aria-hidden="true"></div>
 
-<dialog class="toc-sheet" id="toc-sheet" aria-labelledby="toc-sheet-title">
-  <div class="toc-sheet__head">
-    <span class="label" id="toc-sheet-title">Contents</span>
-    <button type="button" class="toc-sheet__close" aria-label="Close contents">✕</button>
-  </div>
-  <ul class="toc-sheet__list">
-    
-    <li><a href="#overview" class="toc-sheet__link">Overview</a></li>
-    
-    <li><a href="#the-dataset" class="toc-sheet__link">The Dataset</a></li>
-    
-    <li><a href="#eda" class="toc-sheet__link">Exploratory Data Analysis</a></li>
-    
-    <li><a href="#features" class="toc-sheet__link">Feature Engineering</a></li>
-    
-    <li><a href="#class-imbalance" class="toc-sheet__link">Handling Class Imbalance</a></li>
-    
-    <li><a href="#modelling" class="toc-sheet__link">Model Training + Evaluation</a></li>
-    
-    <li><a href="#results" class="toc-sheet__link">Results: Kenya&#39;s Data Deficient Species</a></li>
-    
-    <li><a href="#limitations" class="toc-sheet__link">Limitations</a></li>
-    
-    <li><a href="#references" class="toc-sheet__link">References + Acknowledgements</a></li>
-    
-    <li><a href="#" class="toc-sheet__link toc-sheet__link--top">↑ Back to top</a></li>
-  </ul>
-</dialog>
-
-
-<script src="/assets/js/spread-zoom.js" defer=""></script>
-<script src="/assets/js/phone-reel.js" defer=""></script>
-
-<script>
-// Runs once the whole page is parsed: the previous/next links and the footer
-// come after this script, and the reading bar needs to find them
-document.addEventListener('DOMContentLoaded', function () {
-  // Active section highlight: the desktop sidebar and the mobile sheet list the
-  // same sections in the same order, so one index drives both
-  var links = [...document.querySelectorAll('.toc__link[href^="#"]:not([href="#"])')];
-  var sheetLinks = [...document.querySelectorAll('.toc-sheet__link[href^="#"]:not([href="#"])')];
-
-  var headings = links.map(function (l) {
-    return document.querySelector(l.getAttribute('href'));
-  }).filter(Boolean);
-
-  // Mobile reading bar. The contents pill shows once the reader is into the
-  // article and hides at the end, so it never covers the previous/next links.
-  // The ↑ button shows only while the reader is scrolling back up: the moment
-  // they're most likely looking for the top.
-  var pill = document.querySelector('.toc-pill');
-  var pillSection = pill && pill.querySelector('.toc-pill__section');
-  var pillCount = pill && pill.querySelector('.toc-pill__count');
-  var toTop = document.querySelector('.to-top');
-  var main = document.querySelector('.pj-main');
-  var footer = document.querySelector('.footer');
-  var end = document.querySelector('.pj-nav') || footer;
-  var lastY = window.scrollY;
-  var goingUp = false;
-
-  function update() {
-    var threshold = window.innerHeight * 0.25;
-    var index = -1;
-    for (var i = 0; i < headings.length; i++) {
-      if (headings[i].getBoundingClientRect().top <= threshold) index = i;
-    }
-    links.forEach(function (l, i) { l.classList.toggle('toc__link--active', i === index); });
-    sheetLinks.forEach(function (l, i) {
-      l.classList.toggle('toc-sheet__link--active', i === index);
-      if (i === index) l.setAttribute('aria-current', 'location');
-      else l.removeAttribute('aria-current');
-    });
-
-    // Direction, ignoring small jitters (e.g. the address bar resizing the page)
-    var y = window.scrollY;
-    if (Math.abs(y - lastY) > 8) {
-      goingUp = y < lastY;
-      lastY = y;
-    }
-
-    var inArticle = main.getBoundingClientRect().top < window.innerHeight * 0.6;
-    var atEnd = end && end.getBoundingClientRect().top < window.innerHeight;
-    // ...but not over the footer, where it would sit on top of its links
-    var footerInView = footer && footer.getBoundingClientRect().top < window.innerHeight;
-    toTop.classList.toggle('is-visible', inArticle && goingUp && !footerInView);
-
-    if (!pill) return;
-    pillSection.textContent = index >= 0 ? sheetLinks[index].textContent : 'Contents';
-    pillCount.textContent = index >= 0 ? (index + 1) + '/' + headings.length : '';
-    pill.classList.toggle('is-visible', inArticle && !atEnd);
-  }
-
-  window.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update, { passive: true });
-  update();
-
-  // Contents sheet (a modal <dialog>: focus is trapped inside it, and Esc or
-  // the Android back gesture closes it)
-  var sheet = document.getElementById('toc-sheet');
-  if (!pill || !sheet) return;
-
-  pill.addEventListener('click', function () { sheet.showModal(); });
-  sheet.querySelector('.toc-sheet__close').addEventListener('click', function () { sheet.close(); });
-
-  // Picking a section closes the sheet; the link then scrolls as normal
-  sheet.querySelectorAll('.toc-sheet__link').forEach(function (l) {
-    l.addEventListener('click', function () { sheet.close(); });
-  });
-
-  // A tap on the dimmed backdrop (outside the sheet's box) closes it too
-  sheet.addEventListener('click', function (e) {
-    if (e.target !== sheet) return; // clicks on the links and close button are handled above
-    var r = sheet.getBoundingClientRect();
-    if (e.clientY < r.top || e.clientY > r.bottom || e.clientX < r.left || e.clientX > r.right) sheet.close();
-  });
-});
-</script>
-
-
-<nav class="pj-nav" aria-label="Project navigation">
-  <div class="pj-nav__item pj-nav__item--prev">
-    
-      <a href="/projects/environmental-degradation-monitor/" class="pj-nav__link">
-        
-          <picture><source type="image/avif" srcset="/img/pyfeX8ql-c-400.avif 400w, /img/pyfeX8ql-c-800.avif 800w" sizes="(max-width: 768px) 50vw, 440px"><img loading="lazy" decoding="async" src="/img/pyfeX8ql-c-400.webp" alt="" class="pj-nav__thumb" width="800" height="927" srcset="/img/pyfeX8ql-c-400.webp 400w, /img/pyfeX8ql-c-800.webp 800w" sizes="(max-width: 768px) 50vw, 440px"></picture>
-        
-        <span class="label">← Previous</span>
-        <span class="pj-nav__title">Measuring encroachment on Kenya&#39;s protected areas from space</span>
-      </a>
-    
-  </div>
-  <div class="pj-nav__item pj-nav__item--next">
-    
-      <a href="/projects/price-of-power/" class="pj-nav__link">
-        
-          <picture><source type="image/avif" srcset="/img/cde3KuXc5p-400.avif 400w, /img/cde3KuXc5p-572.avif 572w" sizes="(max-width: 768px) 50vw, 440px"><img loading="lazy" decoding="async" src="/img/cde3KuXc5p-400.webp" alt="" class="pj-nav__thumb" width="572" height="280" srcset="/img/cde3KuXc5p-400.webp 400w, /img/cde3KuXc5p-572.webp 572w" sizes="(max-width: 768px) 50vw, 440px"></picture>
-        
-        <span class="label">Next →</span>
-        <span class="pj-nav__title">The cost of electricity in Kenya</span>
-      </a>
-    
-  </div>
+<nav class="sheet area pager" aria-label="Project navigation">
+  <a class="frame pager__item pager__item--prev" href="/projects/environmental-degradation-monitor/">
+    <span class="pager__thumb"><picture><source type="image/avif" srcset="/img/pyfeX8ql-c-400.avif 400w, /img/pyfeX8ql-c-800.avif 800w" sizes="(max-width: 720px) 30vw, 280px"><img loading="lazy" decoding="async" src="/img/pyfeX8ql-c-400.webp" alt="" width="800" height="927" srcset="/img/pyfeX8ql-c-400.webp 400w, /img/pyfeX8ql-c-800.webp 800w" sizes="(max-width: 720px) 30vw, 280px"></picture></span>
+    <span class="label pager__label">&larr; Previous</span>
+    <h3 class="pager__title">Measuring encroachment on Kenya&#39;s protected areas from space</h3>
+  </a>
+  <a class="frame pager__item pager__item--next" href="/projects/leja-business-app/">
+    <span class="pager__thumb"><picture><source type="image/avif" srcset="/img/4b1dh8WCtr-384.avif" sizes="(max-width: 720px) 30vw, 280px"><img loading="lazy" decoding="async" src="/img/4b1dh8WCtr-384.webp" alt="" width="384" height="664"></picture></span>
+    <span class="label pager__label">Next &rarr;</span>
+    <h3 class="pager__title">Financial inclusion at the last mile</h3>
+  </a>
 </nav>
 
 
-  </div>
-  <footer class="footer">
-  <div class="footer__brand">
-    <a href="/" class="footer__name">Azadi Gathui</a>
-    <p class="footer__role caption">Designer &amp; Researcher</p>
-  </div>
+        <div class="gap" aria-hidden="true"></div>
+        <footer class="sheet foot" id="contact" data-snap="">
+  <p class="foot__ask">Let’s create meaningful, systemic impact together.</p>
+  <a class="foot__mail" href="mailto:gathui@azadi.design">gathui@azadi.design</a>
+  <div class="foot__base">
+    <ul class="icon-links"><li><a class="icon-link" href="https://linkedin.com/in/azadigathui"><span class="visually-hidden">LinkedIn</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M8 10.5V17M8 7.25v.01M12 17v-6.5M12 13.5a2.5 2.5 0 0 1 5 0V17"></path></svg></a></li>
+<li><a class="icon-link" href="https://github.com/AzadiGathui"><span class="visually-hidden">GitHub</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></li>
 
-  <nav class="footer__nav" aria-label="Footer navigation">
-    <ul class="footer__nav-list">
-      
-      <li><a href="/" class="footer__nav-link caption">Work</a></li>
-      
-      <li><a href="/resume/" class="footer__nav-link caption">CV</a></li>
-      
-      <li><a href="/lab/" class="footer__nav-link caption">Lab</a></li>
-      
     </ul>
-  </nav>
-
-  <div class="footer__social">
-    
-      <a href="https://linkedin.com/in/azadigathui" class="footer__social-link caption" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-    
-    
-      <a href="https://behance.net/azadi_gathui" class="footer__social-link caption" target="_blank" rel="noopener noreferrer">Behance</a>
-    
-    
-      <a href="https://github.com/AzadiGathui" class="footer__social-link caption" target="_blank" rel="noopener noreferrer">GitHub</a>
-    
-    
-      <a href="mailto:gathui@azadi.design" class="footer__social-link caption">gathui@azadi.design</a>
-    
+    <span class="foot__copy">© 2026 Azadi Gathui</span>
   </div>
-
-  <p class="footer__copy">&copy; 2026 Azadi Gathui</p>
 </footer>
+
+      </main>
+      <div class="mat__tools" aria-hidden="true">
+        <div class="tool tool--r" style="--c: 14; --r: 4; --w: 1; --h: 2; --rot: 4deg; --tint: #8fbcd4; --cs: 6; --rs: 4; --ws: 1; --hs: 2">tape</div>
+        <div class="tool tool--l" style="--c: 1; --r: 9; --w: 1; --h: 9; --rot: -1deg; --tint: #c9a227">ruler</div>
+        <div class="tool tool--r" style="--c: 14; --r: 22; --w: 1; --h: 3; --rot: 2deg; --tint: #f07a2a">craft knife</div>
+        <div class="tool tool--l" style="--c: 1; --r: 34; --w: 1; --h: 1; --rot: -6deg; --tint: #b8c4cc">paper clips</div>
+      </div>
+    </div>
+  </div>
+<div class="reading-bar">
+  <button type="button" class="toc-pill" aria-haspopup="dialog" aria-controls="toc-sheet">
+    <span class="visually-hidden">Contents: </span><span class="toc-pill__count label"></span><span class="toc-pill__section">Contents</span>
+  </button>
+  <a href="#" class="to-top" aria-label="Back to top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"></path></svg></a>
+</div>
+<dialog class="toc-sheet" id="toc-sheet" aria-labelledby="toc-sheet-title">
+  <div class="toc-sheet__head">
+    <span class="label" id="toc-sheet-title">Contents</span>
+    <button type="button" class="toc-sheet__close" aria-label="Close contents">&#x2715;</button>
+  </div>
+  <ol>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#the-dataset">The Dataset</a></li>
+    <li><a href="#eda">Exploratory Data Analysis</a></li>
+    <li><a href="#features">Feature Engineering</a></li>
+    <li><a href="#class-imbalance">Handling Class Imbalance</a></li>
+    <li><a href="#modelling">Model Training + Evaluation</a></li>
+    <li><a href="#results">Results: Kenya&#39;s Data Deficient Species</a></li>
+    <li><a href="#limitations">Limitations</a></li>
+    <li><a href="#references">References + Acknowledgements</a></li>
+  </ol>
+</dialog>
 <script type="speculationrules">
   {
     "prefetch": [{

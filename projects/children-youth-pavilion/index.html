@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#242322">
 
   <link rel="icon" href="/assets/images/branding/AG Favicon Light on Dark.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/images/branding/favicon.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="/assets/images/branding/apple-touch-icon.png">
-  <!-- Self-hosted fonts: preload the two faces every page renders first -->
+  <!-- Self-hosted fonts: preload the face every page renders first -->
   <link rel="preload" href="/assets/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="">
-  <link rel="preload" href="/assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="">
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <title>Children &amp; Youth Pavilion at COP27 | Azadi Gathui</title>
@@ -21,70 +22,62 @@
   <meta property="og:image" content="/img/1aF1JsJ9Q--720.jpeg">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://azadi.design/projects/children-youth-pavilion/">
+  <script src="/assets/js/snap.js" defer=""></script>
+  <script src="/assets/js/tools.js" defer=""></script>
+  <script src="/assets/js/reels.js" defer=""></script>
+  <script src="/assets/js/reading-bar.js" defer=""></script>
+  <script src="/assets/js/spread-zoom.js" defer=""></script>
+  <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
-  <a href="#main" class="skip-link">Skip to main content</a>
-  <nav class="nav" aria-label="Main">
-  <a href="/"><img src="/img/rXTz9L4-mZ-33.svg" alt="Azadi Gathui, home" class="logo" loading="eager" decoding="async" width="33" height="33"></a>
-  <ul class="nav-ul">
-    
-    <li class="nav-li"><a href="/">Work</a></li>
-    
-    <li class="nav-li"><a href="/resume/">CV</a></li>
-    
-    <li class="nav-li"><a href="/lab/">Lab</a></li>
-    
-  </ul>
-</nav>
-
-  <div id="main">
-  
-
-
-<header class="pj-swiss">
-  
-  <div class="cover" style="background: url('/img/f4dX0hQSMs-1920.webp') lightgray 50% / cover no-repeat;">
-    
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="desk">
+    <div class="mat">
       
-      <picture><source type="image/avif" srcset="/img/1aF1JsJ9Q--400.avif 400w, /img/1aF1JsJ9Q--720.avif 720w" sizes="(max-width: 960px) 100vw, 960px"><img loading="eager" decoding="async" src="/img/1aF1JsJ9Q--400.webp" alt="Children &amp; Youth Pavilion at COP27 project mockup" class="pj-mockup" fetchpriority="high" width="720" height="558" srcset="/img/1aF1JsJ9Q--400.webp 400w, /img/1aF1JsJ9Q--720.webp 720w" sizes="(max-width: 960px) 100vw, 960px"></picture>
-    
-  </div>
+<div class="mat__keys">
+  <nav class="keys" aria-label="Main">
+    <a class="key" href="/" style="--k: 1; --kw: 2; --ks: 1" aria-current="true"><span>Azadi<br>Gathui</span></a>
+    <a class="key key--icon" href="#contact" style="--k: 12; --ks: 4"><span>Contact</span><svg class="key__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"></rect><path d="m3.5 7 8.5 6.5L20.5 7"></path></svg></a>
+    <a class="key" href="/resume/" style="--k: 13; --ks: 5"><span>CV</span></a>
+    <a class="key key--icon" href="/lab/" style="--k: 14; --ks: 6"><span>Lab</span><svg class="key__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3h5M10.5 3v6.2L5 18.4A1.7 1.7 0 0 0 6.5 21h11a1.7 1.7 0 0 0 1.5-2.6L13.5 9.2V3"></path><path d="M7.4 15h9.2"></path></svg></a>
+  </nav>
+</div>
+<script>
+  // Once the page has scrolled, a soft mat-coloured fade sits behind the keys
+  // so text no longer shows between them (styles: .is-scrolled in style.css)
+  (() => {
+    const root = document.documentElement;
+    const update = () => root.classList.toggle("is-scrolled", scrollY > 8);
+    addEventListener("scroll", update, { passive: true });
+    update();
+  })();
+</script>
 
-  <div class="pj-deets">
-      
-      <div class="pj-title">
-        <h1>Children &amp; Youth Pavilion at COP27 <sup class="pj-title__sup">COP27</sup></h1>
-        <p>Post-event report for COP27</p>
-      </div>
 
-    
-    
-    <dl class="pj-facts">
-      <div><dt class="label">Client</dt><dd>Children&#39;s Investment Fund Foundation (CIFF)</dd></div>
-      <div><dt class="label">Industry</dt><dd>Youth &amp; Climate</dd></div>
-      <div><dt class="label">Role</dt><dd>Editorial Designer</dd></div>
-      
-      
-      <div><dt class="label">Deliverables</dt><dd>Post-event report: layout, typesetting and colour system</dd></div>
-      
-    </dl>
-    
-  </div>
+      <main class="mat__content" id="main">
+        
+
+<header class="sheet" style="--w: 10; --h: 4" data-snap="">
+  <span class="label">Youth &amp; Climate</span>
+  <h1>Children &amp; Youth Pavilion at COP27</h1>
+  <p>Report design for the Children &amp; Youth Pavilion at COP27 in Sharm el-Sheikh, built on the pavilion&#39;s existing brand and typeset on a precise InDesign grid.</p>
 </header>
 
+<figure class="sheet cover" style="--h: 6">
+  <div class="frame frame--plain"><picture><source type="image/avif" srcset="/img/f4dX0hQSMs-400.avif 400w, /img/f4dX0hQSMs-800.avif 800w, /img/f4dX0hQSMs-1200.avif 1200w" sizes="(max-width: 720px) 90vw, 880px"><img loading="eager" decoding="async" src="/img/f4dX0hQSMs-400.webp" alt="" width="1200" height="800" srcset="/img/f4dX0hQSMs-400.webp 400w, /img/f4dX0hQSMs-800.webp 800w, /img/f4dX0hQSMs-1200.webp 1200w" sizes="(max-width: 720px) 90vw, 880px"></picture></div>
+  <span class="card__art card__art--book"><picture><source type="image/avif" srcset="/img/1aF1JsJ9Q--400.avif 400w, /img/1aF1JsJ9Q--720.avif 720w" sizes="220px"><img loading="eager" decoding="async" src="/img/1aF1JsJ9Q--400.webp" alt="" width="720" height="558" srcset="/img/1aF1JsJ9Q--400.webp 400w, /img/1aF1JsJ9Q--720.webp 720w" sizes="220px"></picture></span>
+</figure>
 
+<dl class="sheet facts" style="--x: 6; --w: 7; --h: 3" data-snap="">
+  <div><dt class="label">Client</dt><dd>Children&#39;s Investment Fund Foundation (CIFF)</dd></div><div><dt class="label">Role</dt><dd>Editorial Designer</dd></div><div><dt class="label">Deliverables</dt><dd>Post-event report: layout, typesetting and colour system</dd></div>
+</dl>
 
+<div class="gap" aria-hidden="true"></div>
 
-
-
-
-
-
-<div class="read-progress" aria-hidden="true"></div>
-
-<main class="pj-main pj-swiss">
-  
-  <!-- Collages follow the Figma "pjs" page, frame 3:451, on a 12-column grid.
+<!-- The story: contents on the left stick while the body scrolls -->
+<div class="sheet area study" data-snap="">
+  <div class="area study__body">
+    <div class="sheet prose" data-snap=""><!-- Collages follow the Figma "pjs" page, frame 3:451, on a 12-column grid.
      `--at` is the column range (counted from the stack's own edge inside a .stack);
      `sizes` is the width each image is shown at. -->
 <div class="spread-grid">
@@ -130,169 +123,51 @@
 <div class="spread-grid">
   <picture><source type="image/avif" srcset="/img/5Z8Sdjut0O-400.avif 400w, /img/5Z8Sdjut0O-800.avif 800w, /img/5Z8Sdjut0O-1200.avif 1200w" sizes="(max-width: 768px) 100vw, 896px"><img loading="lazy" decoding="async" src="/img/5Z8Sdjut0O-400.webp" alt="Every page of the report laid out as a grid of thumbnails, showing the colour coding by thematic area" width="1200" height="873" srcset="/img/5Z8Sdjut0O-400.webp 400w, /img/5Z8Sdjut0O-800.webp 800w, /img/5Z8Sdjut0O-1200.webp 1200w" sizes="(max-width: 768px) 100vw, 896px"></picture>
 </div>
-
-  
-</main>
-
-
-<div class="reading-bar">
-  
-  <a href="#" class="to-top" aria-label="Back to top">↑</a>
+</div>
+  </div>
 </div>
 
+<div class="gap" aria-hidden="true"></div>
 
-
-<script src="/assets/js/spread-zoom.js" defer=""></script>
-<script src="/assets/js/phone-reel.js" defer=""></script>
-
-<script>
-// Runs once the whole page is parsed: the previous/next links and the footer
-// come after this script, and the reading bar needs to find them
-document.addEventListener('DOMContentLoaded', function () {
-  // Active section highlight: the desktop sidebar and the mobile sheet list the
-  // same sections in the same order, so one index drives both
-  var links = [...document.querySelectorAll('.toc__link[href^="#"]:not([href="#"])')];
-  var sheetLinks = [...document.querySelectorAll('.toc-sheet__link[href^="#"]:not([href="#"])')];
-
-  var headings = links.map(function (l) {
-    return document.querySelector(l.getAttribute('href'));
-  }).filter(Boolean);
-
-  // Mobile reading bar. The contents pill shows once the reader is into the
-  // article and hides at the end, so it never covers the previous/next links.
-  // The ↑ button shows only while the reader is scrolling back up: the moment
-  // they're most likely looking for the top.
-  var pill = document.querySelector('.toc-pill');
-  var pillSection = pill && pill.querySelector('.toc-pill__section');
-  var pillCount = pill && pill.querySelector('.toc-pill__count');
-  var toTop = document.querySelector('.to-top');
-  var main = document.querySelector('.pj-main');
-  var footer = document.querySelector('.footer');
-  var end = document.querySelector('.pj-nav') || footer;
-  var lastY = window.scrollY;
-  var goingUp = false;
-
-  function update() {
-    var threshold = window.innerHeight * 0.25;
-    var index = -1;
-    for (var i = 0; i < headings.length; i++) {
-      if (headings[i].getBoundingClientRect().top <= threshold) index = i;
-    }
-    links.forEach(function (l, i) { l.classList.toggle('toc__link--active', i === index); });
-    sheetLinks.forEach(function (l, i) {
-      l.classList.toggle('toc-sheet__link--active', i === index);
-      if (i === index) l.setAttribute('aria-current', 'location');
-      else l.removeAttribute('aria-current');
-    });
-
-    // Direction, ignoring small jitters (e.g. the address bar resizing the page)
-    var y = window.scrollY;
-    if (Math.abs(y - lastY) > 8) {
-      goingUp = y < lastY;
-      lastY = y;
-    }
-
-    var inArticle = main.getBoundingClientRect().top < window.innerHeight * 0.6;
-    var atEnd = end && end.getBoundingClientRect().top < window.innerHeight;
-    // ...but not over the footer, where it would sit on top of its links
-    var footerInView = footer && footer.getBoundingClientRect().top < window.innerHeight;
-    toTop.classList.toggle('is-visible', inArticle && goingUp && !footerInView);
-
-    if (!pill) return;
-    pillSection.textContent = index >= 0 ? sheetLinks[index].textContent : 'Contents';
-    pillCount.textContent = index >= 0 ? (index + 1) + '/' + headings.length : '';
-    pill.classList.toggle('is-visible', inArticle && !atEnd);
-  }
-
-  window.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update, { passive: true });
-  update();
-
-  // Contents sheet (a modal <dialog>: focus is trapped inside it, and Esc or
-  // the Android back gesture closes it)
-  var sheet = document.getElementById('toc-sheet');
-  if (!pill || !sheet) return;
-
-  pill.addEventListener('click', function () { sheet.showModal(); });
-  sheet.querySelector('.toc-sheet__close').addEventListener('click', function () { sheet.close(); });
-
-  // Picking a section closes the sheet; the link then scrolls as normal
-  sheet.querySelectorAll('.toc-sheet__link').forEach(function (l) {
-    l.addEventListener('click', function () { sheet.close(); });
-  });
-
-  // A tap on the dimmed backdrop (outside the sheet's box) closes it too
-  sheet.addEventListener('click', function (e) {
-    if (e.target !== sheet) return; // clicks on the links and close button are handled above
-    var r = sheet.getBoundingClientRect();
-    if (e.clientY < r.top || e.clientY > r.bottom || e.clientX < r.left || e.clientX > r.right) sheet.close();
-  });
-});
-</script>
-
-
-<nav class="pj-nav" aria-label="Project navigation">
-  <div class="pj-nav__item pj-nav__item--prev">
-    
-      <a href="/projects/inclusive-africa-conference/" class="pj-nav__link">
-        
-          <picture><source type="image/avif" srcset="/img/gW3EZC96TC-357.avif" sizes="(max-width: 768px) 50vw, 440px"><img loading="lazy" decoding="async" src="/img/gW3EZC96TC-357.webp" alt="" class="pj-nav__thumb" width="357" height="277"></picture>
-        
-        <span class="label">← Previous</span>
-        <span class="pj-nav__title">Inclusive Africa Conference 2024</span>
-      </a>
-    
-  </div>
-  <div class="pj-nav__item pj-nav__item--next">
-    
-      <a href="/projects/kenya-energy-atlas/" class="pj-nav__link">
-        
-          <picture><source type="image/avif" srcset="/img/0nSzBgceFs-400.avif" sizes="(max-width: 768px) 50vw, 440px"><img loading="lazy" decoding="async" src="/img/0nSzBgceFs-400.webp" alt="" class="pj-nav__thumb" width="400" height="226"></picture>
-        
-        <span class="label">Next →</span>
-        <span class="pj-nav__title">Kenya Energy Atlas</span>
-      </a>
-    
-  </div>
+<nav class="sheet area pager" aria-label="Project navigation">
+  <a class="frame pager__item pager__item--prev" href="/projects/inclusive-africa-conference/">
+    <span class="pager__thumb"><picture><source type="image/avif" srcset="/img/gW3EZC96TC-357.avif" sizes="(max-width: 720px) 30vw, 280px"><img loading="lazy" decoding="async" src="/img/gW3EZC96TC-357.webp" alt="" width="357" height="277"></picture></span>
+    <span class="label pager__label">&larr; Previous</span>
+    <h3 class="pager__title">Inclusive Africa Conference 2024</h3>
+  </a>
+  <a class="frame pager__item pager__item--next" href="/projects/kenya-energy-atlas/">
+    <span class="pager__thumb"><picture><source type="image/avif" srcset="/img/0nSzBgceFs-400.avif" sizes="(max-width: 720px) 30vw, 280px"><img loading="lazy" decoding="async" src="/img/0nSzBgceFs-400.webp" alt="" width="400" height="226"></picture></span>
+    <span class="label pager__label">Next &rarr;</span>
+    <h3 class="pager__title">Kenya Energy Atlas</h3>
+  </a>
 </nav>
 
 
-  </div>
-  <footer class="footer">
-  <div class="footer__brand">
-    <a href="/" class="footer__name">Azadi Gathui</a>
-    <p class="footer__role caption">Designer &amp; Researcher</p>
-  </div>
+        <div class="gap" aria-hidden="true"></div>
+        <footer class="sheet foot" id="contact" data-snap="">
+  <p class="foot__ask">Let’s create meaningful, systemic impact together.</p>
+  <a class="foot__mail" href="mailto:gathui@azadi.design">gathui@azadi.design</a>
+  <div class="foot__base">
+    <ul class="icon-links"><li><a class="icon-link" href="https://linkedin.com/in/azadigathui"><span class="visually-hidden">LinkedIn</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M8 10.5V17M8 7.25v.01M12 17v-6.5M12 13.5a2.5 2.5 0 0 1 5 0V17"></path></svg></a></li>
+<li><a class="icon-link" href="https://github.com/AzadiGathui"><span class="visually-hidden">GitHub</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></li>
 
-  <nav class="footer__nav" aria-label="Footer navigation">
-    <ul class="footer__nav-list">
-      
-      <li><a href="/" class="footer__nav-link caption">Work</a></li>
-      
-      <li><a href="/resume/" class="footer__nav-link caption">CV</a></li>
-      
-      <li><a href="/lab/" class="footer__nav-link caption">Lab</a></li>
-      
     </ul>
-  </nav>
-
-  <div class="footer__social">
-    
-      <a href="https://linkedin.com/in/azadigathui" class="footer__social-link caption" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-    
-    
-      <a href="https://behance.net/azadi_gathui" class="footer__social-link caption" target="_blank" rel="noopener noreferrer">Behance</a>
-    
-    
-      <a href="https://github.com/AzadiGathui" class="footer__social-link caption" target="_blank" rel="noopener noreferrer">GitHub</a>
-    
-    
-      <a href="mailto:gathui@azadi.design" class="footer__social-link caption">gathui@azadi.design</a>
-    
+    <span class="foot__copy">© 2026 Azadi Gathui</span>
   </div>
-
-  <p class="footer__copy">&copy; 2026 Azadi Gathui</p>
 </footer>
+
+      </main>
+      <div class="mat__tools" aria-hidden="true">
+        <div class="tool tool--r" style="--c: 14; --r: 4; --w: 1; --h: 2; --rot: 4deg; --tint: #8fbcd4; --cs: 6; --rs: 4; --ws: 1; --hs: 2">tape</div>
+        <div class="tool tool--l" style="--c: 1; --r: 9; --w: 1; --h: 9; --rot: -1deg; --tint: #c9a227">ruler</div>
+        <div class="tool tool--r" style="--c: 14; --r: 22; --w: 1; --h: 3; --rot: 2deg; --tint: #f07a2a">craft knife</div>
+        <div class="tool tool--l" style="--c: 1; --r: 34; --w: 1; --h: 1; --rot: -6deg; --tint: #b8c4cc">paper clips</div>
+      </div>
+    </div>
+  </div>
+<div class="reading-bar">
+  <a href="#" class="to-top" aria-label="Back to top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"></path></svg></a>
+</div>
 <script type="speculationrules">
   {
     "prefetch": [{

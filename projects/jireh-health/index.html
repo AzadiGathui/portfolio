@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#242322">
 
   <link rel="icon" href="/assets/images/branding/AG Favicon Light on Dark.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/images/branding/favicon.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="/assets/images/branding/apple-touch-icon.png">
-  <!-- Self-hosted fonts: preload the two faces every page renders first -->
+  <!-- Self-hosted fonts: preload the face every page renders first -->
   <link rel="preload" href="/assets/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="">
-  <link rel="preload" href="/assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="">
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <title>Accessible healthcare financing | Azadi Gathui</title>
@@ -21,121 +22,83 @@
   <meta property="og:image" content="/img/rtzC21WT7l-640.jpeg">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://azadi.design/projects/jireh-health/">
+  <script src="/assets/js/snap.js" defer=""></script>
+  <script src="/assets/js/tools.js" defer=""></script>
+  <script src="/assets/js/reels.js" defer=""></script>
+  <script src="/assets/js/reading-bar.js" defer=""></script>
+  <script src="/assets/js/spread-zoom.js" defer=""></script>
+  <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
-  <a href="#main" class="skip-link">Skip to main content</a>
-  <nav class="nav" aria-label="Main">
-  <a href="/"><img src="/img/rXTz9L4-mZ-33.svg" alt="Azadi Gathui, home" class="logo" loading="eager" decoding="async" width="33" height="33"></a>
-  <ul class="nav-ul">
-    
-    <li class="nav-li"><a href="/">Work</a></li>
-    
-    <li class="nav-li"><a href="/resume/">CV</a></li>
-    
-    <li class="nav-li"><a href="/lab/">Lab</a></li>
-    
-  </ul>
-</nav>
-
-  <div id="main">
-  
-
-
-<header class="pj-swiss">
-  
-  <div class="cover" style="background: url('/img/6vBbr5SNVK-928.webp') lightgray 50% 20% / cover no-repeat;">
-    
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="desk">
+    <div class="mat">
       
-      <figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/rtzC21WT7l-400.avif 400w, /img/rtzC21WT7l-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="eager" decoding="async" src="/img/rtzC21WT7l-400.webp" class="phone__screen" alt="Accessible healthcare financing app screen" fetchpriority="high" width="640" height="1280" srcset="/img/rtzC21WT7l-400.webp 400w, /img/rtzC21WT7l-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div></figure>
-    
-  </div>
+<div class="mat__keys">
+  <nav class="keys" aria-label="Main">
+    <a class="key" href="/" style="--k: 1; --kw: 2; --ks: 1" aria-current="true"><span>Azadi<br>Gathui</span></a>
+    <a class="key key--icon" href="#contact" style="--k: 12; --ks: 4"><span>Contact</span><svg class="key__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"></rect><path d="m3.5 7 8.5 6.5L20.5 7"></path></svg></a>
+    <a class="key" href="/resume/" style="--k: 13; --ks: 5"><span>CV</span></a>
+    <a class="key key--icon" href="/lab/" style="--k: 14; --ks: 6"><span>Lab</span><svg class="key__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3h5M10.5 3v6.2L5 18.4A1.7 1.7 0 0 0 6.5 21h11a1.7 1.7 0 0 0 1.5-2.6L13.5 9.2V3"></path><path d="M7.4 15h9.2"></path></svg></a>
+  </nav>
+</div>
+<script>
+  // Once the page has scrolled, a soft mat-coloured fade sits behind the keys
+  // so text no longer shows between them (styles: .is-scrolled in style.css)
+  (() => {
+    const root = document.documentElement;
+    const update = () => root.classList.toggle("is-scrolled", scrollY > 8);
+    addEventListener("scroll", update, { passive: true });
+    update();
+  })();
+</script>
 
-  <div class="pj-deets">
-      
-      <div class="pj-title">
-        <h1>Accessible healthcare financing</h1>
-        <p>Mobile web app research &amp; design</p>
-      </div>
 
-    
-    
-    <dl class="pj-facts">
-      <div><dt class="label">Client</dt><dd>Jireh Innovations Ltd.</dd></div>
-      <div><dt class="label">Industry</dt><dd>Healthcare Fintech</dd></div>
-      <div><dt class="label">Role</dt><dd>UX Researcher &amp; Designer</dd></div>
-      <div><dt class="label">Timeline</dt><dd>Apr 2025 – present</dd></div>
-      <div><dt class="label">Platform</dt><dd>Installable web app (PWA), Android first</dd></div>
-      <div><dt class="label">Deliverables</dt><dd>B2C web app, B2B admin dashboards, user research &amp; usability testing</dd></div>
-      
-      
-      <div><dt class="label">Team</dt><dd>
-        <ul class="pj-team">
-          
-          <li><a href="https://www.linkedin.com/in/terachfranchi/" target="_blank" rel="noopener" aria-label="Terach Franchi on LinkedIn">Terach Franchi</a> <span class="pj-team__role">CEO</span></li>
-          
-          <li><a href="https://www.linkedin.com/in/athmangude/" target="_blank" rel="noopener" aria-label="Athman Gude on LinkedIn">Athman Gude</a> <span class="pj-team__role">Product manager</span></li>
-          
-          <li><a href="https://www.linkedin.com/in/devsheilasharon/" target="_blank" rel="noopener" aria-label="Sheila Sharon on LinkedIn">Sheila Sharon</a> <span class="pj-team__role">Engineer</span></li>
-          
-          <li><a href="https://www.linkedin.com/in/helina-mbuthia-muhia-99b087166/" target="_blank" rel="noopener" aria-label="Helina Mbuthia Muhia on LinkedIn">Helina Mbuthia Muhia</a> <span class="pj-team__role">Marketing</span></li>
-          
-          <li><a href="https://www.linkedin.com/in/gloria-kerubo-2b9a88312/" target="_blank" rel="noopener" aria-label="Gloria Kerubo on LinkedIn">Gloria Kerubo</a> <span class="pj-team__role">Business development</span></li>
-          
-        </ul>
-      </dd></div>
-      
-    </dl>
-    
-  </div>
+      <main class="mat__content" id="main">
+        
+
+<header class="sheet" style="--w: 10; --h: 4" data-snap="">
+  <span class="label">Healthcare Fintech</span>
+  <h1>Accessible healthcare financing</h1>
+  <p>UX research and design for Jireh, a mobile-first web app where Kenyan patients pay medical bills with M-Pesa, cashback and 0% interest loans backed by people they trust.</p>
 </header>
 
+<figure class="sheet cover" style="--h: 6">
+  <div class="frame frame--plain"><picture><source type="image/avif" srcset="/img/6vBbr5SNVK-400.avif 400w, /img/6vBbr5SNVK-800.avif 800w" sizes="(max-width: 720px) 90vw, 880px"><img loading="eager" decoding="async" src="/img/6vBbr5SNVK-400.webp" alt="" style="object-position: 50% 20%" width="800" height="1062" srcset="/img/6vBbr5SNVK-400.webp 400w, /img/6vBbr5SNVK-800.webp 800w" sizes="(max-width: 720px) 90vw, 880px"></picture></div>
+  <span class="card__art card__art--phone"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/rtzC21WT7l-400.avif 400w, /img/rtzC21WT7l-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="eager" decoding="async" src="/img/rtzC21WT7l-400.webp" alt="" width="640" height="1280" srcset="/img/rtzC21WT7l-400.webp 400w, /img/rtzC21WT7l-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span></span>
+</figure>
 
+<dl class="sheet facts" style="--x: 6; --w: 7; --h: 3" data-snap="">
+  <div><dt class="label">Client</dt><dd>Jireh Innovations Ltd.</dd></div><div><dt class="label">Role</dt><dd>UX Researcher &amp; Designer</dd></div><div><dt class="label">Timeline</dt><dd>Apr 2025 – present</dd></div><div><dt class="label">Platform</dt><dd>Installable web app (PWA), Android first</dd></div><div><dt class="label">Deliverables</dt><dd>B2C web app, B2B admin dashboards, user research &amp; usability testing</dd></div>
+  <div><dt class="label">Team</dt><dd><ul class="team">
+    <li><a href="https://www.linkedin.com/in/terachfranchi/" rel="noopener">Terach Franchi</a> <span class="team__role">CEO</span></li>
+    <li><a href="https://www.linkedin.com/in/athmangude/" rel="noopener">Athman Gude</a> <span class="team__role">Product manager</span></li>
+    <li><a href="https://www.linkedin.com/in/devsheilasharon/" rel="noopener">Sheila Sharon</a> <span class="team__role">Engineer</span></li>
+    <li><a href="https://www.linkedin.com/in/helina-mbuthia-muhia-99b087166/" rel="noopener">Helina Mbuthia Muhia</a> <span class="team__role">Marketing</span></li>
+    <li><a href="https://www.linkedin.com/in/gloria-kerubo-2b9a88312/" rel="noopener">Gloria Kerubo</a> <span class="team__role">Business development</span></li>
+  </ul></dd></div>
+</dl>
 
+<div class="gap" aria-hidden="true"></div>
 
-
-
-
-
-
-<div class="read-progress" aria-hidden="true"></div>
-
-<main class="pj-main pj-swiss">
-  
-  <div class="pj-layout">
-    <aside class="pj-toc-sidebar" aria-label="Table of contents">
-      <nav class="toc">
-        <span class="label">Contents</span>
-        <ul class="toc__list">
-          
-          <li><a href="#overview" class="toc__link">Overview</a></li>
-          
-          <li><a href="#principles" class="toc__link">Principles</a></li>
-          
-          <li><a href="#fast-track" class="toc__link">Paying at the counter</a></li>
-          
-          <li><a href="#home" class="toc__link">Home</a></li>
-          
-          <li><a href="#circle" class="toc__link">Circle</a></li>
-          
-          <li><a href="#onboarding" class="toc__link">Onboarding</a></li>
-          
-          <li><a href="#invoice" class="toc__link">Paying from an invoice</a></li>
-          
-          <li><a href="#ask-jireh" class="toc__link">Ask Jireh</a></li>
-          
-          <li><a href="#testing" class="toc__link">Testing with patients</a></li>
-          
-          <li><a href="#results" class="toc__link">Results</a></li>
-          
-          <li><a href="#" class="toc__link toc__link--top">↑ Back to top</a></li>
-          
-          <li><a href="/projects/environmental-degradation-monitor/" class="toc__link toc__link--next">Next: Measuring encroachment on Kenya&#39;s protected areas from space →</a></li>
-          
-        </ul>
-      </nav>
-    </aside>
-    <div class="pj-content">
-      <div class="article-body">
+<!-- The story: contents on the left stick while the body scrolls -->
+<div class="sheet area study" data-snap="">
+  <nav class="toc" aria-label="On this page">
+    <ol>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#principles">Principles</a></li>
+      <li><a href="#fast-track">Paying at the counter</a></li>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#circle">Circle</a></li>
+      <li><a href="#onboarding">Onboarding</a></li>
+      <li><a href="#invoice">Paying from an invoice</a></li>
+      <li><a href="#ask-jireh">Ask Jireh</a></li>
+      <li><a href="#testing">Testing with patients</a></li>
+      <li><a href="#results">Results</a></li>
+    </ol>
+  </nav>
+  <div class="area study__body">
+    <div class="sheet prose" data-snap=""><div class="article-body">
 <h2 id="overview">Overview</h2>
 <p>Most people in Kenya pay for care the moment they receive it: at a hospital counter, often for someone else, often with less on M-Pesa than the invoice says. The gap is covered by phone calls to family and by borrowing on terms nobody has time to read.</p>
 <p>Jireh turns that informal support into structure. A <strong>Circle</strong> of relatives and friends backs a small interest-free credit line, <strong>cashback</strong> builds up from every payment, and <strong>one payment flow</strong> lets patients mix these sources at the counter. My job was to make that feel as simple as sending money on M-Pesa, the bar every Kenyan user compares us to.</p>
@@ -157,25 +120,25 @@
 <h2 id="fast-track">Paying at the counter</h2>
 <p>Fast Track happens in the most stressful place: a queue at a hospital cashier. Each partner facility shows a payment number at its counter, or the patient can search for the hospital instead. Entering it brings up the hospital, the desk and the cashback rate before any money is involved; then the patient adds the invoice, the amount and who they're paying for.</p>
 <p>The wallet step is where Jireh differs from a checkout page: <strong>one bill can be split across several sources</strong>, and a bar fills as the patient allocates. The loan drawer shows what's left to cover, asks for a repayment period and states the cashback earned on repaying, so the loan becomes something to plan around. After submitting, the app always lands on the status screen, so a nervous second tap can't pay twice.</p>
-<div class="phone-reel" role="region" tabindex="0" aria-label="Fast Track screens"><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/gfuJDX2j9a-400.avif 400w, /img/gfuJDX2j9a-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/gfuJDX2j9a-400.webp" class="phone__screen" alt="Enter the facility's payment number JH·482·913; Cana Hospital, Outpatient Cashier and a 5% cashback rate are shown to confirm" width="640" height="1280" srcset="/img/gfuJDX2j9a-400.webp 400w, /img/gfuJDX2j9a-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><span class="label label--accent">Step 1</span> <strong>Find the counter</strong> The payment number brings up the hospital, desk and cashback rate first.</figcaption></figure><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/3xnmC-dlhV-400.avif 400w, /img/3xnmC-dlhV-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/3xnmC-dlhV-400.webp" class="phone__screen" alt="Invoice details: invoice number, who you are paying for, a KES 3,450 bill and a note that it could earn up to KES 173 cashback" width="640" height="1280" srcset="/img/3xnmC-dlhV-400.webp 400w, /img/3xnmC-dlhV-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><span class="label label--accent">Step 2</span> <strong>Invoice and patient</strong> A cashback estimate appears as soon as the amount is entered.</figcaption></figure><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/ZR6Y5gpncF-400.avif 400w, /img/ZR6Y5gpncF-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/ZR6Y5gpncF-400.webp" class="phone__screen" alt="Loan sheet: KES 1,600 remaining to allocate, KES 3,200 available to borrow, KES 80 cashback on repayment and a 30-day repayment period" width="640" height="1280" srcset="/img/ZR6Y5gpncF-400.webp 400w, /img/ZR6Y5gpncF-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><span class="label label--accent">Step 3</span> <strong>Borrow the gap</strong> What's left to cover, and what repaying earns.</figcaption></figure><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/1UEHvH3hd5-400.avif 400w, /img/1UEHvH3hd5-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/1UEHvH3hd5-400.webp" class="phone__screen" alt="Select how you want to pay: allocation bar full at KES 3,450 of 3,450, from a Jireh Medical Loan and cashback, with M-Pesa available to add" width="640" height="1280" srcset="/img/1UEHvH3hd5-400.webp 400w, /img/1UEHvH3hd5-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><span class="label label--accent">Step 3</span> <strong>Fully allocated</strong> Each source can still be edited or removed.</figcaption></figure><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/5r9WzNo2hP-400.avif 400w, /img/5r9WzNo2hP-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/5r9WzNo2hP-400.webp" class="phone__screen" alt="Confirm payment: paying for Amina Otieno at Cana Hospital, KES 3,450, from KES 1,850 cashback and a KES 1,600 loan due 29 Oct" width="640" height="1280" srcset="/img/5r9WzNo2hP-400.webp 400w, /img/5r9WzNo2hP-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><span class="label label--accent">Step 4</span> <strong>Review in plain words</strong> “I am paying for… I am paying at…”, and no transaction fees.</figcaption></figure><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/RMIbpo-L05-400.avif 400w, /img/RMIbpo-L05-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/RMIbpo-L05-400.webp" class="phone__screen" alt="PIN sheet over the payment summary, with Cancel and Confirm PIN buttons" width="640" height="1280" srcset="/img/RMIbpo-L05-400.webp 400w, /img/RMIbpo-L05-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><span class="label label--accent">Step 4</span> <strong>Confirm with a PIN</strong> The sheet opens over the summary, so the bill stays in view.</figcaption></figure><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/ODz2EeAaDm-400.avif 400w, /img/ODz2EeAaDm-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/ODz2EeAaDm-400.webp" class="phone__screen" alt="Transaction result: KES 3,450 paid to Cana Hospital, split into a KES 1,600 loan and KES 1,850 from the Care Fund, with a View receipt button" width="640" height="1280" srcset="/img/ODz2EeAaDm-400.webp 400w, /img/ODz2EeAaDm-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><span class="label label--accent">Step 5</span> <strong>Proof for the cashier</strong> A large result the patient can turn around and show.</figcaption></figure></div>
+<div class="sheet frame reel"><div class="reel__track" tabindex="0" role="region" aria-label="Fast Track screens: 7 images, scroll sideways"><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/gfuJDX2j9a-400.avif 400w, /img/gfuJDX2j9a-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/gfuJDX2j9a-400.webp" alt="Enter the facility's payment number JH·482·913; Cana Hospital, Outpatient Cashier and a 5% cashback rate are shown to confirm" width="640" height="1280" srcset="/img/gfuJDX2j9a-400.webp 400w, /img/gfuJDX2j9a-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><span class="label">Step 1</span> <strong>Find the counter</strong> The payment number brings up the hospital, desk and cashback rate first.</figcaption></figure><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/3xnmC-dlhV-400.avif 400w, /img/3xnmC-dlhV-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/3xnmC-dlhV-400.webp" alt="Invoice details: invoice number, who you are paying for, a KES 3,450 bill and a note that it could earn up to KES 173 cashback" width="640" height="1280" srcset="/img/3xnmC-dlhV-400.webp 400w, /img/3xnmC-dlhV-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><span class="label">Step 2</span> <strong>Invoice and patient</strong> A cashback estimate appears as soon as the amount is entered.</figcaption></figure><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/ZR6Y5gpncF-400.avif 400w, /img/ZR6Y5gpncF-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/ZR6Y5gpncF-400.webp" alt="Loan sheet: KES 1,600 remaining to allocate, KES 3,200 available to borrow, KES 80 cashback on repayment and a 30-day repayment period" width="640" height="1280" srcset="/img/ZR6Y5gpncF-400.webp 400w, /img/ZR6Y5gpncF-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><span class="label">Step 3</span> <strong>Borrow the gap</strong> What's left to cover, and what repaying earns.</figcaption></figure><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/1UEHvH3hd5-400.avif 400w, /img/1UEHvH3hd5-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/1UEHvH3hd5-400.webp" alt="Select how you want to pay: allocation bar full at KES 3,450 of 3,450, from a Jireh Medical Loan and cashback, with M-Pesa available to add" width="640" height="1280" srcset="/img/1UEHvH3hd5-400.webp 400w, /img/1UEHvH3hd5-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><span class="label">Step 3</span> <strong>Fully allocated</strong> Each source can still be edited or removed.</figcaption></figure><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/5r9WzNo2hP-400.avif 400w, /img/5r9WzNo2hP-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/5r9WzNo2hP-400.webp" alt="Confirm payment: paying for Amina Otieno at Cana Hospital, KES 3,450, from KES 1,850 cashback and a KES 1,600 loan due 29 Oct" width="640" height="1280" srcset="/img/5r9WzNo2hP-400.webp 400w, /img/5r9WzNo2hP-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><span class="label">Step 4</span> <strong>Review in plain words</strong> “I am paying for… I am paying at…”, and no transaction fees.</figcaption></figure><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/RMIbpo-L05-400.avif 400w, /img/RMIbpo-L05-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/RMIbpo-L05-400.webp" alt="PIN sheet over the payment summary, with Cancel and Confirm PIN buttons" width="640" height="1280" srcset="/img/RMIbpo-L05-400.webp 400w, /img/RMIbpo-L05-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><span class="label">Step 4</span> <strong>Confirm with a PIN</strong> The sheet opens over the summary, so the bill stays in view.</figcaption></figure><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/ODz2EeAaDm-400.avif 400w, /img/ODz2EeAaDm-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/ODz2EeAaDm-400.webp" alt="Transaction result: KES 3,450 paid to Cana Hospital, split into a KES 1,600 loan and KES 1,850 from the Care Fund, with a View receipt button" width="640" height="1280" srcset="/img/ODz2EeAaDm-400.webp 400w, /img/ODz2EeAaDm-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><span class="label">Step 5</span> <strong>Proof for the cashier</strong> A large result the patient can turn around and show.</figcaption></figure></div></div>
 <h2 id="home">Home</h2>
 <p>Patients hold two kinds of money with Jireh: cashback they've earned and credit they can borrow. Home shows both as cards side by side, with a toggle to switch between them, and each card has its own colour (purple for cashback, teal for loans), so people know which one they're in without reading. The next step sits directly under each balance, and &quot;Pay Medical Bill&quot; is always pinned above the tab bar.</p>
-<div class="phone-reel" role="region" tabindex="0" aria-label="Home screens"><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/rtzC21WT7l-400.avif 400w, /img/rtzC21WT7l-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/rtzC21WT7l-400.webp" class="phone__screen" alt="Home with the Cashback card selected: KES 3,200 cashback earned, Redeem and Share buttons, and discounts and offers below" width="640" height="1280" srcset="/img/rtzC21WT7l-400.webp 400w, /img/rtzC21WT7l-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><strong>Cashback</strong> What's been earned, with Redeem and Share right under it.</figcaption></figure><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/8lM1ayN12n-400.avif 400w, /img/8lM1ayN12n-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/8lM1ayN12n-400.webp" class="phone__screen" alt="Home with the Loans card selected: KES 1,600 available to borrow, Raise my limit and Repay buttons" width="640" height="1280" srcset="/img/8lM1ayN12n-400.webp 400w, /img/8lM1ayN12n-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><strong>Loans</strong> What's available to borrow, with Raise my limit and Repay.</figcaption></figure></div>
+<div class="sheet frame reel"><div class="reel__track" tabindex="0" role="region" aria-label="Home screens: 2 images, scroll sideways"><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/rtzC21WT7l-400.avif 400w, /img/rtzC21WT7l-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/rtzC21WT7l-400.webp" alt="Home with the Cashback card selected: KES 3,200 cashback earned, Redeem and Share buttons, and discounts and offers below" width="640" height="1280" srcset="/img/rtzC21WT7l-400.webp 400w, /img/rtzC21WT7l-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><strong>Cashback</strong> What's been earned, with Redeem and Share right under it.</figcaption></figure><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/8lM1ayN12n-400.avif 400w, /img/8lM1ayN12n-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/8lM1ayN12n-400.webp" alt="Home with the Loans card selected: KES 1,600 available to borrow, Raise my limit and Repay buttons" width="640" height="1280" srcset="/img/8lM1ayN12n-400.webp 400w, /img/8lM1ayN12n-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><strong>Loans</strong> What's available to borrow, with Raise my limit and Repay.</figcaption></figure></div></div>
 <h2 id="circle">Circle</h2>
 <p>A Jireh loan is backed by a Circle, not a credit score. The hard part was explaining shared responsibility without sounding like a debt collector. The Circle screen draws people around you rather than listing them, and the explainer leads with what you get before the shared risk.</p>
 <p>A Circle holds two kinds of people. <strong>Circle members</strong> are adults you trust to repay: two of them unlock borrowing, and they are the only people who receive an invite, as a custom SMS or a recorded voice note for anyone without a data bundle. <strong>Dependants</strong>, such as children and elderly parents, are people whose medical bills you manage. You add them by name and can pay for them straight away, and they never receive an invite or take on any of the risk.</p>
-<div class="phone-reel" role="region" tabindex="0" aria-label="Circle screens"><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/mn64_oWFXT-400.avif 400w, /img/mn64_oWFXT-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/mn64_oWFXT-400.webp" class="phone__screen" alt="My Jireh Circle: the user's photo at the centre with four Circle members around them, and a Dependants row below" width="640" height="1310" srcset="/img/mn64_oWFXT-400.webp 400w, /img/mn64_oWFXT-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><strong>Your Circle</strong> Members drawn around you, with your dependants below.</figcaption></figure><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/C8Kofeivpk-400.avif 400w, /img/C8Kofeivpk-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/C8Kofeivpk-400.webp" class="phone__screen" alt="Add to your Circle: first and last name, a phone number that will receive the invite, relationship, and a choice of custom SMS or voice note" width="640" height="1364" srcset="/img/C8Kofeivpk-400.webp 400w, /img/C8Kofeivpk-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><strong>Invites go to members only</strong> Only Circle members get an invite, by SMS or voice note. Anyone else you pay for is added as a dependant.</figcaption></figure><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/5RuRa921lA-400.avif 400w, /img/5RuRa921lA-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/5RuRa921lA-400.webp" class="phone__screen" alt="Add a dependant: anyone whose medical bills you manage, such as children and elderly parents, with name and relationship only" width="640" height="1280" srcset="/img/5RuRa921lA-400.webp 400w, /img/5RuRa921lA-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><strong>Pay for others, no invite</strong> A name and a relationship; nothing is sent to them.</figcaption></figure><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/Hm0UprvBg2-400.avif 400w, /img/Hm0UprvBg2-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/Hm0UprvBg2-400.webp" class="phone__screen" alt="How Circles work: grow together with people you trust, what a complete Circle unlocks, then the shared risk" width="640" height="1280" srcset="/img/Hm0UprvBg2-400.webp 400w, /img/Hm0UprvBg2-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><strong>Benefit before risk</strong> What a complete Circle unlocks, then the shared risk, before anyone is invited.</figcaption></figure></div>
+<div class="sheet frame reel"><div class="reel__track" tabindex="0" role="region" aria-label="Circle screens: 4 images, scroll sideways"><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/mn64_oWFXT-400.avif 400w, /img/mn64_oWFXT-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/mn64_oWFXT-400.webp" alt="My Jireh Circle: the user's photo at the centre with four Circle members around them, and a Dependants row below" width="640" height="1310" srcset="/img/mn64_oWFXT-400.webp 400w, /img/mn64_oWFXT-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><strong>Your Circle</strong> Members drawn around you, with your dependants below.</figcaption></figure><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/C8Kofeivpk-400.avif 400w, /img/C8Kofeivpk-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/C8Kofeivpk-400.webp" alt="Add to your Circle: first and last name, a phone number that will receive the invite, relationship, and a choice of custom SMS or voice note" width="640" height="1364" srcset="/img/C8Kofeivpk-400.webp 400w, /img/C8Kofeivpk-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><strong>Invites go to members only</strong> Only Circle members get an invite, by SMS or voice note. Anyone else you pay for is added as a dependant.</figcaption></figure><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/5RuRa921lA-400.avif 400w, /img/5RuRa921lA-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/5RuRa921lA-400.webp" alt="Add a dependant: anyone whose medical bills you manage, such as children and elderly parents, with name and relationship only" width="640" height="1280" srcset="/img/5RuRa921lA-400.webp 400w, /img/5RuRa921lA-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><strong>Pay for others, no invite</strong> A name and a relationship; nothing is sent to them.</figcaption></figure><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/Hm0UprvBg2-400.avif 400w, /img/Hm0UprvBg2-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/Hm0UprvBg2-400.webp" alt="How Circles work: grow together with people you trust, what a complete Circle unlocks, then the shared risk" width="640" height="1280" srcset="/img/Hm0UprvBg2-400.webp 400w, /img/Hm0UprvBg2-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><strong>Benefit before risk</strong> What a complete Circle unlocks, then the shared risk, before anyone is invited.</figcaption></figure></div></div>
 <blockquote class="pull-quote">Designing the Circle meant designing around trust between people, as much as trust in the product.</blockquote>
 <h2 id="onboarding">Onboarding</h2>
 <p>Sign-up has no password: a phone number, an SMS code, your name as it appears on your ID, then a PIN. The PIN screen says what it's for, because people take a PIN more seriously when they know what it protects.</p>
 <p>Identity checks come only when they're needed. The National ID step can be skipped, and the app routes by what's missing rather than a fixed order, so leaving halfway always brings you back to the right step. Unlocking loans turns the remaining requirements into a checklist that ticks off over time, and a failed selfie match goes to a person for review instead of a dead end. Permissions follow the same rule: alerts, installing the app and sharing location each say what they're for, and nothing is switched on until the patient chooses it.</p>
-<div class="phone-reel" role="region" tabindex="0" aria-label="Onboarding screens"><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/A48p2SbFSt-400.avif 400w, /img/A48p2SbFSt-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/A48p2SbFSt-400.webp" class="phone__screen" alt="Enter your phone number: a Kenyan number field and a ticked checkbox agreeing to Jireh Health's Privacy Policy" width="640" height="1280" srcset="/img/A48p2SbFSt-400.webp 400w, /img/A48p2SbFSt-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><span class="label label--accent">Step 1</span> <strong>Phone number</strong> Consent is a clear checkbox, not fine print.</figcaption></figure><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/RIVCQ2lFeU-400.avif 400w, /img/RIVCQ2lFeU-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/RIVCQ2lFeU-400.webp" class="phone__screen" alt="Enter your One-Time-PIN: six code boxes, a link to change the phone number and a resend countdown" width="640" height="1280" srcset="/img/RIVCQ2lFeU-400.webp 400w, /img/RIVCQ2lFeU-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><span class="label label--accent">Step 2</span> <strong>SMS code</strong> The number it was sent to, a way to change it, and a resend timer.</figcaption></figure><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/bocUVtx5rr-400.avif 400w, /img/bocUVtx5rr-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/bocUVtx5rr-400.webp" class="phone__screen" alt="Fill in these details to match your National ID: first and last name (required), National ID number and how you heard about us" width="640" height="1280" srcset="/img/bocUVtx5rr-400.webp 400w, /img/bocUVtx5rr-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><span class="label label--accent">Step 3</span> <strong>Details as on your ID</strong> Only the name is required; the ID number is needed only to pay.</figcaption></figure><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/gNKKk2VPa9-400.avif 400w, /img/gNKKk2VPa9-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/gNKKk2VPa9-400.webp" class="phone__screen" alt="Create your PIN: you will use this PIN to confirm all payments, with create and confirm PIN fields" width="640" height="1280" srcset="/img/gNKKk2VPa9-400.webp 400w, /img/gNKKk2VPa9-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><span class="label label--accent">Step 4</span> <strong>Create a PIN</strong> Says what the PIN protects, then confirms it on the same screen.</figcaption></figure><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/2VpOiKbLJb-400.avif 400w, /img/2VpOiKbLJb-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/2VpOiKbLJb-400.webp" class="phone__screen" alt="Limit calculator: upgrade to access KES 1,500 as 0% interest medical loans, with four steps from checking your limit to a one-off KES 499 fee" width="640" height="1280" srcset="/img/2VpOiKbLJb-400.webp 400w, /img/2VpOiKbLJb-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><span class="label label--accent">Later</span> <strong>Unlock loans</strong> Starts with the limit you'd unlock; four steps, with the fee last.</figcaption></figure><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/s1gUGCPwh0-400.avif 400w, /img/s1gUGCPwh0-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/s1gUGCPwh0-400.webp" class="phone__screen" alt="Never miss an alert when you install the app: toggles for alerts, installing the app and sharing location, each with its benefit" width="640" height="1280" srcset="/img/s1gUGCPwh0-400.webp 400w, /img/s1gUGCPwh0-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><span class="label label--accent">Later</span> <strong>Permissions</strong> Each switch says what it's for, and all start off.</figcaption></figure></div>
+<div class="sheet frame reel"><div class="reel__track" tabindex="0" role="region" aria-label="Onboarding screens: 6 images, scroll sideways"><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/A48p2SbFSt-400.avif 400w, /img/A48p2SbFSt-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/A48p2SbFSt-400.webp" alt="Enter your phone number: a Kenyan number field and a ticked checkbox agreeing to Jireh Health's Privacy Policy" width="640" height="1280" srcset="/img/A48p2SbFSt-400.webp 400w, /img/A48p2SbFSt-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><span class="label">Step 1</span> <strong>Phone number</strong> Consent is a clear checkbox, not fine print.</figcaption></figure><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/RIVCQ2lFeU-400.avif 400w, /img/RIVCQ2lFeU-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/RIVCQ2lFeU-400.webp" alt="Enter your One-Time-PIN: six code boxes, a link to change the phone number and a resend countdown" width="640" height="1280" srcset="/img/RIVCQ2lFeU-400.webp 400w, /img/RIVCQ2lFeU-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><span class="label">Step 2</span> <strong>SMS code</strong> The number it was sent to, a way to change it, and a resend timer.</figcaption></figure><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/bocUVtx5rr-400.avif 400w, /img/bocUVtx5rr-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/bocUVtx5rr-400.webp" alt="Fill in these details to match your National ID: first and last name (required), National ID number and how you heard about us" width="640" height="1280" srcset="/img/bocUVtx5rr-400.webp 400w, /img/bocUVtx5rr-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><span class="label">Step 3</span> <strong>Details as on your ID</strong> Only the name is required; the ID number is needed only to pay.</figcaption></figure><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/gNKKk2VPa9-400.avif 400w, /img/gNKKk2VPa9-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/gNKKk2VPa9-400.webp" alt="Create your PIN: you will use this PIN to confirm all payments, with create and confirm PIN fields" width="640" height="1280" srcset="/img/gNKKk2VPa9-400.webp 400w, /img/gNKKk2VPa9-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><span class="label">Step 4</span> <strong>Create a PIN</strong> Says what the PIN protects, then confirms it on the same screen.</figcaption></figure><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/2VpOiKbLJb-400.avif 400w, /img/2VpOiKbLJb-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/2VpOiKbLJb-400.webp" alt="Limit calculator: upgrade to access KES 1,500 as 0% interest medical loans, with four steps from checking your limit to a one-off KES 499 fee" width="640" height="1280" srcset="/img/2VpOiKbLJb-400.webp 400w, /img/2VpOiKbLJb-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><span class="label">Later</span> <strong>Unlock loans</strong> Starts with the limit you'd unlock; four steps, with the fee last.</figcaption></figure><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/s1gUGCPwh0-400.avif 400w, /img/s1gUGCPwh0-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/s1gUGCPwh0-400.webp" alt="Never miss an alert when you install the app: toggles for alerts, installing the app and sharing location, each with its benefit" width="640" height="1280" srcset="/img/s1gUGCPwh0-400.webp 400w, /img/s1gUGCPwh0-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><span class="label">Later</span> <strong>Permissions</strong> Each switch says what it's for, and all start off.</figcaption></figure></div></div>
 <h2 id="invoice">Paying from an invoice</h2>
 <p>Not every bill is paid in person, or at a facility in the Jireh network. The invoice route names its three steps up front: the facility's payment details, a photo of the bill, then how to pay. Patients can upload several pages at once, and consent for Jireh to use their medical data is asked right beside the upload it covers. While the invoice is checked, the screen says how long it takes and what comes next, instead of showing a spinner. On the review screen every detail has its own edit button, so a wrong amount or Paybill is fixed in place. Repaying is just as calm: Paybill and account numbers have copy buttons, and an overdue loan is one clear state with one action.</p>
-<div class="phone-reel" role="region" tabindex="0" aria-label="Invoice and repayment screens"><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/XBk9sFWT39-400.avif 400w, /img/XBk9sFWT39-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/XBk9sFWT39-400.webp" class="phone__screen" alt="How to pay: three steps to pay at a care provider, fill in facility details, upload a photo of your invoice, and choose how you want to pay" width="640" height="1280" srcset="/img/XBk9sFWT39-400.webp 400w, /img/XBk9sFWT39-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><strong>What's about to happen</strong> Three steps named before the first one starts.</figcaption></figure><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/-mGF8wVu0T-400.avif 400w, /img/-mGF8wVu0T-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/-mGF8wVu0T-400.webp" class="phone__screen" alt="Facility details: facility type, the care provider's phone number, M-Pesa account type, Paybill number and an optional account number" width="640" height="1382" srcset="/img/-mGF8wVu0T-400.webp 400w, /img/-mGF8wVu0T-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><span class="label label--accent">Step 1</span> <strong>The facility's details</strong> Paybill and account number, with the account field only when it's needed.</figcaption></figure><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/vxX1kEnPDw-400.avif 400w, /img/vxX1kEnPDw-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/vxX1kEnPDw-400.webp" class="phone__screen" alt="Upload invoice: three uploaded invoice pages, an Add a photo button and a consent checkbox for Jireh to use medical data" width="640" height="1564" srcset="/img/vxX1kEnPDw-400.webp 400w, /img/vxX1kEnPDw-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><span class="label label--accent">Step 2</span> <strong>Upload</strong> Several pages at once, with consent for medical data right beside them.</figcaption></figure><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/-3Eisu00TF-400.avif 400w, /img/-3Eisu00TF-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/-3Eisu00TF-400.webp" class="phone__screen" alt="Processing your invoice: an update expected in 15 minutes, with the next step, confirm invoice details" width="640" height="1280" srcset="/img/-3Eisu00TF-400.webp 400w, /img/-3Eisu00TF-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><strong>Processing, not a spinner</strong> How long it takes, and what comes next.</figcaption></figure><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/I5l_qTyuDS-400.avif 400w, /img/I5l_qTyuDS-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/I5l_qTyuDS-400.webp" class="phone__screen" alt="Review invoice details: the invoice pages, who you are paying for, the facility, the total bill and the M-Pesa payment details, each with an edit button" width="640" height="1280" srcset="/img/I5l_qTyuDS-400.webp 400w, /img/I5l_qTyuDS-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><span class="label label--accent">Step 3</span> <strong>Review and confirm</strong> Every detail can be edited in place before choosing how to pay.</figcaption></figure><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/qnMnIqBrpw-400.avif 400w, /img/qnMnIqBrpw-720.avif 720w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/qnMnIqBrpw-400.webp" class="phone__screen" alt="All loans with total to repay, Paybill number and account number with copy buttons" width="720" height="1598" srcset="/img/qnMnIqBrpw-400.webp 400w, /img/qnMnIqBrpw-720.webp 720w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><strong>Repaying</strong> Copy buttons for the Paybill and account numbers.</figcaption></figure><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/QA_m9oTLWa-400.avif 400w, /img/QA_m9oTLWa-720.avif 720w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/QA_m9oTLWa-400.webp" class="phone__screen" alt="Loan details with repaid vs total and an overdue warning with a repay button" width="720" height="1598" srcset="/img/QA_m9oTLWa-400.webp 400w, /img/QA_m9oTLWa-720.webp 720w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><strong>Overdue, calmly</strong> A clear state and one action, without alarm-red screens.</figcaption></figure></div>
+<div class="sheet frame reel"><div class="reel__track" tabindex="0" role="region" aria-label="Invoice and repayment screens: 7 images, scroll sideways"><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/XBk9sFWT39-400.avif 400w, /img/XBk9sFWT39-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/XBk9sFWT39-400.webp" alt="How to pay: three steps to pay at a care provider, fill in facility details, upload a photo of your invoice, and choose how you want to pay" width="640" height="1280" srcset="/img/XBk9sFWT39-400.webp 400w, /img/XBk9sFWT39-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><strong>What's about to happen</strong> Three steps named before the first one starts.</figcaption></figure><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/-mGF8wVu0T-400.avif 400w, /img/-mGF8wVu0T-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/-mGF8wVu0T-400.webp" alt="Facility details: facility type, the care provider's phone number, M-Pesa account type, Paybill number and an optional account number" width="640" height="1382" srcset="/img/-mGF8wVu0T-400.webp 400w, /img/-mGF8wVu0T-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><span class="label">Step 1</span> <strong>The facility's details</strong> Paybill and account number, with the account field only when it's needed.</figcaption></figure><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/vxX1kEnPDw-400.avif 400w, /img/vxX1kEnPDw-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/vxX1kEnPDw-400.webp" alt="Upload invoice: three uploaded invoice pages, an Add a photo button and a consent checkbox for Jireh to use medical data" width="640" height="1564" srcset="/img/vxX1kEnPDw-400.webp 400w, /img/vxX1kEnPDw-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><span class="label">Step 2</span> <strong>Upload</strong> Several pages at once, with consent for medical data right beside them.</figcaption></figure><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/-3Eisu00TF-400.avif 400w, /img/-3Eisu00TF-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/-3Eisu00TF-400.webp" alt="Processing your invoice: an update expected in 15 minutes, with the next step, confirm invoice details" width="640" height="1280" srcset="/img/-3Eisu00TF-400.webp 400w, /img/-3Eisu00TF-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><strong>Processing, not a spinner</strong> How long it takes, and what comes next.</figcaption></figure><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/I5l_qTyuDS-400.avif 400w, /img/I5l_qTyuDS-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/I5l_qTyuDS-400.webp" alt="Review invoice details: the invoice pages, who you are paying for, the facility, the total bill and the M-Pesa payment details, each with an edit button" width="640" height="1280" srcset="/img/I5l_qTyuDS-400.webp 400w, /img/I5l_qTyuDS-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><span class="label">Step 3</span> <strong>Review and confirm</strong> Every detail can be edited in place before choosing how to pay.</figcaption></figure><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/qnMnIqBrpw-400.avif 400w, /img/qnMnIqBrpw-720.avif 720w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/qnMnIqBrpw-400.webp" alt="All loans with total to repay, Paybill number and account number with copy buttons" width="720" height="1598" srcset="/img/qnMnIqBrpw-400.webp 400w, /img/qnMnIqBrpw-720.webp 720w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><strong>Repaying</strong> Copy buttons for the Paybill and account numbers.</figcaption></figure><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/QA_m9oTLWa-400.avif 400w, /img/QA_m9oTLWa-720.avif 720w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/QA_m9oTLWa-400.webp" alt="Loan details with repaid vs total and an overdue warning with a repay button" width="720" height="1598" srcset="/img/QA_m9oTLWa-400.webp 400w, /img/QA_m9oTLWa-720.webp 720w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><strong>Overdue, calmly</strong> A clear state and one action, without alarm-red screens.</figcaption></figure></div></div>
 <h2 id="ask-jireh">Ask Jireh</h2>
 <p>The newest feature is an assistant in the centre of the tab bar. It answers questions about payments, loan limits, Circles and cashback, and points people to nearby facilities. Before the first chat, a sheet asks the patient to accept the AI chat terms, with Decline as a full-size choice beside Accept. After that, the chat opens by name with suggested topics, so nobody faces an empty box, and past chats are one tap away. Wellness answers carry a fixed disclaimer, and when someone types too fast it says so plainly: <em>&quot;Give me a moment, you have been chatting fast.&quot;</em> Many patients first hear from Jireh by SMS, so links in those messages open the chat with the SMS already shown.</p>
-<div class="phone-reel" role="region" tabindex="0" aria-label="Ask Jireh screens"><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/8AOL0PA4F2-400.avif 400w, /img/8AOL0PA4F2-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/8AOL0PA4F2-400.webp" class="phone__screen" alt="Accept AI chat terms: a checkbox agreeing to Ask Jireh Health's Terms of Service and Privacy Policy, with Decline and Accept and continue buttons" width="640" height="1280" srcset="/img/8AOL0PA4F2-400.webp 400w, /img/8AOL0PA4F2-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><strong>Consent first</strong> The terms are agreed with a checkbox, and declining is just as easy.</figcaption></figure><figure class="phone"><div class="phone__frame"><picture><source type="image/avif" srcset="/img/wI0LkRDx6B-400.avif 400w, /img/wI0LkRDx6B-640.avif 640w" sizes="(max-width: 768px) 60vw, 15rem"><img loading="lazy" decoding="async" src="/img/wI0LkRDx6B-400.webp" class="phone__screen" alt="Ask Jireh: a greeting that invites questions about your health records, a message box, suggested topics such as paying a bill and 0% interest loans, and a link to past chats" width="640" height="1280" srcset="/img/wI0LkRDx6B-400.webp 400w, /img/wI0LkRDx6B-640.webp 640w" sizes="(max-width: 768px) 60vw, 15rem"></picture></div><figcaption><strong>Ask anything</strong> Suggested topics for a first question, and past chats one tap away.</figcaption></figure></div>
+<div class="sheet frame reel"><div class="reel__track" tabindex="0" role="region" aria-label="Ask Jireh screens: 2 images, scroll sideways"><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/8AOL0PA4F2-400.avif 400w, /img/8AOL0PA4F2-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/8AOL0PA4F2-400.webp" alt="Accept AI chat terms: a checkbox agreeing to Ask Jireh Health's Terms of Service and Privacy Policy, with Decline and Accept and continue buttons" width="640" height="1280" srcset="/img/8AOL0PA4F2-400.webp 400w, /img/8AOL0PA4F2-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><strong>Consent first</strong> The terms are agreed with a checkbox, and declining is just as easy.</figcaption></figure><figure class="reel__item"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/wI0LkRDx6B-400.avif 400w, /img/wI0LkRDx6B-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/wI0LkRDx6B-400.webp" alt="Ask Jireh: a greeting that invites questions about your health records, a message box, suggested topics such as paying a bill and 0% interest loans, and a link to past chats" width="640" height="1280" srcset="/img/wI0LkRDx6B-400.webp 400w, /img/wI0LkRDx6B-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span><figcaption><strong>Ask anything</strong> Suggested topics for a first question, and past chats one tap away.</figcaption></figure></div></div>
 <h2 id="testing">Testing with patients</h2>
 <p>To test in person, I split the patient app off into a standalone prototype. It runs in the browser on fake data and uses the same components as production, so what people test is what ships. A facilitator panel can drop a participant at any point in the journey (before their name, before ID, fully onboarded) and reset between sessions.</p>
 <h2 id="results">Results</h2>
@@ -206,200 +169,72 @@
 <p>The sign-up figure is the flow described under Onboarding: a phone number, an SMS code, a name and a PIN, with identity checks held back until they're needed. Discovery/Explore and the Profile Hub are the two engagement surfaces I designed and the team shipped. They are part of the platform's growth, not all of it: monthly active users across the whole platform grew from 396 to 770 over the same four months.</p>
 <p>Behind the screens, I led the frontend's design-system modernisation, alongside engineering: reusable primitives, semantic tokens and consistent patterns, so the patient app on mobile and the facility dashboards on the web share one set of rules and stay easy to change.</p>
 </div>
-
-    </div>
+</div>
   </div>
-  
-</main>
-
-
-<div class="reading-bar">
-  
-  <button type="button" class="toc-pill" aria-haspopup="dialog" aria-controls="toc-sheet">
-    <span class="visually-hidden">Contents: </span>
-    <span class="toc-pill__count label"></span>
-    <span class="toc-pill__section">Contents</span>
-  </button>
-  
-  <a href="#" class="to-top" aria-label="Back to top">↑</a>
 </div>
 
+<div class="gap" aria-hidden="true"></div>
 
-<dialog class="toc-sheet" id="toc-sheet" aria-labelledby="toc-sheet-title">
-  <div class="toc-sheet__head">
-    <span class="label" id="toc-sheet-title">Contents</span>
-    <button type="button" class="toc-sheet__close" aria-label="Close contents">✕</button>
-  </div>
-  <ul class="toc-sheet__list">
-    
-    <li><a href="#overview" class="toc-sheet__link">Overview</a></li>
-    
-    <li><a href="#principles" class="toc-sheet__link">Principles</a></li>
-    
-    <li><a href="#fast-track" class="toc-sheet__link">Paying at the counter</a></li>
-    
-    <li><a href="#home" class="toc-sheet__link">Home</a></li>
-    
-    <li><a href="#circle" class="toc-sheet__link">Circle</a></li>
-    
-    <li><a href="#onboarding" class="toc-sheet__link">Onboarding</a></li>
-    
-    <li><a href="#invoice" class="toc-sheet__link">Paying from an invoice</a></li>
-    
-    <li><a href="#ask-jireh" class="toc-sheet__link">Ask Jireh</a></li>
-    
-    <li><a href="#testing" class="toc-sheet__link">Testing with patients</a></li>
-    
-    <li><a href="#results" class="toc-sheet__link">Results</a></li>
-    
-    <li><a href="#" class="toc-sheet__link toc-sheet__link--top">↑ Back to top</a></li>
-  </ul>
-</dialog>
-
-
-<script src="/assets/js/spread-zoom.js" defer=""></script>
-<script src="/assets/js/phone-reel.js" defer=""></script>
-
-<script>
-// Runs once the whole page is parsed: the previous/next links and the footer
-// come after this script, and the reading bar needs to find them
-document.addEventListener('DOMContentLoaded', function () {
-  // Active section highlight: the desktop sidebar and the mobile sheet list the
-  // same sections in the same order, so one index drives both
-  var links = [...document.querySelectorAll('.toc__link[href^="#"]:not([href="#"])')];
-  var sheetLinks = [...document.querySelectorAll('.toc-sheet__link[href^="#"]:not([href="#"])')];
-
-  var headings = links.map(function (l) {
-    return document.querySelector(l.getAttribute('href'));
-  }).filter(Boolean);
-
-  // Mobile reading bar. The contents pill shows once the reader is into the
-  // article and hides at the end, so it never covers the previous/next links.
-  // The ↑ button shows only while the reader is scrolling back up: the moment
-  // they're most likely looking for the top.
-  var pill = document.querySelector('.toc-pill');
-  var pillSection = pill && pill.querySelector('.toc-pill__section');
-  var pillCount = pill && pill.querySelector('.toc-pill__count');
-  var toTop = document.querySelector('.to-top');
-  var main = document.querySelector('.pj-main');
-  var footer = document.querySelector('.footer');
-  var end = document.querySelector('.pj-nav') || footer;
-  var lastY = window.scrollY;
-  var goingUp = false;
-
-  function update() {
-    var threshold = window.innerHeight * 0.25;
-    var index = -1;
-    for (var i = 0; i < headings.length; i++) {
-      if (headings[i].getBoundingClientRect().top <= threshold) index = i;
-    }
-    links.forEach(function (l, i) { l.classList.toggle('toc__link--active', i === index); });
-    sheetLinks.forEach(function (l, i) {
-      l.classList.toggle('toc-sheet__link--active', i === index);
-      if (i === index) l.setAttribute('aria-current', 'location');
-      else l.removeAttribute('aria-current');
-    });
-
-    // Direction, ignoring small jitters (e.g. the address bar resizing the page)
-    var y = window.scrollY;
-    if (Math.abs(y - lastY) > 8) {
-      goingUp = y < lastY;
-      lastY = y;
-    }
-
-    var inArticle = main.getBoundingClientRect().top < window.innerHeight * 0.6;
-    var atEnd = end && end.getBoundingClientRect().top < window.innerHeight;
-    // ...but not over the footer, where it would sit on top of its links
-    var footerInView = footer && footer.getBoundingClientRect().top < window.innerHeight;
-    toTop.classList.toggle('is-visible', inArticle && goingUp && !footerInView);
-
-    if (!pill) return;
-    pillSection.textContent = index >= 0 ? sheetLinks[index].textContent : 'Contents';
-    pillCount.textContent = index >= 0 ? (index + 1) + '/' + headings.length : '';
-    pill.classList.toggle('is-visible', inArticle && !atEnd);
-  }
-
-  window.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update, { passive: true });
-  update();
-
-  // Contents sheet (a modal <dialog>: focus is trapped inside it, and Esc or
-  // the Android back gesture closes it)
-  var sheet = document.getElementById('toc-sheet');
-  if (!pill || !sheet) return;
-
-  pill.addEventListener('click', function () { sheet.showModal(); });
-  sheet.querySelector('.toc-sheet__close').addEventListener('click', function () { sheet.close(); });
-
-  // Picking a section closes the sheet; the link then scrolls as normal
-  sheet.querySelectorAll('.toc-sheet__link').forEach(function (l) {
-    l.addEventListener('click', function () { sheet.close(); });
-  });
-
-  // A tap on the dimmed backdrop (outside the sheet's box) closes it too
-  sheet.addEventListener('click', function (e) {
-    if (e.target !== sheet) return; // clicks on the links and close button are handled above
-    var r = sheet.getBoundingClientRect();
-    if (e.clientY < r.top || e.clientY > r.bottom || e.clientX < r.left || e.clientX > r.right) sheet.close();
-  });
-});
-</script>
-
-
-<nav class="pj-nav" aria-label="Project navigation">
-  <div class="pj-nav__item pj-nav__item--prev">
-    
-  </div>
-  <div class="pj-nav__item pj-nav__item--next">
-    
-      <a href="/projects/environmental-degradation-monitor/" class="pj-nav__link">
-        
-          <picture><source type="image/avif" srcset="/img/pyfeX8ql-c-400.avif 400w, /img/pyfeX8ql-c-800.avif 800w" sizes="(max-width: 768px) 50vw, 440px"><img loading="lazy" decoding="async" src="/img/pyfeX8ql-c-400.webp" alt="" class="pj-nav__thumb" width="800" height="927" srcset="/img/pyfeX8ql-c-400.webp 400w, /img/pyfeX8ql-c-800.webp 800w" sizes="(max-width: 768px) 50vw, 440px"></picture>
-        
-        <span class="label">Next →</span>
-        <span class="pj-nav__title">Measuring encroachment on Kenya&#39;s protected areas from space</span>
-      </a>
-    
-  </div>
+<nav class="sheet area pager" aria-label="Project navigation">
+  <a class="frame pager__item pager__item--prev" href="/projects/kenya-energy-atlas/">
+    <span class="pager__thumb"><picture><source type="image/avif" srcset="/img/0nSzBgceFs-400.avif" sizes="(max-width: 720px) 30vw, 280px"><img loading="lazy" decoding="async" src="/img/0nSzBgceFs-400.webp" alt="" width="400" height="226"></picture></span>
+    <span class="label pager__label">&larr; Previous</span>
+    <h3 class="pager__title">Kenya Energy Atlas</h3>
+  </a>
+  <a class="frame pager__item pager__item--next" href="/projects/environmental-degradation-monitor/">
+    <span class="pager__thumb"><picture><source type="image/avif" srcset="/img/pyfeX8ql-c-400.avif 400w, /img/pyfeX8ql-c-800.avif 800w" sizes="(max-width: 720px) 30vw, 280px"><img loading="lazy" decoding="async" src="/img/pyfeX8ql-c-400.webp" alt="" width="800" height="927" srcset="/img/pyfeX8ql-c-400.webp 400w, /img/pyfeX8ql-c-800.webp 800w" sizes="(max-width: 720px) 30vw, 280px"></picture></span>
+    <span class="label pager__label">Next &rarr;</span>
+    <h3 class="pager__title">Measuring encroachment on Kenya&#39;s protected areas from space</h3>
+  </a>
 </nav>
 
 
-  </div>
-  <footer class="footer">
-  <div class="footer__brand">
-    <a href="/" class="footer__name">Azadi Gathui</a>
-    <p class="footer__role caption">Designer &amp; Researcher</p>
-  </div>
+        <div class="gap" aria-hidden="true"></div>
+        <footer class="sheet foot" id="contact" data-snap="">
+  <p class="foot__ask">Let’s create meaningful, systemic impact together.</p>
+  <a class="foot__mail" href="mailto:gathui@azadi.design">gathui@azadi.design</a>
+  <div class="foot__base">
+    <ul class="icon-links"><li><a class="icon-link" href="https://linkedin.com/in/azadigathui"><span class="visually-hidden">LinkedIn</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M8 10.5V17M8 7.25v.01M12 17v-6.5M12 13.5a2.5 2.5 0 0 1 5 0V17"></path></svg></a></li>
+<li><a class="icon-link" href="https://github.com/AzadiGathui"><span class="visually-hidden">GitHub</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></li>
 
-  <nav class="footer__nav" aria-label="Footer navigation">
-    <ul class="footer__nav-list">
-      
-      <li><a href="/" class="footer__nav-link caption">Work</a></li>
-      
-      <li><a href="/resume/" class="footer__nav-link caption">CV</a></li>
-      
-      <li><a href="/lab/" class="footer__nav-link caption">Lab</a></li>
-      
     </ul>
-  </nav>
-
-  <div class="footer__social">
-    
-      <a href="https://linkedin.com/in/azadigathui" class="footer__social-link caption" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-    
-    
-      <a href="https://behance.net/azadi_gathui" class="footer__social-link caption" target="_blank" rel="noopener noreferrer">Behance</a>
-    
-    
-      <a href="https://github.com/AzadiGathui" class="footer__social-link caption" target="_blank" rel="noopener noreferrer">GitHub</a>
-    
-    
-      <a href="mailto:gathui@azadi.design" class="footer__social-link caption">gathui@azadi.design</a>
-    
+    <span class="foot__copy">© 2026 Azadi Gathui</span>
   </div>
-
-  <p class="footer__copy">&copy; 2026 Azadi Gathui</p>
 </footer>
+
+      </main>
+      <div class="mat__tools" aria-hidden="true">
+        <div class="tool tool--r" style="--c: 14; --r: 4; --w: 1; --h: 2; --rot: 4deg; --tint: #8fbcd4; --cs: 6; --rs: 4; --ws: 1; --hs: 2">tape</div>
+        <div class="tool tool--l" style="--c: 1; --r: 9; --w: 1; --h: 9; --rot: -1deg; --tint: #c9a227">ruler</div>
+        <div class="tool tool--r" style="--c: 14; --r: 22; --w: 1; --h: 3; --rot: 2deg; --tint: #f07a2a">craft knife</div>
+        <div class="tool tool--l" style="--c: 1; --r: 34; --w: 1; --h: 1; --rot: -6deg; --tint: #b8c4cc">paper clips</div>
+      </div>
+    </div>
+  </div>
+<div class="reading-bar">
+  <button type="button" class="toc-pill" aria-haspopup="dialog" aria-controls="toc-sheet">
+    <span class="visually-hidden">Contents: </span><span class="toc-pill__count label"></span><span class="toc-pill__section">Contents</span>
+  </button>
+  <a href="#" class="to-top" aria-label="Back to top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"></path></svg></a>
+</div>
+<dialog class="toc-sheet" id="toc-sheet" aria-labelledby="toc-sheet-title">
+  <div class="toc-sheet__head">
+    <span class="label" id="toc-sheet-title">Contents</span>
+    <button type="button" class="toc-sheet__close" aria-label="Close contents">&#x2715;</button>
+  </div>
+  <ol>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#principles">Principles</a></li>
+    <li><a href="#fast-track">Paying at the counter</a></li>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#circle">Circle</a></li>
+    <li><a href="#onboarding">Onboarding</a></li>
+    <li><a href="#invoice">Paying from an invoice</a></li>
+    <li><a href="#ask-jireh">Ask Jireh</a></li>
+    <li><a href="#testing">Testing with patients</a></li>
+    <li><a href="#results">Results</a></li>
+  </ol>
+</dialog>
 <script type="speculationrules">
   {
     "prefetch": [{
