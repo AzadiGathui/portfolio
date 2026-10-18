@@ -24,7 +24,7 @@ tools:
   <p>{{ description }}</p>
 </header>
 
-<figure class="sheet cover card--r" style="--h: 6">
+<figure class="sheet cover" style="--h: 6">
   <div class="frame frame--plain"><img src="{{ coverImage }}" alt="" sizes="(max-width: 720px) 90vw, 880px" loading="eager"{% if coverPosition %} style="object-position: {{ coverPosition }}"{% endif %}></div>
   {%- if thumbnail %}
   {%- if thumbnailKind == 'phone' and mockupImage %}
@@ -35,7 +35,7 @@ tools:
   {%- endif %}
 </figure>
 
-<dl class="sheet facts" style="--h: 2" data-snap>
+<dl class="sheet facts" style="--x: 6; --w: 7; --h: 3" data-snap>
   <div><dt class="label">Client</dt><dd>{{ client }}</dd></div>
   {%- if role %}<div><dt class="label">Role</dt><dd>{{ role }}</dd></div>{% endif %}
   {%- if timeline %}<div><dt class="label">Timeline</dt><dd>{{ timeline }}</dd></div>{% endif %}

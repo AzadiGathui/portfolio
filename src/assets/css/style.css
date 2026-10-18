@@ -798,9 +798,21 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
 .tag { color: var(--text-2); }
 .tags .tag:not(:last-child)::after { content: "/"; margin-left: var(--space-2); color: var(--rule); }
 
-/* Project page: definition list of facts */
-.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(var(--col-min), 1fr)); gap: var(--space-4); margin: 0; align-content: start; }
-.facts dd { margin: var(--space-1) 0 0; }
+/* Project page facts: a table in a container of its own, edged like a CV
+   entry (border on the grid lines, whole cells tall: snap.js), under the
+   cover and clear of the artefact hanging off it. Each row: the mono
+   label in the first two squares, the value in the rest. */
+.sheet.facts {
+  display: grid;
+  align-content: start;     /* centred, its overflow would spill upwards too, where snap.js can't measure it */
+  margin: 0 -1px -1px 0;
+  padding: var(--space-3) var(--space-5);
+  background: var(--mat);
+  box-shadow: inset 0 0 0 1px var(--rule);
+}
+.facts > div { display: grid; grid-template-columns: calc(var(--cell) * 2 - var(--space-5)) minmax(0, 1fr); gap: var(--space-4); align-items: baseline; padding-block: var(--space-2); }
+.facts > div + div { box-shadow: var(--hairline-top); }
+.facts dd { margin: 0; }
 
 /* ------------------------------------------------------------------
    Case study: a contents list (3 cells) that sticks while the body
@@ -829,10 +841,15 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
 .study:not(:has(.toc)) .study__body { --all: calc(var(--cols) - 2 * var(--margin)); grid-column: 1 / -1; }
 
 /* A project's cover, the artefact laid on it as on its homepage card
-   (.card__art; --cap 0: no caption under it). Grey, like the cards: the
-   cover is context, the artefact is the work. */
-.cover { position: relative; display: grid; padding: 0; --cap: 0; }
+   (.card__art). Grey, like the cards: the cover is context, the artefact
+   is the work. The artefact sits one square in from the cover's left
+   edge and hangs over its bottom edge (a phone by two squares, a print
+   or book by one), beside the facts below. */
+.cover { position: relative; display: grid; padding: 0; }
 .cover > .frame img { filter: grayscale(1) brightness(0.75); }
+.cover .card__art { --hang: 2; left: var(--cell); bottom: calc(var(--hang) * var(--cell) * -1); }
+.cover .card__art--print, .cover .card__art--book { --hang: 1; }
+.cover .card__art:not(.card__art--phone) img { object-position: left bottom; }
 
 /* The case study itself: the project's own markdown, as long-form text
    in one block (it snaps to whole squares as a whole), in the mat's
@@ -861,14 +878,12 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
   /* no contents list: on a phone it would only push the story down */
   .toc { display: none; }
   .study__body { --all: calc(var(--cols) - 2 * var(--margin)); grid-column: 1 / -1; }
-  /* the artefact overhangs into the last column, not the band */
+  /* no room beside the artefact for the facts, so it stays on the cover,
+     on its bottom edge, and the facts take the full width below */
   .cover { grid-row: span 5; }
-  .cover > .frame { margin-right: var(--cell); }
-  .cover.card--r .card__art { right: 0; }
-  /* facts in two columns: the label a third, the value the rest */
-  .facts { grid-template-columns: 1fr 2fr; gap: var(--space-2) var(--space-4); align-items: baseline; }
-  .facts > div { display: contents; }
-  .facts dd { margin: 0; }
+  .cover .card__art { --hang: 0; }
+  .sheet.facts { padding-inline: var(--space-4); }
+  .facts > div { grid-template-columns: calc(var(--cell) * 2 - var(--space-4)) minmax(0, 1fr); }
 }
 
 /* ------------------------------------------------------------------
