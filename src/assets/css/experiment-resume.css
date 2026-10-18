@@ -354,7 +354,7 @@ a.plate__img:hover img { transform: scale(1.025); }
   }
   .actionbar__btn--primary { background: var(--text); color: var(--bg); border-color: var(--text); }
   .actionbar__btn--primary:hover { color: var(--bg); }
-  .page-resume .footer { padding-bottom: calc(6rem + env(safe-area-inset-bottom)); }
+  .page-resume .site-footer { padding-bottom: calc(6rem + env(safe-area-inset-bottom)); }
   .cv-head__contact .btn--ghost { display: none; } /* the action bar carries it */
 }
 
@@ -381,6 +381,7 @@ a.plate__img:hover img { transform: scale(1.025); }
     --gap: 5mm; --section: 7mm; --topbar-offset: 0px;
   }
   html, body { background: #fff; font-size: 9.5pt; }
+  html { color-scheme: light; } /* the page says dark; without this the PDF margins print near-black */
   .wrap { max-width: none; padding-inline: 0; }
 
   .skip, .topbar, .cv-index-nav, .cv-index, .footer, .actionbar,
@@ -393,7 +394,9 @@ a.plate__img:hover img { transform: scale(1.025); }
   .contact-row a { min-height: 0; }
 
   .section__head { margin-bottom: 3mm; }
-  .entry { padding-block: 3mm 4mm; row-gap: 2mm; break-inside: avoid; }
+  .entry { padding-block: 3mm 4mm; row-gap: 2mm; } /* may break, so a long entry doesn't leave half a page empty */
+  .entry__meta, .bullets li, .finding { break-inside: avoid; }
+  h2, h3, .section__head, .entry__meta { break-after: avoid; } /* no headings stranded at the foot of a page */
   .entry__meta { position: static; }
   .more { border: 0; }
   .more summary { display: none; }
@@ -407,6 +410,8 @@ a.plate__img:hover img { transform: scale(1.025); }
 
   .matrix thead tr:last-child th { height: 26mm; }
   .matrix tbody th { padding-block: 0.8mm; }
+  .matrix-scroll { overflow: visible; }
+  .skills-layout { break-inside: avoid; } /* heading and table on the same page */
 
   a { text-decoration: none; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }

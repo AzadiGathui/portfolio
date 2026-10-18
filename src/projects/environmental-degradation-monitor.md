@@ -2,14 +2,19 @@
 title: "Measuring encroachment on Kenya's protected areas from space"
 tagline: Satellite change detection with deep learning
 client: Zindua School (Capstone project)
+clientShort: "Zindua School"   # short name for homepage lists
 industry: Geospatial AI
 role: Data Scientist
 timeline: Jun – Oct 2026
 platform: Streamlit web app (Python)
 deliverables: Land-cover segmentation model, change-detection pipeline, Kenya evaluation, interactive app
 order: 2
+layers: [Data, Model, Screen]   # homepage card key: Data, Model, Journey, Screen, Page
+stat: "2.03 km²"
+statLabel: "protected land lost in Nairobi National Park, 2016 to 2025"
 coverImage: /assets/images/projects/edm/cover-header.jpg
 thumbnail: /assets/images/projects/edm/thumbnail-placeholder.png
+thumbnailKind: print   # phone | print | book: how the thumbnail is shown on /craft/
 ogImage: /assets/images/projects/edm/cover-header.jpg
 description: An end-to-end pipeline that segments Sentinel-2 imagery with a U-Net, compares 2016 with 2025 and measures new built-up land inside Kenya's protected areas, plus an honest evaluation of how well it works in Kenya.
 permalink: /projects/environmental-degradation-monitor/

@@ -1,0 +1,8 @@
+{#- The mat's printed edge numbers (styles: "Ruler" in craft.css). More
+    numbers than any page needs; the ruler box cuts off the ones past the mat. -#}
+<div class="ruler ruler--x" aria-hidden="true">
+  {%- for i in range(1, 16) %}<span style="--i: {{ i }}">{{ i }}</span>{% endfor -%}
+</div>
+<div class="ruler ruler--y" aria-hidden="true">
+  {%- for i in range(1, 200) %}<span style="--i: {{ i }}">{{ i }}</span>{% endfor -%}
+</div>

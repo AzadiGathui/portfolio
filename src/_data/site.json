@@ -1,10 +1,11 @@
 {
   "title": "Azadi Gathui",
-  "description": "Portfolio of design work, articles and experiments by Azadi Gathui, Designer & Researcher.",
+  "description": "Portfolio of design work, articles and experiments by Azadi Gathui, data scientist and product designer.",
   "url": "https://azadi.design",
   "author": "Azadi Gathui",
-  "role": "Designer & Researcher",
+  "role": "Data scientist & designer",
   "email": "gathui@azadi.design",
+  "cvPdf": "/assets/files/azadi-gathui-cv.pdf",
   "social": {
     "linkedin": "https://linkedin.com/in/azadigathui",
     "behance":  "https://behance.net/azadi_gathui",

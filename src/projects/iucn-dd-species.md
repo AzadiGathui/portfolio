@@ -2,12 +2,17 @@
 title: "Predicting threat status for Kenya's data-deficient species"
 tagline: Machine learning for biodiversity conservation
 client: Zindua School (Academic Project)
+clientShort: "Zindua School"   # short name for homepage lists
 industry: Conservation
 role: Data Scientist
 deliverables: Data wrangling pipeline, exploratory analysis, Random Forest classification model, species-level predictions
 order: 3
+layers: [Data, Model]   # homepage card key: Data, Model, Journey, Screen, Page
+stat: "87.5%"
+statLabel: "test accuracy, random forest"
 coverImage: /assets/images/projects/iucn/cover-header.jpg
 thumbnail: /assets/images/projects/iucn/model_kenya_by_class.png
+thumbnailKind: print   # phone | print | book: how the thumbnail is shown on /craft/
 ogImage: /assets/images/projects/iucn/model_kenya_by_class.png
 description: A machine learning project predicting IUCN Red List threat categories for Kenya's 335 Data Deficient species using Random Forest classification trained on 35,000+ species.
 permalink: /projects/iucn-dd-species/

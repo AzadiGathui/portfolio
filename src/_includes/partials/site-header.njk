@@ -1,0 +1,28 @@
+{#- One header for every page, styled by /assets/css/chrome.css.
+    Pages under /experiment/ link to their experimental siblings; every other
+    page links to the live ones. "Contact" jumps to the footer, which every
+    page has. -#}
+{%- set inExperiment = "/experiment/" in page.url -%}
+{%- set homeUrl = "/experiment/" if inExperiment else "/" -%}
+{%- set links = [
+  { label: "Work", url: homeUrl + "#work" if inExperiment else "/" },
+  { label: "CV", url: "/experiment/resume/" if inExperiment else "/resume/" },
+  { label: "Lab", url: "/lab/" },
+  { label: "Contact", url: "#contact" }
+] -%}
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__brand" href="{{ homeUrl }}">
+      <span class="site-header__name">{{ site.author }}</span>
+    </a>
+    <p class="site-header__role">{{ site.role }}</p>
+    <nav class="site-header__nav" aria-label="Main">
+      <ul>
+        {%- for link in links %}
+        {%- set isCurrent = (link.url == page.url) or (link.label == "Work" and page.url == homeUrl) %}
+        <li><a href="{{ link.url }}"{% if isCurrent %} aria-current="page"{% endif %}>{{ link.label }}</a></li>
+        {%- endfor %}
+      </ul>
+    </nav>
+  </div>
+</header>

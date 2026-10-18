@@ -1,19 +1,18 @@
 <!doctype html>
-<html lang="en-GB">
+<html lang="en-GB" class="chrome-offset">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Resume — Azadi Gathui</title>
-  <meta name="description" content="Resume of Azadi Gathui: designer, researcher and data scientist working across product, editorial and machine learning.">
+  <title>Resume | Azadi Gathui</title>
+  <meta name="description" content="Resume of Azadi Gathui, data scientist and product designer, working across product, editorial and machine learning.">
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#1a1a1a">
   <meta name="robots" content="noindex">
   <link rel="icon" href="/assets/images/branding/favicon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Barlow+Condensed:wght@300;500;600&family=Barlow+Semi+Condensed:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="/assets/css/fonts.css">
   <link rel="stylesheet" href="/assets/css/experiment-home.css">
   <link rel="stylesheet" href="/assets/css/experiment-resume.css">
+  <link rel="stylesheet" href="/assets/css/chrome.css">
   <script src="/assets/js/experiment.js" defer></script>
   <!-- Images on this page are already resized by hand (WebP + srcset), so each <img>
        carries eleventy:ignore: the site's image pipeline leaves them untouched. -->
@@ -21,18 +20,7 @@
 <body class="page-resume">
   <a class="skip" href="#main">Skip to content</a>
 
-  <header class="topbar" data-topbar>
-    <div class="masthead wrap">
-      <a class="wordmark" href="/experiment/">Azadi Gathui</a>
-      <p class="masthead__role">Editorial design, product design <span class="amp">&amp;</span> data science</p>
-      <nav class="masthead__nav" aria-label="Primary">
-        <a href="/experiment/#work">Work</a>
-        <a href="/experiment/resume/" aria-current="page">Resume</a>
-        <a href="/lab/">Lab</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
+  {% include "partials/site-header.njk" %}
 
   <main id="main">
 
@@ -40,9 +28,9 @@
     <section class="cv-head wrap grid" aria-labelledby="cv-name">
       <div class="cv-head__id">
         <h1 class="cv-head__name" id="cv-name">Azadi Gathui</h1>
-        <p class="cv-head__role">Designer, researcher &amp; data scientist</p>
+        <p class="cv-head__role">Data scientist and product designer</p>
       </div>
-      <p class="cv-head__statement lede">Seven years of turning gnarly problems into human-centred solutions — across climate publications, health and fintech products, and machine learning.</p>
+      <p class="cv-head__statement lede">Seven years of turning gnarly problems into human-centred solutions across climate publications, health and fintech products, and machine learning.</p>
       <div class="cv-head__contact">
         <ul class="contact-row">
           <li><a href="mailto:gathui@azadi.design">gathui@azadi.design</a></li>
@@ -76,7 +64,7 @@
             <div class="tl__lane">
               <h3 class="tl__name">Product</h3>
               <ol class="tl__track">
-                <li style="--s:35;--e:67;--r:1"><a class="tl__lbl" href="#leja">Leja</a><span class="vh">, November 2022 to June 2025</span></li>
+                <li style="--s:26;--e:67;--r:1"><a class="tl__lbl" href="#leja">Leja</a><span class="vh">, February 2022 to June 2025: design associate, then product designer from November 2022</span></li>
                 <li class="tl--end" style="--s:64;--e:82;--r:2"><a class="tl__lbl" href="#jireh">Jireh Health</a><span class="vh">, April 2025 to September 2026</span></li>
               </ol>
             </div>
@@ -161,6 +149,7 @@
           <h3 class="entry__role">Product designer</h3>
           <p class="entry__org">Leja</p>
           <p class="entry__date">Nov 2022 – Jun 2025</p>
+          <p class="entry__date">Design associate, Feb – Oct 2022</p>
         </header>
         <div class="entry__body">
           <p class="entry__scope">Onboarding, referral and transaction flows for a B2B fintech app used by Kenyan small businesses. Led a two-person design and research team.</p>
@@ -271,7 +260,7 @@
         </figure>
         <figure class="plate">
           <a class="plate__img" href="/projects/kenya-energy-atlas/"><img eleventy:ignore src="/assets/images/experiment/sid-1-1400.webp" srcset="/assets/images/experiment/sid-1-700.webp 700w, /assets/images/experiment/sid-1-1400.webp 1400w" sizes="(max-width: 560px) 84vw, (max-width: 1080px) 44vw, 30vw" width="1400" height="793" alt="Kenya Energy Atlas spread on energy sources and uses in Kenya" loading="lazy" decoding="async"></a>
-          <figcaption><p class="plate__title"><a href="/projects/kenya-energy-atlas/">Society for International Development</a></p><p class="plate__meta">300-page Kenya Energy Atlas, 2021</p></figcaption>
+          <figcaption><p class="plate__title"><a href="/projects/kenya-energy-atlas/">Society for International Development</a></p><p class="plate__meta">Kenya Energy Atlas, 280+ pages, 2021</p></figcaption>
         </figure>
         <figure class="plate">
           <div class="plate__img"><img eleventy:ignore src="/assets/images/experiment/belva-1-1400.webp" srcset="/assets/images/experiment/belva-1-700.webp 700w, /assets/images/experiment/belva-1-1400.webp 1400w" sizes="(max-width: 560px) 84vw, (max-width: 1080px) 44vw, 30vw" width="1400" height="717" alt="3408 Belva apartment catalogue with a green geometric cover" loading="lazy" decoding="async"></div>
@@ -349,19 +338,7 @@
 
   </main>
 
-  <footer class="footer wrap" id="contact">
-    <p class="footer__voice">Let’s create meaningful, systemic impact together.</p>
-    <a class="footer__mail" href="mailto:gathui@azadi.design">gathui@azadi.design</a>
-    <div class="footer__base grid">
-      <ul class="footer__social">
-        <li><a href="https://linkedin.com/in/azadigathui">LinkedIn</a></li>
-        <li><a href="https://behance.net/azadi_gathui">Behance</a></li>
-        <li><a href="https://github.com/AzadiGathui">GitHub</a></li>
-      </ul>
-      <p class="colophon">This page prints as an A4 resume.</p>
-      <p class="footer__copy">© 2026 Azadi Gathui</p>
-    </div>
-  </footer>
+  {% include "partials/site-footer.njk" %}
 
   <div class="actionbar" aria-label="Quick actions">
     <button type="button" class="actionbar__btn" data-print>Save as PDF</button>

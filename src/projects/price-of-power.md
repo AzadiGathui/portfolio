@@ -2,13 +2,16 @@
 title: The cost of electricity in Kenya
 tagline: Energy & Affordability
 client: Independent
+clientShort: "Independent"   # short name for homepage lists
 industry: Energy & Data
 role: Researcher & Designer
 deliverables: Interactive data visualisation (Tableau Public)
 order: 4
+layers: [Data, Screen]   # homepage card key: Data, Model, Journey, Screen, Page
 coverImage: /assets/images/projects/ren/cover-header.jpg
 mockupImage: /assets/images/projects/ren/bills.png
 thumbnail: /assets/images/projects/ren/bills.png
+thumbnailKind: print   # phone | print | book: how the thumbnail is shown on /craft/
 ogImage: /assets/images/projects/ren/bills.png
 description: An exploration into your monthly Kenya Power electricity bill, equitable distribution and the renewable energy transition.
 permalink: /projects/price-of-power/

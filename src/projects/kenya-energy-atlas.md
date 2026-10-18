@@ -2,15 +2,20 @@
 title: Kenya Energy Atlas
 tagline: Consolidated research publication
 client: SID (Society for International Development)
+clientShort: "SID Kenya"   # short name for homepage lists
 industry: Energy
 role: Editorial Designer
-deliverables: 200-page publication
+deliverables: Research publication, 280+ pages
 order: 9
+layers: [Data, Page]   # homepage card key: Data, Model, Journey, Screen, Page
+stat: "280+"
+statLabel: "pages"
 coverImage: /assets/images/projects/efw/cover-header.jpg
 mockupImage: /assets/images/projects/efw/EFW hero mockup.png
 thumbnail: /assets/images/projects/efw/EFW hero mockup.png
+thumbnailKind: book   # phone | print | book: how the thumbnail is shown on /craft/
 ogImage: /assets/images/projects/efw/EFW hero mockup.png
-description: A 200-page compilation of collaborative research into contemporary Kenyan energy concerns, designed for SID Kenya.
+description: A compilation of more than 280 pages of collaborative research into contemporary Kenyan energy concerns, designed for SID Kenya.
 permalink: /projects/kenya-energy-atlas/
 ---
 

@@ -70,16 +70,36 @@ module.exports = async function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets/images/branding"); // favicons, apple-touch-icon
   eleventyConfig.addPassthroughCopy("src/assets/images/home"); // hero <video> files and their posters
   eleventyConfig.addPassthroughCopy("src/assets/images/**/*.svg"); // vector logos are served as-is
+  eleventyConfig.addPassthroughCopy("src/assets/images/experiment");
+  eleventyConfig.addPassthroughCopy("src/assets/files"); // downloads, e.g. the CV PDF (npm run cv:pdf) // /experiment/ pages: already resized WebPs, skipped by the image transform (eleventy:ignore)
   eleventyConfig.addPassthroughCopy("src/admin");
   eleventyConfig.addPassthroughCopy("CNAME"); // critical: preserves azadi.design custom domain on every deploy
 
   // Projects collection: reads all .md files in src/projects/, sorted by front matter `order`
-  eleventyConfig.addCollection("projects", (api) =>
+  const publishedProjects = (api) =>
     api
       .getFilteredByGlob("src/projects/*.md")
       .filter((p) => p.data.published !== false) // exclude drafts
-      .sort((a, b) => (a.data.order || 99) - (b.data.order || 99))
+      .sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+  eleventyConfig.addCollection("projects", publishedProjects);
+  // The projects that also have a page in the /craft/ experiment (front matter `craftPage: true`)
+  eleventyConfig.addCollection("craftProjects", (api) =>
+    publishedProjects(api).filter((p) => p.data.craftPage)
   );
+
+  // Each project thumbnail's real pixel width, by project URL. The experimental
+  // homepage caps every thumbnail at this width, so a small mockup is shown at
+  // its own size instead of being stretched (and blurred) to fill its frame.
+  eleventyConfig.addCollection("thumbWidths", async (api) => {
+    const sharp = require("sharp");
+    const widths = {};
+    for (const p of publishedProjects(api)) {
+      const src = p.data.thumbnail;
+      if (!src || /^https?:/.test(src)) continue;
+      widths[p.url] = (await sharp("src" + src).metadata()).width;
+    }
+    return widths;
+  });
 
   // Returns the index of a page in a collection, used for prev/next project navigation
   eleventyConfig.addFilter("getProjectIndex", (collection, url) =>
@@ -97,6 +117,28 @@ module.exports = async function (eleventyConfig) {
       text: html.replace(/<[^>]+>/g, "").trim(),
     }));
   });
+
+  // Craft case studies (src/craft/projects.njk): the {% phones %} rows below are
+  // rendered for the live site; here each becomes the craft reel, the same
+  // component the CV uses (phone mockup around each screen, buttons in the
+  // corner). Each screen keeps its step / title / caption, beside its phone.
+  eleventyConfig.addFilter("craftReels", (html) =>
+    html.replace(
+      /<div class="phone-reel"[^>]*?aria-label="([^"]*)"[^>]*>((?:<figure class="phone[\s\S]*?<\/figure>)+)<\/div>/g,
+      (whole, label, figures) => {
+        const screens = [...figures.matchAll(/<figure class="phone[^>]*>[\s\S]*?<img class="phone__screen" src="([^"]*)" alt="([^"]*)"[^>]*>[\s\S]*?(?:<figcaption>([\s\S]*?)<\/figcaption>)?<\/figure>/g)];
+        if (!screens.length) return whole;
+        const items = screens
+          .map(([, src, alt, caption]) => {
+            const phone = `<span class="phone-frame"><img src="${src}" sizes="(max-width: 720px) 30vw, 160px" alt="${alt}" loading="lazy"></span>`;
+            const text = caption ? `<figcaption>${caption.replace("label label--accent", "label")}</figcaption>` : "";
+            return `<figure class="reel__item">${phone}${text}</figure>`;
+          })
+          .join("");
+        return `<div class="sheet frame reel"><div class="reel__track" tabindex="0" role="region" aria-label="${label}: ${screens.length} images, scroll sideways">${items}</div></div>`;
+      }
+    )
+  );
 
   // ------------------------------------------------------------------
   // PHONE SCREENS: a mobile screen in a device frame, for any project that

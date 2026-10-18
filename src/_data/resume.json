@@ -70,7 +70,7 @@
         },
         {
           "client": "Leja",
-          "role": "Product Designer",
+          "role": "Product Designer (Nov 2022 – Jun 2025); Design Associate (Feb – Oct 2022)",
           "period": "Feb 2022 – Jun 2025",
           "summary": "B2B fintech mobile app serving Kenyan micro and small enterprises (MSMEs).",
           "portfolio_url": "/projects/leja-business-app/",
@@ -143,36 +143,6 @@
             "carnayo07.png",
             "carnayo08.png",
             "carnayo09.png"
-          ]
-        },
-        {
-          "client": "Crossover",
-          "role": "UX Designer",
-          "period": "2021 – 2022",
-          "deliverables": "Interactive prototype · UX assessment",
-          "slug": "crossover",
-          "description": [
-            "Prototyped an AI-powered e-learning platform under timed, competitive conditions for a global UX hiring assessment.",
-            "Applied end-to-end UX methodology (research synthesis, IA, wireframing, and high-fidelity prototyping) within a constrained timeline."
-          ],
-          "skills": [
-            "Figma",
-            "Prototyping",
-            "Information Architecture",
-            "Wireframing"
-          ],
-          "images": [
-            "crossover01.png",
-            "crossover02.png",
-            "crossover03.png",
-            "crossover04.png",
-            "crossover05.png",
-            "crossover06.png",
-            "crossover07.png",
-            "crossover08.png",
-            "crossover09.png",
-            "crossover10.png",
-            "crossover11.png"
           ]
         }
       ]
@@ -451,10 +421,10 @@
         {
           "client": "Society for International Development (SID)",
           "period": "Oct – Dec 2021",
-          "deliverables": "300-page research publication",
+          "deliverables": "Research publication, 280+ pages",
           "portfolio_url": "/projects/kenya-energy-atlas/",
           "description": [
-            "Laid out the 300-page Kenya Energy Atlas (joint SID–government research publication).",
+            "Laid out the Kenya Energy Atlas, 280+ pages (joint SID–government research publication).",
             "Integrated maps, charts, long-form academic text across chapters.",
             "Adapted for web and high-quality print."
           ],

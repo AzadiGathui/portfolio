@@ -13,25 +13,28 @@
   --surface-2: #2a2a2a;
   --rule: #3a3a3a;              /* structural hairlines, axes */
   --text: #e6e6e6;              /* 13.9:1 */
-  --text-2: #a3a3a3;            /*  6.9:1 */
-  --text-3: #8c8c8c;            /*  5.2:1 */
+  --text-2: #b3b3b3;            /*  8.3:1, all supporting text */
+  --text-3: var(--text-2);      /* one muted colour: kept as an alias */
   --data-muted: #6e6e6e;        /*  3.4:1 — non-signal marks (WCAG 1.4.11) */
   --red: #e50000;               /*  3.6:1 — fills, marks, focus */
   --red-text: #ff5c5c;          /*  5.8:1 — red at text sizes */
 
-  /* Type */
-  --f-display: "Barlow Condensed", "Arial Narrow", sans-serif;
-  --f-label: "Barlow Semi Condensed", "Barlow", sans-serif;
+  /* Type: Barlow for everything, JetBrains Mono for labels and column headers.
+     The display and label names are kept as aliases so existing rules still work. */
   --f-body: "Barlow", "Helvetica Neue", Arial, sans-serif;
+  --f-display: var(--f-body);
+  --f-label: var(--f-body);
+  --f-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
 
-  /* Scale: perfect fourth (1.333) from an 18px reading size */
-  --t-sm: 0.844rem;   /* 13.5 */
-  --t-base: 1.125rem; /* 18   */
-  --t-md: 1.5rem;     /* 24   */
-  --t-lg: 2rem;       /* 32   */
-  --t-xl: 2.666rem;   /* 42.7 */
-  --t-2xl: clamp(2.5rem, 4.4vw, 3.55rem);
-  --t-hero: clamp(3.4rem, 15vw, 14.25rem);
+  /* Scale: the same steps as the homepage (h1, h2, h3, h4, body, caption) */
+  --t-sm: 0.875rem;                       /* caption */
+  --t-base: 1rem;                         /* body */
+  --t-md: 1.25rem;                        /* h4, lede */
+  --t-lg: 1.5rem;                         /* h3 */
+  --t-xl: clamp(2rem, 3.6vw, 2.75rem);    /* h2, big numbers */
+  --t-2xl: var(--t-xl);                   /* h2 */
+  --t-hero: clamp(3rem, 10vw, 8.5rem);    /* h1 */
+  --t-label: 0.75rem;                     /* mono labels */
 
   /* Space & grid */
   --gutter: clamp(16px, 4vw, 64px);
@@ -69,6 +72,7 @@ body {
 }
 
 h1, h2, h3, p, ul, ol, dl, dd, figure, blockquote { margin: 0; }
+button { font-family: inherit; } /* buttons do not inherit the page font by default */
 ul, ol { padding: 0; list-style: none; }
 img { max-width: 100%; }
 
@@ -779,4 +783,14 @@ a.tl__lbl:hover { text-decoration: underline; color: var(--text); }
     transition-duration: 0.01ms !important;
     transition-delay: 0ms !important;
   }
+}
+
+/* ---------- Labels and column headers: mono, like the main site ---------- */
+dt, thead th, .fig__num {
+  font-family: var(--f-mono);
+  font-size: var(--t-label);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--text-2);
 }

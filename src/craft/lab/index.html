@@ -1,0 +1,84 @@
+---
+permalink: /craft/lab/
+eleventyExcludeFromCollections: true
+---
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Craft experiment | Lab</title>
+  <meta name="robots" content="noindex">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="/assets/images/branding/favicon.png">
+  <link rel="stylesheet" href="/assets/css/fonts.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400&display=swap"> {#- margin notes; self-host once settled -#}
+  <link rel="stylesheet" href="/assets/css/craft.css">
+  <script src="/assets/js/craft-snap.js" defer></script>
+  <script src="/assets/js/craft-tools.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <div class="desk">
+    <div class="mat">
+
+      {% set keysActive = "lab" %}{% include "partials/craft-keys.njk" %}
+
+      <main class="mat__content" id="main">
+
+        <section class="sheet center" style="--h: 3" data-snap>
+          <span class="label">Lab</span>
+          <h1>Side projects, experiments and things made for fun.</h1>
+          <p>Prototypes, data toys and visual work outside client briefs. Placeholder text only.</p>
+        </section>
+
+        <div class="gap" style="--rows: 1" aria-hidden="true"></div>
+
+        <!-- The Lab: every piece from the current Lab page (/lab/),
+             at its place there, scaled to the mat: 1 of its columns = 2 squares.
+             Pieces keep their proportions (almost all are square); each frame's
+             padding is the space between neighbours. Listed in reading order
+             (the phone order). -->
+        <div class="sheet area prints" style="--h: 48" data-snap>
+          <figure class="frame print is-wide" style="--x: 1; --y: 1; --w: 4; --h: 4"><img src="/assets/images/lab/poster-lorem-ipsum.jpg" sizes="(max-width: 720px) 90vw, 280px" alt="Typographic poster: 'Lorem ipsum' in bold white capitals over a photo of a flowering tree against blue sky"></figure>
+          <figure class="frame print" style="--x: 11; --y: 1; --w: 2; --h: 2"><img src="/assets/images/lab/isometric-bedroom.jpg" sizes="(max-width: 720px) 45vw, 140px" alt="Isometric illustration of a cosy bedroom in reds and pinks, with plants, a wardrobe and a desk"></figure>
+          <figure class="frame print is-end" style="--x: 5; --y: 3; --w: 2; --h: 2"><img src="/assets/images/lab/poster-lorem-ipsum-small.jpg" sizes="(max-width: 720px) 45vw, 140px" alt="Smaller version of the 'Lorem ipsum' tree poster"></figure>
+          <figure class="frame print is-end" style="--x: 9; --y: 3; --w: 2; --h: 2"><img src="/assets/images/lab/ink-bulb.jpg" sizes="(max-width: 720px) 45vw, 140px" alt="Bold black ink drawing of a bulb shape made of curved strokes"></figure>
+          <figure class="frame print is-wide" style="--x: 3; --y: 5; --w: 4; --h: 4"><img src="/assets/images/lab/poster-lorem-dolor-sit-amet.jpg" sizes="(max-width: 720px) 90vw, 280px" alt="Typographic poster: 'Lorem dolor sit amet' in black capitals across a white band, below the flowering tree photo"></figure>
+          <figure class="frame print is-wide" style="--x: 9; --y: 9; --w: 4; --h: 4"><img src="/assets/images/lab/poster-breathe-out-the-old.jpg" sizes="(max-width: 720px) 90vw, 280px" alt="Poster in rust brown: 'Breathe out the old' in tall thin lettering beside an arch of dried autumn leaves"></figure>
+          <figure class="frame print" style="--x: 1; --y: 12; --w: 2; --h: 2"><img src="/assets/images/lab/hand-with-floral-pattern.jpg" sizes="(max-width: 720px) 45vw, 140px" alt="Grey illustration of an open hand decorated with small flower patterns"></figure>
+          <figure class="frame print is-start" style="--x: 5; --y: 13; --w: 2; --h: 3"><img src="/assets/images/lab/ink-flower-on-script.jpg" sizes="(max-width: 720px) 45vw, 140px" alt="Black ink flower drawn over a background of handwritten script"></figure>
+          <figure class="frame print is-wide" style="--x: 7; --y: 13; --w: 4; --h: 4"><img src="/assets/images/lab/poster-breathe-in-the-new.jpg" sizes="(max-width: 720px) 90vw, 280px" alt="Poster in rust brown: 'Breathe in the new' in tall thin lettering beside an arch of leaves"></figure>
+          <figure class="frame print" style="--x: 11; --y: 13; --w: 2; --h: 2"><img src="/assets/images/lab/poster-hold-it.jpg" sizes="(max-width: 720px) 45vw, 140px" alt="Poster in rust brown: 'Hold it' set inside an arch of dark roses"></figure>
+          <figure class="frame print is-end" style="--x: 3; --y: 17; --w: 2; --h: 3"><img src="/assets/images/lab/hand-on-lined-paper.jpg" sizes="(max-width: 720px) 45vw, 140px" alt="Pencil drawing of a hand on lined notebook paper"></figure>
+          <figure class="frame print is-wide" style="--x: 3; --y: 20; --w: 6; --h: 6"><img src="/assets/images/lab/poster-hot-weather.jpg" sizes="(max-width: 720px) 90vw, 420px" alt="Poster: 'Hot weather please love me back' in large tan letters over a warm, dim photo of a room with curtains"></figure>
+          <figure class="frame print is-wide" style="--x: 9; --y: 20; --w: 4; --h: 4"><img src="/assets/images/lab/poster-sandals.jpg" sizes="(max-width: 720px) 90vw, 280px" alt="Poster: 'Sandals' above a photo of three pairs of sandals by a sunlit window"></figure>
+          <figure class="frame print is-wide has-note" style="--x: 1; --y: 27; --w: 6; --h: 6"><img src="/assets/images/lab/mandala-peacock.png" sizes="(max-width: 720px) 90vw, 420px" alt="Large mandala in gold, amber and deep brown, built from rings of peacock feathers and ornate petals"><span class="note note--below" aria-hidden="true">made for fun, hand-drawn</span></figure>
+          <figure class="frame print is-end" style="--x: 7; --y: 29; --w: 2; --h: 2"><img src="/assets/images/lab/mandala-part-gold-outer.png" sizes="(max-width: 720px) 45vw, 140px" alt="Mandala detail: an ornate gold teardrop ornament"></figure>
+          <figure class="frame print" style="--x: 9; --y: 29; --w: 2; --h: 2"><img src="/assets/images/lab/mandala-part-sun-ring.png" sizes="(max-width: 720px) 45vw, 140px" alt="Mandala detail: a gold and maroon sun ring of wavy rays"></figure>
+          <figure class="frame print is-end" style="--x: 7; --y: 31; --w: 2; --h: 2"><img src="/assets/images/lab/mandala-part-gold-inner.png" sizes="(max-width: 720px) 45vw, 140px" alt="Mandala detail: a gold ornament with a green teardrop centre"></figure>
+          <figure class="frame print" style="--x: 9; --y: 31; --w: 2; --h: 2"><img src="/assets/images/lab/mandala-part-feather-inner.png" sizes="(max-width: 720px) 45vw, 140px" alt="Mandala detail: a small peacock feather"></figure>
+          <figure class="frame print" style="--x: 11; --y: 31; --w: 2; --h: 2"><img src="/assets/images/lab/mandala-part-feather-outer.png" sizes="(max-width: 720px) 45vw, 140px" alt="Mandala detail: a larger peacock feather"></figure>
+          <figure class="frame print is-start" style="--x: 9; --y: 36; --w: 2; --h: 2"><img src="/assets/images/lab/sawa-boss-lettering.jpg" sizes="(max-width: 720px) 45vw, 140px" alt="'Sawa boss' in bubbly white graffiti-style lettering with turquoise outlines on black"></figure>
+          <figure class="frame print is-wide" style="--x: 5; --y: 38; --w: 4; --h: 4"><img src="/assets/images/lab/nymph-ladies-blades.jpg" sizes="(max-width: 720px) 90vw, 280px" alt="Brand design on dark green: 'Nymph ladies blades' in white script among orange star-shaped flowers"></figure>
+          <figure class="frame print is-wide" style="--x: 3; --y: 43; --w: 6; --h: 6"><img src="/assets/images/lab/star-flowers-on-red.jpg" sizes="(max-width: 720px) 90vw, 420px" alt="Black and white star-shaped flowers scattered across a bright red background"></figure>
+          <figure class="frame print is-wide" style="--x: 9; --y: 43; --w: 4; --h: 4"><img src="/assets/images/lab/poster-emerson-this-is-my-wish.jpg" sizes="(max-width: 720px) 90vw, 280px" alt="Typographic poster of Ralph Waldo Emerson's 'This is my wish for you', in teal and black with pink and red circles"></figure>
+        </div>
+
+        {% include "partials/craft-footer.njk" %}
+      </main>
+
+      <div class="mat__tools" aria-hidden="true">
+        <div class="tool tool--t" style="--c: 11; --r: 1; --w: 3; --h: 1; --rot: -4deg; --tint: #d0453a; --cs: 4; --rs: 1; --ws: 3; --hs: 1">scissors</div>
+        <div class="tool tool--l" style="--c: 1; --r: 12; --w: 1; --h: 1; --rot: -5deg; --tint: #f2d14b">sticky note</div>
+        <div class="tool tool--r" style="--c: 14; --r: 22; --w: 1; --h: 10; --rot: 1deg; --tint: #c9a227">ruler</div>
+        <div class="tool tool--l" style="--c: 1; --r: 34; --w: 1; --h: 1; --rot: 6deg; --tint: #b8c4cc">paper clips</div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

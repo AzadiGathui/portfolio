@@ -1,0 +1,19 @@
+{#- One footer for every page, styled by /assets/css/chrome.css.
+    id="contact" is the target of the header's Contact link. -#}
+<footer class="site-footer" id="contact">
+  <div class="site-footer__inner">
+    <p class="site-footer__ask">Let’s create meaningful, systemic impact together.</p>
+    <div class="site-footer__actions">
+      <a class="site-footer__mail" href="mailto:{{ site.email }}">{{ site.email }}</a>
+      <a class="site-footer__cv" href="{{ site.cvPdf }}" download>Download CV</a>
+    </div>
+    <div class="site-footer__base">
+      <ul class="site-footer__social">
+        {%- if site.social.linkedin %}<li><a href="{{ site.social.linkedin }}" rel="noopener">LinkedIn</a></li>{% endif %}
+        {%- if site.social.behance %}<li><a href="{{ site.social.behance }}" rel="noopener">Behance</a></li>{% endif %}
+        {%- if site.social.github %}<li><a href="{{ site.social.github }}" rel="noopener">GitHub</a></li>{% endif %}
+      </ul>
+      <p class="site-footer__copy">&copy; {{ "" | currentYear }} {{ site.author }}</p>
+    </div>
+  </div>
+</footer>

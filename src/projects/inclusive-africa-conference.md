@@ -3,13 +3,18 @@ title: Inclusive Africa Conference 2024
 titleSup: "2024"
 tagline: Accessibility conference booklet
 client: InABLE
+clientShort: "inABLE"   # short name for homepage lists
 industry: Accessibility
 role: Editorial Designer
 deliverables: 36-page conference booklet
 order: 7
+layers: [Page]   # homepage card key: Data, Model, Journey, Screen, Page
+stat: "36"
+statLabel: "pages, designed to be accessible"
 coverImage: /assets/images/projects/iac/cover-header.jpg
 mockupImage: /assets/images/projects/iac/IAC hero mockup.png
 thumbnail: /assets/images/projects/iac/IAC hero mockup.png
+thumbnailKind: book   # phone | print | book: how the thumbnail is shown on /craft/
 ogImage: /assets/images/projects/iac/IAC hero mockup.png
 description: "Conference booklet design for the 2024 edition of the Inclusive Africa Conference: a 36-page accessible publication for InABLE."
 permalink: /projects/inclusive-africa-conference/

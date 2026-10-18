@@ -39,6 +39,8 @@ collections:
       - { label: "Tagline", name: tagline, widget: string,
           hint: "Short descriptor shown on homepage list and under the title on project pages." }
       - { label: "Client", name: client, widget: string }
+      - { label: "Client (short)", name: clientShort, widget: string, required: false,
+          hint: "Short name for homepage lists, e.g. CIFF, SID Kenya." }
       - { label: "Industry", name: industry, widget: string, required: false }
       - { label: "Role", name: role, widget: string }
       - { label: "Deliverables", name: deliverables, widget: string }
@@ -46,6 +48,13 @@ collections:
           hint: "Lower number = appears earlier on homepage. Use 1, 2, 3…" }
       - { label: "Published", name: published, widget: boolean, default: true,
           hint: "Uncheck to hide from homepage without deleting the page." }
+      - { label: "Layers", name: layers, widget: select, multiple: true, required: false,
+          options: ["Data", "Model", "Journey", "Screen", "Page"],
+          hint: "Homepage card key: which parts of the work this project covered." }
+      - { label: "Outcome number", name: stat, widget: string, required: false,
+          hint: "One number for the homepage card, e.g. 59% or 2.03 km². Leave empty for none." }
+      - { label: "Outcome label", name: statLabel, widget: string, required: false,
+          hint: "What the number means, e.g. 'test accuracy, random forest'." }
       - { label: "Cover Image", name: coverImage, widget: image,
           hint: "Full-bleed 80vh background image for the project header." }
       - { label: "Mockup Image", name: mockupImage, widget: image, required: false,
@@ -54,6 +63,11 @@ collections:
           hint: "SVG or PNG logo shown above the title in the project details panel." }
       - { label: "Thumbnail", name: thumbnail, widget: image,
           hint: "Small image shown next to title in the homepage project list." }
+      - { label: "Craft page", name: craftPage, widget: boolean, required: false, default: false,
+          hint: "Also build this case study on the /craft/ mat, at /craft/projects/<slug>/." }
+      - { label: "Thumbnail kind", name: thumbnailKind, widget: select, required: false,
+          options: ["phone", "print", "book"],
+          hint: "How the thumbnail is shown on /craft/: a framed phone, a paper print (charts, maps), or a book/report mockup." }
       - { label: "OG Image", name: ogImage, widget: image, required: false,
           hint: "Social sharing image: 1200×630px recommended." }
       - { label: "Permalink", name: permalink, widget: string,
