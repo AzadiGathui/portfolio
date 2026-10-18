@@ -1,6 +1,5 @@
 ---
 title: Children & Youth Pavilion at COP27
-titleSup: COP27
 tagline: Post-event report for COP27
 client: Children's Investment Fund Foundation (CIFF)
 industry: Youth & Climate

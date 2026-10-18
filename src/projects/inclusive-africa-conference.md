@@ -1,6 +1,5 @@
 ---
 title: Inclusive Africa Conference 2024
-titleSup: "2024"
 tagline: Accessibility conference booklet
 client: InABLE
 industry: Accessibility
