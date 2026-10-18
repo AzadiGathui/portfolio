@@ -128,7 +128,7 @@
 /* Phones: 6 columns (squares of ~55px: a single square is a full tap
    target, two hold any word), and the band is the gutter, so content
    gets all six; the display sizes step down */
-@media screen and (max-width: 720px) {
+@media (max-width: 720px) {
   :root { --cols: 6; --margin: 0; --min-rows: 14; --text-xl: 1.75rem; --text-2xl: 2.25rem; }
 }
 
@@ -150,7 +150,7 @@ body {
   padding: 3rem var(--space-4) 4rem;  /* top: room for a tool hanging over the mat's top edge */
   overflow-x: clip;         /* tools hanging off the sides never make the page scroll sideways */
 }
-@media screen and (max-width: 720px) {
+@media (max-width: 720px) {
   /* the mat nearly edge to edge, the same margin on every side: its band is the real margin. (The tools are hidden on a phone, so nothing needs the top room above.) */
   .desk { padding: var(--space-2); }
 }
@@ -261,7 +261,7 @@ body {
   padding: 0;
 }
 
-@media screen and (max-width: 720px) {
+@media (max-width: 720px) {
   .sheet { grid-column: 1 / -1; }   /* everything full width on a phone */
 }
 
@@ -337,7 +337,7 @@ body {
   margin: auto;
 }
 /* Line icons: one stroke style everywhere */
-.key__icon, :is(.go, .reel__btn, .cv__links, .to-top) svg {
+.key__icon, :is(.go, .reel__btn, .icon-link, .to-top) svg {
   fill: none;
   stroke: currentColor;
   stroke-width: 1.75;
@@ -345,7 +345,7 @@ body {
   stroke-linejoin: round;
 }
 .key__icon, .to-top svg { width: 18px; height: 18px; }
-:is(.go, .reel__btn, .cv__links) svg { width: 20px; height: 20px; }
+:is(.go, .reel__btn, .icon-link) svg { width: 20px; height: 20px; }
 /* A tap target at least 44px tall, whatever the key looks like: an
    invisible box over the key and its margin */
 .key::after { content: ""; position: absolute; inset: -4px -3px -7px; }
@@ -359,7 +359,7 @@ body {
     var(--key-face);
 }
 
-@media screen and (max-width: 720px) {
+@media (max-width: 720px) {
   .key { --led: 7px; grid-column: var(--ks) / span var(--kws, var(--kw, 1)); }
   .key, .toc-pill, .to-top { margin: 2px 2px 5px; border-radius: 6px; }
   .key span { left: 6px; top: 5px; }
@@ -438,7 +438,7 @@ body {
 .flow__text small { display: block; color: var(--ink-2); font-size: var(--text-sm); line-height: var(--lh-title); }
 .flow .note { color: var(--text); }
 
-@media screen and (max-width: 720px) {
+@media (max-width: 720px) {
   /* runs past the mat's edge (band and desk) to the screen's; the panel
      cut off there is the sign there is more, as paper off a table would be */
   .sheet.flow {
@@ -463,7 +463,7 @@ body {
   grid-row: var(--y) / span var(--h);
 }
 
-@media screen and (max-width: 720px) {
+@media (max-width: 720px) {
   /* one empty row under each card: padding, not row-gap (that would open
      a gap between every row, inside the cards too) */
   /* the card is the full width: its cover 5 of the 6 columns (left,
@@ -518,7 +518,7 @@ body {
 .pager__item--prev { text-align: left; }
 .pager__item--next { text-align: right; }
 
-@media screen and (max-width: 720px) {
+@media (max-width: 720px) {
   .pager { --h: 5; }
   .pager__item--prev { grid-column: 1 / span 3; }
   .pager__item--next { grid-column: 4 / span 3; }
@@ -538,7 +538,7 @@ body {
 }
 .client abbr { text-decoration: none; }
 
-@media screen and (max-width: 720px) {
+@media (max-width: 720px) {
   /* a row: the artefact (2 x 2), then the caption beside it with its
      arrow in the last column; data-snap fits each row to its text */
   .more li { grid-row: span 4; }
@@ -603,7 +603,7 @@ body {
 /* On a phone: a print of its real size, not the screen's width: four of
    the six columns, centred, a little askew and lifted off the mat, with
    its note written beside it (there is no hover to show it) */
-@media screen and (max-width: 720px) {
+@media (max-width: 720px) {
   .sheet.frame--polaroid {
     grid-column: 2 / span 4;
     rotate: -2.5deg;
@@ -638,7 +638,7 @@ body {
    600 is for emphasis (strong, figures) only. Only h1 and h2 are tracked. */
 h1, h2, h3, h4 { margin: 0; font-weight: 400; text-wrap-style: balance; }
 h1 { margin-top: var(--space-2); font-size: clamp(var(--text-xl), 5cqi, var(--text-2xl)); line-height: var(--lh-display); letter-spacing: var(--track-tight); }
-@media screen and (max-width: 720px) {
+@media (max-width: 720px) {
   h1 { font-size: var(--text-xl); }   /* 28px, a step down from the 36px display size */
 }
 h2 { font-size: var(--text-xl); line-height: var(--lh-display); letter-spacing: var(--track-snug); }
@@ -657,7 +657,7 @@ p a, li a, h3 a, figcaption a, .more-link, .foot__mail, .toc a, .tl__track a {
 }
 p a, li a, h3 a, figcaption a { text-decoration-color: var(--rule); }
 :is(p a, li a, h3 a, figcaption a, .more-link, .foot__mail, .toc a, .tl__track a):is(:hover, :focus-visible) { text-decoration-color: currentColor; }
-.mat__content a[href^="http"]::after { content: "\2009\2197"; font-size: 0.8em; }
+.mat__content a[href^="http"]:not(.icon-link)::after { content: "\2009\2197"; font-size: 0.8em; }   /* an icon already says where it goes */
 .more-link { display: inline-flex; align-items: center; min-height: var(--tap); margin-top: var(--space-1); color: var(--text); }
 
 /* Keyboard focus: one clear ring everywhere */
@@ -709,10 +709,10 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
    clamp's overflow would cut a lower underline off */
 a:is(:hover, :focus-visible) :is(.cap h3, .pager__title) { text-decoration: underline; text-underline-offset: 0.12em; text-decoration-thickness: 1px; }
 
-/* Outlined buttons (the arrow, Download CV, a reel's previous / next, the
-   CV's links on a phone): a 1px line that fills with the text colour on
-   hover or focus */
-.go, .btn, .reel__btn, .cv__links a {
+/* Outlined buttons (the arrow, a reel's previous / next, the LinkedIn and
+   GitHub icons, the dashboard's load button): a 1px line that fills with
+   the text colour on hover or focus */
+.go, .btn, .reel__btn, .icon-link {
   border: var(--line);
   color: var(--text);
   transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease), color var(--dur) var(--ease);
@@ -720,7 +720,7 @@ a:is(:hover, :focus-visible) :is(.cap h3, .pager__title) { text-decoration: unde
 :is(a:hover, a:focus-visible, .entry__toggle:focus-visible) .go,
 .btn:is(:hover, :focus-visible),
 .reel__btn:is(:hover:not(:disabled), :focus-visible),
-.cv__links a:is(:hover, :focus-visible) { background: var(--text); border-color: var(--text); color: var(--mat); }
+.icon-link:is(:hover, :focus-visible) { background: var(--text); border-color: var(--text); color: var(--mat); }
 
 /* The arrow: a square, the size of a reel's previous / next, that tilts up toward the page on hover */
 .go {
@@ -782,7 +782,7 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
 }
 .card:hover .frame, .card:focus-visible .frame { box-shadow: var(--edge), var(--lift-3); }
 
-@media screen and (max-width: 720px) {
+@media (max-width: 720px) {
   /* four caption squares (titles wrap more); the artefact sits on the
      cover's bottom line, overhanging into the side the card leaves empty */
   .card { --cap: 4; --pb: 1; }
@@ -824,6 +824,9 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
 }
 .toc a { color: var(--text-2); }
 .study__body { --all: calc(var(--cols) - 2 * var(--margin) - 3); grid-column: 4 / -1; }
+/* No contents list: nothing to keep the column for, so the story runs the
+   full width, level with the cover */
+.study:not(:has(.toc)) .study__body { --all: calc(var(--cols) - 2 * var(--margin)); grid-column: 1 / -1; }
 
 /* A project's cover, the artefact laid on it as on its homepage card
    (.card__art; --cap 0: no caption under it). Grey, like the cards: the
@@ -854,7 +857,7 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
 .prose .stat-card .caption { margin-top: var(--space-1); font-size: var(--text-sm); line-height: var(--lh-small); }
 .prose .label--accent { color: var(--text); }
 
-@media screen and (max-width: 720px) {
+@media (max-width: 720px) {
   /* no contents list: on a phone it would only push the story down */
   .toc { display: none; }
   .study__body { --all: calc(var(--cols) - 2 * var(--margin)); grid-column: 1 / -1; }
@@ -872,8 +875,12 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
    CV page
    ------------------------------------------------------------------ */
 
-.contact { display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--space-4); list-style: none; margin: var(--space-4) 0 0; padding: 0; }
-.contact a { display: inline-flex; align-items: center; min-height: var(--tap); }   /* a full tap target */
+/* A row of links ending in square icon buttons (the footer, the CV) */
+.icon-links { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); margin: 0; padding: 0; list-style: none; }
+.icon-links a { display: inline-flex; align-items: center; min-height: var(--tap); }
+.icon-link { justify-content: center; width: var(--tap); }
+.contact { margin-top: var(--space-4); }
+.contact li:first-child { margin-right: var(--space-2); }   /* the email, a little apart from the icons */
 .btn {
   text-decoration: none;
   background: none;
@@ -1019,8 +1026,8 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
 /* ------------------------------------------------------------------
    CV on a phone (cv.js). An 800px chart and 21 open entries are
    18 screens at 390px; instead:
-   - the header: a short line in place of the tagline, then email,
-     LinkedIn and GitHub as buttons, one grid square each
+   - the header: a short line in place of the tagline (the email and
+     icons stay, as on any screen)
    - no timeline
    - each entry folded to its header (dates and type on one line, role,
      client, one line about it), the whole row a button; tapping opens
@@ -1033,14 +1040,11 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
    (.js: set in the page head, so entries are folded before first paint)
    ------------------------------------------------------------------ */
 .cv__tagline { max-width: var(--measure); }
-.cv__ask, .cv__links, .entry__toggle { display: none; }
+.cv__ask, .entry__toggle { display: none; }
 
-@media screen and (max-width: 720px) {
-  .cv__tagline, .contact:has(~ .cv__ask) { display: none; }
+@media (max-width: 720px) {
+  .cv__tagline { display: none; }
   .cv__ask { display: block; margin: var(--space-3) 0 0; }
-  .sheet.cv__links { display: grid; margin: 0; list-style: none; }
-  .cv__links a { display: grid; place-items: center; height: 100%; }
-  .mat__content .cv__links a::after { content: none; }   /* an icon says where it goes: no ↗ */
 
   .sheet.tl-frame, .tl-frame + .gap { display: none; }
 
@@ -1154,7 +1158,7 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
 .reel__btn[hidden] { display: none; }
 
 /* On a phone a swipe settles on an image */
-@media screen and (max-width: 720px) {
+@media (max-width: 720px) {
   .reel__track { scroll-snap-type: x mandatory; scroll-padding-inline: var(--pad); }
   .reel__track > * { scroll-snap-align: start; }
 }
@@ -1204,7 +1208,7 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
 .print.is-start img { object-position: center top; }
 .print.is-end img { object-position: center bottom; }
 
-@media screen and (max-width: 720px) {
+@media (max-width: 720px) {
   .print { grid-column: span 3; grid-row: auto / span 3; }
   .print.is-wide { grid-column: 1 / -1; grid-row: auto / span 6; }   /* square, like the pieces */
   /* Small prints go two to a row; when there is an odd number of them,
@@ -1263,7 +1267,7 @@ figcaption .label { display: inline; margin-right: 0.4em; }
 .tool--r { --ox: calc(var(--band) + var(--tw) * var(--cell) - var(--peek) - var(--inset)); }
 .tool--t { --oy: calc(var(--peek) - var(--band) - var(--th) * var(--cell) + var(--inset)); }
 
-@media screen and (max-width: 720px) {
+@media (max-width: 720px) {
   .tool {
     --tw: var(--ws, var(--w, 1));
     --th: var(--hs, var(--h, 1));
@@ -1322,7 +1326,7 @@ figcaption .label { display: inline; margin-right: 0.4em; }
 }
 .note--below { top: auto; bottom: 0; translate: 8% 105%; }
 .note--right { top: 50%; translate: 100% -50%; }
-@media screen and (max-width: 720px) {
+@media (max-width: 720px) {
   .note--right { top: 0; translate: 0 -105%; }   /* no room beside it on a phone */
 }
 .has-note:hover .note, .has-note:focus-within .note { opacity: 1; }
@@ -1350,7 +1354,7 @@ figcaption .label { display: inline; margin-right: 0.4em; }
   color: var(--text);
   overflow-wrap: anywhere;
 }
-@media screen and (max-width: 720px) {
+@media (max-width: 720px) {
   .foot__mail { font-size: var(--text-2xl); }
 }
 .foot__base {
@@ -1362,9 +1366,6 @@ figcaption .label { display: inline; margin-right: 0.4em; }
   margin-top: calc(var(--sheet-pad) * 3);
   font-size: var(--text-sm);
 }
-.foot__links { display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--space-5); margin: 0; padding: 0; list-style: none; }
-.foot__links a { display: inline-flex; align-items: center; min-height: var(--tap); }
-.foot .btn { padding-block: 0; }
 .foot__copy { color: var(--text-2); }
 
 /* ------------------------------------------------------------------
@@ -1374,7 +1375,7 @@ figcaption .label { display: inline; margin-right: 0.4em; }
    keycaps, like the keys at the top.
    ------------------------------------------------------------------ */
 .reading-bar { display: none; }
-@media screen and (max-width: 720px) {
+@media (max-width: 720px) {
   .reading-bar {
     position: fixed;
     inset-inline: 0;
@@ -1441,8 +1442,8 @@ figcaption .label { display: inline; margin-right: 0.4em; }
 .pull-quote cite { display: block; margin-top: var(--space-2); color: var(--text-2); }
 .title-sup { margin-left: 0.3em; vertical-align: top; color: var(--text-2); }
 
-/* Text beside images: a column of paragraphs */
-.prose .pj-text { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+/* A block of text before its images: heading, paragraph, link */
+.prose .pj-text { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-2); margin: var(--space-5) 0 0; }
 .prose .pj-text > * { margin: 0; }
 
 /* Spreads: art-directed collages of publication pages, on 12 columns.
@@ -1465,7 +1466,7 @@ figcaption .label { display: inline; margin-right: 0.4em; }
 .spread-grid img { width: 100%; filter: drop-shadow(var(--lift-1)); }
 .spread-grid img[role="button"] { cursor: zoom-in; }
 .spread-grid .is-end { align-self: end; }
-@media screen and (max-width: 720px) {
+@media (max-width: 720px) {
   .spread-grid, .spread-grid > .stack { grid-template-columns: minmax(0, 1fr); }
   .spread-grid > .stack, .spread-grid img { grid-column: 1 / -1; }
 }
@@ -1488,7 +1489,7 @@ figcaption .label { display: inline; margin-right: 0.4em; }
 .prose table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); line-height: var(--lh-small); }
 .prose :is(th, td) { padding: var(--space-2) var(--space-3) var(--space-2) 0; border-bottom: var(--line); text-align: left; vertical-align: top; }
 .prose th { color: var(--text-2); }
-@media screen and (max-width: 720px) {
+@media (max-width: 720px) {
   .table-scroll table:has(th:nth-child(3)) { min-width: 34rem; }
 }
 
@@ -1512,49 +1513,3 @@ figcaption .label { display: inline; margin-right: 0.4em; }
 .team { margin: 0; padding: 0; list-style: none; }
 .team li + li { margin-top: var(--space-1); }
 .team__role { color: var(--text-2); font-size: var(--text-sm); }
-
-/* ------------------------------------------------------------------
-   Print: the CV as an A4 PDF (npm run cv:pdf). Only the words, black on
-   white, in two columns: details, then the story. No mat, keys, tools,
-   images or timeline.
-   ------------------------------------------------------------------ */
-@media print {
-  @page { size: A4; margin: 14mm 15mm 16mm; }
-  :root { --mat: #fff; --desk: #fff; --text: #111; --text-2: #444; --rule: #cfcfcf; }
-  html { color-scheme: light; }   /* the page says dark; without this the margins print near-black */
-  html, body { background: #fff; font-size: 9.5pt; }
-
-  .skip, .mat__keys, .mat__tools, .reading-bar, .gap, .foot, .tl-frame, .reel, .cv__links, .cv__ask, .entry__go, .entry__toggle { display: none !important; }
-  .desk { padding: 0; container-type: normal; }
-  .mat { width: auto; padding: 0; display: block; background: none; box-shadow: none; border-radius: 0; }
-  .mat::before, .mat::after { content: none; }
-  .mat__content, .area { display: block; min-height: 0; padding: 0; }
-  .sheet { padding-block: 0; }
-
-  h1 { font-size: 26pt; }
-  h2 { font-size: 13pt; }
-  h3 { font-size: 11pt; }
-  .contact { margin-top: 2mm; }
-  .contact a { min-height: 0; }
-  a { text-decoration: none; }
-  .mat__content a[href^="http"]::after { content: none; }
-
-  /* An entry: details beside the story, a rule above; it may break across
-     pages, but not inside a heading or a list item */
-  .sheet.entry {
-    display: grid;
-    grid-template-columns: 42mm minmax(0, 1fr);
-    gap: 0 6mm;
-    margin: 0;
-    padding: 4mm 0;
-    background: none;
-    box-shadow: none;
-    border-top: 0.5pt solid var(--rule);
-  }
-  .sheet.entry > :is(.entry__meta, .entry__body) { grid-column: auto; }
-  .entry__meta { position: static !important; }
-  .sheet.entry .sheet.entry { display: block; margin: 3mm 0 0; padding: 0; border: 0; }
-  .entry__meta, li { break-inside: avoid; }
-  h2, h3, .entry__meta { break-after: avoid; }
-  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-}

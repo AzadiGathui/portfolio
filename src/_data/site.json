@@ -5,11 +5,9 @@
   "author": "Azadi Gathui",
   "role": "Data scientist & designer",
   "email": "gathui@azadi.design",
-  "cvPdf": "/assets/files/azadi-gathui-cv.pdf",
   "social": {
     "linkedin": "https://linkedin.com/in/azadigathui",
-    "behance":  "https://behance.net/azadi_gathui",
-    "github":   "https://github.com/AzadiGathui"
+    "github": "https://github.com/AzadiGathui"
   },
   "ogImage": "/assets/images/branding/favicon.png"
 }

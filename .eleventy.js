@@ -69,7 +69,6 @@ module.exports = async function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets/js");
   eleventyConfig.addPassthroughCopy("src/assets/images/branding"); // favicons, apple-touch-icon
   eleventyConfig.addPassthroughCopy("src/assets/images/**/*.svg"); // vector logos are served as-is
-  eleventyConfig.addPassthroughCopy("src/assets/files"); // downloads, e.g. the CV PDF (npm run cv:pdf)
   eleventyConfig.addPassthroughCopy("src/admin");
   eleventyConfig.addPassthroughCopy("CNAME"); // critical: preserves azadi.design custom domain on every deploy
 
