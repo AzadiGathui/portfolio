@@ -22,9 +22,33 @@
     return { top, bottom };
   }
 
+  // Publication collages (.spread-grid): each starts on a grid line, one empty
+  // cell (its CSS margin) or a little more after what is above it. In page
+  // order: moving one moves every collage below it.
+  const spreads = [...content.querySelectorAll(".spread-grid")];
+  function alignSpreads(cell) {
+    const origin = content.getBoundingClientRect().top; // the content's top is a grid line
+    for (const spread of spreads) {
+      spread.style.marginTop = "";
+      const past = (spread.getBoundingClientRect().top - origin) % cell;
+      const extra = past < 0.5 || cell - past < 0.5 ? 0 : cell - past;
+      if (extra) spread.style.marginTop = `${parseFloat(getComputedStyle(spread).marginTop) + extra}px`;
+    }
+  }
+
   function snap() {
     const cell = parseFloat(getComputedStyle(content).gridAutoRows);
     if (!cell) return;
+    sizeSheets(cell);
+    // Collages line up once the blocks above them have their final heights;
+    // then the blocks holding them are sized again
+    if (spreads.length) {
+      alignSpreads(cell);
+      sizeSheets(cell);
+    }
+  }
+
+  function sizeSheets(cell) {
     for (const sheet of sheets) {
       const isEntry = sheet.classList.contains("entry");
       // A CV entry's last image reel takes up what rounding the entry up to

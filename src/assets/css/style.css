@@ -1461,29 +1461,37 @@ figcaption .label { display: inline; margin-right: 0.4em; }
 .prose .pj-text { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-2); margin: var(--space-5) 0 0; }
 .prose .pj-text > * { margin: 0; }
 
-/* Spreads: art-directed collages of publication pages, on 12 columns.
-   Place an item with a column range, style="--at: 3 / 7" (default: the
-   full width). A .stack is a column of items sharing the 12 columns, so
-   it can sit beside another of a different height and still align; inside
-   it, columns count from its own first one. Tap a spread to zoom
-   (spread-zoom.js). On a phone, one page per row. */
+/* Spreads: art-directed collages of publication pages, on the mat's own
+   12 squares (no column gap, so every column is a square). Place an item
+   with a column range, style="--at: 3 / 7" (default: the full width); its
+   edges sit just inside the mat lines, so neighbours keep a narrow gutter.
+   A .stack is a column of items sharing the 12 columns, so it can sit
+   beside another of a different height and still align; inside it,
+   columns count from its own first one. Each collage starts on a grid
+   line, one empty square below what is above it (snap.js). Tap a spread
+   to zoom (spread-zoom.js). On a phone, one page per row. */
 @property --at { syntax: "*"; inherits: false; }   /* so images in a stack don't take the stack's range */
 .spread-grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: var(--space-2);
+  gap: var(--space-2) 0;
   align-items: start;
-  margin: var(--space-5) 0 0;
+  margin: var(--cell) 0 0;
 }
-.spread-grid > .stack { display: grid; grid-template-columns: subgrid; gap: var(--space-2); align-content: start; }
-.spread-grid picture { display: contents; }   /* the image pipeline's wrapper: the <img> is the grid item, with its --at */
+.spread-grid > .stack { display: grid; grid-template-columns: subgrid; row-gap: var(--space-2); align-content: start; }
+/* The image pipeline's <picture> wrapper: the <img> is the grid item, with
+   its --at. Its <source>s render as blocks here, so they are hidden, or each
+   would take a grid slot of its own and push the pages out of their rows. */
+.spread-grid picture { display: contents; }
+.spread-grid source { display: none; }
 .spread-grid > .stack, .spread-grid img { grid-column: var(--at, 1 / -1); }
-.spread-grid img { width: 100%; filter: drop-shadow(var(--lift-1)); }
+.spread-grid img { width: calc(100% - var(--space-2)); margin-inline: var(--space-1); filter: drop-shadow(var(--lift-1)); }
 .spread-grid img[role="button"] { cursor: zoom-in; }
 .spread-grid .is-end { align-self: end; }
 @media (max-width: 720px) {
   .spread-grid, .spread-grid > .stack { grid-template-columns: minmax(0, 1fr); }
   .spread-grid > .stack, .spread-grid img { grid-column: 1 / -1; }
+  .spread-grid img { width: 100%; margin-inline: 0; }
 }
 
 /* A spread full screen (spread-zoom.js): tap to zoom in, drag to look round */
