@@ -33,8 +33,16 @@
 @property --band { syntax: "<length>"; inherits: true; initial-value: 0px; }
 
 :root {
-  --desk: #242322;          /* the table around the mat (texture later) */
-  --mat: #131414;           /* black self-healing mat */
+  /* The brand's three colours. Everything else below is a neutral between
+     the first two, or one of them at an opacity. Signal red is for the one
+     thing to look at (a highlighted series, a key figure): only as a mark,
+     a fill, a line or text 24px and up, never small text (3.6:1 on --mat). */
+  --brand-black: #1a1a1a;
+  --brand-light: #e6e6e6;
+  --signal: #e50000;
+
+  --desk: #262626;          /* the table around the mat (texture later): a step lighter than it */
+  --mat: var(--brand-black);   /* black self-healing mat */
   --mat-line: rgba(255, 255, 255, 0.06);   /* very light: content stands out */
   --mat-print: rgba(255, 255, 255, 0.32);  /* the mat's printed numbers and ticks */
   --frame: #222222;         /* placeholder hatching */
@@ -70,6 +78,13 @@
   --dur: 0.2s;
   --dur-fast: 0.08s;        /* a key being pressed */
   --ease: ease;
+  --dur-open: 0.32s;        /* something opening or arriving: a CV row, a page */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);   /* fast, then settling */
+  --dur-page: 0.45s;        /* one page sliding off, the next on */
+  --ease-in-out: cubic-bezier(0.6, 0, 0.2, 1);
+  --dur-draw: 0.7s;         /* a chart drawing itself: one bar growing */
+  --dur-reveal: 0.4s;       /* a label appearing after its bar */
+  --dur-flash: 1.6s;        /* a row lighting up, then fading back */
 
   /* Space: every margin, gap and padding is one of these. (Whole-block
      padding is a fraction of a cell instead: --sheet-pad, on .mat.) */
@@ -78,15 +93,29 @@
   --space-3: 12px;
   --space-4: 16px;
   --space-5: 24px;
-  --measure: 36rem;         /* the longest a line of text runs */
+  --measure: 36rem;         /* the longest a line of text runs (on the mat: whole squares, set on .mat) */
   --col-min: 9rem;          /* the narrowest a fact or figure column gets */
   --tap: 44px;              /* the smallest touch target */
   --go-size: var(--tap);    /* the arrow button: the same square as the reel's previous / next */
 
   /* Leading and tracking. Body text is 1.5, set on body. */
-  --lh-display: 1.1;        /* big text, figures, handwriting */
-  --lh-title: 1.25;         /* headings, mono text, names */
-  --lh-small: 1.4;          /* captions and small print */
+  /* The baseline grid. Every line height, and every space between lines,
+     is a whole number of units, and the mat's square is too (whole 8px on
+     a wide screen, 4px on a phone). So a block starting on a mat line puts
+     every one of its lines on the unit, and running text keeps a 24px
+     rhythm: at a 72px square, three lines to a square.
+     Line heights are ratios rounded to the unit, worked out for each
+     element's own size (em in a custom property counts where it is used). */
+  --unit: 4px;
+  --rhythm: 24px;           /* the body line: running text steps by this (not --line, the hairline) */
+  --lh-display: round(up, calc(1.1 * 1em), var(--unit));       /* big text, figures, handwriting */
+  --lh-title: round(nearest, calc(1.25 * 1em), var(--unit));   /* headings, mono text, names */
+  --lh-small: round(nearest, calc(1.4 * 1em), var(--unit));    /* captions and small print */
+  --lh-body: round(nearest, calc(1.5 * 1em), var(--unit));     /* running text: 16/24 */
+  /* Where a line box puts its baseline: half the line height plus half the
+     font's ascent less its descent (measured from the font files: Barlow
+     1.0 and 0.2, JetBrains Mono 1.02 and 0.3, Caveat 0.96 and 0.3) */
+  --k: 0.4;
   --track-tight: -0.03em;   /* h1 */
   --track-snug: -0.02em;    /* h2 */
   --track-caps: 0.04em;     /* mono text */
@@ -119,17 +148,21 @@
   --key-font: 600 clamp(var(--text-xs), 1.1cqi, var(--text-sm))/var(--lh-display) var(--f-body);   /* a keycap's legend */
   --bezel: #4d4d4d;         /* the phone mockup's border */
   --polaroid: #4d4d4d;      /* a photo print's card */
-  --paper: #ece9e2;         /* the folded process strip, the polaroid's placeholder */
-  --paper-fold: #dedad1;
-  --ink: #1f1f1f;
-  --ink-2: #55524c;
+  --paper: var(--brand-light);   /* light objects: the polaroid's placeholder; the light theme's ground */
+  --paper-fold: #d4d4d4;
+  --ink: var(--brand-black);
+  --ink-2: #555555;         /* supporting text on paper: 6.0:1 */
+
+  /* Fills that aren't colours of their own */
+  --row-lit: rgba(255, 255, 255, 0.05);   /* a CV row's fill when pointed at */
+  --row-flash: rgba(255, 255, 255, 0.16); /* a row arriving from the timeline */
 }
 
 /* Phones: 6 columns (squares of ~55px: a single square is a full tap
    target, two hold any word), and the band is the gutter, so content
    gets all six; the display sizes step down */
 @media (max-width: 720px) {
-  :root { --cols: 6; --margin: 0; --min-rows: 14; --text-xl: 1.75rem; --text-2xl: 2.25rem; }
+  :root { --cols: 6; --margin: 0; --min-rows: 14; --text-xl: 1.75rem; --text-2xl: 2.25rem; --cell-step: var(--unit); }   /* a square of whole units, not eighths: rounding to 8px would cost up to 39px of mat */
 }
 
 * { box-sizing: border-box; }
@@ -140,7 +173,7 @@ body {
   margin: 0;
   background: var(--desk);
   color: var(--text);
-  font: 400 1rem/1.5 var(--f-body);
+  font: 400 1rem/var(--lh-body) var(--f-body);
 }
 
 /* The desk: centres the mat, and is the container --cell is measured from
@@ -156,12 +189,14 @@ body {
 }
 
 .mat {
-  --band: clamp(16px, 2.6cqi, 28px);   /* the plain edge round the grid */
+  --band: round(nearest, clamp(16px, 2.6cqi, 28px), var(--unit));   /* the plain edge round the grid */
   --tick: calc(var(--band) * 0.3);     /* a major tick's length; minor ones are half */
   /* whole pixels, so the lines and the grid tracks round the same way */
-  --cell: round(down, (min(100cqi, var(--mat-max)) - 2 * var(--band)) / var(--cols), 1px);
+  --cell: round(down, (min(100cqi, var(--mat-max)) - 2 * var(--band)) / var(--cols), var(--cell-step, 8px));   /* whole units: 72, 64 or 56 on a wide screen */
   --grid-w: calc(var(--cell) * var(--cols));
-  --sheet-pad: calc(var(--cell) * 0.2);   /* a block's padding above and below */
+  --sheet-pad: round(nearest, calc(var(--cell) * 0.2), var(--unit));   /* a block's padding above and below */
+  --measure: calc(var(--cell) * 8);   /* text runs eight squares at most, so its right edge is a mat line too */
+  --plate-pad: var(--space-4);        /* the one inset for text inside a plate */
   position: relative;       /* for the ticks */
   width: calc(var(--grid-w) + 2 * var(--band));
   margin-inline: auto;
@@ -182,7 +217,8 @@ body {
 }
 
 /* Ticks, in the band: printed like the grid lines (same colour, 1px),
-   a long one at every line and short ones at each quarter square. Each
+   a long one at every line and short ones every two units (8px), like a
+   ruler's millimetres: the scale the type is set on. Each
    strip is a tile one square long, repeated, the way the grid lines
    are drawn, so every tick lands on a whole pixel and none goes
    missing. ::before holds the top and bottom strips, ::after the left
@@ -190,28 +226,28 @@ body {
    tick), so no tick lands in a corner. */
 .mat::before,
 .mat::after {
-  --q1: round(var(--cell) / 4, 1px);
-  --q2: round(var(--cell) / 2, 1px);
-  --q3: round(var(--cell) * 3 / 4, 1px);
+  --minor: repeating-linear-gradient(var(--dir), var(--mat-line) 0 1px, transparent 1px calc(var(--unit) * 2));
   content: "";
   position: absolute;
   pointer-events: none;
 }
 .mat::before {
+  --dir: to right;
   inset: 0 calc(var(--band) - 1px) 0 var(--band);
   background:
     linear-gradient(to right, var(--mat-line) 1px, transparent 1px) left 0 top calc(var(--band) - var(--tick)) / var(--cell) var(--tick) repeat-x,
     linear-gradient(to right, var(--mat-line) 1px, transparent 1px) left 0 bottom calc(var(--band) - var(--tick)) / var(--cell) var(--tick) repeat-x,
-    linear-gradient(to right, transparent var(--q1), var(--mat-line) var(--q1) calc(var(--q1) + 1px), transparent calc(var(--q1) + 1px) var(--q2), var(--mat-line) var(--q2) calc(var(--q2) + 1px), transparent calc(var(--q2) + 1px) var(--q3), var(--mat-line) var(--q3) calc(var(--q3) + 1px), transparent calc(var(--q3) + 1px)) left 0 top calc(var(--band) - var(--tick) / 2) / var(--cell) calc(var(--tick) / 2) repeat-x,
-    linear-gradient(to right, transparent var(--q1), var(--mat-line) var(--q1) calc(var(--q1) + 1px), transparent calc(var(--q1) + 1px) var(--q2), var(--mat-line) var(--q2) calc(var(--q2) + 1px), transparent calc(var(--q2) + 1px) var(--q3), var(--mat-line) var(--q3) calc(var(--q3) + 1px), transparent calc(var(--q3) + 1px)) left 0 bottom calc(var(--band) - var(--tick) / 2) / var(--cell) calc(var(--tick) / 2) repeat-x;
+    var(--minor) left 0 top calc(var(--band) - var(--tick) / 2) / var(--cell) calc(var(--tick) / 2) repeat-x,
+    var(--minor) left 0 bottom calc(var(--band) - var(--tick) / 2) / var(--cell) calc(var(--tick) / 2) repeat-x;
 }
 .mat::after {
+  --dir: to bottom;
   inset: var(--band) 0 calc(var(--band) - 1px);
   background:
     linear-gradient(to bottom, var(--mat-line) 1px, transparent 1px) left calc(var(--band) - var(--tick)) top 0 / var(--tick) var(--cell) repeat-y,
     linear-gradient(to bottom, var(--mat-line) 1px, transparent 1px) right calc(var(--band) - var(--tick)) top 0 / var(--tick) var(--cell) repeat-y,
-    linear-gradient(to bottom, transparent var(--q1), var(--mat-line) var(--q1) calc(var(--q1) + 1px), transparent calc(var(--q1) + 1px) var(--q2), var(--mat-line) var(--q2) calc(var(--q2) + 1px), transparent calc(var(--q2) + 1px) var(--q3), var(--mat-line) var(--q3) calc(var(--q3) + 1px), transparent calc(var(--q3) + 1px)) left calc(var(--band) - var(--tick) / 2) top 0 / calc(var(--tick) / 2) var(--cell) repeat-y,
-    linear-gradient(to bottom, transparent var(--q1), var(--mat-line) var(--q1) calc(var(--q1) + 1px), transparent calc(var(--q1) + 1px) var(--q2), var(--mat-line) var(--q2) calc(var(--q2) + 1px), transparent calc(var(--q2) + 1px) var(--q3), var(--mat-line) var(--q3) calc(var(--q3) + 1px), transparent calc(var(--q3) + 1px)) right calc(var(--band) - var(--tick) / 2) top 0 / calc(var(--tick) / 2) var(--cell) repeat-y;
+    var(--minor) left calc(var(--band) - var(--tick) / 2) top 0 / calc(var(--tick) / 2) var(--cell) repeat-y,
+    var(--minor) right calc(var(--band) - var(--tick) / 2) top 0 / calc(var(--tick) / 2) var(--cell) repeat-y;
 }
 
 .mat__content,
@@ -368,6 +404,12 @@ body {
   .key--icon span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .key--icon .key__icon { display: block; }
   .key::after { inset: -6px -2px -6px; }   /* 44px+ however small the squares */
+}
+/* "Contact" needs a 72px square, which the mat reaches at about 1100px wide;
+   below that the keys that have an icon show it instead, as on a phone */
+@media (min-width: 721px) and (max-width: 1100px) {
+  .key--icon span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .key--icon .key__icon { display: block; }
 }
 
 .center { text-align: center; }
@@ -644,7 +686,50 @@ h1 { margin-top: var(--space-2); font-size: clamp(var(--text-xl), 5cqi, var(--te
 h2 { font-size: var(--text-xl); line-height: var(--lh-display); letter-spacing: var(--track-snug); }
 h3 { font-size: var(--text-md); line-height: var(--lh-title); }
 h4 { font-size: var(--text-base); line-height: var(--lh-title); }
-p { margin: var(--space-3) 0 0; color: var(--text); }
+p { margin: var(--space-3) 0 0; color: var(--text); text-wrap: pretty; }
+
+/* Baselines on the unit. A line box puts its baseline at half its height
+   plus --k em, which is rarely a whole unit; each text block is moved
+   (translate: the layout doesn't change) by under 2px so that its
+   baselines land on the unit. Its top is already on the unit, because
+   every line height, margin and padding is. Inline elements can't be
+   moved, and don't need to be: they share their block's lines. Objects
+   lying on the mat at an angle (the process strip, notes, tools) are left
+   as they are. */
+.label, .btn, .tag, .ph, .tl__year, .tl__name, .tl__track a, .tl__today span, .tool, .prose th, .pull-quote cite, .title-sup { --k: 0.36; }
+.note, .frame--polaroid figcaption { --k: 0.33; }
+.mat__content :is(h1, h2, h3, h4, p, :is(.prose, .entry__text, .entry__roles, .team, .toc) li, dt, dd, .facts > div, figcaption, blockquote, .label, .caption, .row__date, .entry__date, .tl__name, .tl__year):not(.flow *, .note, .tool *, .frame--polaroid *, .key *, .toc-pill *, button *, .facts > div *, li:not(:has(> :is(p, dl, figcaption))) li, :has(> :is(p, dl, figcaption))) {
+  --o: calc(0.5lh + var(--k) * 1em + var(--top-off, 0px));   /* --top-off: how far into a unit the block starts, when it does (snap.js) */
+  translate: 0 calc(round(nearest, var(--o), var(--unit)) - var(--o));
+}
+
+/* A row whose columns share a baseline (the facts: label and value) moves
+   as one, by its value's amount (the row has the value's font), above;
+   its label is already on that baseline.
+   A block holding other blocks of text isn't moved itself: they are. */
+
+
+/* A section heading on its own square ("Selected work"): its baseline on
+   the unit just above the square's bottom line, like writing on a ruled
+   line, whatever size the square is */
+.mat__content > h2.sheet { align-self: stretch !important; display: flex; align-items: flex-end; padding-block: 0 var(--space-2); }   /* the box fills its square (its top on a line); the text sits on its bottom */
+
+/* Plate: a container for text, as a frame is for an image. Its edges lie
+   on the mat's lines (a 1px rule drawn inside its box, so it takes no
+   room), its fill hides the grid behind the text, and its text is inset
+   by --plate-pad on every side, so all inset text on a page shares one
+   edge. Its height is whole squares (data-snap). The facts, the contents
+   list and the CV cards are plates; .plate makes another. */
+.plate {
+  padding: var(--plate-pad);
+  background: var(--mat);
+  box-shadow: inset 0 0 0 1px var(--rule);
+}
+
+/* Figures that are compared down a column line up: dates, years, durations, tables, stats */
+:is(.row__date, .entry__date, .tl, .facts, .prose table, .stat-card__value, time) { font-variant-numeric: tabular-nums lining-nums; }
+/* Quotes and bullets hang outside the text edge, so the letters line up (Safari; others ignore it) */
+.prose { hanging-punctuation: first last; }
 a { color: inherit; }
 /* Text links: an underline that fades in. In running text it is already
    there, faint. */
@@ -655,9 +740,9 @@ p a, li a, h3 a, figcaption a, .more-link, .foot__mail, .toc a, .tl__track a {
   text-underline-offset: 0.25em;
   transition: text-decoration-color var(--dur) var(--ease);
 }
-p a, li a, h3 a, figcaption a { text-decoration-color: var(--rule); }
+p a, li a, h3 a, figcaption a { text-decoration-color: var(--text-2); }   /* a link must be found without hovering: 8.3:1 on the mat */
 :is(p a, li a, h3 a, figcaption a, .more-link, .foot__mail, .toc a, .tl__track a):is(:hover, :focus-visible) { text-decoration-color: currentColor; }
-.mat__content a[href^="http"]:not(.icon-link)::after { content: "\2009\2197"; font-size: 0.8em; }   /* an icon already says where it goes */
+.mat__content a[href^="http"]:not(.icon-link)::after { content: "\2009\2197"; font-size: 0.8em; line-height: 0; }   /* an icon already says where it goes. line-height 0: Barlow has no arrow, and the fallback font's taller one would make its line taller than the rest */
 .more-link { display: inline-flex; align-items: center; min-height: var(--tap); margin-top: var(--space-1); color: var(--text); }
 
 /* Keyboard focus: one clear ring everywhere */
@@ -717,7 +802,7 @@ a:is(:hover, :focus-visible) :is(.cap h3, .pager__title) { text-decoration: unde
   color: var(--text);
   transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease), color var(--dur) var(--ease);
 }
-:is(a:hover, a:focus-visible, .entry__toggle:focus-visible) .go,
+:is(a:hover, a:focus-visible, .entry__toggle:focus-visible, summary:hover, summary:focus-visible) .go,
 .btn:is(:hover, :focus-visible),
 .reel__btn:is(:hover:not(:disabled), :focus-visible),
 .icon-link:is(:hover, :focus-visible) { background: var(--text); border-color: var(--text); color: var(--mat); }
@@ -794,9 +879,6 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
   .work .card:nth-child(even) .card__art:not(.card__art--phone) img { object-position: left center; }
 }
 
-/* A skill or tool (CV): plain mono type; in a .tags list, set off by slashes */
-.tag { color: var(--text-2); }
-.tags .tag:not(:last-child)::after { content: "/"; margin-left: var(--space-2); color: var(--rule); }
 
 /* Project page facts: a table in a container of its own, edged like a CV
    entry (border on the grid lines, whole cells tall: snap.js), under the
@@ -806,11 +888,11 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
   display: grid;
   align-content: start;     /* centred, its overflow would spill upwards too, where snap.js can't measure it */
   margin: 0 -1px -1px 0;
-  padding: var(--space-3) var(--space-5);
+  padding: var(--space-3) var(--plate-pad);
   background: var(--mat);
   box-shadow: inset 0 0 0 1px var(--rule);
 }
-.facts > div { display: grid; grid-template-columns: calc(var(--cell) * 2 - var(--space-5)) minmax(0, 1fr); gap: var(--space-4); align-items: baseline; padding-block: var(--space-2); }
+.facts > div { display: grid; grid-template-columns: calc(var(--cell) * 2 - var(--plate-pad)) minmax(0, 1fr); gap: var(--space-4); align-items: baseline; padding-block: var(--space-2); }
 .facts > div + div { box-shadow: var(--hairline-top); }
 .facts dd { margin: 0; }
 
@@ -857,9 +939,10 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
 .prose { color: var(--text-2); }
 .prose h2 { margin: var(--cell) 0 0; color: var(--text); }
 .prose .article-body > h2:first-child, .prose > h2:first-child { margin-top: 0; }
-.prose p { margin: var(--space-3) 0 0; }
+.prose p { margin: var(--rhythm) 0 0; hyphens: auto; }   /* a paragraph is one line apart: the rhythm stays whole */
 .prose ul { margin: var(--space-3) 0 0; padding-left: var(--space-5); }
-.prose li + li { margin-top: var(--space-2); }
+.prose li + li { margin-top: 0; }   /* list lines follow on, one line apart, like any text */
+.prose li { hyphens: auto; }
 .prose strong { color: var(--text); font-weight: 600; }
 .prose .pull-quote {
   margin: var(--cell) 0 0;
@@ -869,7 +952,7 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
   color: var(--text);
 }
 .prose .pj-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(var(--col-min), 1fr)); gap: var(--gap); margin: var(--space-5) 0 0; }
-.prose .stat-card { border-top: var(--line); padding-top: var(--space-2); }
+.prose .stat-card { box-shadow: var(--hairline-top); padding-top: var(--space-2); }   /* a rule that takes no height: a 1px border would push what follows off the unit */
 .prose .stat-card__value { margin: var(--space-2) 0 0; color: var(--text); font-size: var(--text-lg); font-weight: 600; line-height: var(--lh-display); }
 .prose .stat-card .caption { margin-top: var(--space-1); font-size: var(--text-sm); line-height: var(--lh-small); }
 .prose .label--accent { color: var(--text); }
@@ -882,8 +965,7 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
      on its bottom edge, and the facts take the full width below */
   .cover { grid-row: span 5; }
   .cover .card__art { --hang: 0; }
-  .sheet.facts { padding-inline: var(--space-4); }
-  .facts > div { grid-template-columns: calc(var(--cell) * 2 - var(--space-4)) minmax(0, 1fr); }
+  .facts > div { grid-template-columns: calc(var(--cell) * 2 - var(--plate-pad)) minmax(0, 1fr); }
 }
 
 /* ------------------------------------------------------------------
@@ -895,28 +977,36 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
 .icon-links a { display: inline-flex; align-items: center; min-height: var(--tap); }
 .icon-link { justify-content: center; width: var(--tap); }
 .contact { margin-top: var(--space-4); }
-.contact li:first-child { margin-right: var(--space-2); }   /* the email, a little apart from the icons */
+html:not(.js) [data-print] { display: none; }                  /* it needs cv.js */
+/* Buttons: every one is the touch target's height (--tap, 44px), like the
+   icon buttons and arrows; a text button is as wide as its label */
 .btn {
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap);
+  padding: 0 var(--space-4);
   text-decoration: none;
   background: none;
-  padding: var(--space-2) var(--space-3);
   cursor: pointer;
 }
 
 /* Timeline (the CV's one figure), in a frame like the other images:
-   three squares of lane names, then 2020-2026 sharing the rest of the
+   three squares of lane names, then the years (--years) sharing the rest of the
    width (--year, at least one square each); each lane track is a row of
    squares. Bars sit at --s / --e (months from Jan 2020), track --r. On a
    phone it scrolls sideways. */
-.sheet.tl-frame { display: block; }   /* block: as a grid item the scroll box could shrink to nothing */
-.tl-frame figcaption { height: var(--cell); padding-top: var(--space-2); }
-.tl-scroll { position: relative; container-type: inline-size; }   /* relative: keeps the hidden labels inside it */
+.tl-figure { margin: 0; }
+.tl-frame { grid-column: 1 / -1; display: block; }   /* block: as a grid item the scroll box could shrink to nothing. Whole squares tall (snap.js) */
+.tl-caption { grid-column: 1 / -1; padding-top: var(--space-2); }   /* outside the frame, in the square below it */
+.tl-scroll { position: relative; container-type: inline-size; padding-bottom: var(--space-2); }   /* relative: keeps the hidden labels inside it */
 .tl {
   display: grid;
   --names: calc(var(--cell) * 3);
-  --year: max(var(--cell), (100cqi - var(--names)) / 7);
-  grid-template-columns: var(--names) repeat(7, var(--year));
-  --row: calc(var(--cell) * 0.7);   /* shorter than a square: the chart is a figure, not a block of text */
+  --year: max(var(--cell), (100cqi - var(--names)) / var(--years, 7));   /* --years: set by the page. Dates are continuous: the years share the plot, which starts and ends on mat lines (the names column and the frame edge) */
+  grid-template-columns: var(--names) repeat(var(--years, 7), var(--year));
+  --row: round(nearest, calc(var(--cell) * 0.7), calc(var(--unit) * 2));   /* shorter than a square: the chart is a figure, not a block of text. Whole 8px, so its text stays on the unit */
   grid-auto-rows: var(--row);
   position: relative;
 }
@@ -951,21 +1041,24 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
 .tl__track a {               /* label above its bar; may run past a short bar */
   position: absolute;
   left: 0;
-  top: 22%;
+  top: 14%;
   white-space: nowrap;
   padding: 0.5em 0.3em;      /* a target 24px tall, more than the text itself */
   margin: -0.5em -0.3em;
 }
-.tl__track li::after {       /* the bar */
+.tl__track li::after {       /* the bar: a role's is heavy and bright, a freelance project's light */
   content: "";
   position: absolute;
   inset: 52% 0 auto 0;
-  height: 6px;
-  background: var(--text-2);
+  height: 8px;
+  background: var(--text);
 }
+.tl__track li.is-minor::after { height: var(--unit); margin-top: var(--unit); background: var(--text-2); }   /* half the role's 8px, centred on it */
+.tl__track li.is-minor a { color: var(--text-2); }
+.tl__track li.is-late a { left: auto; right: 0; }   /* a bar near Today: its label reads leftwards from the bar's end, not off the chart */
 .tl__track li.is-ongoing::after {   /* still going: an arrow tip at Today */
   height: 10px;
-  margin-top: -2px;
+  margin-top: -1px;
   clip-path: polygon(0 2px, calc(100% - 7px) 2px, calc(100% - 7px) 0, 100% 50%, calc(100% - 7px) 100%, calc(100% - 7px) 8px, 0 8px);
 }
 .tl__today {
@@ -976,122 +1069,346 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
   border-left: var(--line-dashed);
   pointer-events: none;
 }
-.tl__today span { position: absolute; top: 4px; right: 4px; color: var(--text); }
+.tl__today span { position: absolute; bottom: 4px; right: 4px; color: var(--text); }   /* at the foot: on a narrow screen the top is where the last year's label is */
 
-/* Each CV entry sits in its own dark container. Its box is whole cells
-   (snap.js rounds the height up), and its 1px border is drawn inset on
-   the box's edge, which the negative right/bottom margin pushes out to the
-   next grid line, so the border lies exactly on the mat's printed lines.
-   The fill hides the grid lines inside it, like a frame's. */
-.sheet.entry {
-  --slack: 0px;   /* set by snap.js */
-  padding: calc(var(--space-5) + var(--slack)) var(--space-5);
-  margin: 0 -1px -1px 0;
+/* A lane's freelance work: one hairline over its whole span with a tick at
+   each project's own dates, so a gap on the line is a gap in the work. The
+   projects themselves are listed in the panel (cv.js). */
+.tl__track li.is-group::after { height: 1px; margin-top: calc(var(--unit) - 0.5px); background: var(--text-2); }
+.tl__track li.is-group a { color: var(--text-2); }
+.tl__tick {
+  position: absolute;
+  top: 52%;
+  height: 8px;
+  left: calc((var(--ts) - var(--s)) / 12 * var(--year));
+  width: max(5px, calc((var(--te) - var(--ts)) / 12 * var(--year)));
+  background: var(--text-2);
+  pointer-events: none;
+}
+
+/* The bar whose entry the panel shows, and the project picked in a group */
+.tl__track li.is-selected::after { outline: 2px solid var(--text); outline-offset: 2px; }
+.tl__track li.is-selected a { color: var(--text); text-decoration: underline; text-underline-offset: 4px; }
+.tl__track li.is-group.is-selected::after { outline: 0; background: var(--text); }
+.tl__tick.is-picked { background: var(--text); outline: 2px solid var(--text); outline-offset: 2px; }
+.tl__name, .tl__track { transition: opacity var(--dur) var(--ease); }
+.tl .is-dim { opacity: 0.25; }
+
+/* Pointing at a bar (or its card, or a row) lights it and dims the rest (cv.js) */
+.tl__track li { transition: opacity var(--dur) var(--ease); }
+.tl.has-link .tl__track li:not(.is-linked) { opacity: 0.3; }
+
+/* The chart draws itself once it scrolls into view (cv.js adds .is-drawn):
+   each bar grows from its start to its end, oldest first, its label
+   following, then Today. Without JS, or with "reduce motion", it is
+   simply there. */
+@media (prefers-reduced-motion: no-preference) {
+  .tl__track li::after { transform-origin: left; transition: scale var(--dur-draw) var(--ease-out) calc(var(--s) * 14ms); }
+  .tl__track a { transition: opacity var(--dur-reveal) var(--ease) calc(var(--s) * 14ms + var(--dur)); }
+  .tl__today { transition: opacity var(--dur-reveal) var(--ease) calc(var(--dur-draw) * 2); }
+  .tl__tick { transition: opacity var(--dur-reveal) var(--ease) calc(var(--ts) * 14ms + var(--dur)); }
+  .js .tl:not(.is-drawn) .tl__track li::after { scale: 0 1; }
+  .js .tl:not(.is-drawn) :is(.tl__track a, .tl__tick, .tl__today) { opacity: 0; }
+}
+
+/* The lane names (cv.js makes each a button): pointing at one fades the
+   other lanes. The chart only: the cards below stay whole. The button fills
+   its name's whole cell, so the left axis is the target. Kept: underlined. */
+.tl__lane { display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none; color: inherit; font: inherit; letter-spacing: inherit; text-align: left; text-transform: inherit; cursor: pointer; }
+.tl__lane:is(:hover, :focus-visible) { color: var(--text); }
+.tl__lane[aria-pressed="true"] { color: var(--text); text-decoration: underline; text-underline-offset: 4px; }
+
+/* The panel under the chart: what the card below says about the bar
+   pointed at (a preview, faded hint) or chosen (kept). A fixed height of
+   whole squares, so choosing never moves the page. Without JS there is
+   no panel: bars are plain links to their cards. */
+.tl-panel {
+  --panel-rows: 4;
+  grid-column: 1 / -1;
+  grid-row: span var(--panel-rows);
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  position: relative;
+  min-width: 0;
+  margin: 0 -1px -1px 0;            /* like a card: its 1px rule lands on the mat's lines */
+  padding: var(--space-3) var(--plate-pad);
   background: var(--mat);
   box-shadow: inset 0 0 0 1px var(--rule);
-  grid-auto-rows: auto;     /* the height is rounded up to whole cells; the last reel takes the slack (snap.js) */
-  align-content: start;
+  overflow: hidden;
 }
-.sheet.entry .entry__body { grid-auto-rows: auto; }
-.sheet.entry .sheet { padding-block: 0; grid-row: auto; }   /* inside, blocks take their own height: the text stays together */
-.sheet.entry .sheet.reel { margin-top: var(--space-3); }
-/* A project or role inside an entry shares its parent's container: no box of
-   its own, only one grid square of space above it (not the first) */
-.sheet.entry .sheet.entry { margin: var(--cell) 0 0; padding: 0; background: none; box-shadow: none; }
-.sheet.entry .entry__body > .sheet.entry:first-child { margin-top: 0; }
-/* snap.js sizes a block from its content, so these start at the top and keep their own height */
-.sheet.entry > .entry__meta, .sheet.entry > .entry__body { align-self: start; }
-/* While an entry is in view its details stay pinned under the keys (wide screens;
-   on a phone the entries fold instead) */
+html:not(.js) .tl-panel { display: none; }
+.tl-panel__body { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; min-height: 0; }
+.tl-panel__hint { position: absolute; top: var(--space-2); right: var(--plate-pad); margin: 0; color: var(--text-2); }
+.tl-panel__hint:empty { display: none; }
+.tl-pv__thumbs { grid-column: 1; display: flex; gap: var(--space-2); width: calc(var(--cell) * 3); margin-right: var(--space-5); min-height: 0; }
+.tl-pv__thumbs picture { flex: 1 1 0; min-width: 0; }
+.tl-pv__thumbs img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: left center; }
+.tl-pv__text { grid-column: 2; min-width: 0; min-height: 0; overflow: hidden; }
+.tl-pv__text h3 { margin-top: var(--space-1); }
+.tl-pv__meta { margin-top: var(--space-1); color: var(--text-2); }
+.tl-pv__about { margin-top: var(--space-2); display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.tl-pv__tags { margin-top: var(--space-2); color: var(--text-2); display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }   /* two lines at most, so "+N more" is never the part that is cut */
+.tl-pv__more { white-space: nowrap; }
+.tl-pv__list { list-style: none; margin: var(--space-2) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); max-height: calc(var(--cell) * 1.5); overflow-y: auto; }
+.tl-pv__list button { padding: var(--space-1) 0; border: 0; background: none; color: var(--text); font: inherit; text-align: left; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 4px; cursor: pointer; }
+.tl-pv__list button:is(:hover, :focus-visible) { text-decoration-color: var(--text); }
+.tl-pv__year { margin-left: var(--space-2); color: var(--text-2); }
+.tl-pv__actions { grid-column: 3; align-self: end; display: flex; flex-direction: column; align-items: stretch; gap: var(--space-2); margin-left: var(--space-5); }
+
+/* ------------------------------------------------------------------
+   CV cards (partials/cv-entry.njk). Everything on the mat's grid: a
+   card's edges, every row's line and every frame lie on the mat's
+   printed lines, and every button (its usual size) is centred in a
+   square. A card has no padding of its own
+   (it's an .area: its columns are the mat's); blocks of text inside
+   are rounded up to whole squares ([data-cells], snap.js), so what
+   follows them starts on a line.
+
+   Each column answers one question on every card. The details (first
+   four squares, pinned while the card is in view): who was I, where,
+   when. Folded, that's type, role, org, years and how long; the roles
+   held, about and tags join them once a row is open. The rows (from the
+   fifth square): what did I make. Each row is one square: the mockup,
+   fitted whole in a 2 x 1 slot, the deliverable's name (with a ↗ if it
+   has a case study), its years, and a chevron in the last square. Open,
+   its role and story sit under the line, then its reel.
+
+   Nothing moves when a row opens or closes: rows open below their own
+   line, the details only grow downwards, and the card's height is
+   whole squares (snap.js).
+   ------------------------------------------------------------------ */
+.mat__content { --below-keys: calc(var(--space-4) + var(--cell) + var(--space-4)); }   /* clear of the pinned keys */
+
+.sheet.entry {
+  --slack: 0px;            /* set by snap.js: what rounding to whole squares leaves over, at the bottom */
+  --thumb-w: calc(var(--cell) * 2);   /* the mockup's slot: two squares wide, one tall */
+  padding: 0 0 var(--slack);
+  margin: 0 -1px -1px 0;   /* the 1px border lands on the mat's printed lines */
+  background: var(--mat);  /* the fill hides the grid lines inside it, like a frame's */
+  box-shadow: inset 0 0 0 1px var(--rule);
+  grid-auto-rows: auto;
+  align-items: start;
+  scroll-margin-top: var(--below-keys);
+}
+/* Two lines of heading (2 x 1.25 x 20px) fill exactly one square, with
+   what's left of it shared above and below, whatever size a square is */
+.entry__meta { --pad-y: max(var(--space-1), round(down, (var(--cell) - 2 * var(--rhythm)) / 2, var(--unit))); grid-column: 1 / span 4; grid-row: 1; position: relative; padding: var(--pad-y) var(--plate-pad); }   /* four squares: the rows start in the fifth. Two heading lines (2 x 24px) centred in a square, in whole units */
+.entry__body { grid-column: 5 / -1; grid-row: 1; min-width: 0; }
 @media (min-width: 721px) {
-  .sheet.entry:not(.entry--project) > .entry__meta { position: sticky; top: calc(var(--space-4) + var(--cell) + var(--space-4)); }
+  .entry__meta { position: sticky; top: var(--below-keys); }
 }
 
-/* Experience: details in the first three squares, the story in the rest.
-   Meta order: type · date, title, client, about, tags. Steps between
-   elements: 4 (client under title), 12 (title, about), 24 (tags). */
-.entry__meta h2 { margin-top: var(--space-3); }
-.entry__meta .entry__date { margin-top: var(--space-1); }
-.entry__meta .entry__client { margin: var(--space-2) 0 0; color: var(--text); }
+/* Details. Order: "role at org"; type · years · how long; roles held, about, tags */
+.entry__meta > :first-child { margin-top: 0; }
+.entry__meta h3 { margin-top: 0; }
+/* Where and when (always shown), then the kind of work and how long (once
+   open): Barlow, small, grey, on the body line, so the role and "where ·
+   when" fill one square. Not mono: these are facts to read, not labels. */
+.entry__where, .entry__date { margin: 0; font-size: var(--text-sm); line-height: var(--rhythm); color: var(--text-2); }
+:is(.entry__where, .entry__date) > span { white-space: nowrap; }   /* breaks only between parts, never inside a date */
+.entry__roles { margin: var(--space-3) 0 0; padding: 0; list-style: none; font-size: var(--text-sm); }   /* Leja: each role held, and its years */
+.entry__roles li + li { margin-top: var(--space-1); }
+.entry__roles .entry__years { margin-left: var(--space-2); color: var(--text-2); }
 .entry__meta .entry__about { margin: var(--space-3) 0 0; font-size: var(--text-sm); color: var(--text-2); }
-.entry__meta .tags { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-2); margin-top: var(--space-5); }
-.entry--project > .entry__meta { position: relative; margin-bottom: var(--space-3); padding-right: calc(var(--go-size) + var(--space-4)); }   /* the arrow is level with the title */
-.entry--project .entry__meta h3 { margin: 0; }
-.entry--project .entry__meta .tags { margin-top: var(--space-3); }
-/* A project or role inside a group: its title and tags sit above its own text, in the group's right-hand column, level with the group's title */
-.entry--project > .entry__meta, .entry--project > .entry__body { grid-column: 1 / -1; }   /* the group's body is already the right-hand column */
+/* Skills and tools: a small grey list in their own casing, after a label */
+.tools { margin: var(--space-3) 0 0; font-size: var(--text-sm); line-height: var(--lh-small); color: var(--text-2); }
+.tools .label { display: inline; margin-right: var(--space-2); }
+/* Folded, the details are only "role at org", so a one-role card is one
+   square tall like its row (the row shows the years). Everything else
+   joins it, below, once a row is open; nothing appears above the
+   heading, so it never moves. (A card with no rows, Education, never folds.) */
+.entry:has(.entry__row):not(:has(.entry__row[open])) .entry__meta :is(.entry__date, .entry__roles, .entry__about, .tools) { display: none; }
+
+/* The whole header opens or closes the card's rows (cv.js) */
+.entry__toggle { position: absolute; inset: 0; z-index: 1; padding: 0; background: none; border: 0; color: inherit; cursor: pointer; }
+.entry__toggle:focus-visible { outline-offset: calc(var(--space-2) * -1); }   /* the usual ring, drawn inside the card */
+
+/* Rows. Each starts on a mat line, drawn in the card's border colour */
+.entry__row { scroll-margin-top: var(--below-keys); }
+.entry__row > summary {
+  display: grid;
+  grid-template-columns: var(--thumb-w) minmax(0, 1fr) auto var(--cell);
+  column-gap: var(--space-4);
+  align-items: center;
+  min-height: var(--cell);   /* one square (snap.js rounds up anything taller) */
+  list-style: none;
+  cursor: pointer;
+  transition: background-color var(--dur) var(--ease);
+}
+.entry__row > summary::-webkit-details-marker { display: none; }
+.entry__row > summary:is(:hover, :focus-visible) { background: var(--row-lit); }   /* pointed at: a slightly brighter fill (and its chevron fills, as every icon button does) */
+.entry__row > summary:focus-visible { outline: 2px solid var(--text); outline-offset: -2px; }   /* keyboard: the usual ring too, inside the row so it isn't cut off */
+
+/* The mockup, whole: fitted in its slot, never cropped, with the shadow
+   it casts on the mat ("More work" on the homepage). Editorial work
+   shows an open spread (`thumb:` in its file) */
+.row__thumb { display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); place-items: center; height: var(--cell); padding: calc(var(--cell) * 0.1); }   /* one track the slot's size (as .frame): the image fits it, never spills */
+.row__thumb:empty { box-shadow: inset 0 0 0 1px var(--mat-line); }   /* no image yet: an empty frame */
+.row__thumb picture { display: block; width: 100%; height: 100%; min-height: 0; }
+.row__thumb > img, .row__thumb > picture > img { display: block; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(var(--lift-2)); }
+/* Phones side by side, as large as fit the slot both ways: as tall as
+   it is, unless three of them would be wider than it is */
+.row__thumb:has(.phone-frame) { --gap: calc(var(--cell) * 0.06); display: flex; justify-content: center; align-items: center; gap: var(--gap); container-type: size; }
+.row__thumb .phone-frame { --phone-h: calc(var(--w) * 2); --w: min(50cqh, (100cqw - 2 * var(--gap)) / 3); flex: none; width: var(--w); height: calc(var(--w) * 2); filter: drop-shadow(var(--lift-2)); }   /* explicit: the screenshot inside must not stretch the 1:2 phone */
+
+/* What I did: up to two lines (they fit one square), cut short with … after that */
+.row__title { min-width: 0; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.row__case { color: var(--text-2); }
+.row__date { grid-column: 3; white-space: nowrap; font-size: var(--text-sm); color: var(--text-2); }   /* only when they differ from the card's */
+/* The chevron: the line's last square, with or without dates */
+.row__chevron { grid-column: -2; grid-row: 1; place-self: center; }   /* the usual icon button, centred in the line's last square */
+.entry__row[open] > summary .row__chevron svg { rotate: 180deg; }
+/* Borderless: the row's own outline and fill already say it is a control, and a second box
+   inside the line looked crowded. It keeps its square (the target), and does not fill on hover. */
+.row__chevron, .entry__row > summary:is(:hover, :focus-visible) .row__chevron { border-color: transparent; background: none; color: var(--text); }
+/* Folded, a row shows the year it ended; opened, the whole range */
+.entry__row:not([open]) .row__date-full, .entry__row[open] .row__date-short { display: none; }
+/* Open, a row gives its width to the text: no thumbnail (its images are
+   in the reel below), and the description in full, from the row's edge */
+.entry__row[open] > summary .row__thumb { display: none; }
+.entry__row[open] > summary .row__title { grid-column: 1 / 3; padding: var(--space-3) 0 var(--space-3) var(--space-4); -webkit-line-clamp: unset; font-weight: 600; padding-bottom: var(--space-1); }   /* open: a heading over its story (the system's one emphasis weight) */
+
+/* An open row: its text (whole squares, its arrow in the top-right
+   square), then its reel, across the row's full width */
+.row__text { position: relative; padding: var(--space-2) var(--space-4) var(--space-4); }   /* close under its title: a heading belongs to the text below it */
+.row__text > :first-child { margin-top: 0; }
+.row__about { margin: 0; color: var(--text-2); }   /* context, before the story */
+.row__type { margin-bottom: var(--space-2); }   /* "Volunteer" */
+.row__text .tools { margin-top: var(--space-4); }
+.row__text .entry__text:not(:first-child) { margin-top: var(--space-3); }
+.row__text .entry__go { margin-top: var(--space-2); }   /* "Read the case study →", the homepage's link style */
+.row__body .sheet.reel { margin: 0; padding-block: 0; }
+/* its previous / next: the usual buttons, each centred in one of the reel's two bottom-right squares */
+.entry .reel { --inset: calc((var(--cell) - var(--tap)) / 2); }   /* a button's margin in its square */
+.entry .reel__btn { bottom: var(--inset); }
+.entry .reel__btn--next { right: var(--inset); }
+.entry .reel__btn--previous { right: calc(var(--cell) + var(--inset)); }
 
 /* Body text: the same as any paragraph; lists get a dash for a marker */
-.entry__text > :first-child, .entry__meta > :first-child { margin-top: 0; }   /* a block's first margin must not collapse out of it (a phone lays meta out as a block) */
+.entry__text > :first-child { margin-top: 0; }
+/* The story in grey under its white heading, as a case study's body is */
+.entry__text :is(p, li) { color: var(--text-2); }
+.entry__text strong { color: var(--text); font-weight: 600; }
 .entry__text ul { margin: var(--space-2) 0 0; padding-left: var(--space-4); list-style: none; }
 .entry__text li { position: relative; }
 .entry__text li::before { content: "\2013"; position: absolute; left: calc(var(--space-4) * -1); color: var(--text-2); }
 .entry__text li + li { margin-top: var(--space-1); }
 .entry__text ul ul { margin-top: var(--space-1); }
 .entry__text p { margin-top: var(--space-2); }
-.sheet.entry :is(p, li) { text-wrap: balance; }
-/* "See the full project": the round arrow, to the right of the text (it adds no height) */
-.entry__text { position: relative; }
-.entry--project .entry__text { position: static; }   /* its arrow sits in the title's row instead */
-.entry__text:has(.entry__go) { padding-right: calc(var(--go-size) + var(--space-4)); }
-.entry__go { position: absolute; top: 0; right: 0; text-decoration: none; }
-.entry__body { --all: calc(var(--cols) - 2 * var(--margin) - 4); grid-column: 5 / -1; }   /* details 1-3, one empty square, content */
-.entry__body > p.sheet { margin: 0; }
+.sheet.entry :is(p, li) { text-wrap: pretty; }   /* balance is for headings: in body text it leaves a ragged, short measure */
+.entry__go { text-decoration: none; }
+
+/* Section bars (Career timeline, Experience, Education): the label on
+   the bottom of its square, a button or key in the last squares */
+.sheet.cv-section { align-items: end; }
+.cv-section h2 { grid-column: 1 / span 6; margin: 0; padding-bottom: var(--space-2); }
+.cv-section__all { grid-column: -3 / -1; place-self: center; }   /* the usual button, centred in its two squares */
+html:not(.js) .cv-section__all { display: none; }
+
+/* The timeline's key: the two kinds of bar, as they're drawn */
+.tl-key { grid-column: 7 / -1; justify-self: end; display: flex; align-items: center; gap: var(--space-2); margin: 0; padding-bottom: var(--space-2); }
+.tl-key__bar { display: inline-block; width: 24px; background: var(--text); margin-left: var(--space-3); }
+.tl-key__bar--major { height: 8px; }
+.tl-key__bar--minor { height: 8px; background: linear-gradient(var(--text-2), var(--text-2)) center / 100% 1px no-repeat, linear-gradient(90deg, var(--text-2) 0 5px, transparent 5px 12px, var(--text-2) 12px 17px, transparent 17px) left / 100% 100% no-repeat; }   /* a hairline with ticks on it */
+
+/* The intro: its text whole squares, then the contact row on the squares
+   (email, LinkedIn and GitHub one each, Save as PDF two), each button its
+   usual size, centred in its squares */
+.sheet.cv-intro { grid-auto-rows: auto; }   /* rows as tall as their content, which is whole squares */
+.cv-intro__text { grid-column: 1 / -1; padding-block: var(--sheet-pad); }
+.cv-intro .contact { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; grid-auto-rows: var(--cell); align-items: stretch; gap: 0; margin: 0; }   /* stretch: each item fills its squares */
+.cv-intro .contact li { display: grid; place-items: center; }   /* each button the usual size, centred in its squares */
+.cv-intro .contact [data-print] { grid-column: span 2; margin: 0; }
+
+/* A bar on the timeline and the card or row it stands for light up together (cv.js) */
+.entry.is-linked .entry__row > summary, .entry__row.is-linked > summary { background: var(--row-lit); }   /* a card's rows, or one row: the same fill as hovering them */
+@keyframes cv-flash { from { background: var(--row-flash); } }
+.entry__row.is-flash > summary, .entry.is-flash > .entry__meta { animation: cv-flash var(--dur-flash) var(--ease-out) both; }
 
 /* ------------------------------------------------------------------
-   CV on a phone (cv.js). An 800px chart and 21 open entries are
-   18 screens at 390px; instead:
-   - the header: a short line in place of the tagline (the email and
-     icons stay, as on any screen)
-   - no timeline
-   - each entry folded to its header (dates and type on one line, role,
-     client, one line about it), the whole row a button; tapping opens
-     its story and images. A group (Zindua) folds to its header and its
-     projects' titles. Entries sit edge to edge, a brighter grid line
-     between them. Inside an entry, blocks stack at their own heights
-     (no whole squares each, so no empty bands); the entry as a whole
-     still snaps to the grid.
-   The classes do nothing on wider screens, so there everything shows.
-   (.js: set in the page head, so entries are folded before first paint)
+   The CV on a phone (six squares across): no timeline; the intro's
+   short line in place of the tagline; each card's details above its
+   rows; a row's line is its mockup (2 x 2), heading, summary and
+   dates, the chevron in the last square.
    ------------------------------------------------------------------ */
 .cv__tagline { max-width: var(--measure); }
-.cv__ask, .entry__toggle { display: none; }
+.cv__ask { display: none; }
+
+/* A tablet (squares under 56px): the timeline's title and key stack, and
+   its panel is a square taller and loses its thumbnails, so its text
+   isn't cut off. (After the rules it overrides.) */
+@media (max-width: 899px) {
+  .tl-head { grid-row: span 2; }
+  .tl-head h2 { grid-row: 1; }
+  .tl-key { grid-row: 2; grid-column: 1 / -1; justify-self: start; }
+  .tl-key__bar:first-child { margin-left: 0; }
+  .tl-panel { --panel-rows: 5; }
+  .tl-pv__thumbs { display: none; }
+}
+@media (max-width: 760px) { .tl-panel { --panel-rows: 6; } }   /* squares of 40px */
 
 @media (max-width: 720px) {
   .cv__tagline { display: none; }
   .cv__ask { display: block; margin: var(--space-3) 0 0; }
 
-  .sheet.tl-frame, .tl-frame + .gap { display: none; }
+  /* the timeline as a strip: no names column (each lane's name sits above its
+     bars, on its own line), the years sharing the width, a panel of six squares */
+  .tl { --names: 0px; --year: calc(100cqi / var(--years, 7)); }
+  .tl__name { grid-column: 1 / -1; grid-row: var(--yp) / span 1; align-self: start; }
+  .tl__track { grid-row: var(--yp) / span var(--rp); }
+  .tl__track li { top: calc(var(--r, 1) * var(--row)); }   /* the first line is the lane's name */
+  .tl__track a { padding: 0.9em 0.5em; margin: -0.9em -0.5em; }   /* a finger-sized target */
+  .tl-panel { --panel-rows: 6; }
+  .tl-pv__list { max-height: calc(var(--cell) * 2.5); }
+  @media (max-width: 359px) { .tl-panel { --panel-rows: 8; } }   /* squares of 44px, buttons on two lines */
+  .tl-panel__body { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; }
+  .tl-pv__thumbs { display: none; }
+  .tl-pv__text, .tl-pv__actions { grid-column: 1; }
+  .tl-pv__actions { flex-direction: row; flex-wrap: wrap; margin: var(--space-2) 0 0; }
+  .tl-pv__list button { padding-block: var(--space-2); }
+  .tl-panel__hint { display: none; }
+  .gap:has(+ .entry) { display: none; }
 
-  .gap:has(+ .entry), .entry .gap { display: none; }
-  .entry, .entry .entry__body { display: block; }
-  .sheet.entry { padding: calc(var(--space-4) + var(--slack)) var(--space-4); }
-  .js .entry:not(.is-open, .entry--group, .entry--project) > .entry__body,
-  .js .entry--group:not(.is-open) .entry--project > .entry__body,
-  .js .entry:not(.is-open, .entry--project) .tags { display: none; }
-
-  .entry__meta { position: relative; padding-right: var(--cell); }   /* the last square: the toggle */
-  .entry__meta h3 a { text-decoration: none; }   /* the row opens; its link is inside (See the full project) */
-  .entry__meta h2 { margin-top: var(--space-1); }
+  .entry__meta { --pad-y: max(var(--space-1), round(down, (var(--cell) - 2 * var(--rhythm)) / 2, var(--unit))); grid-column: 1 / -1; padding: var(--pad-y) var(--plate-pad); }   /* full width: the role and "where · when" centred in a square */
+  .entry__body { grid-column: 1 / -1; grid-row: 2; }
+  .entry__meta h3 { margin-top: 0; }
   .entry__meta .entry__about { margin-top: var(--space-1); }
-  .js .entry:not(.is-open) .entry__about { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+  .row__title { -webkit-line-clamp: 3; }   /* the part that says what was made is often the end */
 
-  .entry__toggle { display: block; position: absolute; inset: 0; z-index: 1; padding: 0; background: none; border: 0; color: inherit; cursor: pointer; }
-  /* a folded group: the button covers its projects' titles too */
-  .js .entry--group:not(.is-open) { position: relative; }
-  .js .entry--group:not(.is-open) > .entry__meta { position: static; }
-  .js .entry--group:not(.is-open) .entry__go { display: none; }   /* the folded row is one button */
-  .entry__toggle .go { position: absolute; top: calc((var(--cell) - var(--go-size)) / 2); right: calc((var(--cell) - var(--go-size)) / 2); }
-  .entry__toggle[aria-expanded="true"] .go svg { rotate: 180deg; }
+  /* a row: the mockup in the same 2 x 1 slot as on a wide screen, the name with its years under it, the chevron */
+  .entry__row > summary { grid-template-columns: var(--thumb-w) minmax(0, 1fr) var(--cell); grid-template-rows: auto auto; column-gap: var(--space-3); align-content: center; }
+  .row__thumb { grid-row: 1 / span 2; padding: calc(var(--cell) * 0.08); }
+  .row__title { grid-column: 2; grid-row: 1; align-self: end; }
+  .row__date { grid-column: 2; grid-row: 2; align-self: start; }
+  .row__chevron { grid-column: 3; grid-row: 1 / span 2; place-self: center; }
+  .entry__row[open] > summary .row__title { grid-column: 1 / 3; padding-bottom: var(--space-1); }   /* its years follow right under it */
+  .entry__row[open] > summary .row__date { grid-column: 1 / 3; padding-left: var(--space-4); }
+  .cv-section h2 { grid-column: 1 / span 4; }
+  .tl-head h2 { grid-column: 1 / -1; }   /* nothing beside it: one line even at 320px */
+  .cv-intro .contact [data-print] { grid-column: span 3; }   /* room for its label on one line */
+}
 
-  /* Consistent on a phone: a smaller h2 (24px, so titles wrap less), nested
-     projects one square apart when open and a tight list of titles when folded */
-  h2 { font-size: var(--text-lg); }
-  .sheet.entry .sheet.entry,
-  .sheet.entry .entry__body > .sheet.entry:first-child { margin-top: var(--space-5); }
-  .js .entry--group:not(.is-open) .sheet.entry,
-  .js .entry--group:not(.is-open) .entry__body > .sheet.entry:first-child { margin-top: var(--space-3); }
-  .js .entry--group:not(.is-open) .entry--project > .entry__meta { margin-bottom: 0; }
+/* ------------------------------------------------------------------
+   Rows open and close smoothly: their height, and their contents'
+   fade; the details' about and tags fade in (none with "reduce
+   motion", or in a browser without ::details-content, where they
+   open at once). Opening many at once (Expand all, printing) skips it
+   (.is-bulk, cv.js), so the page can be measured straight away.
+   ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (interpolate-size: allow-keywords) {
+    .entry__rows { interpolate-size: allow-keywords; }
+    .entry__row::details-content {
+      block-size: 0;
+      opacity: 0;
+      overflow-y: clip;
+      transition: block-size var(--dur-open) var(--ease-out), opacity var(--dur-open) var(--ease-out), content-visibility var(--dur-open) allow-discrete;
+    }
+    .entry__row[open]::details-content { block-size: auto; opacity: 1; }
+    .is-bulk .entry__row::details-content { transition: none; }
+  }
+  .entry__meta :is(.entry__date, .entry__roles, .entry__about, .tools) { transition: opacity var(--dur-open) var(--ease-out), display var(--dur-open) allow-discrete; }
+  @starting-style { .entry__meta :is(.entry__date, .entry__roles, .entry__about, .tools) { opacity: 0; } }
 }
 
 /* ------------------------------------------------------------------
@@ -1115,7 +1432,7 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
 .sheet.reel {
   --reel-h: 5;                                          /* squares tall; CV reels without phones are shorter, below */
   --h: var(--reel-h);
-  --pad: calc(var(--cell) * 0.4);                       /* wider than other frames */
+  --pad: round(nearest, calc(var(--cell) * 0.4), var(--unit));   /* wider than other frames; whole units, so captions beside the images sit on the grid */
   --reel-extra: 0px;                                    /* set by snap.js: takes up what snapping the container to the grid leaves over */
   --phone-h: calc(var(--cell) * var(--reel-h) + var(--reel-extra) - 2 * var(--pad));    /* the images' height: a phone's too */
   height: calc(var(--cell) * var(--reel-h) + var(--reel-extra));            /* in a grid it is already 5 rows; in running text this sets it */
@@ -1299,16 +1616,13 @@ figcaption .label { display: inline; margin-right: 0.4em; }
 /* Tools sit in greyscale. They can be picked up and moved anywhere on
    the mat (tools.js: drag with a mouse; press and hold on a touch
    screen, so a swipe over one still scrolls). Hovering with a mouse, or
-   holding one, turns it a few degrees and shows its real colour. --tint
-   stands in for that colour until the photos arrive (an <img> inside
-   gets the same filter). --dx / --dy is where it has been moved to. */
+   holding one, turns it a few degrees. They stay greyscale: the brand's
+   only colour is signal red, kept for what matters. --tint only sets how
+   light each one's grey is until the photos arrive (an <img> inside gets
+   the same filter). --dx / --dy is where it has been moved to. */
 .tool img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
 .is-dragging, .is-dragging * { user-select: none; -webkit-user-select: none; cursor: grabbing; }
-@media (hover: hover) {
-  .tool:hover { filter: none; }
-}
 .tool.is-held {
-  filter: none;
   cursor: grabbing;
   z-index: 3;
   box-shadow: var(--lift-3);
@@ -1510,7 +1824,7 @@ figcaption .label { display: inline; margin-right: 0.4em; }
    table of three or more columns keeps readable columns and scrolls. */
 .table-scroll { max-width: 100%; overflow-x: auto; margin: var(--space-5) 0 0; }
 .prose table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); line-height: var(--lh-small); }
-.prose :is(th, td) { padding: var(--space-2) var(--space-3) var(--space-2) 0; border-bottom: var(--line); text-align: left; vertical-align: top; }
+.prose :is(th, td) { padding: var(--space-2) var(--space-3) var(--space-2) 0; box-shadow: var(--hairline-bottom); text-align: left; vertical-align: top; }   /* rows of 8 + 20 + 8: whole units */
 .prose th { color: var(--text-2); }
 @media (max-width: 720px) {
   .table-scroll table:has(th:nth-child(3)) { min-width: 34rem; }
@@ -1535,4 +1849,78 @@ figcaption .label { display: inline; margin-right: 0.4em; }
 /* Team (case study facts): a name, then the role in grey */
 .team { margin: 0; padding: 0; list-style: none; }
 .team li + li { margin-top: var(--space-1); }
-.team__role { color: var(--text-2); font-size: var(--text-sm); }
+.team__role { color: var(--text-2); font-size: var(--text-sm); line-height: 0; }   /* smaller text inside a line: it mustn't make the line taller than its 24px */
+
+/* ------------------------------------------------------------------
+   Motion between and within pages (none with "reduce motion")
+
+   Changing page: the mat and the keys stay where they are; only the
+   sheet of content slides, the old one off to one side and the new
+   one in from the other, with a slight turn, like a sheet of paper
+   being swapped on the mat. Going "on" (Home, a project, CV, Lab, in
+   the keys' order) slides left; going back slides right. The
+   direction, and where the old sheet was scrolled to, are set by the
+   script in layouts/base.njk. A browser without cross-page view
+   transitions (Firefox, for now) just loads the page.
+
+   Within a page: blocks fade in where they are as they scroll into
+   view; CV cards also rise a little. CSS only, tied to scrolling, so
+   anything already on screen when the page opens is simply there.
+   ------------------------------------------------------------------ */
+@view-transition { navigation: auto; }
+.keys { view-transition-name: keys; }
+.mat__content { view-transition-name: sheet; }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* the old sheet is shown where it was read (--vt-from: how far it was
+     scrolled), not from its top; transform, so the slide (translate) adds to it */
+  ::view-transition-group(sheet) { animation: none; }
+  ::view-transition-old(sheet) { transform: translateY(var(--vt-from, 0px)); animation: sheet-off-left var(--dur-page) var(--ease-in-out) both; }
+  ::view-transition-new(sheet) { animation: sheet-on-right var(--dur-page) var(--ease-in-out) both; }
+  html:active-view-transition-type(back)::view-transition-old(sheet) { animation-name: sheet-off-right; }
+  html:active-view-transition-type(back)::view-transition-new(sheet) { animation-name: sheet-on-left; }
+  ::view-transition-group(keys) { animation-duration: var(--dur-page); }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}
+@keyframes sheet-off-left  { to   { translate: -8% 0; rotate: -0.8deg; opacity: 0; } }
+@keyframes sheet-off-right { to   { translate: 8% 0;  rotate: 0.8deg;  opacity: 0; } }
+@keyframes sheet-on-right  { from { translate: 8% 0;  rotate: 0.8deg;  opacity: 0; } }
+@keyframes sheet-on-left   { from { translate: -8% 0; rotate: -0.8deg; opacity: 0; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .mat__content > :is(.sheet, .area):not(.entry) {
+      animation: appear linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 160px;
+    }
+    .mat__content > .sheet.entry {
+      animation: rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 200px;
+    }
+  }
+}
+@keyframes appear { from { opacity: 0; } }
+@keyframes rise { from { opacity: 0; translate: 0 calc(var(--cell) * 0.3); } }
+
+/* ------------------------------------------------------------------
+   Grid overlay: add ?grid to any address. Draws the unit (faint), the
+   24px line (stronger) and outlines what grid.js finds off the grid.
+   ------------------------------------------------------------------ */
+.show-grid .mat__content { position: relative; }
+.show-grid .mat__content::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(to bottom, rgba(0, 200, 255, 0.35) 0 1px, transparent 1px var(--rhythm)),
+    repeating-linear-gradient(to bottom, rgba(0, 200, 255, 0.12) 0 1px, transparent 1px var(--unit));
+}
+.grid-off { outline: 1px solid #ff00c8 !important; outline-offset: -1px; }
+/* Measuring: no motion, so nothing is caught part-way through moving */
+.grid-audit *, .grid-audit *::before, .grid-audit *::after { animation: none !important; transition: none !important; }

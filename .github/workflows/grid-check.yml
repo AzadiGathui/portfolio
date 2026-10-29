@@ -1,0 +1,40 @@
+name: Grid check
+
+# Every page, at a phone, laptop and desktop width: fails if a block isn't on
+# a mat line or a line of text isn't on the 4px unit (scripts/check-grid.mjs).
+on:
+  pull_request:
+  push:
+    branches-ignore:
+      - master
+
+jobs:
+  grid:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Restore optimised images
+        uses: actions/cache@v6
+        with:
+          path: _site/img
+          key: img-${{ hashFiles('src/assets/images/**', '.eleventy.js', 'package-lock.json') }}
+
+      - name: Build Eleventy site
+        run: npm run build
+
+      - name: Install Chromium for the check
+        run: npx playwright install --with-deps chromium
+
+      - name: Check the grid
+        run: npm run check:grid

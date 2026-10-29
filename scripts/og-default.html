@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- The default share image (src/assets/images/branding/og-default.png), 1200 x 630. To remake it: copy this file into _site/, open it from the dev server at 1200 x 630, and screenshot the viewport. Paths are site paths. -->
+<html><head><meta charset="utf-8">
+<style>
+  @font-face { font-family: "Barlow"; src: url("/assets/fonts/barlow-latin-400-normal.woff2"); font-weight: 400; }
+  @font-face { font-family: "JetBrains Mono"; src: url("/assets/fonts/jetbrains-mono-latin-400-normal.woff2"); font-weight: 400; }
+  :root { --mat: #1a1a1a; --text: #e6e6e6; --text-2: #b3b3b3; --mat-line: rgba(255,255,255,0.08); --cell: 71.5px; --band: 28px; }
+  html, body { margin: 0; }
+  /* 16 x 8 squares inside a 28px band: the site's mat, at share size */
+  .mat {
+    position: relative; width: 1200px; height: 630px; box-sizing: border-box; padding: 29px 28px;
+    background:
+      linear-gradient(to right, var(--mat-line) 1px, transparent 1px) 0 0 / var(--cell) var(--cell) content-box,
+      linear-gradient(to bottom, var(--mat-line) 1px, transparent 1px) 0 0 / var(--cell) var(--cell) content-box,
+      var(--mat);
+    font-family: "Barlow", sans-serif; color: var(--text);
+  }
+  /* everything on whole squares: the mark 2 x 2 at column 2, row 2; the text from column 2, row 5 */
+  .mark { position: absolute; left: calc(28px + var(--cell)); top: calc(29px + var(--cell)); width: calc(var(--cell) * 2); height: calc(var(--cell) * 2); }
+  .text { position: absolute; left: calc(28px + var(--cell)); right: calc(28px + var(--cell) * 2); top: calc(29px + var(--cell) * 4); }
+  .label { font: 400 15px/1.25 "JetBrains Mono", monospace; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-2); }
+  h1 { margin: 10px 0 0; font-weight: 400; font-size: 76px; line-height: 1.05; letter-spacing: -0.03em; }
+  p { margin: 14px 0 0; font-size: 26px; line-height: 1.3; color: var(--text-2); }
+  .url { position: absolute; right: calc(28px + var(--cell)); top: calc(29px + var(--cell) * 1.5); }
+</style></head>
+<body>
+<div class="mat">
+  <img class="mark" src="/assets/images/branding/ag-monogram-light.svg" alt="">
+  <span class="label url">azadi.design</span>
+  <div class="text">
+    <span class="label">Data scientist &amp; designer</span>
+    <h1>Azadi Gathui</h1>
+    <p>I build the model, design the journey &amp; ship the screen.</p>
+  </div>
+</div>
+</body></html>

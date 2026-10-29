@@ -1,6 +1,7 @@
 ---
 layout: layouts/base.njk
-description: Azadi Gathui, data scientist and product designer. Portfolio of UX, data science, editorial and data visualisation work.
+eleventyComputed:
+  description: "Azadi Gathui, {{ site.role | lower | safe }}. Portfolio of UX, data science, editorial and data visualisation work."
 permalink: /
 tools:
   - { name: scissors, edge: t, at: "--c: 11; --r: 1; --w: 3; --h: 1; --rot: -2deg; --tint: #d0453a; --cs: 4; --rs: 1; --ws: 3; --hs: 1" }

@@ -1,0 +1,155 @@
+{#- The CV card: THE one way an experience is drawn on /resume/. Import it:
+      {% import "partials/cv-entry.njk" as cv %}
+      {{ cv.card(item, collections.cv) }}
+    The content lives in the files in src/cv/; this only decides the markup.
+
+    Each column answers one question, on every card:
+    - left, the card: who was I, where, when. The role, then "org · years",
+      always (one square); once a row is open, the kind of work and how
+      long, the roles held, about, skills and tools
+    - right, the rows: what did I make. One square per deliverable: its
+      mockup, its name (↗ if it has a case study), its years if they differ
+      from the card's. It opens in place (a <details>, so it works without
+      JS and find-in-page opens it) to show the story, skills and tools,
+      the case-study link and the images.
+    A `rollup: true` card (Freelance) keeps each client's work together.
+
+    Everything sits on the mat's grid: [data-cells] blocks are rounded up
+    to whole squares (snap.js), so every line, frame and button lands on
+    the mat's lines. -#}
+
+{#- The link to a project's case study: at the end of the open row, in words,
+    like the homepage's "Read the CV →" (one link, not an arrow beside the
+    title as well) -#}
+{%- macro go(href) -%}
+<a class="more-link entry__go" href="{{ href }}"><span>Read the case study</span>&nbsp;<span class="entry__arrow" aria-hidden="true">&rarr;</span></a>
+{%- endmacro -%}
+
+{#- The sideways row of images; `phone: true` puts one in the phone mockup -#}
+{%- macro reel(images, label, note) -%}
+<div class="sheet frame reel{% if note %} has-note{% endif %}">
+  <div class="reel__track" tabindex="0" role="region" aria-label="{{ label }}: {{ images | length }} images, scroll sideways">
+    {%- for img in images %}
+    {%- if img.phone %}
+    <span class="phone-frame"><img src="{{ img.src }}" sizes="(max-width: 720px) 30vw, 160px" alt="{{ img.alt }}" loading="lazy"></span>
+    {%- else %}
+    <img src="{{ img.src }}" sizes="(max-width: 720px) 60vw, 520px" alt="{{ img.alt }}" loading="lazy">
+    {%- endif %}
+    {%- endfor %}
+  </div>{% if note %}<span class="note" aria-hidden="true">{{ note }}</span>{% endif %}
+</div>
+{%- endmacro -%}
+
+{#- Skills and tools, as on every card and row: in Barlow and in their own
+    casing (U-Net, GeoPandas, iOS), after a label that says what they are.
+    Not in the mono label style: uppercase would turn them into U-NET and
+    GEOPANDAS, and a block of them out-shouted the story. -#}
+{%- macro tags(list) -%}
+<p class="tools"><span class="label">Skills &amp; tools</span> {% for t in list %}<span class="tool-name">{{ t }}</span>{% if not loop.last %}, {% endif %}{% endfor %}</p>
+{%- endmacro -%}
+
+{#- One row: a deliverable, one square tall, that opens in place -#}
+{%- macro row(r, c, cardName) -%}
+{%- set d = r.entry.data -%}
+{%- set text = r.entry.content | trim -%}
+{%- set name = c.title if r.self else d.title -%}
+<details class="entry__row" id="{{ r.id }}">
+  <summary data-cells>
+    <span class="row__thumb" aria-hidden="true">
+      {%- if r.thumb and r.thumb.phones %}{% for src in r.thumb.phones %}<span class="phone-frame"><img src="{{ src }}" alt="" sizes="60px" loading="lazy"></span>{% endfor %}
+      {%- elif r.thumb %}<img src="{{ r.thumb.src }}" alt="" sizes="(max-width: 720px) 25vw, 160px" loading="lazy">{% endif -%}
+    </span>
+    <h4 class="row__title">{{ name }}{% if d.link %}<span class="row__case" aria-hidden="true"> ↗</span><span class="visually-hidden"> (case study)</span>{% endif %}</h4>
+    {#- its years, unless they're the card's (already beside the role) -#}
+    {%- set rowYears = r.dates.start | cvYears(r.dates.end) if r.dates else "" -%}
+    {%- if rowYears and rowYears != (c.start | cvYears(c.end)) %}
+    {%- set rowLatest = r.dates.start | cvLatest(r.dates.end) %}
+    <span class="row__date">{% if rowLatest != rowYears %}<span class="row__date-short">{{ rowLatest }}</span><span class="row__date-full">{{ rowYears }}</span>{% else %}{{ rowYears }}{% endif %}</span>
+    {%- endif %}
+    <span class="go row__chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span>
+  </summary>
+  <div class="row__body">
+    {#- only what isn't on screen already: the client is in the description
+        or the card's heading, the role in the description's verb (or, at
+        Leja, the card's roles). Read in order: what it is (a "Volunteer"
+        label, its about), what happened (the story), what it took (skills
+        and tools), where to read more (the case study) -#}
+    {%- set rowTags = d.tags or [] -%}
+    {%- if (d.about and not r.self) or (rowTags.length and not r.self) or text or d.link or d.type == "Volunteer" %}
+    <div class="row__text" data-cells>
+      {%- if d.type == "Volunteer" %}
+      <span class="label row__type">Volunteer</span>
+      {%- endif %}
+      {%- if d.about and not r.self %}
+      <p class="row__about">{{ d.about }}</p>
+      {%- endif %}
+      {%- if text %}
+      <div class="entry__text">
+        {{ text | safe }}
+      </div>
+      {%- endif %}
+      {%- if rowTags.length and not r.self %}
+      {{ tags(rowTags) }}
+      {%- endif %}
+      {%- if d.link %}
+      {{ go(d.link) }}
+      {%- endif %}
+    </div>
+    {%- endif %}
+    {%- if d.images %}
+    {{ reel(d.images, cardName + ", " + name, d.note) }}
+    {%- endif %}
+  </div>
+</details>
+{%- endmacro -%}
+
+{#- The card -#}
+{%- macro card(e, all) -%}
+{%- set d = e.data -%}
+{%- set c = e | cvCard(all) -%}
+{%- set name = d.org or c.title -%}
+{%- set own = c.rows[0] -%}
+{#- a card's own row is only drawn if there's something in it -#}
+{%- set hasRows = not own.self or own.thumb or d.link or (e.content | trim) -%}
+<article class="sheet area entry" id="{{ c.id }}" style="--h: 2" data-snap>
+  <header class="entry__meta" data-cells>
+    {#- Two lines, one square, always shown: the role, then where and when.
+        The three things a CV is scanned for. The rest joins them once a
+        row is open. Each part keeps its separator, so a line only breaks
+        between parts, never inside a date. -#}
+    <h3>{{ c.title }}</h3>
+    {%- set where = d.org or (d.type if not d.org) -%}
+    {%- if where or c.start %}
+    <p class="entry__where">{% if where %}<span>{{ where }}</span>{% endif %}{% if c.start %}<span>{% if where %} · {% endif %}<span class="visually-hidden">{{ c.start | cvDates(c.end) }}</span><span aria-hidden="true">{{ c.start | cvYears(c.end) }}</span></span>{% endif %}</p>
+    {%- endif %}
+    {#- then: the kind of work and how long -#}
+    {%- set kind = d.type if d.org else "" -%}
+    {%- set howLong = c.duration if (c.duration and c.end) else "" -%}
+    {%- if kind or howLong %}
+    <p class="entry__date">{% if kind %}<span>{{ kind }}</span>{% endif %}{% if howLong %}<span>{% if kind %} · {% endif %}{{ howLong }}</span>{% endif %}</p>
+    {%- endif %}
+    {%- if d.roles and d.roles.length > 1 %}
+    <ol class="entry__roles" aria-label="Roles">
+      {%- for role in d.roles %}
+      <li>{{ role.title }} <span class="entry__years">{{ role.start | cvYears(role.end) }}</span></li>
+      {%- endfor %}
+    </ol>
+    {%- endif %}
+    {%- if d.about %}
+    <p class="entry__about">{{ d.about }}</p>
+    {%- endif %}
+    {%- if d.tags %}
+    {{ tags(d.tags) }}
+    {%- endif %}
+  </header>
+  {%- if hasRows %}
+  <div class="entry__body">
+    <div class="entry__rows">
+      {%- for r in c.rows %}
+      {{ row(r, c, name) }}
+      {%- endfor %}
+    </div>
+  </div>
+  {%- endif %}
+</article>
+{%- endmacro -%}
