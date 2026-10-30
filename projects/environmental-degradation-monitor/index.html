@@ -4,30 +4,51 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#242322">
+  <meta name="theme-color" content="#262626">
 
-  <link rel="icon" href="/assets/images/branding/AG Favicon Light on Dark.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/images/branding/ag-tile-dark.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/images/branding/favicon.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="/assets/images/branding/apple-touch-icon.png">
   <!-- Self-hosted fonts: preload the face every page renders first -->
   <link rel="preload" href="/assets/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="">
   <link rel="stylesheet" href="/assets/css/style.css">
 
-  <title>Measuring encroachment on Kenya&#39;s protected areas from space | Azadi Gathui</title>
-  <meta name="description" content="An end-to-end pipeline that segments Sentinel-2 imagery with a U-Net, compares 2016 with 2025 and measures new built-up land inside Kenya&#39;s protected areas, plus an honest evaluation of how well it works in Kenya.">
+  <title>Measuring encroachment on Kenya&#39;s protected areas | Azadi Gathui</title>
+  <meta name="description" content="An end-to-end pipeline that segments Sentinel-2 imagery with a U-Net, compares 2016 with 2025 and measures new built-up land inside Kenya&#39;s protected areas.">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Measuring encroachment on Kenya&#39;s protected areas from space | Azadi Gathui">
-  <meta property="og:description" content="An end-to-end pipeline that segments Sentinel-2 imagery with a U-Net, compares 2016 with 2025 and measures new built-up land inside Kenya&#39;s protected areas, plus an honest evaluation of how well it works in Kenya.">
-  <meta property="og:image" content="/img/3ZwCs_4aQS-1200.jpeg">
+  <meta property="og:title" content="Measuring encroachment on Kenya&#39;s protected areas | Azadi Gathui">
+  <meta property="og:description" content="An end-to-end pipeline that segments Sentinel-2 imagery with a U-Net, compares 2016 with 2025 and measures new built-up land inside Kenya&#39;s protected areas.">
+  <meta property="og:image" content="https://azadi.design/img/3ZwCs_4aQS-1200.jpeg">
+  <meta property="og:image:alt" content="Measuring encroachment on Kenya&#39;s protected areas, by Azadi Gathui">
+  <meta property="og:site_name" content="Azadi Gathui">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://azadi.design/projects/environmental-degradation-monitor/">
+  <meta name="twitter:card" content="summary_large_image">
   <script src="/assets/js/snap.js" defer=""></script>
   <script src="/assets/js/tools.js" defer=""></script>
   <script src="/assets/js/reels.js" defer=""></script>
   <script src="/assets/js/reading-bar.js" defer=""></script>
   <script src="/assets/js/spread-zoom.js" defer=""></script>
   <script>document.documentElement.classList.add("js")</script>
+  <script>if (/[?&]grid\b/.test(location.search)) document.head.append(Object.assign(document.createElement("script"), { src: "/assets/js/grid.js" }))</script>
+  <script>
+    (() => {
+      const rank = (url) => {
+        const path = new URL(url).pathname;
+        return path === "/" ? 0 : path.startsWith("/projects/") ? 1 : path.startsWith("/resume") ? 2 : 3;
+      };
+      addEventListener("pageswap", (e) => {
+        if (e.viewTransition) sessionStorage.setItem("sheet-scroll", String(scrollY));
+      });
+      addEventListener("pagereveal", (e) => {
+        if (!e.viewTransition) return;
+        const from = window.navigation?.activation?.from?.url;
+        if (from) e.viewTransition.types.add(rank(location.href) < rank(from) ? "back" : "forward");
+        document.documentElement.style.setProperty("--vt-from", `-${sessionStorage.getItem("sheet-scroll") || 0}px`);
+      });
+    })();
+  </script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -59,8 +80,8 @@
 
 <header class="sheet" style="--w: 10; --h: 4" data-snap="">
   <span class="label">Geospatial AI</span>
-  <h1>Measuring encroachment on Kenya&#39;s protected areas from space</h1>
-  <p>An end-to-end pipeline that segments Sentinel-2 imagery with a U-Net, compares 2016 with 2025 and measures new built-up land inside Kenya&#39;s protected areas, plus an honest evaluation of how well it works in Kenya.</p>
+  <h1>Measuring encroachment on Kenya&#39;s protected areas</h1>
+  <p>An end-to-end pipeline that segments Sentinel-2 imagery with a U-Net, compares 2016 with 2025 and measures new built-up land inside Kenya&#39;s protected areas.</p>
 </header>
 
 <figure class="sheet cover" style="--h: 6">
@@ -78,7 +99,7 @@
 <div class="sheet area study" data-snap="">
   <nav class="toc" aria-label="On this page">
     <ol>
-      <li><a href="#overview">Overview</a></li>
+      <li><a href="#overview">32.8% of protected land is under intense human pressure</a></li>
       <li><a href="#pipeline">The pipeline</a></li>
       <li><a href="#data">The data</a></li>
       <li><a href="#model">The model</a></li>
@@ -93,37 +114,30 @@
   </nav>
   <div class="area study__body">
     <div class="sheet prose" data-snap=""><div class="article-body">
-<h2 id="overview">Overview</h2>
-<p>Nairobi National Park was gazetted in 1946 as Kenya's first national park, and it sits at the edge of a city of millions. Karura Forest, a few kilometres from the city centre, is where Wangari Maathai's 1998–99 campaign against forest allocation became a landmark of land-rights activism. Both are protected, and both are surrounded by growth.</p>
+<h2 id="overview">32.8% of protected land is under intense human pressure</h2>
+<p>Nairobi National Park was gazetted in 1946 as Kenya's first national park, and it sits at the edge of a city of millions. Karura Forest, a few kilometres from the city centre, is where Wangari Maathai's 1998–99 campaign against forest allocation became a landmark of land-rights activism. Both are protected, and both are surrounded by urbanisation.</p>
 <p>The pressure is not unique to Nairobi. A global study found that 32.8% of protected land is under intense human pressure (Jones et al., <em>Science</em>, 2018). In Kenya, aerial surveys recorded an average 68% decline in wildlife between 1977 and 2016 (Ogutu et al., <em>PLOS ONE</em>, 2016). Protecting land needs monitoring it, and rangers cannot watch every boundary on foot.</p>
-<p>Satellites already photograph all of it. The hard part is turning two photographs into one answer.</p>
-<p><strong>The goal:</strong> for a chosen protected area, measure how much land inside its boundary, and in a 100 m margin around it, became built-up between 2016 and 2025.</p>
-<p>I built the whole pipeline: downloading imagery, segmenting it with a U-Net, comparing two years and reporting the area in square kilometres on an interactive map. Then I tested it on real Kenyan imagery and found that it does not yet work well enough to trust. This page covers both halves.</p>
-<blockquote class="pull-quote">A model can be right about India and wrong about Nairobi.</blockquote>
+<blockquote class="pull-quote">For a chosen protected area, measure how much land inside its boundary, and in a 100 m margin around it, became built-up between 2016 and 2025.</blockquote>
 <h2 id="pipeline">The pipeline</h2>
-<p>The system has five stages. Each is a separate module in the app, so one can be replaced without touching the others.</p>
+<p>The system has 5 stages; each is a separate module in the app, so one can be replaced without touching the others.</p>
 <div class="table-scroll" role="region" tabindex="0" aria-label="Table: Stage, What happens, Built with"><table>
   <thead><tr><th>Stage</th><th>What happens</th><th>Built with</th></tr></thead>
   <tbody>
-    <tr><td>1. Download</td><td>Fetch a true-colour Sentinel-2 composite for each year, at the native 10 m resolution</td><td>sentinelhub, Copernicus Data Space</td></tr>
-    <tr><td>2. Segment</td><td>Classify every pixel into one of 7 land-cover classes, for both years</td><td>TensorFlow / Keras U-Net</td></tr>
-    <tr><td>3. Compare</td><td>Find pixels that were not built-up in 2016 and are built-up in 2025</td><td>NumPy, rasterio</td></tr>
-    <tr><td>4. Measure</td><td>Intersect the change with protected areas plus a 100 m buffer; sum the area</td><td>geopandas, shapely</td></tr>
-    <tr><td>5. Present</td><td>Show both years, the change layer and the headline figure on one map</td><td>Streamlit, folium</td></tr>
+    <tr><td>Download</td><td>Fetch a true-colour Sentinel-2 composite for each year at 10 m resolution</td><td>sentinelhub, Copernicus Data Space</td></tr>
+    <tr><td>Segment</td><td>Classify every pixel into one of 7 land-cover classes, for both years</td><td>TensorFlow / Keras U-Net</td></tr>
+    <tr><td>Compare</td><td>Find pixels that were not built-up in 2016 and are built-up in 2025</td><td>NumPy, rasterio</td></tr>
+    <tr><td>Measure</td><td>Intersect the change with protected areas plus a 100 m buffer; sum the area</td><td>geopandas, shapely</td></tr>
+    <tr><td>Present</td><td>Show both years, the change and the figures on one map</td><td>Streamlit, folium</td></tr>
   </tbody>
 </table></div>
-<h3>Narrowing the question</h3>
-<p>The first version let a user pick any county and any dates. It was flexible and hard to trust: different dates and areas meant different image sizes, and larger areas had to be downloaded at a coarser resolution than the model was trained on.</p>
-<p>So I narrowed it. The tool now answers one question, <strong>2016 → 2025</strong>, with a full-year, least-cloud composite at each end. It covers two protected areas, each small enough to download in a single request at 10 m: Nairobi National Park (126 km²) and Karura Forest Reserve (10 km²). Larger areas such as the Mau complex and the Maasai Mara need tiled downloads, which are left for later. A smaller promise that holds is worth more than a bigger one that does not.</p>
 <h2 id="data">The data</h2>
 <div class="table-scroll" role="region" tabindex="0" aria-label="Table: Layer, Source, Used for"><table>
   <thead><tr><th>Layer</th><th>Source</th><th>Used for</th></tr></thead>
   <tbody>
     <tr><td>Training chips</td><td>Sen-2 LULC (Sawant et al., Mendeley Data): 64×64 px RGB chips with 7-class masks</td><td>Training the model: 149,600 train, 32,079 validation, 32,079 test pairs</td></tr>
-    <tr><td>Satellite imagery</td><td>Copernicus Sentinel-2 L2A, via the Copernicus Data Space Ecosystem</td><td>Full-year least-cloud composites for 2016 and 2025</td></tr>
+    <tr><td>Satellite imagery</td><td>Copernicus Sentinel-2 L2A</td><td>Full-year least-cloud composites for 2016 and 2025</td></tr>
     <tr><td>Protected areas</td><td>UNEP-WCMC and IUCN, World Database on Protected Areas (WDPA) polygons</td><td>Deciding where a change counts as encroachment</td></tr>
     <tr><td>Reference land cover</td><td>UNDP GeoHub 10 m annual land use / land cover, 9 classes, four UTM tiles</td><td>Independent check on the model in Kenya (see below)</td></tr>
-    <tr><td>Waterways</td><td>HOTOSM Kenya waterways (HDX)</td><td>Riparian buffers (gathered, not yet used)</td></tr>
   </tbody>
 </table></div>
 <h3>The training data is not from Kenya</h3>
@@ -135,7 +149,13 @@
   <figcaption>The two protected areas in scope, each with its 100 m buffer.</figcaption>
 </figure>
 <h2 id="model">The model</h2>
-<p>The segmentation model is a U-Net: an encoder that compresses the image into features, a decoder that rebuilds a full-resolution map, and skip connections that carry fine detail across. Skip connections matter here because edges, such as where a road ends and a field begins, are what the model has to get right.</p>
+<p>The segmentation model is a U-Net:</p>
+<ul>
+<li>an encoder that compresses the image into features</li>
+<li>a decoder that rebuilds a full-resolution map</li>
+<li>and skip connections that carry fine detail across
+Skip connections matter here because edges, such as where a road ends and a field begins, are what the model has to get right.</li>
+</ul>
 <p>I scaled the standard design down to fit 64×64 px chips. The first draft was a 5-level, 1024-filter network sized for 256×256 images, far too large for chips this small.</p>
 <div class="pj-row">
   <div class="stat-card">
@@ -404,10 +424,10 @@ streamlit run streamlit_app.py
 
       </main>
       <div class="mat__tools" aria-hidden="true">
-        <div class="tool tool--r" style="--c: 14; --r: 4; --w: 1; --h: 2; --rot: 4deg; --tint: #8fbcd4; --cs: 6; --rs: 4; --ws: 1; --hs: 2">tape</div>
-        <div class="tool tool--l" style="--c: 1; --r: 9; --w: 1; --h: 9; --rot: -1deg; --tint: #c9a227">ruler</div>
-        <div class="tool tool--r" style="--c: 14; --r: 22; --w: 1; --h: 3; --rot: 2deg; --tint: #f07a2a">craft knife</div>
-        <div class="tool tool--l" style="--c: 1; --r: 34; --w: 1; --h: 1; --rot: -6deg; --tint: #b8c4cc">paper clips</div>
+        <div class="tool tool--r" style="--c: 14; --r: 4; --rot: 4deg; --cs: 6; --rs: 4; --iw: 367; --ih: 360"><img class="tool__line" src="/img/6UkK-8Boqg-367.svg" alt="" loading="lazy" decoding="async" width="367" height="360"><picture><source type="image/avif" srcset="/img/cnZPP7Zf3g-373.avif" sizes="200px"><img loading="lazy" decoding="async" src="/img/cnZPP7Zf3g-373.webp" class="tool__photo" alt="" width="373" height="366"></picture></div>
+        <div class="tool tool--l" style="--c: 1; --r: 9; --rot: -1deg; --iw: 80; --ih: 910"><img class="tool__line" src="/img/-tYFHMtY-m-80.svg" alt="" loading="lazy" decoding="async" width="80" height="910"><picture><source type="image/avif" srcset="/img/TJzZtenA69-81.avif" sizes="200px"><img loading="lazy" decoding="async" src="/img/TJzZtenA69-81.webp" class="tool__photo" alt="" width="81" height="910"></picture></div>
+        <div class="tool tool--r" style="--c: 14; --r: 22; --rot: 2deg; --iw: 141; --ih: 801"><img class="tool__line" src="/img/VEJPsvBrWS-141.svg" alt="" loading="lazy" decoding="async" width="141" height="801"><picture><source type="image/avif" srcset="/img/q3BY8Z9DL5-142.avif" sizes="200px"><img loading="lazy" decoding="async" src="/img/q3BY8Z9DL5-142.webp" class="tool__photo" alt="" width="142" height="801"></picture></div>
+        <div class="tool tool--l" style="--c: 1; --r: 34; --rot: -6deg; --iw: 188; --ih: 249"><img class="tool__line" src="/img/T9BPaJy9fx-188.svg" alt="" loading="lazy" decoding="async" width="188" height="249"><picture><source type="image/avif" srcset="/img/qxpgpbxX0Q-185.avif" sizes="200px"><img loading="lazy" decoding="async" src="/img/qxpgpbxX0Q-185.webp" class="tool__photo" alt="" width="185" height="248"></picture></div>
       </div>
     </div>
   </div>
@@ -423,7 +443,7 @@ streamlit run streamlit_app.py
     <button type="button" class="toc-sheet__close" aria-label="Close contents">&#x2715;</button>
   </div>
   <ol>
-    <li><a href="#overview">Overview</a></li>
+    <li><a href="#overview">32.8% of protected land is under intense human pressure</a></li>
     <li><a href="#pipeline">The pipeline</a></li>
     <li><a href="#data">The data</a></li>
     <li><a href="#model">The model</a></li>

@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#242322">
+  <meta name="theme-color" content="#262626">
 
-  <link rel="icon" href="/assets/images/branding/AG Favicon Light on Dark.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/images/branding/ag-tile-dark.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/images/branding/favicon.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="/assets/images/branding/apple-touch-icon.png">
   <!-- Self-hosted fonts: preload the face every page renders first -->
@@ -14,19 +14,40 @@
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <title>Resume | Azadi Gathui</title>
-  <meta name="description" content="Resume of Azadi Gathui, data scientist and product designer, with experience across fintech, healthcare, climate, and conservation.">
+  <meta name="description" content="Resume of Azadi Gathui, data scientist &amp; designer, with experience across fintech, healthcare, climate, and conservation.">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Resume | Azadi Gathui">
-  <meta property="og:description" content="Resume of Azadi Gathui, data scientist and product designer, with experience across fintech, healthcare, climate, and conservation.">
-  <meta property="og:image" content="/assets/images/branding/AG Favicon Light on Dark.svg">
+  <meta property="og:description" content="Resume of Azadi Gathui, data scientist &amp; designer, with experience across fintech, healthcare, climate, and conservation.">
+  <meta property="og:image" content="https://azadi.design/assets/images/branding/og-default.png">
+  <meta property="og:image:alt" content="Resume, by Azadi Gathui">
+  <meta property="og:site_name" content="Azadi Gathui">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://azadi.design/resume/">
+  <meta name="twitter:card" content="summary_large_image">
   <script src="/assets/js/snap.js" defer=""></script>
   <script src="/assets/js/tools.js" defer=""></script>
   <script src="/assets/js/reels.js" defer=""></script>
   <script src="/assets/js/cv.js" defer=""></script>
   <script>document.documentElement.classList.add("js")</script>
+  <script>if (/[?&]grid\b/.test(location.search)) document.head.append(Object.assign(document.createElement("script"), { src: "/assets/js/grid.js" }))</script>
+  <script>
+    (() => {
+      const rank = (url) => {
+        const path = new URL(url).pathname;
+        return path === "/" ? 0 : path.startsWith("/projects/") ? 1 : path.startsWith("/resume") ? 2 : 3;
+      };
+      addEventListener("pageswap", (e) => {
+        if (e.viewTransition) sessionStorage.setItem("sheet-scroll", String(scrollY));
+      });
+      addEventListener("pagereveal", (e) => {
+        if (!e.viewTransition) return;
+        const from = window.navigation?.activation?.from?.url;
+        if (from) e.viewTransition.types.add(rank(location.href) < rank(from) ? "back" : "forward");
+        document.documentElement.style.setProperty("--vt-from", `-${sessionStorage.getItem("sheet-scroll") || 0}px`);
+      });
+    })();
+  </script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -54,24 +75,33 @@
 
 
       <main class="mat__content" id="main">
-        <section class="sheet" style="--h: 4" data-snap="">
-  <span class="label">Data scientist &amp; designer</span>
-  <h1>Azadi Gathui</h1>
-  <p class="cv__tagline">If it challenges assumptions, connects disciplines, or helps real humans live better, I'm probably already thinking about it.</p>
-  <p class="cv__ask">Let’s create meaningful impact together.</p>
+        <link rel="stylesheet" href="/assets/css/cv-print.css" media="print"><section class="sheet area cv-intro" data-snap="">
+  <div class="cv-intro__text" data-cells="">
+    <span class="label">Data scientist &amp; designer</span>
+    <h1>Azadi Gathui</h1>
+    <p class="cv__tagline">If it challenges assumptions, connects disciplines, or helps real humans live better, I'm probably already thinking about it.</p>
+    <p class="cv__ask">Let’s create meaningful impact together.</p>
+  </div>
   <ul class="icon-links contact" aria-label="Contact">
-    <li><a href="mailto:gathui@azadi.design">gathui@azadi.design</a></li><li><a class="icon-link" href="https://linkedin.com/in/azadigathui"><span class="visually-hidden">LinkedIn</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M8 10.5V17M8 7.25v.01M12 17v-6.5M12 13.5a2.5 2.5 0 0 1 5 0V17"></path></svg></a></li>
+    <li><a class="icon-link" href="mailto:gathui@azadi.design"><span class="visually-hidden">Email </span><span class="contact__address visually-hidden">gathui@azadi.design</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"></rect><path d="m3.5 7 8.5 6.5L20.5 7"></path></svg></a></li><li><a class="icon-link" href="https://linkedin.com/in/azadigathui"><span class="visually-hidden">LinkedIn</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M8 10.5V17M8 7.25v.01M12 17v-6.5M12 13.5a2.5 2.5 0 0 1 5 0V17"></path></svg></a></li>
 <li><a class="icon-link" href="https://github.com/AzadiGathui"><span class="visually-hidden">GitHub</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></li>
 
+    <li data-print=""><button class="btn" type="button">Save as PDF</button></li>
   </ul>
 </section>
 
-<div class="gap" style="--rows: 1" aria-hidden="true"></div>
-
-<!-- The one figure: the timeline, in a frame like the other images -->
-<figure class="sheet frame tl-frame" id="timeline" style="--h: 8" data-snap="">
+<div class="gap" style="--rows: 1" aria-hidden="true"></div><!-- The one figure: the timeline. A title and key above it, so it reads
+     at once; lane chips; the chart in a frame of whole squares; a panel
+     that shows the entry pointed at or chosen; the caption below,
+     outside the frame -->
+<div class="sheet area cv-section tl-head" style="--h: 1">
+  <h2 id="timeline-title">Career timeline</h2>
+  <p class="tl-key" aria-hidden="true"><span class="tl-key__bar tl-key__bar--major"></span>Roles<span class="tl-key__bar tl-key__bar--minor"></span>Freelance projects</p>
+</div>
+<figure class="sheet area tl-figure" id="timeline" aria-labelledby="timeline-title" data-snap="">
+  <div class="frame tl-frame" data-snap="">
   <div class="tl-scroll" tabindex="0" role="region" aria-label="Timeline of roles and projects">
-    <div class="tl">
+    <div class="tl" style="--years: 7">
       <span class="tl__year" style="grid-column: 2">2020</span>
       <span class="tl__year" style="grid-column: 3">2021</span>
       <span class="tl__year" style="grid-column: 4">2022</span>
@@ -79,564 +109,847 @@
       <span class="tl__year" style="grid-column: 6">2024</span>
       <span class="tl__year" style="grid-column: 7">2025</span>
       <span class="tl__year" style="grid-column: 8">2026</span>
-
-      <h3 class="tl__name" style="--y: 2; --rows: 2">Product</h3>
-      <ol class="tl__track" style="--y: 2; --rows: 2">
-        <li style="--s: 26; --e: 67; --r: 1"><a href="#leja">Leja</a><span class="visually-hidden">, February 2022 to June 2025</span></li>
-        <li style="--s: 54; --e: 55; --r: 2"><a href="#carnayo">CarNayo</a><span class="visually-hidden">, June 2024</span></li>
-        <li style="--s: 64; --e: 82; --r: 2"><a href="#jireh">Jireh Health</a><span class="visually-hidden">, April 2025 to September 2026</span></li>
+      
+      <p class="tl__name" data-lane="data" style="--y: 2; --rows: 1; --yp: 2">Data &amp; ML</p>
+      <ol class="tl__track" data-lane="data" style="--y: 2; --rows: 1; --yp: 2; --rp: 2">
+        <li class="is-major is-ongoing is-late" data-id="data-science" style="--s: 68; --e: 82.9; --r: 1"><a href="#data-science">Data science</a><span class="visually-hidden">, August 2025 to now</span></li>
       </ol>
-      <h3 class="tl__name" style="--y: 4; --rows: 2">Editorial</h3>
-      <ol class="tl__track" style="--y: 4; --rows: 2">
-        <li style="--s: 2; --e: 3; --r: 1"><a href="#belva">3408 Belva</a><span class="visually-hidden">, February 2020</span></li>
-        <li style="--s: 22; --e: 25; --r: 1"><a href="#sid">SID Kenya</a><span class="visually-hidden">, October to December 2021</span></li>
-        <li style="--s: 34; --e: 35; --r: 1"><a href="#afriyoccc">AFRIYOCCC</a><span class="visually-hidden">, October 2022</span></li>
-        <li style="--s: 34; --e: 35; --r: 2"><a href="#lcoy">LCOY Kenya</a><span class="visually-hidden">, October 2022</span></li>
-        <li style="--s: 48; --e: 51; --r: 1"><a href="#ciff">CIFF / COP27</a><span class="visually-hidden">, December 2023 to February 2024</span></li>
-        <li style="--s: 53; --e: 54; --r: 2"><a href="#inable">inABLE</a><span class="visually-hidden">, May 2024</span></li>
-        <li style="--s: 57; --e: 58; --r: 3"><a href="#unfccc">UNFCCC Champions</a><span class="visually-hidden">, September 2024</span></li>
+      <p class="tl__name" data-lane="product" style="--y: 3; --rows: 3; --yp: 4">Product</p>
+      <ol class="tl__track" data-lane="product" style="--y: 3; --rows: 3; --yp: 4; --rp: 4">
+        <li class="is-major" data-id="leja" style="--s: 26; --e: 67; --r: 1"><a href="#leja">Leja</a><span class="visually-hidden">, February 2022 to June 2025</span></li>
+        <li class="is-minor" data-id="carnayo" style="--s: 54; --e: 55; --r: 2"><a href="#carnayo">CarNayo</a><span class="visually-hidden">, June 2024</span></li>
+        <li class="is-major is-late" data-id="jireh" style="--s: 64; --e: 82; --r: 3"><a href="#jireh">Jireh Health</a><span class="visually-hidden">, April 2025 to September 2026</span></li>
       </ol>
-      <h3 class="tl__name" style="--y: 7; --rows: 2">Branding</h3>
-      <ol class="tl__track" style="--y: 7; --rows: 2">
-        <li style="--s: 6; --e: 13; --r: 1"><a href="#herbivore">Herbivore</a><span class="visually-hidden">, June to December 2020</span></li>
-        <li style="--s: 17; --e: 19; --r: 2"><a href="#lizopendwa">Lizopendwa</a><span class="visually-hidden">, May to June 2021</span></li>
-        <li style="--s: 19; --e: 20; --r: 3"><a href="#belva-homes">Belva Homes</a><span class="visually-hidden">, July 2021</span></li>
-        <li style="--s: 25; --e: 26; --r: 1"><a href="#qoba">Qoba</a><span class="visually-hidden">, January 2022</span></li>
-        <li style="--s: 54; --e: 55; --r: 2"><a href="#kwetu">KWETU Pride</a><span class="visually-hidden">, June 2024</span></li>
-      </ol>
-      <h3 class="tl__name" style="--y: 10">Data &amp; ML</h3>
-      <ol class="tl__track" style="--y: 10">
-        <li class="is-ongoing" style="--s: 68; --e: 82.5"><a href="#zindua">Zindua School</a><span class="visually-hidden">, August 2025 to now</span></li>
+      <p class="tl__name" data-lane="editorial" style="--y: 6; --rows: 2; --yp: 8">Brand &amp; editorial</p>
+      <ol class="tl__track" data-lane="editorial" style="--y: 6; --rows: 2; --yp: 8; --rp: 3">
+        <li class="is-minor is-group" data-id="group-editorial" style="--s: 2; --e: 58; --r: 1"><a href="#freelance">Freelance ×11</a><span class="visually-hidden">, 11 projects, February 2020 to September 2024</span><span class="tl__tick" data-id="belva" aria-hidden="true" style="--ts: 2; --te: 3"></span><span class="tl__tick" data-id="lizopendwa" aria-hidden="true" style="--ts: 17; --te: 19"></span><span class="tl__tick" data-id="belva-homes" aria-hidden="true" style="--ts: 19; --te: 20"></span><span class="tl__tick" data-id="sid" aria-hidden="true" style="--ts: 22; --te: 25"></span><span class="tl__tick" data-id="qoba" aria-hidden="true" style="--ts: 25; --te: 26"></span><span class="tl__tick" data-id="lcoy" aria-hidden="true" style="--ts: 34; --te: 35"></span><span class="tl__tick" data-id="afriyoccc" aria-hidden="true" style="--ts: 34; --te: 35"></span><span class="tl__tick" data-id="ciff" aria-hidden="true" style="--ts: 48; --te: 51"></span><span class="tl__tick" data-id="inable" aria-hidden="true" style="--ts: 53; --te: 54"></span><span class="tl__tick" data-id="kwetu" aria-hidden="true" style="--ts: 54; --te: 55"></span><span class="tl__tick" data-id="unfccc" aria-hidden="true" style="--ts: 57; --te: 58"></span></li>
+        <li class="is-major" data-id="herbivore" style="--s: 6; --e: 13; --r: 2"><a href="#herbivore">Herbivore</a><span class="visually-hidden">, June to December 2020</span></li>
       </ol>
 
-      <div class="tl__today" style="--s: 82.5" aria-hidden="true"><span>Today</span></div>
+      <div class="tl__today" style="--s: 82.9" aria-hidden="true"><span>Today</span></div>
     </div>
   </div>
-  <figcaption><span class="label">Fig. 1</span>Roles and projects since 2020. Select one to jump to it.</figcaption>
+  </div>
+  <div class="tl-panel" id="tl-panel" role="region" aria-label="Selected entry" aria-live="polite" data-current="data-science">
+    <div class="tl-panel__body"></div>
+    <p class="tl-panel__hint" aria-hidden="true"></p>
+  </div>
+  <div hidden="">
+    <div class="tl-pv" id="pv-data-science" hidden="" data-open="data-science">
+  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/XuLG9x2Xim-400.avif 400w, /img/XuLG9x2Xim-800.avif 800w" sizes="160px"><img loading="lazy" decoding="async" src="/img/XuLG9x2Xim-400.webp" alt="" width="800" height="358" srcset="/img/XuLG9x2Xim-400.webp 400w, /img/XuLG9x2Xim-800.webp 800w" sizes="160px"></picture><picture><source type="image/avif" srcset="/img/EqQLiFpiBe-400.avif 400w, /img/EqQLiFpiBe-800.avif 800w, /img/EqQLiFpiBe-1200.avif 1200w" sizes="160px"><img loading="lazy" decoding="async" src="/img/EqQLiFpiBe-400.webp" alt="" width="1200" height="865" srcset="/img/EqQLiFpiBe-400.webp 400w, /img/EqQLiFpiBe-800.webp 800w, /img/EqQLiFpiBe-1200.webp 1200w" sizes="160px"></picture><picture><source type="image/avif" srcset="/img/bNZ2Mb3Y9V-400.avif 400w, /img/bNZ2Mb3Y9V-800.avif 800w, /img/bNZ2Mb3Y9V-1200.avif 1200w" sizes="160px"><img loading="lazy" decoding="async" src="/img/bNZ2Mb3Y9V-400.webp" alt="" width="1200" height="790" srcset="/img/bNZ2Mb3Y9V-400.webp 400w, /img/bNZ2Mb3Y9V-800.webp 800w, /img/bNZ2Mb3Y9V-1200.webp 1200w" sizes="160px"></picture></div>
+  <div class="tl-pv__text">
+    <span class="label">Independent</span>
+    <h3>Data scientist</h3>
+    <p class="tl-pv__meta">Aug ’25 – Present · 1 yr 3 mos</p><p class="tl-pv__about">Geospatial machine learning and data analysis for conservation and energy, alongside Zindua School&#39;s data science programme.</p>
+  </div>
+  <div class="tl-pv__actions">
+    <a class="btn" href="#data-science" data-open="">Full entry <span aria-hidden="true">&darr;</span></a><a class="btn" href="/projects/environmental-degradation-monitor/">Case study <span aria-hidden="true">&rarr;</span></a>
+  </div>
+</div>
+    <div class="tl-pv" id="pv-leja" hidden="" data-open="leja">
+  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/ZVvtiVPQHY-400.avif 400w, /img/ZVvtiVPQHY-640.avif 640w" sizes="160px"><img loading="lazy" decoding="async" src="/img/ZVvtiVPQHY-400.webp" alt="" width="640" height="1280" srcset="/img/ZVvtiVPQHY-400.webp 400w, /img/ZVvtiVPQHY-640.webp 640w" sizes="160px"></picture><picture><source type="image/avif" srcset="/img/U88tE1IPCP-400.avif" sizes="160px"><img loading="lazy" decoding="async" src="/img/U88tE1IPCP-400.webp" alt="" width="400" height="400"></picture></div>
+  <div class="tl-pv__text">
+    <span class="label">Full-time</span>
+    <h3>Product designer</h3>
+    <p class="tl-pv__meta">Leja · Feb ’22 – Jun ’25 · 3 yrs 5 mos</p><p class="tl-pv__about">B2B payments &amp; bookkeeping mobile app serving Kenyan MSMEs and CICO agents.</p><p class="tl-pv__tags">Figma, MUI, Android <span class="tl-pv__more">+2 more</span></p>
+  </div>
+  <div class="tl-pv__actions">
+    <a class="btn" href="#leja" data-open="">Full entry <span aria-hidden="true">&darr;</span></a><a class="btn" href="/projects/leja-business-app/">Case study <span aria-hidden="true">&rarr;</span></a>
+  </div>
+</div>
+    <div class="tl-pv" id="pv-carnayo" hidden="" data-open="carnayo">
+  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/oSwCK27McW-400.avif 400w, /img/oSwCK27McW-640.avif 640w" sizes="160px"><img loading="lazy" decoding="async" src="/img/oSwCK27McW-400.webp" alt="" width="640" height="1280" srcset="/img/oSwCK27McW-400.webp 400w, /img/oSwCK27McW-640.webp 640w" sizes="160px"></picture></div>
+  <div class="tl-pv__text">
+    <span class="label">Freelance project</span>
+    <h3>UI/UX design for CarNayo’s driver and passenger apps</h3>
+    <p class="tl-pv__meta">CarNayo · Jun ’24</p><p class="tl-pv__about">Congolese ride-hailing app.</p><p class="tl-pv__tags">Figma, iOS, Android <span class="tl-pv__more">+2 more</span></p>
+  </div>
+  <div class="tl-pv__actions">
+    <a class="btn" href="#carnayo" data-open="">Full entry <span aria-hidden="true">&darr;</span></a>
+  </div>
+</div>
+    <div class="tl-pv" id="pv-jireh" hidden="" data-open="jireh">
+  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/rtzC21WT7l-400.avif 400w, /img/rtzC21WT7l-640.avif 640w" sizes="160px"><img loading="lazy" decoding="async" src="/img/rtzC21WT7l-400.webp" alt="" width="640" height="1280" srcset="/img/rtzC21WT7l-400.webp 400w, /img/rtzC21WT7l-640.webp 640w" sizes="160px"></picture></div>
+  <div class="tl-pv__text">
+    <span class="label">Full-time</span>
+    <h3>UX researcher</h3>
+    <p class="tl-pv__meta">Jireh Health · Apr ’25 – Sep ’26 · 1 yr 6 mos</p><p class="tl-pv__about">Sole designer on an accessible healthcare-financing web app serving 4 facilities and 1,800+ users.</p><p class="tl-pv__tags">User research, Prototyping, Accessibility <span class="tl-pv__more">+1 more</span></p>
+  </div>
+  <div class="tl-pv__actions">
+    <a class="btn" href="#jireh" data-open="">Full entry <span aria-hidden="true">&darr;</span></a><a class="btn" href="/projects/jireh-health/">Case study <span aria-hidden="true">&rarr;</span></a>
+  </div>
+</div>
+    <div class="tl-pv" id="pv-group-editorial" hidden="" data-open="freelance">
+  <div class="tl-pv__text">
+    <span class="label">Freelance &amp; volunteer</span>
+    <h3>11 projects</h3>
+    <p class="tl-pv__meta">2020–24</p>
+    <ul class="tl-pv__list" aria-label="Projects">
+      <li><button type="button" data-pick="belva">3408 Belva<span class="visually-hidden">,</span> <span class="tl-pv__year">2020</span></button></li>
+      <li><button type="button" data-pick="lizopendwa">Lizopendwa<span class="visually-hidden">,</span> <span class="tl-pv__year">2021</span></button></li>
+      <li><button type="button" data-pick="belva-homes">Belva Homes<span class="visually-hidden">,</span> <span class="tl-pv__year">2021</span></button></li>
+      <li><button type="button" data-pick="sid">SID Kenya<span class="visually-hidden">,</span> <span class="tl-pv__year">2021</span></button></li>
+      <li><button type="button" data-pick="qoba">Qoba<span class="visually-hidden">,</span> <span class="tl-pv__year">2022</span></button></li>
+      <li><button type="button" data-pick="lcoy">LCOY Kenya<span class="visually-hidden">,</span> <span class="tl-pv__year">2022</span></button></li>
+      <li><button type="button" data-pick="afriyoccc">AFRIYOCCC<span class="visually-hidden">,</span> <span class="tl-pv__year">2022</span></button></li>
+      <li><button type="button" data-pick="ciff">CIFF / COP27<span class="visually-hidden">,</span> <span class="tl-pv__year">2023–24</span></button></li>
+      <li><button type="button" data-pick="inable">inABLE<span class="visually-hidden">,</span> <span class="tl-pv__year">2024</span></button></li>
+      <li><button type="button" data-pick="kwetu">KWETU Pride<span class="visually-hidden">,</span> <span class="tl-pv__year">2024</span></button></li>
+      <li><button type="button" data-pick="unfccc">UNFCCC Champions<span class="visually-hidden">,</span> <span class="tl-pv__year">2024</span></button></li>
+    </ul>
+  </div>
+  <div class="tl-pv__actions">
+    <a class="btn" href="#freelance" data-open="">Full entry <span aria-hidden="true">&darr;</span></a>
+  </div>
+</div><div class="tl-pv" id="pv-belva" hidden="" data-open="belva" data-back="group-editorial">
+  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/b_F2pDtqyZ-400.avif 400w, /img/b_F2pDtqyZ-800.avif 800w, /img/b_F2pDtqyZ-1200.avif 1200w" sizes="160px"><img loading="lazy" decoding="async" src="/img/b_F2pDtqyZ-400.webp" alt="" width="1200" height="615" srcset="/img/b_F2pDtqyZ-400.webp 400w, /img/b_F2pDtqyZ-800.webp 800w, /img/b_F2pDtqyZ-1200.webp 1200w" sizes="160px"></picture></div>
+  <div class="tl-pv__text">
+    <span class="label">Freelance project</span>
+    <h3>Designed the 3408 Belva property catalogue</h3>
+    <p class="tl-pv__meta">3408 Belva · Feb ’20</p><p class="tl-pv__tags">Adobe InDesign, Editorial layout</p>
+  </div>
+  <div class="tl-pv__actions"><button class="btn" type="button" data-pick="group-editorial">&larr; All projects</button>
+    <a class="btn" href="#belva" data-open="">Full entry <span aria-hidden="true">&darr;</span></a>
+  </div>
+</div><div class="tl-pv" id="pv-lizopendwa" hidden="" data-open="lizopendwa" data-back="group-editorial">
+  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/eJMesjOgh6-400.avif 400w, /img/eJMesjOgh6-800.avif 800w, /img/eJMesjOgh6-1200.avif 1200w" sizes="160px"><img loading="lazy" decoding="async" src="/img/eJMesjOgh6-400.webp" alt="" width="1200" height="1200" srcset="/img/eJMesjOgh6-400.webp 400w, /img/eJMesjOgh6-800.webp 800w, /img/eJMesjOgh6-1200.webp 1200w" sizes="160px"></picture></div>
+  <div class="tl-pv__text">
+    <span class="label">Freelance project</span>
+    <h3>Brand identity for Lizopendwa, a Kenyan brass jewellery brand</h3>
+    <p class="tl-pv__meta">Lizopendwa · May – Jun ’21 · 2 mos</p><p class="tl-pv__tags">Adobe Illustrator, Brand identity, Product design</p>
+  </div>
+  <div class="tl-pv__actions"><button class="btn" type="button" data-pick="group-editorial">&larr; All projects</button>
+    <a class="btn" href="#lizopendwa" data-open="">Full entry <span aria-hidden="true">&darr;</span></a>
+  </div>
+</div><div class="tl-pv" id="pv-belva-homes" hidden="" data-open="belva-homes" data-back="group-editorial">
+  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/BvQvmtE1Vy-400.avif 400w, /img/BvQvmtE1Vy-800.avif 800w, /img/BvQvmtE1Vy-1200.avif 1200w" sizes="160px"><img loading="lazy" decoding="async" src="/img/BvQvmtE1Vy-400.webp" alt="" width="1200" height="675" srcset="/img/BvQvmtE1Vy-400.webp 400w, /img/BvQvmtE1Vy-800.webp 800w, /img/BvQvmtE1Vy-1200.webp 1200w" sizes="160px"></picture></div>
+  <div class="tl-pv__text">
+    <span class="label">Freelance project</span>
+    <h3>Brand identity for Belva Homes</h3>
+    <p class="tl-pv__meta">Belva Homes · Jul ’21</p><p class="tl-pv__tags">Adobe Illustrator, Brand identity, Logo design</p>
+  </div>
+  <div class="tl-pv__actions"><button class="btn" type="button" data-pick="group-editorial">&larr; All projects</button>
+    <a class="btn" href="#belva-homes" data-open="">Full entry <span aria-hidden="true">&darr;</span></a>
+  </div>
+</div><div class="tl-pv" id="pv-sid" hidden="" data-open="sid" data-back="group-editorial">
+  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/0nSzBgceFs-400.avif" sizes="160px"><img loading="lazy" decoding="async" src="/img/0nSzBgceFs-400.webp" alt="" width="400" height="226"></picture></div>
+  <div class="tl-pv__text">
+    <span class="label">Freelance project</span>
+    <h3>Laid out the 300-page Kenya Energy Atlas for SID</h3>
+    <p class="tl-pv__meta">Society for International Development (SID) · Oct – Dec ’21 · 3 mos</p><p class="tl-pv__tags">Adobe InDesign, Complex layouts, Data visualisation</p>
+  </div>
+  <div class="tl-pv__actions"><button class="btn" type="button" data-pick="group-editorial">&larr; All projects</button>
+    <a class="btn" href="#sid" data-open="">Full entry <span aria-hidden="true">&darr;</span></a><a class="btn" href="/projects/kenya-energy-atlas/">Case study <span aria-hidden="true">&rarr;</span></a>
+  </div>
+</div><div class="tl-pv" id="pv-qoba" hidden="" data-open="qoba" data-back="group-editorial">
+  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/gtlEaTdye8-400.avif 400w, /img/gtlEaTdye8-800.avif 800w, /img/gtlEaTdye8-1200.avif 1200w" sizes="160px"><img loading="lazy" decoding="async" src="/img/gtlEaTdye8-400.webp" alt="" width="1200" height="675" srcset="/img/gtlEaTdye8-400.webp 400w, /img/gtlEaTdye8-800.webp 800w, /img/gtlEaTdye8-1200.webp 1200w" sizes="160px"></picture></div>
+  <div class="tl-pv__text">
+    <span class="label">Freelance project</span>
+    <h3>Brand identity for Qoba, a point-of-sale SaaS</h3>
+    <p class="tl-pv__meta">Qoba · Jan ’22</p><p class="tl-pv__tags">Adobe Illustrator, Brand identity, SaaS branding</p>
+  </div>
+  <div class="tl-pv__actions"><button class="btn" type="button" data-pick="group-editorial">&larr; All projects</button>
+    <a class="btn" href="#qoba" data-open="">Full entry <span aria-hidden="true">&darr;</span></a>
+  </div>
+</div><div class="tl-pv" id="pv-lcoy" hidden="" data-open="lcoy" data-back="group-editorial">
+  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/3S9Xf9J1y_-400.avif 400w, /img/3S9Xf9J1y_-800.avif 800w, /img/3S9Xf9J1y_-1200.avif 1200w" sizes="160px"><img loading="lazy" decoding="async" src="/img/3S9Xf9J1y_-400.webp" alt="" width="1200" height="1200" srcset="/img/3S9Xf9J1y_-400.webp 400w, /img/3S9Xf9J1y_-800.webp 800w, /img/3S9Xf9J1y_-1200.webp 1200w" sizes="160px"></picture></div>
+  <div class="tl-pv__text">
+    <span class="label">Volunteer project</span>
+    <h3>Rebranded LCOY Kenya and produced its event graphics</h3>
+    <p class="tl-pv__meta">LCOY Kenya · Oct ’22</p><p class="tl-pv__tags">Adobe Illustrator, Branding, Event design</p>
+  </div>
+  <div class="tl-pv__actions"><button class="btn" type="button" data-pick="group-editorial">&larr; All projects</button>
+    <a class="btn" href="#lcoy" data-open="">Full entry <span aria-hidden="true">&darr;</span></a>
+  </div>
+</div><div class="tl-pv" id="pv-afriyoccc" hidden="" data-open="afriyoccc" data-back="group-editorial">
+  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/NIHZ8NoNJ4-400.avif 400w, /img/NIHZ8NoNJ4-800.avif 800w, /img/NIHZ8NoNJ4-1200.avif 1200w" sizes="160px"><img loading="lazy" decoding="async" src="/img/NIHZ8NoNJ4-400.webp" alt="" width="1200" height="897" srcset="/img/NIHZ8NoNJ4-400.webp 400w, /img/NIHZ8NoNJ4-800.webp 800w, /img/NIHZ8NoNJ4-1200.webp 1200w" sizes="160px"></picture></div>
+  <div class="tl-pv__text">
+    <span class="label">Volunteer project</span>
+    <h3>Designed AFRIYOCCC’s conference programme and resource pack</h3>
+    <p class="tl-pv__meta">African Youth Conference on Climate Change (AFRIYOCCC) · Oct ’22</p><p class="tl-pv__tags">Adobe InDesign, Editorial design</p>
+  </div>
+  <div class="tl-pv__actions"><button class="btn" type="button" data-pick="group-editorial">&larr; All projects</button>
+    <a class="btn" href="#afriyoccc" data-open="">Full entry <span aria-hidden="true">&darr;</span></a>
+  </div>
+</div><div class="tl-pv" id="pv-ciff" hidden="" data-open="ciff" data-back="group-editorial">
+  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/1aF1JsJ9Q--400.avif 400w, /img/1aF1JsJ9Q--720.avif 720w" sizes="160px"><img loading="lazy" decoding="async" src="/img/1aF1JsJ9Q--400.webp" alt="" width="720" height="558" srcset="/img/1aF1JsJ9Q--400.webp 400w, /img/1aF1JsJ9Q--720.webp 720w" sizes="160px"></picture></div>
+  <div class="tl-pv__text">
+    <span class="label">Freelance project</span>
+    <h3>Designed CIFF’s COP27 Children &amp; Youth Pavilion report</h3>
+    <p class="tl-pv__meta">Children&#39;s Investment Fund Foundation (CIFF) · Dec ’23 – Feb ’24 · 3 mos</p><p class="tl-pv__tags">Adobe InDesign, Report layout, Editorial design</p>
+  </div>
+  <div class="tl-pv__actions"><button class="btn" type="button" data-pick="group-editorial">&larr; All projects</button>
+    <a class="btn" href="#ciff" data-open="">Full entry <span aria-hidden="true">&darr;</span></a><a class="btn" href="/projects/children-youth-pavilion/">Case study <span aria-hidden="true">&rarr;</span></a>
+  </div>
+</div><div class="tl-pv" id="pv-inable" hidden="" data-open="inable" data-back="group-editorial">
+  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/gW3EZC96TC-357.avif" sizes="160px"><img loading="lazy" decoding="async" src="/img/gW3EZC96TC-357.webp" alt="" width="357" height="277"></picture></div>
+  <div class="tl-pv__text">
+    <span class="label">Freelance project</span>
+    <h3>Designed the Inclusive Africa Conference booklet for inABLE</h3>
+    <p class="tl-pv__meta">inABLE · May ’24</p><p class="tl-pv__tags">Adobe InDesign, Accessibility, Editorial design</p>
+  </div>
+  <div class="tl-pv__actions"><button class="btn" type="button" data-pick="group-editorial">&larr; All projects</button>
+    <a class="btn" href="#inable" data-open="">Full entry <span aria-hidden="true">&darr;</span></a><a class="btn" href="/projects/inclusive-africa-conference/">Case study <span aria-hidden="true">&rarr;</span></a>
+  </div>
+</div><div class="tl-pv" id="pv-kwetu" hidden="" data-open="kwetu" data-back="group-editorial">
+  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/RrLw6DqtPH-400.avif 400w, /img/RrLw6DqtPH-800.avif 800w, /img/RrLw6DqtPH-1200.avif 1200w" sizes="160px"><img loading="lazy" decoding="async" src="/img/RrLw6DqtPH-400.webp" alt="" width="1200" height="720" srcset="/img/RrLw6DqtPH-400.webp 400w, /img/RrLw6DqtPH-800.webp 800w, /img/RrLw6DqtPH-1200.webp 1200w" sizes="160px"></picture></div>
+  <div class="tl-pv__text">
+    <span class="label">Freelance project</span>
+    <h3>Brand identity and website design for KWETU Pride</h3>
+    <p class="tl-pv__meta">KWETU Pride · Jun ’24</p><p class="tl-pv__tags">Figma, Design systems</p>
+  </div>
+  <div class="tl-pv__actions"><button class="btn" type="button" data-pick="group-editorial">&larr; All projects</button>
+    <a class="btn" href="#kwetu" data-open="">Full entry <span aria-hidden="true">&darr;</span></a>
+  </div>
+</div><div class="tl-pv" id="pv-unfccc" hidden="" data-open="unfccc" data-back="group-editorial">
+  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/O43345GD05-400.avif 400w, /img/O43345GD05-800.avif 800w, /img/O43345GD05-1200.avif 1200w" sizes="160px"><img loading="lazy" decoding="async" src="/img/O43345GD05-400.webp" alt="" width="1200" height="675" srcset="/img/O43345GD05-400.webp 400w, /img/O43345GD05-800.webp 800w, /img/O43345GD05-1200.webp 1200w" sizes="160px"></picture></div>
+  <div class="tl-pv__text">
+    <span class="label">Freelance project</span>
+    <h3>Laid out a position paper for the UNFCCC High-Level Champions</h3>
+    <p class="tl-pv__meta">UNFCCC High-Level Champions · Sep ’24</p><p class="tl-pv__tags">Adobe InDesign, Editorial design</p>
+  </div>
+  <div class="tl-pv__actions"><button class="btn" type="button" data-pick="group-editorial">&larr; All projects</button>
+    <a class="btn" href="#unfccc" data-open="">Full entry <span aria-hidden="true">&darr;</span></a><a class="btn" href="/projects/african-energy-transition-minerals/">Case study <span aria-hidden="true">&rarr;</span></a>
+  </div>
+</div>
+    <div class="tl-pv" id="pv-herbivore" hidden="" data-open="herbivore">
+  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/XWnfScwkDg-400.avif 400w, /img/XWnfScwkDg-512.avif 512w" sizes="160px"><img loading="lazy" decoding="async" src="/img/XWnfScwkDg-400.webp" alt="" width="512" height="726" srcset="/img/XWnfScwkDg-400.webp 400w, /img/XWnfScwkDg-512.webp 512w" sizes="160px"></picture></div>
+  <div class="tl-pv__text">
+    <span class="label">Full-time</span>
+    <h3>Graphic designer</h3>
+    <p class="tl-pv__meta">Herbivore Garden Center · Jun – Dec ’20 · 7 mos</p><p class="tl-pv__about">Herbivore Garden Center, a garden centre in Nairobi.</p><p class="tl-pv__tags">Adobe Illustrator, Social media design</p>
+  </div>
+  <div class="tl-pv__actions">
+    <a class="btn" href="#herbivore" data-open="">Full entry <span aria-hidden="true">&darr;</span></a>
+  </div>
+</div>
+  </div>
+  <figcaption class="tl-caption"><span class="label">Fig. 1</span>Roles (heavy) and freelance work (light) since 2020. Point at or tap a bar to preview it, or a lane name to focus on it. The full entry is below.</figcaption>
 </figure>
 
-<div class="gap" aria-hidden="true"></div>
+<div class="gap" style="--rows: 1" aria-hidden="true"></div>
 
-<!-- ============ Experience, newest first, marked by year ============ -->
-<h2 class="visually-hidden" id="experience">Experience</h2>
+<!-- ============ Experience, most recent first ============ -->
+<div class="sheet area cv-section" style="--h: 1">
+  <h2 id="experience">Experience</h2><button class="btn cv-section__all" type="button" data-expand-all="" aria-pressed="false">Expand all</button>
+</div>
 
-<article class="sheet area entry entry--group" id="zindua" style="--h: 2" data-snap="">
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Independent / academic</p>
-    <h2>Data Scientist</h2>
-    <p class="entry__client">Zindua School</p>
-    <p class="label entry__date">Aug ’25 – Present</p>
+<article class="sheet area entry" id="data-science" style="--h: 2" data-snap="">
+  <header class="entry__meta" data-cells=""><h3>Data scientist</h3>
+    <p class="entry__where"><span>Independent</span><span> · <span class="visually-hidden">Aug ’25 – Present</span><span aria-hidden="true">2025 – present</span></span></p>
+    <p class="entry__date"><span>1 yr 3 mos</span></p>
+    <p class="entry__about">Geospatial machine learning and data analysis for conservation and energy, alongside Zindua School&#39;s data science programme.</p>
   </header>
-  <div class="area entry__body">
-    <article class="sheet area entry entry--project" id="edm" style="--h: 2">
-      <header class="sheet entry__meta" style="--w: 3">
-        <h3><a href="/projects/environmental-degradation-monitor/">Environmental Degradation Monitor</a></h3>
-        <div class="tags"><span class="tag">python</span><span class="tag">u-net</span><span class="tag">TensorFlow</span><span class="tag">sentinel-2</span><span class="tag">Copernicus</span><span class="tag">streamlit</span><span class="tag">geopandas</span></div>
-        <a class="entry__go" href="/projects/environmental-degradation-monitor/"><span class="visually-hidden">See the full project</span><span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"></path></svg></span></a>
-      </header>
-      <div class="area entry__body">
-          <div class="sheet entry__text">
-            <p>Trained and evaluated a semantic segmentation model (5.78M parameters) for satellite land-cover classification, and built a complete Streamlit application around it:</p>
-            <ul>
-            <li>On-demand Sentinel-2 imagery retrieval for protected area shapefiles</li>
-            <li>Mask-based change detection on an interactive Streamlit map</li>
-            <li>Domain-shift evaluation (India vs Kenya)</li>
-            <li>Datasets used:
-            <ul><li>Sentinel-2 imagery</li><li><a href="https://developers.google.com/earth-engine/datasets/catalog/WCMC_WDPA_current_polygons">World Database on Protected Areas (polygons)</a> by UNEP-WCMC</li></ul></li>
-            </ul>
-          </div>
-          <div class="sheet frame reel">
-            <div class="reel__track" tabindex="0" role="region" aria-label="Environmental Degradation Monitor: 4 images, scroll sideways">
-              <picture><source type="image/avif" srcset="/img/XuLG9x2Xim-400.avif 400w, /img/XuLG9x2Xim-800.avif 800w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/XuLG9x2Xim-400.webp" alt="Karura Forest: reference land-cover map" width="800" height="358" srcset="/img/XuLG9x2Xim-400.webp 400w, /img/XuLG9x2Xim-800.webp 800w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-              <picture><source type="image/avif" srcset="/img/Lg3mioqrH_-400.avif 400w, /img/Lg3mioqrH_-800.avif 800w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/Lg3mioqrH_-400.webp" alt="Karura Forest: the model&#x27;s predicted land cover" width="800" height="358" srcset="/img/Lg3mioqrH_-400.webp 400w, /img/Lg3mioqrH_-800.webp 800w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-              <picture><source type="image/avif" srcset="/img/Tvt8RJ7M29-400.avif 400w, /img/Tvt8RJ7M29-800.avif 800w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/Tvt8RJ7M29-400.webp" alt="Nairobi National Park: predicted land cover" width="800" height="522" srcset="/img/Tvt8RJ7M29-400.webp 400w, /img/Tvt8RJ7M29-800.webp 800w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-              <picture><source type="image/avif" srcset="/img/1XDQBPTsxC-400.avif 400w, /img/1XDQBPTsxC-800.avif 800w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/1XDQBPTsxC-400.webp" alt="Test predictions on Indian imagery" width="800" height="1099" srcset="/img/1XDQBPTsxC-400.webp 400w, /img/1XDQBPTsxC-800.webp 800w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-            </div>
-          </div>
+  <div class="entry__body">
+    <div class="entry__rows">
+      <details class="entry__row" id="edm">
+  <summary data-cells="">
+    <span class="row__thumb" aria-hidden="true"><picture><source type="image/avif" srcset="/img/XuLG9x2Xim-400.avif 400w, /img/XuLG9x2Xim-800.avif 800w" sizes="(max-width: 720px) 25vw, 160px"><img loading="lazy" decoding="async" src="/img/XuLG9x2Xim-400.webp" alt="" width="800" height="358" srcset="/img/XuLG9x2Xim-400.webp 400w, /img/XuLG9x2Xim-800.webp 800w" sizes="(max-width: 720px) 25vw, 160px"></picture></span>
+    <h4 class="row__title">Built a satellite land-cover change monitor (U-Net, Streamlit)<span class="row__case" aria-hidden="true"> ↗</span><span class="visually-hidden"> (case study)</span></h4>
+    <span class="row__date">2026</span>
+    <span class="go row__chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></span>
+  </summary>
+  <div class="row__body">
+    <div class="row__text" data-cells="">
+      <div class="entry__text">
+        <p>Trained and evaluated a semantic segmentation model (5.78M parameters) for satellite land-cover classification, and built a complete Streamlit application around it:</p>
+<ul>
+<li>On-demand Sentinel-2 imagery retrieval for protected area shapefiles</li>
+<li>Mask-based change detection on an interactive Streamlit map</li>
+<li>Domain-shift evaluation (India vs Kenya)</li>
+<li>Datasets used:
+<ul>
+<li>Sentinel-2 imagery</li>
+<li><a href="https://developers.google.com/earth-engine/datasets/catalog/WCMC_WDPA_current_polygons">World Database on Protected Areas (polygons)</a> by UNEP-WCMC</li>
+</ul>
+</li>
+</ul>
       </div>
-    </article>
-
-    <article class="sheet area entry entry--project" id="landcover" style="--h: 2">
-      <header class="sheet entry__meta" style="--w: 3">
-        <h3>Geospatial Deep Learning: Land-Cover Classification</h3>
-        <div class="tags"><span class="tag">Python</span><span class="tag">CNN</span><span class="tag">rasterio</span><span class="tag">geopandas</span></div>
-      </header>
-      <div class="area entry__body">
-          <div class="sheet entry__text">
-            <p>Built and hyperparameter-tuned a CNN for satellite land-cover classification, and a geospatial pre-processing pipeline to extend it to a real, unlabelled region (Kajiado County, Kenya).</p>
-            <ul>
-            <li>Datasets used:
-            <ul><li><a href="https://github.com/phelber/EuroSAT">‘EuroSAT: Land Use and Land Cover Classification with Sentinel-2’</a> by phelber</li></ul></li>
-            </ul>
-          </div>
+      <p class="tools"><span class="label">Skills &amp; tools</span> <span class="tool-name">Python</span>, <span class="tool-name">U-Net</span>, <span class="tool-name">TensorFlow</span>, <span class="tool-name">Sentinel-2</span>, <span class="tool-name">Copernicus</span>, <span class="tool-name">Streamlit</span>, <span class="tool-name">GeoPandas</span></p>
+      <a class="more-link entry__go" href="/projects/environmental-degradation-monitor/"><span>Read the case study</span>&nbsp;<span class="entry__arrow" aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="sheet frame reel">
+  <div class="reel__track" tabindex="0" role="region" aria-label="Data scientist, Built a satellite land-cover change monitor (U-Net, Streamlit): 4 images, scroll sideways">
+    <picture><source type="image/avif" srcset="/img/XuLG9x2Xim-400.avif 400w, /img/XuLG9x2Xim-800.avif 800w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/XuLG9x2Xim-400.webp" alt="Karura Forest: reference land-cover map" width="800" height="358" srcset="/img/XuLG9x2Xim-400.webp 400w, /img/XuLG9x2Xim-800.webp 800w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/Lg3mioqrH_-400.avif 400w, /img/Lg3mioqrH_-800.avif 800w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/Lg3mioqrH_-400.webp" alt="Karura Forest: the model&#39;s predicted land cover" width="800" height="358" srcset="/img/Lg3mioqrH_-400.webp 400w, /img/Lg3mioqrH_-800.webp 800w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/Tvt8RJ7M29-400.avif 400w, /img/Tvt8RJ7M29-800.avif 800w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/Tvt8RJ7M29-400.webp" alt="Nairobi National Park: predicted land cover" width="800" height="522" srcset="/img/Tvt8RJ7M29-400.webp 400w, /img/Tvt8RJ7M29-800.webp 800w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/1XDQBPTsxC-400.avif 400w, /img/1XDQBPTsxC-800.avif 800w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/1XDQBPTsxC-400.webp" alt="Test predictions on Indian imagery" width="800" height="1099" srcset="/img/1XDQBPTsxC-400.webp 400w, /img/1XDQBPTsxC-800.webp 800w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+  </div>
+</div>
+  </div>
+</details>
+      <details class="entry__row" id="landcover">
+  <summary data-cells="">
+    <span class="row__thumb" aria-hidden="true"></span>
+    <h4 class="row__title">Trained a CNN land-cover classifier on Sentinel-2 imagery</h4>
+    <span class="row__date">2026</span>
+    <span class="go row__chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></span>
+  </summary>
+  <div class="row__body">
+    <div class="row__text" data-cells="">
+      <div class="entry__text">
+        <p>Built and hyperparameter-tuned a CNN for satellite land-cover classification, and a geospatial pre-processing pipeline to extend it to a real, unlabelled region (Kajiado County, Kenya).</p>
+<ul>
+<li>Datasets used:
+<ul>
+<li><a href="https://github.com/phelber/EuroSAT">‘EuroSAT: Land Use and Land Cover Classification with Sentinel-2’</a> by phelber</li>
+</ul>
+</li>
+</ul>
       </div>
-    </article>
-
-    <article class="sheet area entry entry--project" id="iucn" style="--h: 2">
-      <header class="sheet entry__meta" style="--w: 3">
-        <h3><a href="/projects/iucn-dd-species/">IUCN Data-Deficient Species Classifier</a></h3>
-        <div class="tags"><span class="tag">Python</span><span class="tag">scikit-learn</span><span class="tag">pandas</span><span class="tag">Machine Learning</span><span class="tag">data visualisation</span></div>
-        <a class="entry__go" href="/projects/iucn-dd-species/"><span class="visually-hidden">See the full project</span><span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"></path></svg></span></a>
-      </header>
-      <div class="area entry__body">
-          <div class="sheet entry__text">
-            <p>Trained a Random Forest classifier predicting IUCN Red List threat status for Kenya's Data-Deficient species (35,000+ records).</p>
-            <ul>
-            <li>Resources used:
-            <ul><li>Inspired by <a href="https://www.nature.com/articles/s42003-022-03638-9">‘More than half of data deficient species predicted to be threatened by extinction’</a> by Borgelt et al.</li><li>Spatial data download by <a href="https://www.iucnredlist.org/resources/spatial-data-download">IUCN</a></li></ul></li>
-            </ul>
-          </div>
-          <div class="sheet frame reel">
-            <div class="reel__track" tabindex="0" role="region" aria-label="IUCN Data-Deficient Species Classifier: 3 images, scroll sideways">
-              <picture><source type="image/avif" srcset="/img/EqQLiFpiBe-400.avif 400w, /img/EqQLiFpiBe-800.avif 800w, /img/EqQLiFpiBe-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/EqQLiFpiBe-400.webp" alt="Predicted threat status of Kenya&#x27;s Data-Deficient species, by class" width="1200" height="865" srcset="/img/EqQLiFpiBe-400.webp 400w, /img/EqQLiFpiBe-800.webp 800w, /img/EqQLiFpiBe-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-              <picture><source type="image/avif" srcset="/img/0sWN0yiv-w-400.avif 400w, /img/0sWN0yiv-w-800.avif 800w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/0sWN0yiv-w-400.webp" alt="Random Forest feature importance" width="800" height="556" srcset="/img/0sWN0yiv-w-400.webp 400w, /img/0sWN0yiv-w-800.webp 800w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-              <picture><source type="image/avif" srcset="/img/aJdIzmAg3v-400.avif 400w, /img/aJdIzmAg3v-656.avif 656w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/aJdIzmAg3v-400.webp" alt="Random Forest confusion matrix" width="656" height="484" srcset="/img/aJdIzmAg3v-400.webp 400w, /img/aJdIzmAg3v-656.webp 656w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-            </div>
-          </div>
+      <p class="tools"><span class="label">Skills &amp; tools</span> <span class="tool-name">Python</span>, <span class="tool-name">CNN</span>, <span class="tool-name">rasterio</span>, <span class="tool-name">GeoPandas</span></p>
+    </div>
+  </div>
+</details>
+      <details class="entry__row" id="iucn">
+  <summary data-cells="">
+    <span class="row__thumb" aria-hidden="true"><picture><source type="image/avif" srcset="/img/EqQLiFpiBe-400.avif 400w, /img/EqQLiFpiBe-800.avif 800w, /img/EqQLiFpiBe-1200.avif 1200w" sizes="(max-width: 720px) 25vw, 160px"><img loading="lazy" decoding="async" src="/img/EqQLiFpiBe-400.webp" alt="" width="1200" height="865" srcset="/img/EqQLiFpiBe-400.webp 400w, /img/EqQLiFpiBe-800.webp 800w, /img/EqQLiFpiBe-1200.webp 1200w" sizes="(max-width: 720px) 25vw, 160px"></picture></span>
+    <h4 class="row__title">Predicted threat status for Kenya’s data-deficient species<span class="row__case" aria-hidden="true"> ↗</span><span class="visually-hidden"> (case study)</span></h4>
+    <span class="row__date">2026</span>
+    <span class="go row__chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></span>
+  </summary>
+  <div class="row__body">
+    <div class="row__text" data-cells="">
+      <div class="entry__text">
+        <p>Trained a Random Forest classifier predicting IUCN Red List threat status for Kenya's Data-Deficient species (35,000+ records).</p>
+<ul>
+<li>Resources used:
+<ul>
+<li>Inspired by <a href="https://www.nature.com/articles/s42003-022-03638-9">‘More than half of data deficient species predicted to be threatened by extinction’</a> by Borgelt et al.</li>
+<li>Spatial data download by <a href="https://www.iucnredlist.org/resources/spatial-data-download">IUCN</a></li>
+</ul>
+</li>
+</ul>
       </div>
-    </article>
-
-    <article class="sheet area entry entry--project" id="power" style="--h: 2">
-      <header class="sheet entry__meta" style="--w: 3">
-        <h3><a href="/projects/price-of-power/">Kenya Power Pricing Analysis</a></h3>
-        <div class="tags"><span class="tag">Tableau</span><span class="tag">SQL</span><span class="tag">excel</span></div>
-        <a class="entry__go" href="/projects/price-of-power/"><span class="visually-hidden">See the full project</span><span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"></path></svg></span></a>
-      </header>
-      <div class="area entry__body">
-          <div class="sheet entry__text">
-            <p>Built an interactive Tableau dashboard exploring electricity pricing, affordability, and the renewable-energy transition, synthesising government tariff schedules, household income data, and regional generation statistics.</p>
-          </div>
-          <div class="sheet frame reel">
-            <div class="reel__track" tabindex="0" role="region" aria-label="Kenya Power Pricing Analysis: 2 images, scroll sideways">
-              <picture><source type="image/avif" srcset="/img/bNZ2Mb3Y9V-400.avif 400w, /img/bNZ2Mb3Y9V-800.avif 800w, /img/bNZ2Mb3Y9V-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/bNZ2Mb3Y9V-400.webp" alt="Price of Power dashboard preview" width="1200" height="790" srcset="/img/bNZ2Mb3Y9V-400.webp 400w, /img/bNZ2Mb3Y9V-800.webp 800w, /img/bNZ2Mb3Y9V-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-              <picture><source type="image/avif" srcset="/img/cde3KuXc5p-400.avif 400w, /img/cde3KuXc5p-572.avif 572w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/cde3KuXc5p-400.webp" alt="A Kenya Power bill broken down" width="572" height="280" srcset="/img/cde3KuXc5p-400.webp 400w, /img/cde3KuXc5p-572.webp 572w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-            </div>
-          </div>
+      <p class="tools"><span class="label">Skills &amp; tools</span> <span class="tool-name">Python</span>, <span class="tool-name">scikit-learn</span>, <span class="tool-name">pandas</span>, <span class="tool-name">Machine learning</span>, <span class="tool-name">Data visualisation</span></p>
+      <a class="more-link entry__go" href="/projects/iucn-dd-species/"><span>Read the case study</span>&nbsp;<span class="entry__arrow" aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="sheet frame reel">
+  <div class="reel__track" tabindex="0" role="region" aria-label="Data scientist, Predicted threat status for Kenya’s data-deficient species: 3 images, scroll sideways">
+    <picture><source type="image/avif" srcset="/img/EqQLiFpiBe-400.avif 400w, /img/EqQLiFpiBe-800.avif 800w, /img/EqQLiFpiBe-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/EqQLiFpiBe-400.webp" alt="Predicted threat status of Kenya&#39;s Data-Deficient species, by class" width="1200" height="865" srcset="/img/EqQLiFpiBe-400.webp 400w, /img/EqQLiFpiBe-800.webp 800w, /img/EqQLiFpiBe-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/0sWN0yiv-w-400.avif 400w, /img/0sWN0yiv-w-800.avif 800w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/0sWN0yiv-w-400.webp" alt="Random Forest feature importance" width="800" height="556" srcset="/img/0sWN0yiv-w-400.webp 400w, /img/0sWN0yiv-w-800.webp 800w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/aJdIzmAg3v-400.avif 400w, /img/aJdIzmAg3v-656.avif 656w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/aJdIzmAg3v-400.webp" alt="Random Forest confusion matrix" width="656" height="484" srcset="/img/aJdIzmAg3v-400.webp 400w, /img/aJdIzmAg3v-656.webp 656w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+  </div>
+</div>
+  </div>
+</details>
+      <details class="entry__row" id="power">
+  <summary data-cells="">
+    <span class="row__thumb" aria-hidden="true"><picture><source type="image/avif" srcset="/img/bNZ2Mb3Y9V-400.avif 400w, /img/bNZ2Mb3Y9V-800.avif 800w, /img/bNZ2Mb3Y9V-1200.avif 1200w" sizes="(max-width: 720px) 25vw, 160px"><img loading="lazy" decoding="async" src="/img/bNZ2Mb3Y9V-400.webp" alt="" width="1200" height="790" srcset="/img/bNZ2Mb3Y9V-400.webp 400w, /img/bNZ2Mb3Y9V-800.webp 800w, /img/bNZ2Mb3Y9V-1200.webp 1200w" sizes="(max-width: 720px) 25vw, 160px"></picture></span>
+    <h4 class="row__title">Analysed Kenya’s electricity pricing in a Tableau dashboard<span class="row__case" aria-hidden="true"> ↗</span><span class="visually-hidden"> (case study)</span></h4>
+    <span class="row__date"><span class="row__date-short">2026</span><span class="row__date-full">2025–26</span></span>
+    <span class="go row__chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></span>
+  </summary>
+  <div class="row__body">
+    <div class="row__text" data-cells="">
+      <div class="entry__text">
+        <p>Built an interactive Tableau dashboard exploring electricity pricing, affordability, and the renewable-energy transition, synthesising government tariff schedules, household income data, and regional generation statistics.</p>
       </div>
-    </article>
+      <p class="tools"><span class="label">Skills &amp; tools</span> <span class="tool-name">Tableau</span>, <span class="tool-name">SQL</span>, <span class="tool-name">Excel</span></p>
+      <a class="more-link entry__go" href="/projects/price-of-power/"><span>Read the case study</span>&nbsp;<span class="entry__arrow" aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="sheet frame reel">
+  <div class="reel__track" tabindex="0" role="region" aria-label="Data scientist, Analysed Kenya’s electricity pricing in a Tableau dashboard: 2 images, scroll sideways">
+    <picture><source type="image/avif" srcset="/img/bNZ2Mb3Y9V-400.avif 400w, /img/bNZ2Mb3Y9V-800.avif 800w, /img/bNZ2Mb3Y9V-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/bNZ2Mb3Y9V-400.webp" alt="Price of Power dashboard preview" width="1200" height="790" srcset="/img/bNZ2Mb3Y9V-400.webp 400w, /img/bNZ2Mb3Y9V-800.webp 800w, /img/bNZ2Mb3Y9V-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/cde3KuXc5p-400.avif 400w, /img/cde3KuXc5p-572.avif 572w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/cde3KuXc5p-400.webp" alt="A Kenya Power bill broken down" width="572" height="280" srcset="/img/cde3KuXc5p-400.webp 400w, /img/cde3KuXc5p-572.webp 572w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+  </div>
+</div>
+  </div>
+</details>
+    </div>
   </div>
 </article>
 
 <article class="sheet area entry" id="jireh" style="--h: 2" data-snap="">
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Full-time</p>
-    <h2>UX Researcher</h2>
-    <p class="entry__client">Jireh Health</p>
-    <p class="label entry__date">Apr ’25 – Sep ’26</p>
-    <p class="entry__about">Accessible healthcare-financing web app, serving 4 facilities and 1,800+ users.</p>
-    <div class="tags"><span class="tag">User Research</span><span class="tag">Prototyping</span><span class="tag">Accessibility</span><span class="tag">Mobile UI</span></div>
+  <header class="entry__meta" data-cells=""><h3>UX researcher</h3>
+    <p class="entry__where"><span>Jireh Health</span><span> · <span class="visually-hidden">Apr ’25 – Sep ’26</span><span aria-hidden="true">2025–26</span></span></p>
+    <p class="entry__date"><span>Full-time</span><span> · 1 yr 6 mos</span></p>
+    <p class="entry__about">Sole designer on an accessible healthcare-financing web app serving 4 facilities and 1,800+ users.</p>
+    <p class="tools"><span class="label">Skills &amp; tools</span> <span class="tool-name">User research</span>, <span class="tool-name">Prototyping</span>, <span class="tool-name">Accessibility</span>, <span class="tool-name">Mobile UI</span></p>
   </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <p>Sole designer working from PM-defined acceptance criteria through to engineering handoff.</p>
+  <div class="entry__body">
+    <div class="entry__rows">
+      <details class="entry__row" id="jireh-app">
+  <summary data-cells="">
+    <span class="row__thumb" aria-hidden="true"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/rtzC21WT7l-400.avif 400w, /img/rtzC21WT7l-640.avif 640w" sizes="60px"><img loading="lazy" decoding="async" src="/img/rtzC21WT7l-400.webp" alt="" width="640" height="1280" srcset="/img/rtzC21WT7l-400.webp 400w, /img/rtzC21WT7l-640.webp 640w" sizes="60px"></picture></span><span class="phone-frame"><picture><source type="image/avif" srcset="/img/oMYi4nwasG-400.avif 400w, /img/oMYi4nwasG-640.avif 640w" sizes="60px"><img loading="lazy" decoding="async" src="/img/oMYi4nwasG-400.webp" alt="" width="640" height="1310" srcset="/img/oMYi4nwasG-400.webp 400w, /img/oMYi4nwasG-640.webp 640w" sizes="60px"></picture></span><span class="phone-frame"><picture><source type="image/avif" srcset="/img/tJfzoEuiHD-400.avif 400w, /img/tJfzoEuiHD-640.avif 640w" sizes="60px"><img loading="lazy" decoding="async" src="/img/tJfzoEuiHD-400.webp" alt="" width="640" height="1310" srcset="/img/tJfzoEuiHD-400.webp 400w, /img/tJfzoEuiHD-640.webp 640w" sizes="60px"></picture></span></span>
+    <h4 class="row__title">Research and UI/UX design for a healthcare-financing web app<span class="row__case" aria-hidden="true"> ↗</span><span class="visually-hidden"> (case study)</span></h4>
+    <span class="go row__chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></span>
+  </summary>
+  <div class="row__body">
+    <div class="row__text" data-cells="">
+      <div class="entry__text">
+        <p>Worked from PM-defined acceptance criteria through to engineering handoff.</p>
+<ul>
+<li>Redesigned signup, cutting median signup time from 5.2 to 2.1 mins (−59%).</li>
+<li>Led the modernisation of Jireh Health’s frontend design system:
+<ul>
+<li>introduced reusable primitives, semantic tokens, and consistent UI patterns</li>
+<li>improved scalability and maintainability across mobile and web.</li>
+</ul>
+</li>
+<li>Developed an in-house prototyping tool that:
+<ul>
+<li>mirrors the deployed frontend</li>
+<li>decouples UX testing from backend dependencies</li>
+</ul>
+</li>
+</ul>
+      </div>
+      <a class="more-link entry__go" href="/projects/jireh-health/"><span>Read the case study</span>&nbsp;<span class="entry__arrow" aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="sheet frame reel has-note">
+  <div class="reel__track" tabindex="0" role="region" aria-label="Jireh Health, Research and UI/UX design for a healthcare-financing web app: 4 images, scroll sideways">
+    <span class="phone-frame"><picture><source type="image/avif" srcset="/img/rtzC21WT7l-400.avif 400w, /img/rtzC21WT7l-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/rtzC21WT7l-400.webp" alt="Jireh home: a Cashback card showing KES 3,200 earned, with discounts and offers" width="640" height="1280" srcset="/img/rtzC21WT7l-400.webp 400w, /img/rtzC21WT7l-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span>
+    <span class="phone-frame"><picture><source type="image/avif" srcset="/img/oMYi4nwasG-400.avif 400w, /img/oMYi4nwasG-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/oMYi4nwasG-400.webp" alt="My Jireh Circle: members around the user, with dependants below" width="640" height="1310" srcset="/img/oMYi4nwasG-400.webp 400w, /img/oMYi4nwasG-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span>
+    <span class="phone-frame"><picture><source type="image/avif" srcset="/img/tJfzoEuiHD-400.avif 400w, /img/tJfzoEuiHD-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/tJfzoEuiHD-400.webp" alt="Ask Jireh: ‘Hi Azadi, ask about your health records’" width="640" height="1310" srcset="/img/tJfzoEuiHD-400.webp 400w, /img/tJfzoEuiHD-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span>
+    <picture><source type="image/avif" srcset="/img/-YzYizqQnT-400.avif 400w, /img/-YzYizqQnT-800.avif 800w, /img/-YzYizqQnT-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/-YzYizqQnT-400.webp" alt="Hand holding a printed Jireh Health flyer: ‘Lipa bill, pata ka-kitu!’" width="1200" height="1200" srcset="/img/-YzYizqQnT-400.webp 400w, /img/-YzYizqQnT-800.webp 800w, /img/-YzYizqQnT-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+  </div><span class="note" aria-hidden="true">out in the world!</span>
+</div>
+  </div>
+</details>
+    </div>
+  </div>
+</article>
+
+<article class="sheet area entry" id="leja" style="--h: 2" data-snap="">
+  <header class="entry__meta" data-cells=""><h3>Product designer</h3>
+    <p class="entry__where"><span>Leja</span><span> · <span class="visually-hidden">Feb ’22 – Jun ’25</span><span aria-hidden="true">2022–25</span></span></p>
+    <p class="entry__date"><span>Full-time</span><span> · 3 yrs 5 mos</span></p>
+    <ol class="entry__roles" aria-label="Roles">
+      <li>Product designer <span class="entry__years">2022–25</span></li>
+      <li>Design associate <span class="entry__years">2022</span></li>
+    </ol>
+    <p class="entry__about">B2B payments &amp; bookkeeping mobile app serving Kenyan MSMEs and CICO agents.</p>
+    <p class="tools"><span class="label">Skills &amp; tools</span> <span class="tool-name">Figma</span>, <span class="tool-name">MUI</span>, <span class="tool-name">Android</span>, <span class="tool-name">Prototyping</span>, <span class="tool-name">User research</span></p>
+  </header>
+  <div class="entry__body">
+    <div class="entry__rows">
+      <details class="entry__row" id="leja-product">
+  <summary data-cells="">
+    <span class="row__thumb" aria-hidden="true"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/ZVvtiVPQHY-400.avif 400w, /img/ZVvtiVPQHY-640.avif 640w" sizes="60px"><img loading="lazy" decoding="async" src="/img/ZVvtiVPQHY-400.webp" alt="" width="640" height="1280" srcset="/img/ZVvtiVPQHY-400.webp 400w, /img/ZVvtiVPQHY-640.webp 640w" sizes="60px"></picture></span><span class="phone-frame"><picture><source type="image/avif" srcset="/img/rDBFaLzWVi-400.avif 400w, /img/rDBFaLzWVi-640.avif 640w" sizes="60px"><img loading="lazy" decoding="async" src="/img/rDBFaLzWVi-400.webp" alt="" width="640" height="1280" srcset="/img/rDBFaLzWVi-400.webp 400w, /img/rDBFaLzWVi-640.webp 640w" sizes="60px"></picture></span><span class="phone-frame"><picture><source type="image/avif" srcset="/img/J9vIvdIEzT-400.avif 400w, /img/J9vIvdIEzT-640.avif 640w" sizes="60px"><img loading="lazy" decoding="async" src="/img/J9vIvdIEzT-400.webp" alt="" width="640" height="1280" srcset="/img/J9vIvdIEzT-400.webp 400w, /img/J9vIvdIEzT-640.webp 640w" sizes="60px"></picture></span></span>
+    <h4 class="row__title">UI/UX design for Leja’s onboarding, referrals &amp; payments<span class="row__case" aria-hidden="true"> ↗</span><span class="visually-hidden"> (case study)</span></h4>
+    <span class="go row__chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></span>
+  </summary>
+  <div class="row__body">
+    <div class="row__text" data-cells="">
+      <div class="entry__text">
         <ul>
-        <li>Redesigned flows to:
-        <ul><li>cut median signup time from 5.2 to 2.1 mins (-59%).</li></ul></li>
-        <li>Led Jireh Health’s frontend design-system modernisation by:
-        <ul><li>introducing reusable primitives, semantic tokens, and consistent UI patterns</li><li>improving scalability and maintainability across mobile and web experiences.</li></ul></li>
-        <li>Developed an in-house prototyping tool that:
-        <ul><li>mirrors the deployed frontend</li><li>decouples UX testing from backend dependencies</li></ul></li>
-        </ul>
-        <a class="entry__go" href="/projects/jireh-health/"><span class="visually-hidden">See the full project</span><span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"></path></svg></span></a>
+<li>Owned onboarding, referral, and transaction-flow design end-to-end: research, design, developer handoff, and iteration based on usage.</li>
+<li>Designed for a low-bandwidth, non-technical, non-English-dominant user base.</li>
+<li>Partnered directly with developers and product managers to ship designs to real users, then iterated based on usability testing and product feedback.</li>
+<li>Formally led a 2-person design/research team on a dedicated initiative, assigning work and owning outcomes while remaining hands-on in the craft.</li>
+<li>Designed interactive prototypes for partnership presentations and product demos using Figma and the Adobe suite.</li>
+<li>Championed accessibility and usability against W3C/WCAG 2.1 guidelines; produced clear design documentation to ease developer handoff.</li>
+</ul>
       </div>
-      <div class="sheet frame reel has-note">
-        <div class="reel__track" tabindex="0" role="region" aria-label="Jireh Health: 4 images, scroll sideways">
-          <span class="phone-frame"><picture><source type="image/avif" srcset="/img/rtzC21WT7l-400.avif 400w, /img/rtzC21WT7l-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/rtzC21WT7l-400.webp" alt="Jireh home: a Cashback card showing KES 3,200 earned, with discounts and offers" width="640" height="1280" srcset="/img/rtzC21WT7l-400.webp 400w, /img/rtzC21WT7l-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span>
-          <span class="phone-frame"><picture><source type="image/avif" srcset="/img/oMYi4nwasG-400.avif 400w, /img/oMYi4nwasG-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/oMYi4nwasG-400.webp" alt="My Jireh Circle: members around the user, with dependants below" width="640" height="1310" srcset="/img/oMYi4nwasG-400.webp 400w, /img/oMYi4nwasG-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span>
-          <span class="phone-frame"><picture><source type="image/avif" srcset="/img/tJfzoEuiHD-400.avif 400w, /img/tJfzoEuiHD-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/tJfzoEuiHD-400.webp" alt="Ask Jireh: ‘Hi Azadi, ask about your health records’" width="640" height="1310" srcset="/img/tJfzoEuiHD-400.webp 400w, /img/tJfzoEuiHD-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span>
-          <picture><source type="image/avif" srcset="/img/-YzYizqQnT-400.avif 400w, /img/-YzYizqQnT-800.avif 800w, /img/-YzYizqQnT-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/-YzYizqQnT-400.webp" alt="Hand holding a printed Jireh Health flyer: ‘Lipa bill, pata ka-kitu!’" width="1200" height="1200" srcset="/img/-YzYizqQnT-400.webp 400w, /img/-YzYizqQnT-800.webp 800w, /img/-YzYizqQnT-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-        </div><span class="note" aria-hidden="true">out in the world!</span>
-      </div>
+      <a class="more-link entry__go" href="/projects/leja-business-app/"><span>Read the case study</span>&nbsp;<span class="entry__arrow" aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="sheet frame reel">
+  <div class="reel__track" tabindex="0" role="region" aria-label="Leja, UI/UX design for Leja’s onboarding, referrals &amp; payments: 3 images, scroll sideways">
+    <span class="phone-frame"><picture><source type="image/avif" srcset="/img/ZVvtiVPQHY-400.avif 400w, /img/ZVvtiVPQHY-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/ZVvtiVPQHY-400.webp" alt="Leja Grow: grow your money with savings, loans and investments" width="640" height="1280" srcset="/img/ZVvtiVPQHY-400.webp 400w, /img/ZVvtiVPQHY-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span>
+    <span class="phone-frame"><picture><source type="image/avif" srcset="/img/rDBFaLzWVi-400.avif 400w, /img/rDBFaLzWVi-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/rDBFaLzWVi-400.webp" alt="Leja loans: the loan limit and loan history" width="640" height="1280" srcset="/img/rDBFaLzWVi-400.webp 400w, /img/rDBFaLzWVi-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span>
+    <span class="phone-frame"><picture><source type="image/avif" srcset="/img/J9vIvdIEzT-400.avif 400w, /img/J9vIvdIEzT-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/J9vIvdIEzT-400.webp" alt="Leja savings goal: 25% closer to a goal of new stock" width="640" height="1280" srcset="/img/J9vIvdIEzT-400.webp 400w, /img/J9vIvdIEzT-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span>
+  </div>
+</div>
+  </div>
+</details>
+      <details class="entry__row" id="leja-associate">
+  <summary data-cells="">
+    <span class="row__thumb" aria-hidden="true"><picture><source type="image/avif" srcset="/img/U88tE1IPCP-400.avif" sizes="(max-width: 720px) 25vw, 160px"><img loading="lazy" decoding="async" src="/img/U88tE1IPCP-400.webp" alt="" width="400" height="400"></picture></span>
+    <h4 class="row__title">Designed campaign ads, merchandise and event stands</h4>
+    <span class="row__date">2022</span>
+    <span class="go row__chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></span>
+  </summary>
+  <div class="row__body">
+    <div class="sheet frame reel">
+  <div class="reel__track" tabindex="0" role="region" aria-label="Leja, Designed campaign ads, merchandise and event stands: 6 images, scroll sideways">
+    <picture><source type="image/avif" srcset="/img/U88tE1IPCP-400.avif" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/U88tE1IPCP-400.webp" alt="Two Leja users posing with a pink social-media photo frame" width="400" height="400"></picture>
+    <picture><source type="image/avif" srcset="/img/EfWHd3mi00-400.avif" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/EfWHd3mi00-400.webp" alt="Leja exhibition stand with a pull-up banner: ‘The ultimate finance app for MSMEs in Africa’" width="400" height="400"></picture>
+    <picture><source type="image/avif" srcset="/img/fL53o0dBqX-400.avif" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/fL53o0dBqX-400.webp" alt="Leja tote bag printed with ‘Transforming lives one business at a time’" width="400" height="400"></picture>
+    <picture><source type="image/avif" srcset="/img/1hbO_gT1Ld-400.avif" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/1hbO_gT1Ld-400.webp" alt="Branded Leja water bottle and merchandise" width="400" height="400"></picture>
+    <picture><source type="image/avif" srcset="/img/JtJtYkf_p7-400.avif 400w, /img/JtJtYkf_p7-800.avif 800w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/JtJtYkf_p7-400.webp" alt="A visitor at a Leja event backdrop" width="800" height="1000" srcset="/img/JtJtYkf_p7-400.webp 400w, /img/JtJtYkf_p7-800.webp 800w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/zaVKB1721G-261.avif" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/zaVKB1721G-261.webp" alt="Leja M-Pesa promotion ad: ‘Hustle mode activated!’" width="261" height="392"></picture>
+  </div>
+</div>
+  </div>
+</details>
+    </div>
   </div>
 </article>
 
-<article class="sheet area entry entry--compact" id="unfccc" style="--h: 2" data-snap="">
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Freelance</p>
-    <h2>Editorial Designer</h2>
-    <p class="entry__client">UNFCCC High-Level Champions</p>
-    <p class="label entry__date">Sep ’24</p>
-    <div class="tags"><span class="tag">Adobe InDesign</span><span class="tag">Editorial Design</span></div>
+<article class="sheet area entry" id="freelance" style="--h: 2" data-snap="">
+  <header class="entry__meta" data-cells=""><h3>Independent designer</h3>
+    <p class="entry__where"><span>Freelance &amp; volunteer</span><span> · <span class="visually-hidden">Feb ’20 – Sep ’24</span><span aria-hidden="true">2020–24</span></span></p>
+    <p class="entry__about">Brand, editorial and mobile UI for climate bodies, NGOs and startups.</p>
   </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <p>Laid out a position paper for the official champions of the Paris Agreement.</p>
-        <a class="entry__go" href="/projects/african-energy-transition-minerals/"><span class="visually-hidden">See the full project</span><span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"></path></svg></span></a>
+  <div class="entry__body">
+    <div class="entry__rows">
+      <details class="entry__row" id="unfccc">
+  <summary data-cells="">
+    <span class="row__thumb" aria-hidden="true"><picture><source type="image/avif" srcset="/img/O43345GD05-400.avif 400w, /img/O43345GD05-800.avif 800w, /img/O43345GD05-1200.avif 1200w" sizes="(max-width: 720px) 25vw, 160px"><img loading="lazy" decoding="async" src="/img/O43345GD05-400.webp" alt="" width="1200" height="675" srcset="/img/O43345GD05-400.webp 400w, /img/O43345GD05-800.webp 800w, /img/O43345GD05-1200.webp 1200w" sizes="(max-width: 720px) 25vw, 160px"></picture></span>
+    <h4 class="row__title">Laid out a position paper for the UNFCCC High-Level Champions<span class="row__case" aria-hidden="true"> ↗</span><span class="visually-hidden"> (case study)</span></h4>
+    <span class="row__date">2024</span>
+    <span class="go row__chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></span>
+  </summary>
+  <div class="row__body">
+    <div class="row__text" data-cells="">
+      <div class="entry__text">
+        <p>On a just transition for critical-mineral mining in Africa, for the official champions of the Paris Agreement.</p>
       </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="UNFCCC High-Level Champions: 4 images, scroll sideways">
-          <picture><source type="image/avif" srcset="/img/goD7ztipqi-400.avif 400w, /img/goD7ztipqi-800.avif 800w, /img/goD7ztipqi-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/goD7ztipqi-400.webp" alt="Position paper cover: a hand holding a turquoise mineral" width="1200" height="675" srcset="/img/goD7ztipqi-400.webp 400w, /img/goD7ztipqi-800.webp 800w, /img/goD7ztipqi-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/O43345GD05-400.avif 400w, /img/O43345GD05-800.avif 800w, /img/O43345GD05-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/O43345GD05-400.webp" alt="Executive summary spread with an acacia tree photo" width="1200" height="675" srcset="/img/O43345GD05-400.webp 400w, /img/O43345GD05-800.webp 800w, /img/O43345GD05-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/86iM3ellRN-400.avif 400w, /img/86iM3ellRN-800.avif 800w, /img/86iM3ellRN-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/86iM3ellRN-400.webp" alt="Looking forward: five numbered priorities" width="1200" height="675" srcset="/img/86iM3ellRN-400.webp 400w, /img/86iM3ellRN-800.webp 800w, /img/86iM3ellRN-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/s97UKeIX8T-400.avif 400w, /img/s97UKeIX8T-800.avif 800w, /img/s97UKeIX8T-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/s97UKeIX8T-400.webp" alt="IRMA case study spread" width="1200" height="675" srcset="/img/s97UKeIX8T-400.webp 400w, /img/s97UKeIX8T-800.webp 800w, /img/s97UKeIX8T-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-        </div>
-      </div>
+      <p class="tools"><span class="label">Skills &amp; tools</span> <span class="tool-name">Adobe InDesign</span>, <span class="tool-name">Editorial design</span></p>
+      <a class="more-link entry__go" href="/projects/african-energy-transition-minerals/"><span>Read the case study</span>&nbsp;<span class="entry__arrow" aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="sheet frame reel">
+  <div class="reel__track" tabindex="0" role="region" aria-label="Independent designer, Laid out a position paper for the UNFCCC High-Level Champions: 4 images, scroll sideways">
+    <picture><source type="image/avif" srcset="/img/goD7ztipqi-400.avif 400w, /img/goD7ztipqi-800.avif 800w, /img/goD7ztipqi-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/goD7ztipqi-400.webp" alt="Position paper cover: a hand holding a turquoise mineral" width="1200" height="675" srcset="/img/goD7ztipqi-400.webp 400w, /img/goD7ztipqi-800.webp 800w, /img/goD7ztipqi-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/O43345GD05-400.avif 400w, /img/O43345GD05-800.avif 800w, /img/O43345GD05-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/O43345GD05-400.webp" alt="Executive summary spread with an acacia tree photo" width="1200" height="675" srcset="/img/O43345GD05-400.webp 400w, /img/O43345GD05-800.webp 800w, /img/O43345GD05-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/86iM3ellRN-400.avif 400w, /img/86iM3ellRN-800.avif 800w, /img/86iM3ellRN-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/86iM3ellRN-400.webp" alt="Looking forward: five numbered priorities" width="1200" height="675" srcset="/img/86iM3ellRN-400.webp 400w, /img/86iM3ellRN-800.webp 800w, /img/86iM3ellRN-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/s97UKeIX8T-400.avif 400w, /img/s97UKeIX8T-800.avif 800w, /img/s97UKeIX8T-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/s97UKeIX8T-400.webp" alt="IRMA case study spread" width="1200" height="675" srcset="/img/s97UKeIX8T-400.webp 400w, /img/s97UKeIX8T-800.webp 800w, /img/s97UKeIX8T-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
   </div>
-</article>
-
-<article class="sheet area entry entry--compact" id="kwetu" style="--h: 2" data-snap="">
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Freelance</p>
-    <h2>Branding &amp; Web Designer</h2>
-    <p class="entry__client">KWETU Pride</p>
-    <p class="label entry__date">Jun ’24</p>
-    <div class="tags"><span class="tag">Figma</span><span class="tag">Design Systems</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
+</div>
+  </div>
+</details>
+      <details class="entry__row" id="kwetu">
+  <summary data-cells="">
+    <span class="row__thumb" aria-hidden="true"><picture><source type="image/avif" srcset="/img/RrLw6DqtPH-400.avif 400w, /img/RrLw6DqtPH-800.avif 800w, /img/RrLw6DqtPH-1200.avif 1200w" sizes="(max-width: 720px) 25vw, 160px"><img loading="lazy" decoding="async" src="/img/RrLw6DqtPH-400.webp" alt="" width="1200" height="720" srcset="/img/RrLw6DqtPH-400.webp 400w, /img/RrLw6DqtPH-800.webp 800w, /img/RrLw6DqtPH-1200.webp 1200w" sizes="(max-width: 720px) 25vw, 160px"></picture></span>
+    <h4 class="row__title">Brand identity and website design for KWETU Pride</h4>
+    <span class="row__date">2024</span>
+    <span class="go row__chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></span>
+  </summary>
+  <div class="row__body">
+    <div class="row__text" data-cells="">
+      <div class="entry__text">
         <p>LGBTQ+ professional network for building safer &amp; more inclusive career spaces across the African continent.</p>
       </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="KWETU Pride: 3 images, scroll sideways">
-          <picture><source type="image/avif" srcset="/img/RrLw6DqtPH-400.avif 400w, /img/RrLw6DqtPH-800.avif 800w, /img/RrLw6DqtPH-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/RrLw6DqtPH-400.webp" alt="KWETU Pride website home: ‘Because transparency &amp; accountability is how real change begins’ over a Nairobi skyline" width="1200" height="720" srcset="/img/RrLw6DqtPH-400.webp 400w, /img/RrLw6DqtPH-800.webp 800w, /img/RrLw6DqtPH-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/JhSiM6DcN--400.avif 400w, /img/JhSiM6DcN--800.avif 800w, /img/JhSiM6DcN--1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/JhSiM6DcN--400.webp" alt="KWETU Pride ‘Our Mission’ section over a photo of a plant-filled workspace with a mural" width="1200" height="632" srcset="/img/JhSiM6DcN--400.webp 400w, /img/JhSiM6DcN--800.webp 800w, /img/JhSiM6DcN--1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <span class="phone-frame"><picture><source type="image/avif" srcset="/img/QlXsYP3HlQ-389.avif" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/QlXsYP3HlQ-389.webp" alt="KWETU Pride mobile page: Insights from KWETUpride" width="389" height="858"></picture></span>
-        </div>
-      </div>
+      <p class="tools"><span class="label">Skills &amp; tools</span> <span class="tool-name">Figma</span>, <span class="tool-name">Design systems</span></p>
+    </div>
+    <div class="sheet frame reel">
+  <div class="reel__track" tabindex="0" role="region" aria-label="Independent designer, Brand identity and website design for KWETU Pride: 3 images, scroll sideways">
+    <picture><source type="image/avif" srcset="/img/RrLw6DqtPH-400.avif 400w, /img/RrLw6DqtPH-800.avif 800w, /img/RrLw6DqtPH-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/RrLw6DqtPH-400.webp" alt="KWETU Pride website home: ‘Because transparency &amp; accountability is how real change begins’ over a Nairobi skyline" width="1200" height="720" srcset="/img/RrLw6DqtPH-400.webp 400w, /img/RrLw6DqtPH-800.webp 800w, /img/RrLw6DqtPH-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/JhSiM6DcN--400.avif 400w, /img/JhSiM6DcN--800.avif 800w, /img/JhSiM6DcN--1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/JhSiM6DcN--400.webp" alt="KWETU Pride ‘Our Mission’ section over a photo of a plant-filled workspace with a mural" width="1200" height="632" srcset="/img/JhSiM6DcN--400.webp 400w, /img/JhSiM6DcN--800.webp 800w, /img/JhSiM6DcN--1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <span class="phone-frame"><picture><source type="image/avif" srcset="/img/QlXsYP3HlQ-389.avif" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/QlXsYP3HlQ-389.webp" alt="KWETU Pride mobile page: Insights from KWETUpride" width="389" height="858"></picture></span>
   </div>
-</article>
-
-<article class="sheet area entry" id="carnayo" style="--h: 2" data-snap="">
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Freelance</p>
-    <h2>Mobile UI Designer</h2>
-    <p class="entry__client">CarNayo</p>
-    <p class="label entry__date">Jun ’24</p>
-    <p class="entry__about">Congolese ride-hailing app.</p>
-    <div class="tags"><span class="tag">Figma</span><span class="tag">ios</span><span class="tag">android</span><span class="tag">Design Systems</span><span class="tag">User Flow Mapping</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
+</div>
+  </div>
+</details>
+      <details class="entry__row" id="carnayo">
+  <summary data-cells="">
+    <span class="row__thumb" aria-hidden="true"><span class="phone-frame"><picture><source type="image/avif" srcset="/img/oSwCK27McW-400.avif 400w, /img/oSwCK27McW-640.avif 640w" sizes="60px"><img loading="lazy" decoding="async" src="/img/oSwCK27McW-400.webp" alt="" width="640" height="1280" srcset="/img/oSwCK27McW-400.webp 400w, /img/oSwCK27McW-640.webp 640w" sizes="60px"></picture></span><span class="phone-frame"><picture><source type="image/avif" srcset="/img/H-paz_drj4-400.avif 400w, /img/H-paz_drj4-640.avif 640w" sizes="60px"><img loading="lazy" decoding="async" src="/img/H-paz_drj4-400.webp" alt="" width="640" height="1280" srcset="/img/H-paz_drj4-400.webp 400w, /img/H-paz_drj4-640.webp 640w" sizes="60px"></picture></span><span class="phone-frame"><picture><source type="image/avif" srcset="/img/bqzg_npexs-400.avif 400w, /img/bqzg_npexs-640.avif 640w" sizes="60px"><img loading="lazy" decoding="async" src="/img/bqzg_npexs-400.webp" alt="" width="640" height="1280" srcset="/img/bqzg_npexs-400.webp 400w, /img/bqzg_npexs-640.webp 640w" sizes="60px"></picture></span></span>
+    <h4 class="row__title">UI/UX design for CarNayo’s driver and passenger apps</h4>
+    <span class="row__date">2024</span>
+    <span class="go row__chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></span>
+  </summary>
+  <div class="row__body">
+    <div class="row__text" data-cells="">
+      <p class="row__about">Congolese ride-hailing app.</p>
+      <div class="entry__text">
         <ul>
-        <li>Designed end-to-end UI/UX covering separate driver and passenger journeys.</li>
-        <li>Built a design system optimised for low-bandwidth conditions and entry-level Android devices.</li>
-        <li>Unified two distinct user mental models, driver and passenger, within a single navigation structure.</li>
-        </ul>
+<li>Built a design system optimised for low-bandwidth conditions and entry-level Android devices.</li>
+<li>Unified two distinct user mental models, driver and passenger, within a single navigation structure.</li>
+</ul>
       </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="CarNayo: 4 images, scroll sideways">
-          <span class="phone-frame"><picture><source type="image/avif" srcset="/img/oSwCK27McW-400.avif 400w, /img/oSwCK27McW-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/oSwCK27McW-400.webp" alt="CarNayo passenger app: choosing a ride type on the map" width="640" height="1280" srcset="/img/oSwCK27McW-400.webp 400w, /img/oSwCK27McW-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span>
-          <span class="phone-frame"><picture><source type="image/avif" srcset="/img/H-paz_drj4-400.avif 400w, /img/H-paz_drj4-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/H-paz_drj4-400.webp" alt="CarNayo driver application: photos of the vehicle" width="640" height="1280" srcset="/img/H-paz_drj4-400.webp 400w, /img/H-paz_drj4-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span>
-          <span class="phone-frame"><picture><source type="image/avif" srcset="/img/bqzg_npexs-400.avif 400w, /img/bqzg_npexs-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/bqzg_npexs-400.webp" alt="CarNayo: meet your driver, with the trip details" width="640" height="1280" srcset="/img/bqzg_npexs-400.webp 400w, /img/bqzg_npexs-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span>
-          <span class="phone-frame"><picture><source type="image/avif" srcset="/img/TzOc3OwnzH-400.avif 400w, /img/TzOc3OwnzH-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/TzOc3OwnzH-400.webp" alt="CarNayo: rate your trip" width="640" height="1280" srcset="/img/TzOc3OwnzH-400.webp 400w, /img/TzOc3OwnzH-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span>
-        </div>
-      </div>
+      <p class="tools"><span class="label">Skills &amp; tools</span> <span class="tool-name">Figma</span>, <span class="tool-name">iOS</span>, <span class="tool-name">Android</span>, <span class="tool-name">Design systems</span>, <span class="tool-name">User flow mapping</span></p>
+    </div>
+    <div class="sheet frame reel">
+  <div class="reel__track" tabindex="0" role="region" aria-label="Independent designer, UI/UX design for CarNayo’s driver and passenger apps: 4 images, scroll sideways">
+    <span class="phone-frame"><picture><source type="image/avif" srcset="/img/oSwCK27McW-400.avif 400w, /img/oSwCK27McW-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/oSwCK27McW-400.webp" alt="CarNayo passenger app: choosing a ride type on the map" width="640" height="1280" srcset="/img/oSwCK27McW-400.webp 400w, /img/oSwCK27McW-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span>
+    <span class="phone-frame"><picture><source type="image/avif" srcset="/img/H-paz_drj4-400.avif 400w, /img/H-paz_drj4-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/H-paz_drj4-400.webp" alt="CarNayo driver application: photos of the vehicle" width="640" height="1280" srcset="/img/H-paz_drj4-400.webp 400w, /img/H-paz_drj4-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span>
+    <span class="phone-frame"><picture><source type="image/avif" srcset="/img/bqzg_npexs-400.avif 400w, /img/bqzg_npexs-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/bqzg_npexs-400.webp" alt="CarNayo: meet your driver, with the trip details" width="640" height="1280" srcset="/img/bqzg_npexs-400.webp 400w, /img/bqzg_npexs-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span>
+    <span class="phone-frame"><picture><source type="image/avif" srcset="/img/TzOc3OwnzH-400.avif 400w, /img/TzOc3OwnzH-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/TzOc3OwnzH-400.webp" alt="CarNayo: rate your trip" width="640" height="1280" srcset="/img/TzOc3OwnzH-400.webp 400w, /img/TzOc3OwnzH-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span>
   </div>
-</article>
-
-<article class="sheet area entry entry--compact" id="inable" style="--h: 2" data-snap="">
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Freelance</p>
-    <h2>Editorial Designer</h2>
-    <p class="entry__client">inABLE</p>
-    <p class="label entry__date">May ’24</p>
-    <div class="tags"><span class="tag">Adobe InDesign</span><span class="tag">Accessibility</span><span class="tag">Editorial Design</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
+</div>
+  </div>
+</details>
+      <details class="entry__row" id="inable">
+  <summary data-cells="">
+    <span class="row__thumb" aria-hidden="true"><picture><source type="image/avif" srcset="/img/gW3EZC96TC-357.avif" sizes="(max-width: 720px) 25vw, 160px"><img loading="lazy" decoding="async" src="/img/gW3EZC96TC-357.webp" alt="" width="357" height="277"></picture></span>
+    <h4 class="row__title">Designed the Inclusive Africa Conference booklet for inABLE<span class="row__case" aria-hidden="true"> ↗</span><span class="visually-hidden"> (case study)</span></h4>
+    <span class="row__date">2024</span>
+    <span class="go row__chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></span>
+  </summary>
+  <div class="row__body">
+    <div class="row__text" data-cells="">
+      <div class="entry__text">
         <p>Annual accessibility conference in Nairobi.</p>
-        <a class="entry__go" href="/projects/inclusive-africa-conference/"><span class="visually-hidden">See the full project</span><span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"></path></svg></span></a>
       </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="inABLE: 4 images, scroll sideways">
-          <picture><source type="image/avif" srcset="/img/FCZ7frgoAn-400.avif 400w, /img/FCZ7frgoAn-595.avif 595w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/FCZ7frgoAn-400.webp" alt="Inclusive Africa Conference 2024 booklet cover" width="595" height="842" srcset="/img/FCZ7frgoAn-400.webp 400w, /img/FCZ7frgoAn-595.webp 595w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/fRfKij6Dkl-400.avif 400w, /img/fRfKij6Dkl-800.avif 800w, /img/fRfKij6Dkl-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/fRfKij6Dkl-400.webp" alt="The booklet open on the founder&#x27;s welcome remarks" width="1200" height="837" srcset="/img/fRfKij6Dkl-400.webp 400w, /img/fRfKij6Dkl-800.webp 800w, /img/fRfKij6Dkl-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/XLQTEyqpTP-400.avif 400w, /img/XLQTEyqpTP-800.avif 800w, /img/XLQTEyqpTP-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/XLQTEyqpTP-400.webp" alt="The booklet open on the keynote speakers" width="1200" height="837" srcset="/img/XLQTEyqpTP-400.webp 400w, /img/XLQTEyqpTP-800.webp 800w, /img/XLQTEyqpTP-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/krCs2cAoNX-400.avif 400w, /img/krCs2cAoNX-800.avif 800w, /img/krCs2cAoNX-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/krCs2cAoNX-400.webp" alt="The booklet open on testimonials" width="1200" height="837" srcset="/img/krCs2cAoNX-400.webp 400w, /img/krCs2cAoNX-800.webp 800w, /img/krCs2cAoNX-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-        </div>
-      </div>
+      <p class="tools"><span class="label">Skills &amp; tools</span> <span class="tool-name">Adobe InDesign</span>, <span class="tool-name">Accessibility</span>, <span class="tool-name">Editorial design</span></p>
+      <a class="more-link entry__go" href="/projects/inclusive-africa-conference/"><span>Read the case study</span>&nbsp;<span class="entry__arrow" aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="sheet frame reel">
+  <div class="reel__track" tabindex="0" role="region" aria-label="Independent designer, Designed the Inclusive Africa Conference booklet for inABLE: 4 images, scroll sideways">
+    <picture><source type="image/avif" srcset="/img/FCZ7frgoAn-400.avif 400w, /img/FCZ7frgoAn-595.avif 595w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/FCZ7frgoAn-400.webp" alt="Inclusive Africa Conference 2024 booklet cover" width="595" height="842" srcset="/img/FCZ7frgoAn-400.webp 400w, /img/FCZ7frgoAn-595.webp 595w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/fRfKij6Dkl-400.avif 400w, /img/fRfKij6Dkl-800.avif 800w, /img/fRfKij6Dkl-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/fRfKij6Dkl-400.webp" alt="The booklet open on the founder&#39;s welcome remarks" width="1200" height="837" srcset="/img/fRfKij6Dkl-400.webp 400w, /img/fRfKij6Dkl-800.webp 800w, /img/fRfKij6Dkl-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/XLQTEyqpTP-400.avif 400w, /img/XLQTEyqpTP-800.avif 800w, /img/XLQTEyqpTP-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/XLQTEyqpTP-400.webp" alt="The booklet open on the keynote speakers" width="1200" height="837" srcset="/img/XLQTEyqpTP-400.webp 400w, /img/XLQTEyqpTP-800.webp 800w, /img/XLQTEyqpTP-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/krCs2cAoNX-400.avif 400w, /img/krCs2cAoNX-800.avif 800w, /img/krCs2cAoNX-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/krCs2cAoNX-400.webp" alt="The booklet open on testimonials" width="1200" height="837" srcset="/img/krCs2cAoNX-400.webp 400w, /img/krCs2cAoNX-800.webp 800w, /img/krCs2cAoNX-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
   </div>
-</article>
-
-<article class="sheet area entry entry--compact" id="ciff" style="--h: 2" data-snap="">
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Freelance</p>
-    <h2>Editorial Designer</h2>
-    <p class="entry__client">Children's Investment Fund Foundation (CIFF)</p>
-    <p class="label entry__date">Dec ’23 – Feb ’24</p>
-    <div class="tags"><span class="tag">Adobe InDesign</span><span class="tag">Report Layout</span><span class="tag">Editorial Design</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <ul><li>Designed the official event report for the Children &amp; Youth Pavilion at COP27, commissioned by CIFF.</li></ul>
-        <a class="entry__go" href="/projects/children-youth-pavilion/"><span class="visually-hidden">See the full project</span><span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"></path></svg></span></a>
-      </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="Children&#x27;s Investment Fund Foundation (CIFF): 4 images, scroll sideways">
-          <picture><source type="image/avif" srcset="/img/VoUxxcm7Sa-400.avif 400w, /img/VoUxxcm7Sa-800.avif 800w, /img/VoUxxcm7Sa-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/VoUxxcm7Sa-400.webp" alt="Children &amp; Youth Pavilion at COP27 report cover" width="1200" height="1696" srcset="/img/VoUxxcm7Sa-400.webp 400w, /img/VoUxxcm7Sa-800.webp 800w, /img/VoUxxcm7Sa-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/mpFIa8Ekbj-400.avif 400w, /img/mpFIa8Ekbj-800.avif 800w, /img/mpFIa8Ekbj-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/mpFIa8Ekbj-400.webp" alt="The report open on the executive summary" width="1200" height="837" srcset="/img/mpFIa8Ekbj-400.webp 400w, /img/mpFIa8Ekbj-800.webp 800w, /img/mpFIa8Ekbj-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/tONFgY8nUg-400.avif 400w, /img/tONFgY8nUg-800.avif 800w, /img/tONFgY8nUg-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/tONFgY8nUg-400.webp" alt="The report open on the impact of the pavilion, in large statistics" width="1200" height="837" srcset="/img/tONFgY8nUg-400.webp 400w, /img/tONFgY8nUg-800.webp 800w, /img/tONFgY8nUg-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/IY83Rw1v8q-400.avif 400w, /img/IY83Rw1v8q-800.avif 800w, /img/IY83Rw1v8q-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/IY83Rw1v8q-400.webp" alt="The report open on the background and steering committee" width="1200" height="837" srcset="/img/IY83Rw1v8q-400.webp 400w, /img/IY83Rw1v8q-800.webp 800w, /img/IY83Rw1v8q-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-        </div>
-      </div>
+</div>
   </div>
-</article>
-
-<article class="sheet area entry entry--compact" id="lcoy" style="--h: 2" data-snap="">
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Volunteer</p>
-    <h2>Comms Team Member</h2>
-    <p class="entry__client">LCOY Kenya</p>
-    <p class="label entry__date">Oct ’22</p>
-    <div class="tags"><span class="tag">Adobe Illustrator</span><span class="tag">Branding</span><span class="tag">Event Design</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <ul><li>Rebranded and produced event graphics for YOUNGO's annual Local Conference of Youth on Climate Change in Kenya.</li></ul>
-      </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="LCOY Kenya: 4 images, scroll sideways">
-          <picture><source type="image/avif" srcset="/img/3S9Xf9J1y_-400.avif 400w, /img/3S9Xf9J1y_-800.avif 800w, /img/3S9Xf9J1y_-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/3S9Xf9J1y_-400.webp" alt="LCOY Kenya 2022 participant call poster in green on white" width="1200" height="1200" srcset="/img/3S9Xf9J1y_-400.webp 400w, /img/3S9Xf9J1y_-800.webp 800w, /img/3S9Xf9J1y_-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/qrP4BUSzVS-400.avif 400w, /img/qrP4BUSzVS-800.avif 800w, /img/qrP4BUSzVS-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/qrP4BUSzVS-400.webp" alt="LCOY Kenya ‘Register to Exhibit!’ poster on dark green" width="1200" height="1200" srcset="/img/qrP4BUSzVS-400.webp 400w, /img/qrP4BUSzVS-800.webp 800w, /img/qrP4BUSzVS-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/AbfEU1qOcr-400.avif 400w, /img/AbfEU1qOcr-800.avif 800w, /img/AbfEU1qOcr-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/AbfEU1qOcr-400.webp" alt="LCOY Kenya participant poster on mid green" width="1200" height="1200" srcset="/img/AbfEU1qOcr-400.webp 400w, /img/AbfEU1qOcr-800.webp 800w, /img/AbfEU1qOcr-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/lKPFWojWXY-400.avif 400w, /img/lKPFWojWXY-800.avif 800w, /img/lKPFWojWXY-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/lKPFWojWXY-400.webp" alt="LCOY Kenya participant poster on mint" width="1200" height="1200" srcset="/img/lKPFWojWXY-400.webp 400w, /img/lKPFWojWXY-800.webp 800w, /img/lKPFWojWXY-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-        </div>
-      </div>
+</details>
+      <details class="entry__row" id="ciff">
+  <summary data-cells="">
+    <span class="row__thumb" aria-hidden="true"><picture><source type="image/avif" srcset="/img/1aF1JsJ9Q--400.avif 400w, /img/1aF1JsJ9Q--720.avif 720w" sizes="(max-width: 720px) 25vw, 160px"><img loading="lazy" decoding="async" src="/img/1aF1JsJ9Q--400.webp" alt="" width="720" height="558" srcset="/img/1aF1JsJ9Q--400.webp 400w, /img/1aF1JsJ9Q--720.webp 720w" sizes="(max-width: 720px) 25vw, 160px"></picture></span>
+    <h4 class="row__title">Designed CIFF’s COP27 Children &amp; Youth Pavilion report<span class="row__case" aria-hidden="true"> ↗</span><span class="visually-hidden"> (case study)</span></h4>
+    <span class="row__date"><span class="row__date-short">2024</span><span class="row__date-full">2023–24</span></span>
+    <span class="go row__chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></span>
+  </summary>
+  <div class="row__body">
+    <div class="row__text" data-cells="">
+      <p class="tools"><span class="label">Skills &amp; tools</span> <span class="tool-name">Adobe InDesign</span>, <span class="tool-name">Report layout</span>, <span class="tool-name">Editorial design</span></p>
+      <a class="more-link entry__go" href="/projects/children-youth-pavilion/"><span>Read the case study</span>&nbsp;<span class="entry__arrow" aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="sheet frame reel">
+  <div class="reel__track" tabindex="0" role="region" aria-label="Independent designer, Designed CIFF’s COP27 Children &amp; Youth Pavilion report: 4 images, scroll sideways">
+    <picture><source type="image/avif" srcset="/img/VoUxxcm7Sa-400.avif 400w, /img/VoUxxcm7Sa-800.avif 800w, /img/VoUxxcm7Sa-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/VoUxxcm7Sa-400.webp" alt="Children &amp; Youth Pavilion at COP27 report cover" width="1200" height="1696" srcset="/img/VoUxxcm7Sa-400.webp 400w, /img/VoUxxcm7Sa-800.webp 800w, /img/VoUxxcm7Sa-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/mpFIa8Ekbj-400.avif 400w, /img/mpFIa8Ekbj-800.avif 800w, /img/mpFIa8Ekbj-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/mpFIa8Ekbj-400.webp" alt="The report open on the executive summary" width="1200" height="837" srcset="/img/mpFIa8Ekbj-400.webp 400w, /img/mpFIa8Ekbj-800.webp 800w, /img/mpFIa8Ekbj-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/tONFgY8nUg-400.avif 400w, /img/tONFgY8nUg-800.avif 800w, /img/tONFgY8nUg-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/tONFgY8nUg-400.webp" alt="The report open on the impact of the pavilion, in large statistics" width="1200" height="837" srcset="/img/tONFgY8nUg-400.webp 400w, /img/tONFgY8nUg-800.webp 800w, /img/tONFgY8nUg-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/IY83Rw1v8q-400.avif 400w, /img/IY83Rw1v8q-800.avif 800w, /img/IY83Rw1v8q-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/IY83Rw1v8q-400.webp" alt="The report open on the background and steering committee" width="1200" height="837" srcset="/img/IY83Rw1v8q-400.webp 400w, /img/IY83Rw1v8q-800.webp 800w, /img/IY83Rw1v8q-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
   </div>
-</article>
-
-<article class="sheet area entry entry--compact" id="afriyoccc" style="--h: 2" data-snap="">
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Volunteer</p>
-    <h2>Volunteer</h2>
-    <p class="entry__client">African Youth Conference on Climate Change (AFRIYOCCC)</p>
-    <p class="label entry__date">Oct ’22</p>
-    <div class="tags"><span class="tag">Adobe InDesign</span><span class="tag">Editorial Design</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <ul><li>Designed the attendee resource pack and conference programme for the African Youth Conference on Climate Change.</li></ul>
-      </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="African Youth Conference on Climate Change (AFRIYOCCC): 3 images, scroll sideways">
-          <picture><source type="image/avif" srcset="/img/NIHZ8NoNJ4-400.avif 400w, /img/NIHZ8NoNJ4-800.avif 800w, /img/NIHZ8NoNJ4-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/NIHZ8NoNJ4-400.webp" alt="Conference programme mockup: the Learn, Play and Act spread" width="1200" height="897" srcset="/img/NIHZ8NoNJ4-400.webp 400w, /img/NIHZ8NoNJ4-800.webp 800w, /img/NIHZ8NoNJ4-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/N4263duFE3-400.avif 400w, /img/N4263duFE3-800.avif 800w, /img/N4263duFE3-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/N4263duFE3-400.webp" alt="Resource pack mockup: the Background spread with a savannah photo" width="1200" height="897" srcset="/img/N4263duFE3-400.webp 400w, /img/N4263duFE3-800.webp 800w, /img/N4263duFE3-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/pPBzaSUEqi-400.avif 400w, /img/pPBzaSUEqi-800.avif 800w, /img/pPBzaSUEqi-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/pPBzaSUEqi-400.webp" alt="Resource pack spread organised as Learn, Play and Act" width="1200" height="896" srcset="/img/pPBzaSUEqi-400.webp 400w, /img/pPBzaSUEqi-800.webp 800w, /img/pPBzaSUEqi-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-        </div>
-      </div>
+</div>
   </div>
-</article>
-
-<article class="sheet area entry entry--group" id="leja" style="--h: 2" data-snap="">
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Full-time</p>
-    <h2>Leja</h2>
-    <p class="label entry__date">Feb ’22 – Jun ’25</p>
-    <p class="entry__about">B2B payments &amp; bookkeeping mobile app serving Kenyan MSMEs and CICO agents.</p>
-    <div class="tags"><span class="tag">Figma</span><span class="tag">mui</span><span class="tag">android</span><span class="tag">prototyping</span><span class="tag">User Research</span></div>
-  </header>
-  <div class="area entry__body">
-      <article class="sheet area entry entry--project" id="leja-product" style="--h: 2">
-        <header class="sheet entry__meta" style="--w: 3">
-          <h3>Product Designer</h3>
-          <p class="label entry__date">Nov ’22 – Jun ’25</p>
-          <a class="entry__go" href="/projects/leja-business-app/"><span class="visually-hidden">See the full project</span><span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"></path></svg></span></a>
-        </header>
-        <div class="area entry__body">
-          <div class="sheet entry__text">
-            <ul>
-            <li>Owned onboarding, referral, and transaction-flow design end-to-end: research, design, developer handoff, and iteration based on usage.</li>
-            <li>Designed for a low-bandwidth, non-technical, non-English-dominant user base.</li>
-            <li>Partnered directly with developers and product managers to ship designs to real users, then iterated based on usability testing and product feedback.</li>
-            <li>Formally led a 2-person design/research team on a dedicated initiative, assigning work and owning outcomes while remaining hands-on in the craft.</li>
-            <li>Designed interactive prototypes for partnership presentations and product demos using Figma and the Adobe suite.</li>
-            <li>Championed accessibility and usability against W3C/WCAG 2.1 guidelines; produced clear design documentation to ease developer handoff.</li>
-            </ul>
-          </div>
-          <div class="sheet frame reel">
-            <div class="reel__track" tabindex="0" role="region" aria-label="Leja, Product Designer: 3 images, scroll sideways">
-              <span class="phone-frame"><picture><source type="image/avif" srcset="/img/ZVvtiVPQHY-400.avif 400w, /img/ZVvtiVPQHY-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/ZVvtiVPQHY-400.webp" alt="Leja Grow: grow your money with savings, loans and investments" width="640" height="1280" srcset="/img/ZVvtiVPQHY-400.webp 400w, /img/ZVvtiVPQHY-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span>
-              <span class="phone-frame"><picture><source type="image/avif" srcset="/img/rDBFaLzWVi-400.avif 400w, /img/rDBFaLzWVi-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/rDBFaLzWVi-400.webp" alt="Leja loans: the loan limit and loan history" width="640" height="1280" srcset="/img/rDBFaLzWVi-400.webp 400w, /img/rDBFaLzWVi-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span>
-              <span class="phone-frame"><picture><source type="image/avif" srcset="/img/J9vIvdIEzT-400.avif 400w, /img/J9vIvdIEzT-640.avif 640w" sizes="(max-width: 720px) 30vw, 160px"><img loading="lazy" decoding="async" src="/img/J9vIvdIEzT-400.webp" alt="Leja savings goal: 25% closer to a goal of new stock" width="640" height="1280" srcset="/img/J9vIvdIEzT-400.webp 400w, /img/J9vIvdIEzT-640.webp 640w" sizes="(max-width: 720px) 30vw, 160px"></picture></span>
-            </div>
-          </div>
-        </div>
-      </article>
-      <article class="sheet area entry entry--project" id="leja-associate" style="--h: 2">
-        <header class="sheet entry__meta" style="--w: 3">
-          <h3>Design Associate</h3>
-          <p class="label entry__date">Feb – Oct ’22</p>
-        </header>
-        <div class="area entry__body">
-          <div class="sheet entry__text">
-            <p>Graphics and branding: campaign and social ads, merchandise and event stands.</p>
-          </div>
-          <div class="sheet frame reel">
-            <div class="reel__track" tabindex="0" role="region" aria-label="Leja, Design Associate: 6 images, scroll sideways">
-              <picture><source type="image/avif" srcset="/img/U88tE1IPCP-400.avif" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/U88tE1IPCP-400.webp" alt="Two Leja users posing with a pink social-media photo frame" width="400" height="400"></picture>
-              <picture><source type="image/avif" srcset="/img/EfWHd3mi00-400.avif" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/EfWHd3mi00-400.webp" alt="Leja exhibition stand with a pull-up banner: ‘The ultimate finance app for MSMEs in Africa’" width="400" height="400"></picture>
-              <picture><source type="image/avif" srcset="/img/fL53o0dBqX-400.avif" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/fL53o0dBqX-400.webp" alt="Leja tote bag printed with ‘Transforming lives one business at a time’" width="400" height="400"></picture>
-              <picture><source type="image/avif" srcset="/img/1hbO_gT1Ld-400.avif" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/1hbO_gT1Ld-400.webp" alt="Branded Leja water bottle and merchandise" width="400" height="400"></picture>
-              <picture><source type="image/avif" srcset="/img/JtJtYkf_p7-400.avif 400w, /img/JtJtYkf_p7-800.avif 800w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/JtJtYkf_p7-400.webp" alt="A visitor at a Leja event backdrop" width="800" height="1000" srcset="/img/JtJtYkf_p7-400.webp 400w, /img/JtJtYkf_p7-800.webp 800w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-              <picture><source type="image/avif" srcset="/img/zaVKB1721G-261.avif" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/zaVKB1721G-261.webp" alt="Leja M-Pesa promotion ad: ‘Hustle mode activated!’" width="261" height="392"></picture>
-            </div>
-          </div>
-        </div>
-      </article>
-  </div>
-</article>
-
-<article class="sheet area entry entry--compact" id="qoba" style="--h: 2" data-snap="">
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Freelance</p>
-    <h2>Branding Designer</h2>
-    <p class="entry__client">Qoba</p>
-    <p class="label entry__date">Jan ’22</p>
-    <div class="tags"><span class="tag">Adobe Illustrator</span><span class="tag">Brand Identity</span><span class="tag">SaaS Branding</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <p>An SME point-of-sale SaaS product.</p>
+</details>
+      <details class="entry__row" id="lcoy">
+  <summary data-cells="">
+    <span class="row__thumb" aria-hidden="true"><picture><source type="image/avif" srcset="/img/3S9Xf9J1y_-400.avif 400w, /img/3S9Xf9J1y_-800.avif 800w, /img/3S9Xf9J1y_-1200.avif 1200w" sizes="(max-width: 720px) 25vw, 160px"><img loading="lazy" decoding="async" src="/img/3S9Xf9J1y_-400.webp" alt="" width="1200" height="1200" srcset="/img/3S9Xf9J1y_-400.webp 400w, /img/3S9Xf9J1y_-800.webp 800w, /img/3S9Xf9J1y_-1200.webp 1200w" sizes="(max-width: 720px) 25vw, 160px"></picture></span>
+    <h4 class="row__title">Rebranded LCOY Kenya and produced its event graphics</h4>
+    <span class="row__date">2022</span>
+    <span class="go row__chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></span>
+  </summary>
+  <div class="row__body">
+    <div class="row__text" data-cells="">
+      <span class="label row__type">Volunteer</span>
+      <div class="entry__text">
+        <p>For YOUNGO’s annual Local Conference of Youth on Climate Change in Kenya.</p>
       </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="Qoba: 3 images, scroll sideways">
-          <picture><source type="image/avif" srcset="/img/gtlEaTdye8-400.avif 400w, /img/gtlEaTdye8-800.avif 800w, /img/gtlEaTdye8-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/gtlEaTdye8-400.webp" alt="Qoba logo significance sheet: the wordmark with notes on each letterform" width="1200" height="675" srcset="/img/gtlEaTdye8-400.webp 400w, /img/gtlEaTdye8-800.webp 800w, /img/gtlEaTdye8-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/4OdQWSNOfW-400.avif 400w, /img/4OdQWSNOfW-800.avif 800w, /img/4OdQWSNOfW-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/4OdQWSNOfW-400.webp" alt="Qoba logo in colour: black, blue and reversed versions" width="1200" height="675" srcset="/img/4OdQWSNOfW-400.webp 400w, /img/4OdQWSNOfW-800.webp 800w, /img/4OdQWSNOfW-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/fGYzWBY7S1-400.avif 400w, /img/fGYzWBY7S1-800.avif 800w, /img/fGYzWBY7S1-1080.avif 1080w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/fGYzWBY7S1-400.webp" alt="Qoba social post on blue: ‘9 out of 10 startups don&#x27;t make it’" width="1080" height="1080" srcset="/img/fGYzWBY7S1-400.webp 400w, /img/fGYzWBY7S1-800.webp 800w, /img/fGYzWBY7S1-1080.webp 1080w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-        </div>
-      </div>
+      <p class="tools"><span class="label">Skills &amp; tools</span> <span class="tool-name">Adobe Illustrator</span>, <span class="tool-name">Branding</span>, <span class="tool-name">Event design</span></p>
+    </div>
+    <div class="sheet frame reel">
+  <div class="reel__track" tabindex="0" role="region" aria-label="Independent designer, Rebranded LCOY Kenya and produced its event graphics: 4 images, scroll sideways">
+    <picture><source type="image/avif" srcset="/img/3S9Xf9J1y_-400.avif 400w, /img/3S9Xf9J1y_-800.avif 800w, /img/3S9Xf9J1y_-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/3S9Xf9J1y_-400.webp" alt="LCOY Kenya 2022 participant call poster in green on white" width="1200" height="1200" srcset="/img/3S9Xf9J1y_-400.webp 400w, /img/3S9Xf9J1y_-800.webp 800w, /img/3S9Xf9J1y_-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/qrP4BUSzVS-400.avif 400w, /img/qrP4BUSzVS-800.avif 800w, /img/qrP4BUSzVS-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/qrP4BUSzVS-400.webp" alt="LCOY Kenya ‘Register to Exhibit!’ poster on dark green" width="1200" height="1200" srcset="/img/qrP4BUSzVS-400.webp 400w, /img/qrP4BUSzVS-800.webp 800w, /img/qrP4BUSzVS-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/AbfEU1qOcr-400.avif 400w, /img/AbfEU1qOcr-800.avif 800w, /img/AbfEU1qOcr-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/AbfEU1qOcr-400.webp" alt="LCOY Kenya participant poster on mid green" width="1200" height="1200" srcset="/img/AbfEU1qOcr-400.webp 400w, /img/AbfEU1qOcr-800.webp 800w, /img/AbfEU1qOcr-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/lKPFWojWXY-400.avif 400w, /img/lKPFWojWXY-800.avif 800w, /img/lKPFWojWXY-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/lKPFWojWXY-400.webp" alt="LCOY Kenya participant poster on mint" width="1200" height="1200" srcset="/img/lKPFWojWXY-400.webp 400w, /img/lKPFWojWXY-800.webp 800w, /img/lKPFWojWXY-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
   </div>
-</article>
-
-<article class="sheet area entry entry--compact" id="sid" style="--h: 2" data-snap="">
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Freelance</p>
-    <h2>Editorial Designer</h2>
-    <p class="entry__client">Society for International Development (SID)</p>
-    <p class="label entry__date">Oct – Dec ’21</p>
-    <div class="tags"><span class="tag">Adobe InDesign</span><span class="tag">Complex Layouts</span><span class="tag">Data Visualisation</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
+</div>
+  </div>
+</details>
+      <details class="entry__row" id="afriyoccc">
+  <summary data-cells="">
+    <span class="row__thumb" aria-hidden="true"><picture><source type="image/avif" srcset="/img/NIHZ8NoNJ4-400.avif 400w, /img/NIHZ8NoNJ4-800.avif 800w, /img/NIHZ8NoNJ4-1200.avif 1200w" sizes="(max-width: 720px) 25vw, 160px"><img loading="lazy" decoding="async" src="/img/NIHZ8NoNJ4-400.webp" alt="" width="1200" height="897" srcset="/img/NIHZ8NoNJ4-400.webp 400w, /img/NIHZ8NoNJ4-800.webp 800w, /img/NIHZ8NoNJ4-1200.webp 1200w" sizes="(max-width: 720px) 25vw, 160px"></picture></span>
+    <h4 class="row__title">Designed AFRIYOCCC’s conference programme and resource pack</h4>
+    <span class="row__date">2022</span>
+    <span class="go row__chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></span>
+  </summary>
+  <div class="row__body">
+    <div class="row__text" data-cells="">
+      <span class="label row__type">Volunteer</span>
+      <div class="entry__text">
+        <p>For attendees of the African Youth Conference on Climate Change.</p>
+      </div>
+      <p class="tools"><span class="label">Skills &amp; tools</span> <span class="tool-name">Adobe InDesign</span>, <span class="tool-name">Editorial design</span></p>
+    </div>
+    <div class="sheet frame reel">
+  <div class="reel__track" tabindex="0" role="region" aria-label="Independent designer, Designed AFRIYOCCC’s conference programme and resource pack: 3 images, scroll sideways">
+    <picture><source type="image/avif" srcset="/img/NIHZ8NoNJ4-400.avif 400w, /img/NIHZ8NoNJ4-800.avif 800w, /img/NIHZ8NoNJ4-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/NIHZ8NoNJ4-400.webp" alt="Conference programme mockup: the Learn, Play and Act spread" width="1200" height="897" srcset="/img/NIHZ8NoNJ4-400.webp 400w, /img/NIHZ8NoNJ4-800.webp 800w, /img/NIHZ8NoNJ4-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/N4263duFE3-400.avif 400w, /img/N4263duFE3-800.avif 800w, /img/N4263duFE3-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/N4263duFE3-400.webp" alt="Resource pack mockup: the Background spread with a savannah photo" width="1200" height="897" srcset="/img/N4263duFE3-400.webp 400w, /img/N4263duFE3-800.webp 800w, /img/N4263duFE3-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/pPBzaSUEqi-400.avif 400w, /img/pPBzaSUEqi-800.avif 800w, /img/pPBzaSUEqi-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/pPBzaSUEqi-400.webp" alt="Resource pack spread organised as Learn, Play and Act" width="1200" height="896" srcset="/img/pPBzaSUEqi-400.webp 400w, /img/pPBzaSUEqi-800.webp 800w, /img/pPBzaSUEqi-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+  </div>
+</div>
+  </div>
+</details>
+      <details class="entry__row" id="qoba">
+  <summary data-cells="">
+    <span class="row__thumb" aria-hidden="true"><picture><source type="image/avif" srcset="/img/gtlEaTdye8-400.avif 400w, /img/gtlEaTdye8-800.avif 800w, /img/gtlEaTdye8-1200.avif 1200w" sizes="(max-width: 720px) 25vw, 160px"><img loading="lazy" decoding="async" src="/img/gtlEaTdye8-400.webp" alt="" width="1200" height="675" srcset="/img/gtlEaTdye8-400.webp 400w, /img/gtlEaTdye8-800.webp 800w, /img/gtlEaTdye8-1200.webp 1200w" sizes="(max-width: 720px) 25vw, 160px"></picture></span>
+    <h4 class="row__title">Brand identity for Qoba, a point-of-sale SaaS</h4>
+    <span class="row__date">2022</span>
+    <span class="go row__chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></span>
+  </summary>
+  <div class="row__body">
+    <div class="row__text" data-cells="">
+      <p class="tools"><span class="label">Skills &amp; tools</span> <span class="tool-name">Adobe Illustrator</span>, <span class="tool-name">Brand identity</span>, <span class="tool-name">SaaS branding</span></p>
+    </div>
+    <div class="sheet frame reel">
+  <div class="reel__track" tabindex="0" role="region" aria-label="Independent designer, Brand identity for Qoba, a point-of-sale SaaS: 3 images, scroll sideways">
+    <picture><source type="image/avif" srcset="/img/gtlEaTdye8-400.avif 400w, /img/gtlEaTdye8-800.avif 800w, /img/gtlEaTdye8-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/gtlEaTdye8-400.webp" alt="Qoba logo significance sheet: the wordmark with notes on each letterform" width="1200" height="675" srcset="/img/gtlEaTdye8-400.webp 400w, /img/gtlEaTdye8-800.webp 800w, /img/gtlEaTdye8-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/4OdQWSNOfW-400.avif 400w, /img/4OdQWSNOfW-800.avif 800w, /img/4OdQWSNOfW-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/4OdQWSNOfW-400.webp" alt="Qoba logo in colour: black, blue and reversed versions" width="1200" height="675" srcset="/img/4OdQWSNOfW-400.webp 400w, /img/4OdQWSNOfW-800.webp 800w, /img/4OdQWSNOfW-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/fGYzWBY7S1-400.avif 400w, /img/fGYzWBY7S1-800.avif 800w, /img/fGYzWBY7S1-1080.avif 1080w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/fGYzWBY7S1-400.webp" alt="Qoba social post on blue: ‘9 out of 10 startups don&#39;t make it’" width="1080" height="1080" srcset="/img/fGYzWBY7S1-400.webp 400w, /img/fGYzWBY7S1-800.webp 800w, /img/fGYzWBY7S1-1080.webp 1080w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+  </div>
+</div>
+  </div>
+</details>
+      <details class="entry__row" id="sid">
+  <summary data-cells="">
+    <span class="row__thumb" aria-hidden="true"><picture><source type="image/avif" srcset="/img/0nSzBgceFs-400.avif" sizes="(max-width: 720px) 25vw, 160px"><img loading="lazy" decoding="async" src="/img/0nSzBgceFs-400.webp" alt="" width="400" height="226"></picture></span>
+    <h4 class="row__title">Laid out the 300-page Kenya Energy Atlas for SID<span class="row__case" aria-hidden="true"> ↗</span><span class="visually-hidden"> (case study)</span></h4>
+    <span class="row__date">2021</span>
+    <span class="go row__chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></span>
+  </summary>
+  <div class="row__body">
+    <div class="row__text" data-cells="">
+      <div class="entry__text">
         <ul>
-        <li>Laid out a 300-page collaborative research publication for the Kenya Energy Atlas, a joint SID–government initiative.</li>
-        <li>Managed complex layouts integrating maps, charts, and long-form academic text across multiple thematic chapters.</li>
-        </ul>
-        <a class="entry__go" href="/projects/kenya-energy-atlas/"><span class="visually-hidden">See the full project</span><span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"></path></svg></span></a>
+<li>A collaborative research publication, a joint SID–government initiative.</li>
+<li>Managed complex layouts integrating maps, charts, and long-form academic text across multiple thematic chapters.</li>
+</ul>
       </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="Society for International Development (SID): 4 images, scroll sideways">
-          <picture><source type="image/avif" srcset="/img/0nSzBgceFs-400.avif" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/0nSzBgceFs-400.webp" alt="Kenya Energy Atlas mockup" width="400" height="226"></picture>
-          <picture><source type="image/avif" srcset="/img/h4S39YlOSn-400.avif 400w, /img/h4S39YlOSn-800.avif 800w, /img/h4S39YlOSn-1022.avif 1022w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/h4S39YlOSn-400.webp" alt="Woodfuel use infographic on a green page" width="1022" height="1024" srcset="/img/h4S39YlOSn-400.webp 400w, /img/h4S39YlOSn-800.webp 800w, /img/h4S39YlOSn-1022.webp 1022w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/C2JKNQC4dI-400.avif 400w, /img/C2JKNQC4dI-800.avif 800w, /img/C2JKNQC4dI-1022.avif 1022w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/C2JKNQC4dI-400.webp" alt="Bar charts of firewood and solar use for lighting by county" width="1022" height="1024" srcset="/img/C2JKNQC4dI-400.webp 400w, /img/C2JKNQC4dI-800.webp 800w, /img/C2JKNQC4dI-1022.webp 1022w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/rKZHFL7ibR-400.avif 400w, /img/rKZHFL7ibR-800.avif 800w, /img/rKZHFL7ibR-1022.avif 1022w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/rKZHFL7ibR-400.webp" alt="Map of interconnected power projects in Eastern Africa" width="1022" height="1024" srcset="/img/rKZHFL7ibR-400.webp 400w, /img/rKZHFL7ibR-800.webp 800w, /img/rKZHFL7ibR-1022.webp 1022w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-        </div>
-      </div>
+      <p class="tools"><span class="label">Skills &amp; tools</span> <span class="tool-name">Adobe InDesign</span>, <span class="tool-name">Complex layouts</span>, <span class="tool-name">Data visualisation</span></p>
+      <a class="more-link entry__go" href="/projects/kenya-energy-atlas/"><span>Read the case study</span>&nbsp;<span class="entry__arrow" aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="sheet frame reel">
+  <div class="reel__track" tabindex="0" role="region" aria-label="Independent designer, Laid out the 300-page Kenya Energy Atlas for SID: 4 images, scroll sideways">
+    <picture><source type="image/avif" srcset="/img/0nSzBgceFs-400.avif" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/0nSzBgceFs-400.webp" alt="Kenya Energy Atlas mockup" width="400" height="226"></picture>
+    <picture><source type="image/avif" srcset="/img/h4S39YlOSn-400.avif 400w, /img/h4S39YlOSn-800.avif 800w, /img/h4S39YlOSn-1022.avif 1022w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/h4S39YlOSn-400.webp" alt="Woodfuel use infographic on a green page" width="1022" height="1024" srcset="/img/h4S39YlOSn-400.webp 400w, /img/h4S39YlOSn-800.webp 800w, /img/h4S39YlOSn-1022.webp 1022w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/C2JKNQC4dI-400.avif 400w, /img/C2JKNQC4dI-800.avif 800w, /img/C2JKNQC4dI-1022.avif 1022w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/C2JKNQC4dI-400.webp" alt="Bar charts of firewood and solar use for lighting by county" width="1022" height="1024" srcset="/img/C2JKNQC4dI-400.webp 400w, /img/C2JKNQC4dI-800.webp 800w, /img/C2JKNQC4dI-1022.webp 1022w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/rKZHFL7ibR-400.avif 400w, /img/rKZHFL7ibR-800.avif 800w, /img/rKZHFL7ibR-1022.avif 1022w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/rKZHFL7ibR-400.webp" alt="Map of interconnected power projects in Eastern Africa" width="1022" height="1024" srcset="/img/rKZHFL7ibR-400.webp 400w, /img/rKZHFL7ibR-800.webp 800w, /img/rKZHFL7ibR-1022.webp 1022w" sizes="(max-width: 720px) 60vw, 520px"></picture>
   </div>
-</article>
-
-<article class="sheet area entry entry--compact" id="belva-homes" style="--h: 2" data-snap="">
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Freelance</p>
-    <h2>Branding Designer</h2>
-    <p class="entry__client">Belva Homes</p>
-    <p class="label entry__date">Jul ’21</p>
-    <div class="tags"><span class="tag">Adobe Illustrator</span><span class="tag">Brand Identity</span><span class="tag">Logo Design</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
+</div>
+  </div>
+</details>
+      <details class="entry__row" id="belva-homes">
+  <summary data-cells="">
+    <span class="row__thumb" aria-hidden="true"><picture><source type="image/avif" srcset="/img/BvQvmtE1Vy-400.avif 400w, /img/BvQvmtE1Vy-800.avif 800w, /img/BvQvmtE1Vy-1200.avif 1200w" sizes="(max-width: 720px) 25vw, 160px"><img loading="lazy" decoding="async" src="/img/BvQvmtE1Vy-400.webp" alt="" width="1200" height="675" srcset="/img/BvQvmtE1Vy-400.webp 400w, /img/BvQvmtE1Vy-800.webp 800w, /img/BvQvmtE1Vy-1200.webp 1200w" sizes="(max-width: 720px) 25vw, 160px"></picture></span>
+    <h4 class="row__title">Brand identity for Belva Homes</h4>
+    <span class="row__date">2021</span>
+    <span class="go row__chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></span>
+  </summary>
+  <div class="row__body">
+    <div class="row__text" data-cells="">
+      <div class="entry__text">
         <p>A luxury residential real estate company in Nairobi.</p>
       </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="Belva Homes: 4 images, scroll sideways">
-          <picture><source type="image/avif" srcset="/img/BvQvmtE1Vy-400.avif 400w, /img/BvQvmtE1Vy-800.avif 800w, /img/BvQvmtE1Vy-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/BvQvmtE1Vy-400.webp" alt="The Belva Homes logo family: primary and secondary logos, submark and favicon" width="1200" height="675" srcset="/img/BvQvmtE1Vy-400.webp 400w, /img/BvQvmtE1Vy-800.webp 800w, /img/BvQvmtE1Vy-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/zTELQlwnq8-400.avif 400w, /img/zTELQlwnq8-800.avif 800w, /img/zTELQlwnq8-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/zTELQlwnq8-400.webp" alt="Belva Homes letterhead with the gold line logo" width="1200" height="1696" srcset="/img/zTELQlwnq8-400.webp 400w, /img/zTELQlwnq8-800.webp 800w, /img/zTELQlwnq8-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/FlgcAXqt1c-400.avif 400w, /img/FlgcAXqt1c-800.avif 800w, /img/FlgcAXqt1c-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/FlgcAXqt1c-400.webp" alt="Belva Homes pattern in gold on dark brown" width="1200" height="1697" srcset="/img/FlgcAXqt1c-400.webp 400w, /img/FlgcAXqt1c-800.webp 800w, /img/FlgcAXqt1c-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/aW-Uqazzsg-400.avif 400w, /img/aW-Uqazzsg-800.avif 800w, /img/aW-Uqazzsg-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/aW-Uqazzsg-400.webp" alt="Belva Homes material swatches in a hand, beside the logo on a reception wall" width="1200" height="675" srcset="/img/aW-Uqazzsg-400.webp 400w, /img/aW-Uqazzsg-800.webp 800w, /img/aW-Uqazzsg-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-        </div>
+      <p class="tools"><span class="label">Skills &amp; tools</span> <span class="tool-name">Adobe Illustrator</span>, <span class="tool-name">Brand identity</span>, <span class="tool-name">Logo design</span></p>
+    </div>
+    <div class="sheet frame reel">
+  <div class="reel__track" tabindex="0" role="region" aria-label="Independent designer, Brand identity for Belva Homes: 4 images, scroll sideways">
+    <picture><source type="image/avif" srcset="/img/BvQvmtE1Vy-400.avif 400w, /img/BvQvmtE1Vy-800.avif 800w, /img/BvQvmtE1Vy-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/BvQvmtE1Vy-400.webp" alt="The Belva Homes logo family: primary and secondary logos, submark and favicon" width="1200" height="675" srcset="/img/BvQvmtE1Vy-400.webp 400w, /img/BvQvmtE1Vy-800.webp 800w, /img/BvQvmtE1Vy-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/zTELQlwnq8-400.avif 400w, /img/zTELQlwnq8-800.avif 800w, /img/zTELQlwnq8-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/zTELQlwnq8-400.webp" alt="Belva Homes letterhead with the gold line logo" width="1200" height="1696" srcset="/img/zTELQlwnq8-400.webp 400w, /img/zTELQlwnq8-800.webp 800w, /img/zTELQlwnq8-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/FlgcAXqt1c-400.avif 400w, /img/FlgcAXqt1c-800.avif 800w, /img/FlgcAXqt1c-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/FlgcAXqt1c-400.webp" alt="Belva Homes pattern in gold on dark brown" width="1200" height="1697" srcset="/img/FlgcAXqt1c-400.webp 400w, /img/FlgcAXqt1c-800.webp 800w, /img/FlgcAXqt1c-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/aW-Uqazzsg-400.avif 400w, /img/aW-Uqazzsg-800.avif 800w, /img/aW-Uqazzsg-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/aW-Uqazzsg-400.webp" alt="Belva Homes material swatches in a hand, beside the logo on a reception wall" width="1200" height="675" srcset="/img/aW-Uqazzsg-400.webp 400w, /img/aW-Uqazzsg-800.webp 800w, /img/aW-Uqazzsg-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+  </div>
+</div>
+  </div>
+</details>
+      <details class="entry__row" id="lizopendwa">
+  <summary data-cells="">
+    <span class="row__thumb" aria-hidden="true"><picture><source type="image/avif" srcset="/img/eJMesjOgh6-400.avif 400w, /img/eJMesjOgh6-800.avif 800w, /img/eJMesjOgh6-1200.avif 1200w" sizes="(max-width: 720px) 25vw, 160px"><img loading="lazy" decoding="async" src="/img/eJMesjOgh6-400.webp" alt="" width="1200" height="1200" srcset="/img/eJMesjOgh6-400.webp 400w, /img/eJMesjOgh6-800.webp 800w, /img/eJMesjOgh6-1200.webp 1200w" sizes="(max-width: 720px) 25vw, 160px"></picture></span>
+    <h4 class="row__title">Brand identity for Lizopendwa, a Kenyan brass jewellery brand</h4>
+    <span class="row__date">2021</span>
+    <span class="go row__chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></span>
+  </summary>
+  <div class="row__body">
+    <div class="row__text" data-cells="">
+      <p class="tools"><span class="label">Skills &amp; tools</span> <span class="tool-name">Adobe Illustrator</span>, <span class="tool-name">Brand identity</span>, <span class="tool-name">Product design</span></p>
+    </div>
+    <div class="sheet frame reel">
+  <div class="reel__track" tabindex="0" role="region" aria-label="Independent designer, Brand identity for Lizopendwa, a Kenyan brass jewellery brand: 3 images, scroll sideways">
+    <picture><source type="image/avif" srcset="/img/eJMesjOgh6-400.avif 400w, /img/eJMesjOgh6-800.avif 800w, /img/eJMesjOgh6-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/eJMesjOgh6-400.webp" alt="Introducing Lizopendwa Jewellery: the logo among leaves and soft colour shapes" width="1200" height="1200" srcset="/img/eJMesjOgh6-400.webp 400w, /img/eJMesjOgh6-800.webp 800w, /img/eJMesjOgh6-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/YFwB6vDclW-400.avif 400w, /img/YFwB6vDclW-800.avif 800w, /img/YFwB6vDclW-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/YFwB6vDclW-400.webp" alt="Lizopendwa brand pattern of leaves and soft colour shapes" width="1200" height="1200" srcset="/img/YFwB6vDclW-400.webp 400w, /img/YFwB6vDclW-800.webp 800w, /img/YFwB6vDclW-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/96awb0G-dx-400.avif 400w, /img/96awb0G-dx-800.avif 800w, /img/96awb0G-dx-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/96awb0G-dx-400.webp" alt="Lizopendwa brand backdrop: a mint panel framed by leaves and colour shapes" width="1200" height="1200" srcset="/img/96awb0G-dx-400.webp 400w, /img/96awb0G-dx-800.webp 800w, /img/96awb0G-dx-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+  </div>
+</div>
+  </div>
+</details>
+      <details class="entry__row" id="belva">
+  <summary data-cells="">
+    <span class="row__thumb" aria-hidden="true"><picture><source type="image/avif" srcset="/img/b_F2pDtqyZ-400.avif 400w, /img/b_F2pDtqyZ-800.avif 800w, /img/b_F2pDtqyZ-1200.avif 1200w" sizes="(max-width: 720px) 25vw, 160px"><img loading="lazy" decoding="async" src="/img/b_F2pDtqyZ-400.webp" alt="" width="1200" height="615" srcset="/img/b_F2pDtqyZ-400.webp 400w, /img/b_F2pDtqyZ-800.webp 800w, /img/b_F2pDtqyZ-1200.webp 1200w" sizes="(max-width: 720px) 25vw, 160px"></picture></span>
+    <h4 class="row__title">Designed the 3408 Belva property catalogue</h4>
+    <span class="row__date">2020</span>
+    <span class="go row__chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></span>
+  </summary>
+  <div class="row__body">
+    <div class="row__text" data-cells="">
+      <div class="entry__text">
+        <p>For a green-living residential development in Parklands, Nairobi.</p>
       </div>
+      <p class="tools"><span class="label">Skills &amp; tools</span> <span class="tool-name">Adobe InDesign</span>, <span class="tool-name">Editorial layout</span></p>
+    </div>
+    <div class="sheet frame reel">
+  <div class="reel__track" tabindex="0" role="region" aria-label="Independent designer, Designed the 3408 Belva property catalogue: 6 images, scroll sideways">
+    <picture><source type="image/avif" srcset="/img/z39vbSoHb2-400.avif 400w, /img/z39vbSoHb2-800.avif 800w, /img/z39vbSoHb2-1022.avif 1022w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/z39vbSoHb2-400.webp" alt="3408 Belva catalogue cover: the logo on green with a gold hexagon pattern" width="1022" height="1024" srcset="/img/z39vbSoHb2-400.webp 400w, /img/z39vbSoHb2-800.webp 800w, /img/z39vbSoHb2-1022.webp 1022w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/b_F2pDtqyZ-400.avif 400w, /img/b_F2pDtqyZ-800.avif 800w, /img/b_F2pDtqyZ-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/b_F2pDtqyZ-400.webp" alt="The catalogue shown closed and open" width="1200" height="615" srcset="/img/b_F2pDtqyZ-400.webp 400w, /img/b_F2pDtqyZ-800.webp 800w, /img/b_F2pDtqyZ-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/255psfFjx2-400.avif 400w, /img/255psfFjx2-800.avif 800w, /img/255psfFjx2-1024.avif 1024w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/255psfFjx2-400.webp" alt="Architect’s View spread, left page" width="1024" height="513" srcset="/img/255psfFjx2-400.webp 400w, /img/255psfFjx2-800.webp 800w, /img/255psfFjx2-1024.webp 1024w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/br5l_eOh4z-400.avif 400w, /img/br5l_eOh4z-800.avif 800w, /img/br5l_eOh4z-1024.avif 1024w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/br5l_eOh4z-400.webp" alt="Salon and Wellness Centre spread, right page" width="1024" height="513" srcset="/img/br5l_eOh4z-400.webp 400w, /img/br5l_eOh4z-800.webp 800w, /img/br5l_eOh4z-1024.webp 1024w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/sDegBv3M0p-400.avif 400w, /img/sDegBv3M0p-800.avif 800w, /img/sDegBv3M0p-1024.avif 1024w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/sDegBv3M0p-400.webp" alt="Finishes spread, left page" width="1024" height="513" srcset="/img/sDegBv3M0p-400.webp 400w, /img/sDegBv3M0p-800.webp 800w, /img/sDegBv3M0p-1024.webp 1024w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/WMNemtl1oZ-400.avif 400w, /img/WMNemtl1oZ-800.avif 800w, /img/WMNemtl1oZ-1024.avif 1024w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/WMNemtl1oZ-400.webp" alt="Fittings spread, right page" width="1024" height="513" srcset="/img/WMNemtl1oZ-400.webp 400w, /img/WMNemtl1oZ-800.webp 800w, /img/WMNemtl1oZ-1024.webp 1024w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+  </div>
+</div>
+  </div>
+</details>
+      <details class="entry__row" id="greenpeace">
+  <summary data-cells="">
+    <span class="row__thumb" aria-hidden="true"><picture><source type="image/avif" srcset="/img/Bvto9s-QnL-400.avif 400w, /img/Bvto9s-QnL-800.avif 800w, /img/Bvto9s-QnL-1080.avif 1080w" sizes="(max-width: 720px) 25vw, 160px"><img loading="lazy" decoding="async" src="/img/Bvto9s-QnL-400.webp" alt="" width="1080" height="1080" srcset="/img/Bvto9s-QnL-400.webp 400w, /img/Bvto9s-QnL-800.webp 800w, /img/Bvto9s-QnL-1080.webp 1080w" sizes="(max-width: 720px) 25vw, 160px"></picture></span>
+    <h4 class="row__title">Designed social media posts for Greenpeace Africa</h4>
+    <span class="go row__chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></span>
+  </summary>
+  <div class="row__body">
+    <div class="row__text" data-cells="">
+      <span class="label row__type">Volunteer</span>
+      <p class="tools"><span class="label">Skills &amp; tools</span> <span class="tool-name">Adobe Photoshop</span></p>
+    </div>
+    <div class="sheet frame reel">
+  <div class="reel__track" tabindex="0" role="region" aria-label="Independent designer, Designed social media posts for Greenpeace Africa: 4 images, scroll sideways">
+    <picture><source type="image/avif" srcset="/img/Bvto9s-QnL-400.avif 400w, /img/Bvto9s-QnL-800.avif 800w, /img/Bvto9s-QnL-1080.avif 1080w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/Bvto9s-QnL-400.webp" alt="World Hippopotamus Day post: a hippo&#39;s head on bright green" width="1080" height="1080" srcset="/img/Bvto9s-QnL-400.webp 400w, /img/Bvto9s-QnL-800.webp 800w, /img/Bvto9s-QnL-1080.webp 1080w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/yJrpjmuEQ8-400.avif 400w, /img/yJrpjmuEQ8-800.avif 800w, /img/yJrpjmuEQ8-1080.avif 1080w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/yJrpjmuEQ8-400.webp" alt="Post: the threats to the hippo noted by the IUCN Red List" width="1080" height="1080" srcset="/img/yJrpjmuEQ8-400.webp 400w, /img/yJrpjmuEQ8-800.webp 800w, /img/yJrpjmuEQ8-1080.webp 1080w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/yZO3BZ8MBF-400.avif 400w, /img/yZO3BZ8MBF-800.avif 800w, /img/yZO3BZ8MBF-1080.avif 1080w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/yZO3BZ8MBF-400.webp" alt="Post: KPLC&#39;s switch to renewable energy, the Greenpeace Kenya take" width="1080" height="1080" srcset="/img/yZO3BZ8MBF-400.webp 400w, /img/yZO3BZ8MBF-800.webp 800w, /img/yZO3BZ8MBF-1080.webp 1080w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/3XjhFxmehf-400.avif 400w, /img/3XjhFxmehf-800.avif 800w, /img/3XjhFxmehf-1080.avif 1080w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/3XjhFxmehf-400.webp" alt="Recap post: Kenya Power&#39;s plans to hybridise 23 remote diesel mini-grids with solar and wind" width="1080" height="1080" srcset="/img/3XjhFxmehf-400.webp 400w, /img/3XjhFxmehf-800.webp 800w, /img/3XjhFxmehf-1080.webp 1080w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+  </div>
+</div>
+  </div>
+</details>
+    </div>
   </div>
 </article>
 
-<article class="sheet area entry entry--compact" id="lizopendwa" style="--h: 2" data-snap="">
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Freelance</p>
-    <h2>Branding Designer</h2>
-    <p class="entry__client">Lizopendwa</p>
-    <p class="label entry__date">May – Jun ’21</p>
-    <div class="tags"><span class="tag">Adobe Illustrator</span><span class="tag">Brand Identity</span><span class="tag">Product Design</span></div>
+<article class="sheet area entry" id="herbivore" style="--h: 2" data-snap="">
+  <header class="entry__meta" data-cells=""><h3>Graphic designer</h3>
+    <p class="entry__where"><span>Herbivore Garden Center</span><span> · <span class="visually-hidden">Jun – Dec ’20</span><span aria-hidden="true">2020</span></span></p>
+    <p class="entry__date"><span>Full-time</span><span> · 7 mos</span></p>
+    <p class="entry__about">Herbivore Garden Center, a garden centre in Nairobi.</p>
+    <p class="tools"><span class="label">Skills &amp; tools</span> <span class="tool-name">Adobe Illustrator</span>, <span class="tool-name">Social media design</span></p>
   </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <p>Kenyan brass jewellery brand.</p>
+  <div class="entry__body">
+    <div class="entry__rows">
+      <details class="entry__row" id="herbivore-design">
+  <summary data-cells="">
+    <span class="row__thumb" aria-hidden="true"><picture><source type="image/avif" srcset="/img/XWnfScwkDg-400.avif 400w, /img/XWnfScwkDg-512.avif 512w" sizes="(max-width: 720px) 25vw, 160px"><img loading="lazy" decoding="async" src="/img/XWnfScwkDg-400.webp" alt="" width="512" height="726" srcset="/img/XWnfScwkDg-400.webp 400w, /img/XWnfScwkDg-512.webp 512w" sizes="(max-width: 720px) 25vw, 160px"></picture></span>
+    <h4 class="row__title">Designed posters and social media for a garden centre</h4>
+    <span class="go row__chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></span>
+  </summary>
+  <div class="row__body">
+    <div class="row__text" data-cells="">
+      <div class="entry__text">
+        <p>Event and class posters, and social posts for the garden centre's bromeliad auctions.</p>
       </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="Lizopendwa: 3 images, scroll sideways">
-          <picture><source type="image/avif" srcset="/img/eJMesjOgh6-400.avif 400w, /img/eJMesjOgh6-800.avif 800w, /img/eJMesjOgh6-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/eJMesjOgh6-400.webp" alt="Introducing Lizopendwa Jewellery: the logo among leaves and soft colour shapes" width="1200" height="1200" srcset="/img/eJMesjOgh6-400.webp 400w, /img/eJMesjOgh6-800.webp 800w, /img/eJMesjOgh6-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/YFwB6vDclW-400.avif 400w, /img/YFwB6vDclW-800.avif 800w, /img/YFwB6vDclW-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/YFwB6vDclW-400.webp" alt="Lizopendwa brand pattern of leaves and soft colour shapes" width="1200" height="1200" srcset="/img/YFwB6vDclW-400.webp 400w, /img/YFwB6vDclW-800.webp 800w, /img/YFwB6vDclW-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/96awb0G-dx-400.avif 400w, /img/96awb0G-dx-800.avif 800w, /img/96awb0G-dx-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/96awb0G-dx-400.webp" alt="Lizopendwa brand backdrop: a mint panel framed by leaves and colour shapes" width="1200" height="1200" srcset="/img/96awb0G-dx-400.webp 400w, /img/96awb0G-dx-800.webp 800w, /img/96awb0G-dx-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-        </div>
-      </div>
+    </div>
+    <div class="sheet frame reel">
+  <div class="reel__track" tabindex="0" role="region" aria-label="Herbivore Garden Center, Designed posters and social media for a garden centre: 5 images, scroll sideways">
+    <picture><source type="image/avif" srcset="/img/XWnfScwkDg-400.avif 400w, /img/XWnfScwkDg-512.avif 512w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/XWnfScwkDg-400.webp" alt="Herbivore Garden Center poster: Children&#39;s Gardening Classes, with a girl potting a plant" width="512" height="726" srcset="/img/XWnfScwkDg-400.webp 400w, /img/XWnfScwkDg-512.webp 512w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/fFAV1ca5sr-400.avif 400w, /img/fFAV1ca5sr-800.avif 800w, /img/fFAV1ca5sr-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/fFAV1ca5sr-400.webp" alt="Bromeliad Auction! post on terracotta, with a potted bromeliad" width="1200" height="1200" srcset="/img/fFAV1ca5sr-400.webp 400w, /img/fFAV1ca5sr-800.webp 800w, /img/fFAV1ca5sr-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/19gQNDWgiV-400.avif 400w, /img/19gQNDWgiV-800.avif 800w, /img/19gQNDWgiV-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/19gQNDWgiV-400.webp" alt="Bromeliad auction terms on cream, with the plant and its height" width="1200" height="1200" srcset="/img/19gQNDWgiV-400.webp 400w, /img/19gQNDWgiV-800.webp 800w, /img/19gQNDWgiV-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/Achi12eKYQ-400.avif 400w, /img/Achi12eKYQ-800.avif 800w, /img/Achi12eKYQ-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/Achi12eKYQ-400.webp" alt="Bromeliad Auction! post on dark green, with a potted bromeliad" width="1200" height="1200" srcset="/img/Achi12eKYQ-400.webp 400w, /img/Achi12eKYQ-800.webp 800w, /img/Achi12eKYQ-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+    <picture><source type="image/avif" srcset="/img/jldYwaYkfn-400.avif 400w, /img/jldYwaYkfn-800.avif 800w, /img/jldYwaYkfn-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/jldYwaYkfn-400.webp" alt="Second bromeliad auction terms on cream, with the plant and a close-up of its bracts" width="1200" height="1200" srcset="/img/jldYwaYkfn-400.webp 400w, /img/jldYwaYkfn-800.webp 800w, /img/jldYwaYkfn-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
+  </div>
+</div>
+  </div>
+</details>
+    </div>
   </div>
 </article>
 
-<article class="sheet area entry entry--compact" id="herbivore" style="--h: 2" data-snap="">
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Full-time</p>
-    <h2>Graphics Designer &amp; Social Media Manager</h2>
-    <p class="entry__client">Herbivore Garden Center</p>
-    <p class="label entry__date">Jun – Dec ’20</p>
-    <div class="tags"><span class="tag">Adobe Illustrator</span><span class="tag">Social Media Design</span></div>
+
+<div class="gap" style="--rows: 1" aria-hidden="true"></div>
+
+<!-- ============ Education ============ -->
+<div class="sheet area cv-section" style="--h: 1">
+  <h2 id="education">Education</h2>
+</div>
+
+<article class="sheet area entry" id="zindua" style="--h: 2" data-snap="">
+  <header class="entry__meta" data-cells=""><h3>Data science</h3>
+    <p class="entry__where"><span>Zindua School</span><span> · <span class="visually-hidden">Aug ’25 – Present</span><span aria-hidden="true">2025 – present</span></span></p>
+    <p class="entry__date"><span>Programme</span><span> · 1 yr 3 mos</span></p>
   </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <p>Nairobi-based garden centre.</p>
-      </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="Herbivore Garden Center: 5 images, scroll sideways">
-          <picture><source type="image/avif" srcset="/img/XWnfScwkDg-400.avif 400w, /img/XWnfScwkDg-512.avif 512w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/XWnfScwkDg-400.webp" alt="Herbivore Garden Center poster: Children&#x27;s Gardening Classes, with a girl potting a plant" width="512" height="726" srcset="/img/XWnfScwkDg-400.webp 400w, /img/XWnfScwkDg-512.webp 512w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/fFAV1ca5sr-400.avif 400w, /img/fFAV1ca5sr-800.avif 800w, /img/fFAV1ca5sr-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/fFAV1ca5sr-400.webp" alt="Bromeliad Auction! post on terracotta, with a potted bromeliad" width="1200" height="1200" srcset="/img/fFAV1ca5sr-400.webp 400w, /img/fFAV1ca5sr-800.webp 800w, /img/fFAV1ca5sr-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/19gQNDWgiV-400.avif 400w, /img/19gQNDWgiV-800.avif 800w, /img/19gQNDWgiV-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/19gQNDWgiV-400.webp" alt="Bromeliad auction terms on cream, with the plant and its height" width="1200" height="1200" srcset="/img/19gQNDWgiV-400.webp 400w, /img/19gQNDWgiV-800.webp 800w, /img/19gQNDWgiV-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/Achi12eKYQ-400.avif 400w, /img/Achi12eKYQ-800.avif 800w, /img/Achi12eKYQ-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/Achi12eKYQ-400.webp" alt="Bromeliad Auction! post on dark green, with a potted bromeliad" width="1200" height="1200" srcset="/img/Achi12eKYQ-400.webp 400w, /img/Achi12eKYQ-800.webp 800w, /img/Achi12eKYQ-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/jldYwaYkfn-400.avif 400w, /img/jldYwaYkfn-800.avif 800w, /img/jldYwaYkfn-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/jldYwaYkfn-400.webp" alt="Second bromeliad auction terms on cream, with the plant and a close-up of its bracts" width="1200" height="1200" srcset="/img/jldYwaYkfn-400.webp 400w, /img/jldYwaYkfn-800.webp 800w, /img/jldYwaYkfn-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-        </div>
-      </div>
-  </div>
 </article>
 
-<article class="sheet area entry entry--compact" id="belva" style="--h: 2" data-snap="">
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Freelance</p>
-    <h2>Editorial Designer</h2>
-    <p class="entry__client">3408 Belva</p>
-    <p class="label entry__date">Feb ’20</p>
-    <div class="tags"><span class="tag">Adobe InDesign</span><span class="tag">Editorial Layout</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <ul><li>Designed a property catalogue for a green-living residential development in Parklands, Nairobi.</li></ul>
-      </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="3408 Belva: 6 images, scroll sideways">
-          <picture><source type="image/avif" srcset="/img/z39vbSoHb2-400.avif 400w, /img/z39vbSoHb2-800.avif 800w, /img/z39vbSoHb2-1022.avif 1022w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/z39vbSoHb2-400.webp" alt="3408 Belva catalogue cover: the logo on green with a gold hexagon pattern" width="1022" height="1024" srcset="/img/z39vbSoHb2-400.webp 400w, /img/z39vbSoHb2-800.webp 800w, /img/z39vbSoHb2-1022.webp 1022w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/b_F2pDtqyZ-400.avif 400w, /img/b_F2pDtqyZ-800.avif 800w, /img/b_F2pDtqyZ-1200.avif 1200w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/b_F2pDtqyZ-400.webp" alt="The catalogue shown closed and open" width="1200" height="615" srcset="/img/b_F2pDtqyZ-400.webp 400w, /img/b_F2pDtqyZ-800.webp 800w, /img/b_F2pDtqyZ-1200.webp 1200w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/255psfFjx2-400.avif 400w, /img/255psfFjx2-800.avif 800w, /img/255psfFjx2-1024.avif 1024w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/255psfFjx2-400.webp" alt="Architect’s View spread, left page" width="1024" height="513" srcset="/img/255psfFjx2-400.webp 400w, /img/255psfFjx2-800.webp 800w, /img/255psfFjx2-1024.webp 1024w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/br5l_eOh4z-400.avif 400w, /img/br5l_eOh4z-800.avif 800w, /img/br5l_eOh4z-1024.avif 1024w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/br5l_eOh4z-400.webp" alt="Salon and Wellness Centre spread, right page" width="1024" height="513" srcset="/img/br5l_eOh4z-400.webp 400w, /img/br5l_eOh4z-800.webp 800w, /img/br5l_eOh4z-1024.webp 1024w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/sDegBv3M0p-400.avif 400w, /img/sDegBv3M0p-800.avif 800w, /img/sDegBv3M0p-1024.avif 1024w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/sDegBv3M0p-400.webp" alt="Finishes spread, left page" width="1024" height="513" srcset="/img/sDegBv3M0p-400.webp 400w, /img/sDegBv3M0p-800.webp 800w, /img/sDegBv3M0p-1024.webp 1024w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/WMNemtl1oZ-400.avif 400w, /img/WMNemtl1oZ-800.avif 800w, /img/WMNemtl1oZ-1024.avif 1024w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/WMNemtl1oZ-400.webp" alt="Fittings spread, right page" width="1024" height="513" srcset="/img/WMNemtl1oZ-400.webp 400w, /img/WMNemtl1oZ-800.webp 800w, /img/WMNemtl1oZ-1024.webp 1024w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-        </div>
-      </div>
-  </div>
-</article>
-
-<article class="sheet area entry entry--compact" id="greenpeace" style="--h: 2" data-snap="">
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Volunteer</p>
-    <h2>Volunteer</h2>
-    <p class="entry__client">Greenpeace Africa – Kenya</p>
-    <div class="tags"><span class="tag">Adobe photoshop</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="Greenpeace Africa – Kenya: 4 images, scroll sideways">
-          <picture><source type="image/avif" srcset="/img/Bvto9s-QnL-400.avif 400w, /img/Bvto9s-QnL-800.avif 800w, /img/Bvto9s-QnL-1080.avif 1080w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/Bvto9s-QnL-400.webp" alt="World Hippopotamus Day post: a hippo&#x27;s head on bright green" width="1080" height="1080" srcset="/img/Bvto9s-QnL-400.webp 400w, /img/Bvto9s-QnL-800.webp 800w, /img/Bvto9s-QnL-1080.webp 1080w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/yJrpjmuEQ8-400.avif 400w, /img/yJrpjmuEQ8-800.avif 800w, /img/yJrpjmuEQ8-1080.avif 1080w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/yJrpjmuEQ8-400.webp" alt="Post: the threats to the hippo noted by the IUCN Red List" width="1080" height="1080" srcset="/img/yJrpjmuEQ8-400.webp 400w, /img/yJrpjmuEQ8-800.webp 800w, /img/yJrpjmuEQ8-1080.webp 1080w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/yZO3BZ8MBF-400.avif 400w, /img/yZO3BZ8MBF-800.avif 800w, /img/yZO3BZ8MBF-1080.avif 1080w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/yZO3BZ8MBF-400.webp" alt="Post: KPLC&#x27;s switch to renewable energy, the Greenpeace Kenya take" width="1080" height="1080" srcset="/img/yZO3BZ8MBF-400.webp 400w, /img/yZO3BZ8MBF-800.webp 800w, /img/yZO3BZ8MBF-1080.webp 1080w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-          <picture><source type="image/avif" srcset="/img/3XjhFxmehf-400.avif 400w, /img/3XjhFxmehf-800.avif 800w, /img/3XjhFxmehf-1080.avif 1080w" sizes="(max-width: 720px) 60vw, 520px"><img loading="lazy" decoding="async" src="/img/3XjhFxmehf-400.webp" alt="Recap post: Kenya Power&#x27;s plans to hybridise 23 remote diesel mini-grids with solar and wind" width="1080" height="1080" srcset="/img/3XjhFxmehf-400.webp 400w, /img/3XjhFxmehf-800.webp 800w, /img/3XjhFxmehf-1080.webp 1080w" sizes="(max-width: 720px) 60vw, 520px"></picture>
-        </div>
-      </div>
-  </div>
-</article>
 
 
         <div class="gap" aria-hidden="true"></div>
@@ -653,11 +966,6 @@
 </footer>
 
       </main>
-      <div class="mat__tools" aria-hidden="true">
-        <div class="tool tool--r" style="--c: 14; --r: 5; --w: 1; --h: 2; --rot: 4deg; --tint: #8fbcd4; --cs: 6; --rs: 5; --ws: 1; --hs: 2">tape</div>
-        <div class="tool tool--l" style="--c: 1; --r: 24; --w: 1; --h: 9; --rot: -1deg; --tint: #c9a227">ruler</div>
-        <div class="tool tool--r" style="--c: 14; --r: 40; --w: 1; --h: 3; --rot: 2deg; --tint: #e0a030">pencil</div>
-      </div>
     </div>
   </div><script type="speculationrules">
   {

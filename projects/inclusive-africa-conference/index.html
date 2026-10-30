@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#242322">
+  <meta name="theme-color" content="#262626">
 
-  <link rel="icon" href="/assets/images/branding/AG Favicon Light on Dark.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/images/branding/ag-tile-dark.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/images/branding/favicon.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="/assets/images/branding/apple-touch-icon.png">
   <!-- Self-hosted fonts: preload the face every page renders first -->
@@ -19,15 +19,36 @@
   <!-- Open Graph -->
   <meta property="og:title" content="Inclusive Africa Conference 2024 | Azadi Gathui">
   <meta property="og:description" content="Conference booklet design for the 2024 edition of the Inclusive Africa Conference: a 36-page accessible publication for InABLE.">
-  <meta property="og:image" content="/img/gW3EZC96TC-357.jpeg">
+  <meta property="og:image" content="https://azadi.design/img/gW3EZC96TC-357.jpeg">
+  <meta property="og:image:alt" content="Inclusive Africa Conference 2024, by Azadi Gathui">
+  <meta property="og:site_name" content="Azadi Gathui">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://azadi.design/projects/inclusive-africa-conference/">
+  <meta name="twitter:card" content="summary_large_image">
   <script src="/assets/js/snap.js" defer=""></script>
   <script src="/assets/js/tools.js" defer=""></script>
   <script src="/assets/js/reels.js" defer=""></script>
   <script src="/assets/js/reading-bar.js" defer=""></script>
   <script src="/assets/js/spread-zoom.js" defer=""></script>
   <script>document.documentElement.classList.add("js")</script>
+  <script>if (/[?&]grid\b/.test(location.search)) document.head.append(Object.assign(document.createElement("script"), { src: "/assets/js/grid.js" }))</script>
+  <script>
+    (() => {
+      const rank = (url) => {
+        const path = new URL(url).pathname;
+        return path === "/" ? 0 : path.startsWith("/projects/") ? 1 : path.startsWith("/resume") ? 2 : 3;
+      };
+      addEventListener("pageswap", (e) => {
+        if (e.viewTransition) sessionStorage.setItem("sheet-scroll", String(scrollY));
+      });
+      addEventListener("pagereveal", (e) => {
+        if (!e.viewTransition) return;
+        const from = window.navigation?.activation?.from?.url;
+        if (from) e.viewTransition.types.add(rank(location.href) < rank(from) ? "back" : "forward");
+        document.documentElement.style.setProperty("--vt-from", `-${sessionStorage.getItem("sheet-scroll") || 0}px`);
+      });
+    })();
+  </script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -141,10 +162,10 @@
 
       </main>
       <div class="mat__tools" aria-hidden="true">
-        <div class="tool tool--r" style="--c: 14; --r: 4; --w: 1; --h: 2; --rot: 4deg; --tint: #8fbcd4; --cs: 6; --rs: 4; --ws: 1; --hs: 2">tape</div>
-        <div class="tool tool--l" style="--c: 1; --r: 9; --w: 1; --h: 9; --rot: -1deg; --tint: #c9a227">ruler</div>
-        <div class="tool tool--r" style="--c: 14; --r: 22; --w: 1; --h: 3; --rot: 2deg; --tint: #f07a2a">craft knife</div>
-        <div class="tool tool--l" style="--c: 1; --r: 34; --w: 1; --h: 1; --rot: -6deg; --tint: #b8c4cc">paper clips</div>
+        <div class="tool tool--r" style="--c: 14; --r: 4; --rot: 4deg; --cs: 6; --rs: 4; --iw: 367; --ih: 360"><img class="tool__line" src="/img/6UkK-8Boqg-367.svg" alt="" loading="lazy" decoding="async" width="367" height="360"><picture><source type="image/avif" srcset="/img/cnZPP7Zf3g-373.avif" sizes="200px"><img loading="lazy" decoding="async" src="/img/cnZPP7Zf3g-373.webp" class="tool__photo" alt="" width="373" height="366"></picture></div>
+        <div class="tool tool--l" style="--c: 1; --r: 9; --rot: -1deg; --iw: 80; --ih: 910"><img class="tool__line" src="/img/-tYFHMtY-m-80.svg" alt="" loading="lazy" decoding="async" width="80" height="910"><picture><source type="image/avif" srcset="/img/TJzZtenA69-81.avif" sizes="200px"><img loading="lazy" decoding="async" src="/img/TJzZtenA69-81.webp" class="tool__photo" alt="" width="81" height="910"></picture></div>
+        <div class="tool tool--r" style="--c: 14; --r: 22; --rot: 2deg; --iw: 141; --ih: 801"><img class="tool__line" src="/img/VEJPsvBrWS-141.svg" alt="" loading="lazy" decoding="async" width="141" height="801"><picture><source type="image/avif" srcset="/img/q3BY8Z9DL5-142.avif" sizes="200px"><img loading="lazy" decoding="async" src="/img/q3BY8Z9DL5-142.webp" class="tool__photo" alt="" width="142" height="801"></picture></div>
+        <div class="tool tool--l" style="--c: 1; --r: 34; --rot: -6deg; --iw: 188; --ih: 249"><img class="tool__line" src="/img/T9BPaJy9fx-188.svg" alt="" loading="lazy" decoding="async" width="188" height="249"><picture><source type="image/avif" srcset="/img/qxpgpbxX0Q-185.avif" sizes="200px"><img loading="lazy" decoding="async" src="/img/qxpgpbxX0Q-185.webp" class="tool__photo" alt="" width="185" height="248"></picture></div>
       </div>
     </div>
   </div>

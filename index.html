@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#242322">
+  <meta name="theme-color" content="#262626">
 
-  <link rel="icon" href="/assets/images/branding/AG Favicon Light on Dark.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/images/branding/ag-tile-dark.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/images/branding/favicon.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="/assets/images/branding/apple-touch-icon.png">
   <!-- Self-hosted fonts: preload the face every page renders first -->
@@ -14,17 +14,39 @@
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <title>Azadi Gathui</title>
-  <meta name="description" content="Azadi Gathui, data scientist and product designer. Portfolio of UX, data science, editorial and data visualisation work.">
+  <meta name="description" content="Azadi Gathui, data scientist &amp; designer. Portfolio of UX, data science, editorial and data visualisation work.">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Azadi Gathui">
-  <meta property="og:description" content="Azadi Gathui, data scientist and product designer. Portfolio of UX, data science, editorial and data visualisation work.">
-  <meta property="og:image" content="/assets/images/branding/AG Favicon Light on Dark.svg">
+  <meta property="og:description" content="Azadi Gathui, data scientist &amp; designer. Portfolio of UX, data science, editorial and data visualisation work.">
+  <meta property="og:image" content="https://azadi.design/assets/images/branding/og-default.png">
+  <meta property="og:image:alt" content="Azadi Gathui">
+  <meta property="og:site_name" content="Azadi Gathui">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://azadi.design/">
+  <meta name="twitter:card" content="summary_large_image">
   <script src="/assets/js/snap.js" defer=""></script>
   <script src="/assets/js/tools.js" defer=""></script>
+  <script src="/assets/js/flow.js" defer=""></script>
   <script>document.documentElement.classList.add("js")</script>
+  <script>if (/[?&]grid\b/.test(location.search)) document.head.append(Object.assign(document.createElement("script"), { src: "/assets/js/grid.js" }))</script>
+  <script>
+    (() => {
+      const rank = (url) => {
+        const path = new URL(url).pathname;
+        return path === "/" ? 0 : path.startsWith("/projects/") ? 1 : path.startsWith("/resume") ? 2 : 3;
+      };
+      addEventListener("pageswap", (e) => {
+        if (e.viewTransition) sessionStorage.setItem("sheet-scroll", String(scrollY));
+      });
+      addEventListener("pagereveal", (e) => {
+        if (!e.viewTransition) return;
+        const from = window.navigation?.activation?.from?.url;
+        if (from) e.viewTransition.types.add(rank(location.href) < rank(from) ? "back" : "forward");
+        document.documentElement.style.setProperty("--vt-from", `-${sessionStorage.getItem("sheet-scroll") || 0}px`);
+      });
+    })();
+  </script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -62,8 +84,10 @@
 <div class="gap" style="--rows: 1" aria-hidden="true"></div>
 
 <!-- The whole workflow, from people to shipped screen: one person, end to end.
-     Each icon is a 2 × 2 frame (96-unit drawings, scaled to fit). -->
-<ol class="sheet area flow" style="--h: 4" aria-label="How I work, end to end" data-snap="">
+     Each icon is a 2 × 2 frame (96-unit drawings, scaled to fit).
+     flow.js animates it as a pipeline; each step's caption gives way on
+     hover to the project that proves it. -->
+<ol class="sheet area flow" style="--x: 2; --w: 10; --h: 4" aria-label="How I work, end to end" data-snap="">
   <li data-snap="">
     <span class="frame flow__icon"><svg viewBox="0 0 96 96" aria-hidden="true">
       <!-- talk: a speech bubble with lines of text -->
@@ -76,7 +100,7 @@
       <circle cx="70" cy="64" r="6.5"></circle><path class="fill" d="M58 86c0-8 5.4-13 12-13s12 5 12 13"></path>
       <circle class="fill" cx="48" cy="58" r="8"></circle><path class="fill" d="M33 86c0-10 6.7-16 15-16s15 6 15 16"></path>
     </svg></span>
-    <div class="flow__text" data-snap=""><span class="label">01</span><strong>Research</strong><small>Talk to people, find the real problem</small></div>
+    <div class="flow__text" data-snap=""><strong>Research</strong><span class="flow__sub"><small>Find the real problem</small><a class="flow__proof" href="/projects/jireh-health/">Jireh Health &rarr;</a></span></div>
   </li>
   <li data-snap="">
     <span class="frame flow__icon"><svg viewBox="0 0 96 96" aria-hidden="true">
@@ -89,7 +113,7 @@
       <ellipse class="fill" cx="66" cy="40" rx="18" ry="7"></ellipse>
       <path d="M48 52c0 3.9 8.1 7 18 7s18-3.1 18-7M48 64c0 3.9 8.1 7 18 7s18-3.1 18-7"></path>
     </svg></span>
-    <div class="flow__text" data-snap=""><span class="label">02</span><strong>Data</strong><small>Collect &amp; clean datasets</small></div>
+    <div class="flow__text" data-snap=""><strong>Data</strong><span class="flow__sub"><small>Collect &amp; clean</small><a class="flow__proof" href="/projects/iucn-dd-species/">IUCN species model &rarr;</a></span></div>
   </li>
   <li data-snap="">
     <span class="frame flow__icon"><svg viewBox="0 0 96 96" aria-hidden="true">
@@ -100,7 +124,7 @@
       <path d="m38 28-8 8 8 8M58 28l8 8-8 8M52 24l-8 24"></path>
       <path d="M24 53h12M40 53h8M52 53h16"></path>
     </svg></span>
-    <div class="flow__text" data-snap=""><span class="label">03</span><strong>Models</strong><small>Statistics &amp; machine learning</small></div>
+    <div class="flow__text" data-snap=""><strong>Models</strong><span class="flow__sub"><small>Statistics &amp; ML</small><a class="flow__proof" href="/projects/environmental-degradation-monitor/">Degradation monitor &rarr;</a></span></div>
   </li>
   <li data-snap="">
     <span class="frame flow__icon"><svg viewBox="0 0 96 96" aria-hidden="true">
@@ -110,12 +134,12 @@
       <!-- line chart -->
       <path d="M14 30v20h40"></path><path d="m16 46 9-8 8 4 10-11 9 4"></path>
       <!-- donut -->
-      <circle cx="72" cy="40" r="9"></circle><path d="M72 31a9 9 0 0 1 8.6 11.7" stroke-width="4"></path>
+      <circle cx="72" cy="40" r="9"></circle><path d="M72 31a9 9 0 0 1 8.6 11.7" stroke-width="3"></path>
       <!-- bars and a number tile -->
-      <path d="M18 74V64M26 74V58M34 74V67M42 74V61M50 74V66" stroke-width="4"></path>
+      <path d="M18 74V64M26 74V58M34 74V67M42 74V61M50 74V66" stroke-width="3"></path>
       <rect x="60" y="58" width="22" height="16" rx="2"></rect><path d="M64 64h10M64 69h6"></path>
     </svg></span>
-    <div class="flow__text" data-snap=""><span class="label">04</span><strong>Insight</strong><small>Analysis, dashboards &amp; reports</small></div>
+    <div class="flow__text" data-snap=""><strong>Insight</strong><span class="flow__sub"><small>Dashboards &amp; reports</small><a class="flow__proof" href="/projects/price-of-power/">The cost of electricity &rarr;</a></span></div>
   </li>
   <li class="has-note" data-snap="">
     <span class="frame flow__icon"><svg viewBox="0 0 96 96" aria-hidden="true">
@@ -129,7 +153,7 @@
       <path d="M69 39h8"></path><rect class="soft" x="63" y="45" width="20" height="13"></rect>
       <path d="M63 64h20M63 70h13M70 79h6"></path>
     </svg><span class="note note--right" aria-hidden="true">&hellip;to the screen!</span></span>
-    <div class="flow__text" data-snap=""><span class="label">05</span><strong>Design &amp; build</strong><small>Web &amp; mobile UI, shipped</small></div>
+    <div class="flow__text" data-snap=""><strong>Design &amp; build</strong><span class="flow__sub"><small>Ship the screen</small><a class="flow__proof" href="/projects/leja-business-app/">Leja business app &rarr;</a></span></div>
   </li>
 </ol>
 
@@ -154,7 +178,7 @@
     <div class="frame frame--plain"><picture><source type="image/avif" srcset="/img/3ZwCs_4aQS-400.avif 400w, /img/3ZwCs_4aQS-800.avif 800w, /img/3ZwCs_4aQS-1200.avif 1200w" sizes="(max-width: 720px) 90vw, 340px"><img loading="eager" decoding="async" src="/img/3ZwCs_4aQS-400.webp" alt="" width="1200" height="799" srcset="/img/3ZwCs_4aQS-400.webp 400w, /img/3ZwCs_4aQS-800.webp 800w, /img/3ZwCs_4aQS-1200.webp 1200w" sizes="(max-width: 720px) 90vw, 340px"></picture></div>
     <span class="card__art card__art--print"><picture><source type="image/avif" srcset="/img/pyfeX8ql-c-400.avif 400w, /img/pyfeX8ql-c-800.avif 800w" sizes="220px"><img loading="eager" decoding="async" src="/img/pyfeX8ql-c-400.webp" alt="" width="800" height="927" srcset="/img/pyfeX8ql-c-400.webp 400w, /img/pyfeX8ql-c-800.webp 800w" sizes="220px"></picture></span>
     <div class="card__cap cap"><span class="label">Geospatial AI</span>
-  <div class="cap__body"><h3>Measuring encroachment on Kenya&#39;s protected areas from space</h3><p class="cap__what">Land-cover segmentation model, change-detection pipeline, Kenya evaluation, interactive app</p></div>
+  <div class="cap__body"><h3>Measuring encroachment on Kenya&#39;s protected areas</h3><p class="cap__what">Land-cover segmentation model, change-detection pipeline, Kenya evaluation, interactive app</p></div>
   <span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"></path></svg></span></div>
   </a>
   <a class="card card--r" href="/projects/iucn-dd-species/" style="--x: 1; --y: 11; --w: 5; --h: 7">
@@ -252,12 +276,12 @@
 
       </main>
       <div class="mat__tools" aria-hidden="true">
-        <div class="tool tool--t" style="--c: 11; --r: 1; --w: 3; --h: 1; --rot: -2deg; --tint: #d0453a; --cs: 4; --rs: 1; --ws: 3; --hs: 1">scissors</div>
-        <div class="tool tool--l" style="--c: 1; --r: 14; --w: 1; --h: 1; --rot: -2deg; --tint: #d0453a">sticky note</div>
-        <div class="tool tool--r" style="--c: 14; --r: 12; --w: 1; --h: 10; --rot: 1deg; --tint: #d0453a">ruler</div>
-        <div class="tool tool--l" style="--c: 1; --r: 34; --w: 1; --h: 3; --rot: 2deg; --tint: #d0453a">pencil</div>
-        <div class="tool tool--r" style="--c: 14; --r: 40; --w: 1; --h: 2; --rot: -2deg; --tint: #d0453a; --cs: 6; --rs: 70; --ws: 1; --hs: 2">tape</div>
-        <div class="tool tool--l" style="--c: 1; --r: 48; --w: 1; --h: 3; --rot: -2deg; --tint: #d0453a">craft knife</div>
+        <div class="tool tool--r" style="--c: 14; --r: 55; --rot: -2deg; --cs: 6; --rs: 86; --iw: 527; --ih: 268"><img class="tool__line" src="/img/77MVmvj0Rg-527.svg" alt="" loading="lazy" decoding="async" width="527" height="268"><picture><source type="image/avif" srcset="/img/joqXUR2Cyf-400.avif 400w, /img/joqXUR2Cyf-535.avif 535w" sizes="200px"><img loading="lazy" decoding="async" src="/img/joqXUR2Cyf-400.webp" class="tool__photo" alt="" width="535" height="270" srcset="/img/joqXUR2Cyf-400.webp 400w, /img/joqXUR2Cyf-535.webp 535w" sizes="200px"></picture></div>
+        <div class="tool tool--l" style="--c: 1; --r: 14; --rot: -2deg; --iw: 334; --ih: 302"><img class="tool__line" src="/img/wL_8Rg7mGa-334.svg" alt="" loading="lazy" decoding="async" width="334" height="302"><picture><source type="image/avif" srcset="/img/PrlZ-OK4iF-332.avif" sizes="200px"><img loading="lazy" decoding="async" src="/img/PrlZ-OK4iF-332.webp" class="tool__photo" alt="" width="332" height="303"></picture></div>
+        <div class="tool tool--r" style="--c: 14; --r: 12; --rot: 1deg; --iw: 80; --ih: 910"><img class="tool__line" src="/img/-tYFHMtY-m-80.svg" alt="" loading="lazy" decoding="async" width="80" height="910"><picture><source type="image/avif" srcset="/img/TJzZtenA69-81.avif" sizes="200px"><img loading="lazy" decoding="async" src="/img/TJzZtenA69-81.webp" class="tool__photo" alt="" width="81" height="910"></picture></div>
+        <div class="tool tool--l" style="--c: 1; --r: 34; --rot: 2deg; --iw: 141; --ih: 801"><img class="tool__line" src="/img/VEJPsvBrWS-141.svg" alt="" loading="lazy" decoding="async" width="141" height="801"><picture><source type="image/avif" srcset="/img/q3BY8Z9DL5-142.avif" sizes="200px"><img loading="lazy" decoding="async" src="/img/q3BY8Z9DL5-142.webp" class="tool__photo" alt="" width="142" height="801"></picture></div>
+        <div class="tool tool--r" style="--c: 14; --r: 40; --rot: -2deg; --cs: 6; --rs: 70; --iw: 367; --ih: 360"><img class="tool__line" src="/img/6UkK-8Boqg-367.svg" alt="" loading="lazy" decoding="async" width="367" height="360"><picture><source type="image/avif" srcset="/img/cnZPP7Zf3g-373.avif" sizes="200px"><img loading="lazy" decoding="async" src="/img/cnZPP7Zf3g-373.webp" class="tool__photo" alt="" width="373" height="366"></picture></div>
+        <div class="tool tool--l" style="--c: 1; --r: 48; --rot: -2deg; --iw: 188; --ih: 249"><img class="tool__line" src="/img/T9BPaJy9fx-188.svg" alt="" loading="lazy" decoding="async" width="188" height="249"><picture><source type="image/avif" srcset="/img/qxpgpbxX0Q-185.avif" sizes="200px"><img loading="lazy" decoding="async" src="/img/qxpgpbxX0Q-185.webp" class="tool__photo" alt="" width="185" height="248"></picture></div>
       </div>
     </div>
   </div><script type="speculationrules">

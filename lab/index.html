@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#242322">
+  <meta name="theme-color" content="#262626">
 
-  <link rel="icon" href="/assets/images/branding/AG Favicon Light on Dark.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/images/branding/ag-tile-dark.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/images/branding/favicon.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="/assets/images/branding/apple-touch-icon.png">
   <!-- Self-hosted fonts: preload the face every page renders first -->
@@ -19,12 +19,33 @@
   <!-- Open Graph -->
   <meta property="og:title" content="The Lab | Azadi Gathui">
   <meta property="og:description" content="Experiments, explorations and creative work by Azadi Gathui.">
-  <meta property="og:image" content="/assets/images/branding/AG Favicon Light on Dark.svg">
+  <meta property="og:image" content="https://azadi.design/assets/images/branding/og-default.png">
+  <meta property="og:image:alt" content="The Lab, by Azadi Gathui">
+  <meta property="og:site_name" content="Azadi Gathui">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://azadi.design/lab/">
+  <meta name="twitter:card" content="summary_large_image">
   <script src="/assets/js/snap.js" defer=""></script>
   <script src="/assets/js/tools.js" defer=""></script>
   <script>document.documentElement.classList.add("js")</script>
+  <script>if (/[?&]grid\b/.test(location.search)) document.head.append(Object.assign(document.createElement("script"), { src: "/assets/js/grid.js" }))</script>
+  <script>
+    (() => {
+      const rank = (url) => {
+        const path = new URL(url).pathname;
+        return path === "/" ? 0 : path.startsWith("/projects/") ? 1 : path.startsWith("/resume") ? 2 : 3;
+      };
+      addEventListener("pageswap", (e) => {
+        if (e.viewTransition) sessionStorage.setItem("sheet-scroll", String(scrollY));
+      });
+      addEventListener("pagereveal", (e) => {
+        if (!e.viewTransition) return;
+        const from = window.navigation?.activation?.from?.url;
+        if (from) e.viewTransition.types.add(rank(location.href) < rank(from) ? "back" : "forward");
+        document.documentElement.style.setProperty("--vt-from", `-${sessionStorage.getItem("sheet-scroll") || 0}px`);
+      });
+    })();
+  </script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -105,10 +126,10 @@
 
       </main>
       <div class="mat__tools" aria-hidden="true">
-        <div class="tool tool--t" style="--c: 11; --r: 1; --w: 3; --h: 1; --rot: -4deg; --tint: #d0453a; --cs: 4; --rs: 1; --ws: 3; --hs: 1">scissors</div>
-        <div class="tool tool--l" style="--c: 1; --r: 12; --w: 1; --h: 1; --rot: -5deg; --tint: #f2d14b">sticky note</div>
-        <div class="tool tool--r" style="--c: 14; --r: 22; --w: 1; --h: 10; --rot: 1deg; --tint: #c9a227">ruler</div>
-        <div class="tool tool--l" style="--c: 1; --r: 34; --w: 1; --h: 1; --rot: 6deg; --tint: #b8c4cc">paper clips</div>
+        <div class="tool tool--t" style="--c: 11; --r: 1; --rot: -4deg; --cs: 4; --rs: 1; --iw: 527; --ih: 268"><img class="tool__line" src="/img/77MVmvj0Rg-527.svg" alt="" loading="lazy" decoding="async" width="527" height="268"><picture><source type="image/avif" srcset="/img/joqXUR2Cyf-400.avif 400w, /img/joqXUR2Cyf-535.avif 535w" sizes="200px"><img loading="lazy" decoding="async" src="/img/joqXUR2Cyf-400.webp" class="tool__photo" alt="" width="535" height="270" srcset="/img/joqXUR2Cyf-400.webp 400w, /img/joqXUR2Cyf-535.webp 535w" sizes="200px"></picture></div>
+        <div class="tool tool--l" style="--c: 1; --r: 12; --rot: -5deg; --iw: 334; --ih: 302"><img class="tool__line" src="/img/wL_8Rg7mGa-334.svg" alt="" loading="lazy" decoding="async" width="334" height="302"><picture><source type="image/avif" srcset="/img/PrlZ-OK4iF-332.avif" sizes="200px"><img loading="lazy" decoding="async" src="/img/PrlZ-OK4iF-332.webp" class="tool__photo" alt="" width="332" height="303"></picture></div>
+        <div class="tool tool--r" style="--c: 14; --r: 22; --rot: 1deg; --iw: 80; --ih: 910"><img class="tool__line" src="/img/-tYFHMtY-m-80.svg" alt="" loading="lazy" decoding="async" width="80" height="910"><picture><source type="image/avif" srcset="/img/TJzZtenA69-81.avif" sizes="200px"><img loading="lazy" decoding="async" src="/img/TJzZtenA69-81.webp" class="tool__photo" alt="" width="81" height="910"></picture></div>
+        <div class="tool tool--l" style="--c: 1; --r: 34; --rot: 6deg; --iw: 188; --ih: 249"><img class="tool__line" src="/img/T9BPaJy9fx-188.svg" alt="" loading="lazy" decoding="async" width="188" height="249"><picture><source type="image/avif" srcset="/img/qxpgpbxX0Q-185.avif" sizes="200px"><img loading="lazy" decoding="async" src="/img/qxpgpbxX0Q-185.webp" class="tool__photo" alt="" width="185" height="248"></picture></div>
       </div>
     </div>
   </div><script type="speculationrules">
