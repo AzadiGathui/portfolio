@@ -80,13 +80,15 @@
       </main>
 
       {#- Tools lying on the mat, from the page's or layout's `tools` list.
-          Each is placed by cell: --c column, --r row, --w / --h size,
+          Each shows its `img` (an outline drawing; the photo
+          of it takes over on hover or drag), placed by cell: --c column, --r row, --w / --h size,
           --cs / --rs / --ws / --hs the same on a phone, --rot a tilt.
           `edge` is the side it hangs over (l, r or t). #}
       {%- if tools %}
       <div class="mat__tools" aria-hidden="true">
         {%- for tool in tools %}
-        <div class="tool tool--{{ tool.edge }}" style="{{ tool.at }}">{{ tool.name }}</div>
+        {%- set shape = toolShapes[tool.img] %}
+        <div class="tool tool--{{ tool.edge }}" style="{{ tool.at }}; --iw: {{ shape.w }}; --ih: {{ shape.h }}"><img class="tool__line" src="/assets/images/tools/{{ tool.img }}-outline.svg" alt=""><img class="tool__photo" src="/assets/images/tools/{{ tool.img }}-photo.png" alt="" sizes="200px"></div>
         {%- endfor %}
       </div>
       {%- endif %}

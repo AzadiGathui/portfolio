@@ -468,7 +468,7 @@ body {
   box-shadow: none;
   place-items: center;
 }
-.flow__icon svg { width: 100%; height: 100%; fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.flow__icon svg { width: 100%; height: 100%; fill: none; stroke: var(--ink); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; }
 .flow__icon .fill { fill: var(--paper); }          /* a shape that covers what is behind it */
 .flow__icon .soft { fill: var(--paper-fold); stroke: none; }
 .flow__text { display: grid; justify-items: center; padding-top: var(--space-3); }
@@ -1585,77 +1585,75 @@ figcaption .label { display: inline; margin-right: 0.4em; }
 .gap { grid-column: 1 / -1; grid-row: span var(--rows, 2); }
 
 /* ------------------------------------------------------------------
-   Tools: placed by whole cells, then pushed off the mat so they lie on
-   the desk and only peek in over the edge.
-     <div class="tool tool--l" style="--c: 1; --r: 3; --w: 1; --h: 6">
-     (column, row, width, height). .tool--l / --r / --t: the edge it
-   hangs over; place it in the first column, the last, or row 1. Only
-   --peek of it shows on the mat, less than the band, so a tool never
-   reaches the grid or covers content.
+   Tools: placed by the cell their top left corner is in, then pushed
+   off the mat so they lie on the desk and only peek in over the edge.
+     <div class="tool tool--l" style="--c: 1; --r: 3; --iw: 80; --ih: 910">
+     (column, row; --iw / --ih is the drawing's own size, from
+   toolShapes.json). All tools share one scale (--k, from the cell), so
+   they keep their sizes relative to each other. .tool--l / --r / --t:
+   the edge it hangs over; place it in the first column, the last, or
+   row 1. Only --peek of it shows on the mat, less than the band, so a
+   tool never reaches the grid or covers content.
    Phones have half the columns, so each can carry its own phone
-   placement (--cs, --rs, --ws, --hs); without one it is hidden there.
+   placement (--cs, --rs); without one it is hidden there.
    --rot tilts it, for the lazily-strewn look.
    ------------------------------------------------------------------ */
 .tool {
-  --tw: var(--w, 1);
-  --th: var(--h, 1);
+  --k: calc(var(--cell) / 180);   /* drawing units to px: the longest (a pencil) is about 5 cells */
+  --tw: calc(var(--iw) * var(--k));
+  --th: calc(var(--ih) * var(--k));
   --peek: calc(var(--band) * 0.85);
-  --inset: var(--space-2);  /* its margin, below */
-  grid-column: var(--c) / span var(--w, 1);
-  grid-row: var(--r) / span var(--h, 1);
+  grid-column: var(--c);
+  grid-row: var(--r);
+  width: var(--tw);
+  height: var(--th);
   rotate: var(--rot, 0deg);
   pointer-events: auto;     /* the layer ignores the mouse; the tools don't */
   position: relative;
-  margin: var(--inset);     /* lies inside its squares, so a slight tilt stays in the margin */
   /* off the edge (--ox / --oy), plus wherever it has been dragged */
   translate: calc(var(--ox, 0px) + var(--dx, 0px)) calc(var(--oy, 0px) + var(--dy, 0px));
-  border: var(--line-dashed);
   display: grid;
-  place-items: center;
-  background: color-mix(in srgb, var(--tint, var(--text-2)) 45%, transparent);
-  color: var(--text);
-  text-align: center;
-  filter: grayscale(1);
   cursor: grab;
   user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;   /* no "copy / look up" menu on a long press */
-  transition: filter var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
-.tool--l { --ox: calc(var(--peek) - var(--band) - var(--tw) * var(--cell) + var(--inset)); }
-.tool--r { --ox: calc(var(--band) + var(--tw) * var(--cell) - var(--peek) - var(--inset)); }
-.tool--t { --oy: calc(var(--peek) - var(--band) - var(--th) * var(--cell) + var(--inset)); }
+.tool--l { --ox: calc(var(--peek) - var(--band) - var(--tw)); }
+.tool--r { --ox: calc(var(--cell) + var(--band) - var(--peek)); }
+.tool--t { --oy: calc(var(--peek) - var(--band) - var(--th)); }
 
 @media (max-width: 720px) {
   .tool {
-    --tw: var(--ws, var(--w, 1));
-    --th: var(--hs, var(--h, 1));
-    grid-column: var(--cs) / span var(--ws, var(--w, 1));
-    grid-row: var(--rs) / span var(--hs, var(--h, 1));
+    grid-column: var(--cs);
+    grid-row: var(--rs);
   }
   .tool:not([style*="--cs"]) { display: none; }
-  /* Until the photos arrive: on a phone, a dashed box with a word in it
-     at the screen's edge reads as broken, not as a prop. Remove this to
-     bring the phone placements back. */
-  .mat__tools { display: none; }
 }
 
-/* Tools sit in greyscale. They can be picked up and moved anywhere on
-   the mat (tools.js: drag with a mouse; press and hold on a touch
-   screen, so a swipe over one still scrolls). Hovering with a mouse, or
-   holding one, turns it a few degrees. They stay greyscale: the brand's
-   only colour is signal red, kept for what matters. --tint only sets how
-   light each one's grey is until the photos arrive (an <img> inside gets
-   the same filter). --dx / --dy is where it has been moved to. */
-.tool img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+/* Each tool is an outline drawing of itself; its photo takes over while
+   it is hovered or held. They can be picked up and moved anywhere on the
+   mat (tools.js: drag with a mouse; press and hold on a touch screen, so
+   a swipe over one still scrolls). Hovering with a mouse, or holding
+   one, also turns it a few degrees. --dx / --dy is where it has been
+   moved to. The two images are the same shape, stacked in one cell. */
+.tool picture { display: contents; }  /* the build wraps each <img> in one */
+.tool img { grid-area: 1 / 1; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.tool__line { filter: invert(1); opacity: 0.8; transition: opacity var(--dur) var(--ease); }  /* black line art, on a dark mat */
+.tool__photo { opacity: 0; transition: opacity var(--dur) var(--ease); }
+.tool.is-held .tool__photo { opacity: 1; }
+.tool.is-held .tool__line { opacity: 0; }  /* the photo replaces the outline, not sits on it */
+@media (hover: hover) {
+  .tool:hover .tool__photo { opacity: 1; }
+  .tool:hover .tool__line { opacity: 0; }
+}
 .is-dragging, .is-dragging * { user-select: none; -webkit-user-select: none; cursor: grabbing; }
 .tool.is-held {
   cursor: grabbing;
   z-index: 3;
-  box-shadow: var(--lift-3);
+  filter: drop-shadow(0 6px 8px rgb(0 0 0 / 0.25));
 }
 @media (prefers-reduced-motion: no-preference) {
-  .tool { transition: filter var(--dur) var(--ease), rotate var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+  .tool { transition: rotate var(--dur) var(--ease); }
   .tool.is-held { rotate: calc(var(--rot, 0deg) + 5deg); }
 }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
