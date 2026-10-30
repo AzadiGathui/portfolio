@@ -11,6 +11,7 @@
   <link rel="apple-touch-icon" href="/assets/images/branding/apple-touch-icon.png">
   <!-- Self-hosted fonts: preload the face every page renders first -->
   <link rel="preload" href="/assets/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/jetbrains-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <title>{% if title %}{{ title }} | {% endif %}{{ site.title }}</title>
@@ -39,6 +40,17 @@
   {%- endfor %}
   {#- Set before first paint, so anything JS changes (the CV's timeline) starts as it will be #}
   <script>document.documentElement.classList.add("js")</script>
+  {#- After the page has loaded and the browser is idle: what nothing above the
+      fold needs. The tools' photos (shown only on hover) are fetched, and the
+      handwriting font for the margin notes is added. Reading order first,
+      extras after. -#}
+  <script>
+    addEventListener("load", () => (window.requestIdleCallback || setTimeout)(() => {
+      document.documentElement.classList.add("late");
+      document.querySelectorAll(".tool__photo").forEach((img) => { img.loading = "eager"; });
+      document.head.append(Object.assign(document.createElement("style"), { textContent: '@font-face { font-family: "Caveat"; src: url("/assets/fonts/caveat-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }' }));
+    }, { timeout: 2000 }));
+  </script>
   {#- ?grid on any address: draw the baseline grid and outline anything off it (grid.js) #}
   <script>if (/[?&]grid\b/.test(location.search)) document.head.append(Object.assign(document.createElement("script"), { src: "/assets/js/grid.js" }))</script>
   {#- Changing page (style.css, "Motion between and within pages"): which
@@ -82,13 +94,12 @@
       {#- Tools lying on the mat, from the page's or layout's `tools` list.
           Each shows its `img` (an outline drawing; the photo
           of it takes over on hover or drag), placed by cell: --c column, --r row, --w / --h size,
-          --cs / --rs / --ws / --hs the same on a phone, --rot a tilt.
-          `edge` is the side it hangs over (l, r or t). #}
+          --rot a tilt. Hidden on a phone. `edge` is the side it hangs over (l, r or t). #}
       {%- if tools %}
       <div class="mat__tools" aria-hidden="true">
         {%- for tool in tools %}
-        {%- set shape = toolShapes[tool.img] %}
-        <div class="tool tool--{{ tool.edge }}" style="{{ tool.at }}; --iw: {{ shape.w }}; --ih: {{ shape.h }}"><img class="tool__line" src="/assets/images/tools/{{ tool.img }}-outline.svg" alt=""><img class="tool__photo" src="/assets/images/tools/{{ tool.img }}-photo.png" alt="" sizes="200px"></div>
+        {%- set shape = tool.img | toolShape %}
+        <div class="tool tool--{{ tool.edge }}" style="{{ tool.at }}; --iw: {{ shape.w }}; --ih: {{ shape.h }}">{{ shape.svg | safe }}<img class="tool__photo" src="/assets/images/tools/{{ tool.img }}-photo.png" alt="" sizes="200px"></div>
         {%- endfor %}
       </div>
       {%- endif %}

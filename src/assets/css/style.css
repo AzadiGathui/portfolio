@@ -23,7 +23,7 @@
 @font-face { font-family: "Barlow"; src: url("/assets/fonts/barlow-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
 @font-face { font-family: "Barlow"; src: url("/assets/fonts/barlow-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
 @font-face { font-family: "JetBrains Mono"; src: url("/assets/fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: "Caveat"; src: url("/assets/fonts/caveat-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+/* Caveat (margin notes) is added by base.njk once the page has loaded: nothing above the fold uses it */
 
 /* --cell and --band are measured in cqi (the desk's width). Registered
    as lengths, each is worked out once, on .mat, and inherited as pixels;
@@ -121,12 +121,30 @@
   --track-caps: 0.04em;     /* mono text */
   --text-hand: 1.375rem;    /* handwriting (notes, polaroid captions) */
 
+  /* Strokes: three styles, and nothing else. Whatever is drawn or outlined
+     takes its weight and colour from here, so a line looks the same
+     wherever it turns up.
+       hairline  1px    --rule      the edge of a container, a divider: the
+                                    process steps' outlines, a card's rule
+       line      1.5px  --ink-line  anything drawn: an icon, a tool, the
+                                    progress line, a button's arrow
+       accent    2px    --text      what is picked, focused or set apart: the
+                                    focus ring, a selected timeline bar (and,
+                                    in --rule, a quote's edge)
+     Drawn things hold 1.5px at any size: vector-effect: non-scaling-stroke
+     where the drawing is only ever shown, and stroke widths worked out from
+     the icon's size where it is also drawn on (the process icons: --icon-sw). */
+  --stroke-hair: 1px;
+  --stroke-line: 1.5px;
+  --stroke-accent: 2px;
+  --ink-line: var(--text-2);
+
   /* Lines. Every rule and outline is one of these. */
-  --line: 1px solid var(--rule);
-  --line-accent: 2px solid var(--rule);   /* a quote or finding's edge */
-  --line-dashed: 1px dashed var(--text-2);  /* a marker that is not an edge: today, a tool */
-  --hairline-top: inset 0 1px 0 var(--rule);       /* a rule drawn as a shadow, so it takes no height */
-  --hairline-bottom: inset 0 -1px 0 var(--rule);
+  --line: var(--stroke-hair) solid var(--rule);
+  --line-accent: var(--stroke-accent) solid var(--rule);   /* a quote or finding's edge */
+  --line-dashed: var(--stroke-hair) dashed var(--text-2);  /* a marker that is not an edge: today, a tool */
+  --hairline-top: inset 0 var(--stroke-hair) 0 var(--rule);       /* a rule drawn as a shadow, so it takes no height */
+  --hairline-bottom: inset 0 calc(var(--stroke-hair) * -1) 0 var(--rule);
 
   /* Depth: objects lying on the mat (1 a print, 2 a cut-out or key, 3 held or
      lifted), the mat on the desk, and a recess (the reels). Shadows work in
@@ -372,14 +390,16 @@ body {
   inset: 3px 5px 7px;       /* the top face */
   margin: auto;
 }
-/* Line icons: one stroke style everywhere */
+/* Line icons: the drawn-line style ("Strokes", top of this file), whatever
+   the icon's own viewBox: they were 1.3 to 2.2px before, by luck of the size */
 .key__icon, :is(.go, .reel__btn, .icon-link, .to-top) svg {
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.75;
+  stroke-width: var(--stroke-line);
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+.key__icon *, :is(.go, .reel__btn, .icon-link, .to-top) svg * { vector-effect: non-scaling-stroke; }
 .key__icon, .to-top svg { width: 18px; height: 18px; }
 :is(.go, .reel__btn, .icon-link) svg { width: 20px; height: 20px; }
 /* A tap target at least 44px tall, whatever the key looks like: an
@@ -414,22 +434,35 @@ body {
 
 .center { text-align: center; }
 .center p { max-width: var(--measure); margin-inline: auto; }
-.center h1 { max-width: 14em; margin-inline: auto; }   /* a hero is the same h1, centred */
+.center h1 { max-width: 14em; margin-inline: auto; line-height: round(up, 1em, var(--unit)); }   /* a hero's lines sit closer than the display 1.1 */   /* a hero is the same h1, centred */
 
 /* ------------------------------------------------------------------
-   Process (homepage hero): five steps, research to shipped UI, on a
-   strip printed on the mat: the mat's colour without its grid, panels
-   on the grid's squares, a hairline rail along their top edge.
-   Nothing is boxed: each step is an icon, a mono title and a caption.
-   With flow.js the rail fills and the steps light up one after another
-   (the step being shown goes white, the rest stay grey); without it, or
-   with reduced motion, the strip is as printed, every step drawn. On a
-   phone it is too long for the mat: it runs off the edge to the
-   screen's, and slides sideways.
+   Process (homepage hero): three steps, research to shipped product, on a
+   strip printed on the mat: panels on the grid's squares, each outlined in
+   a hairline, in the mat's colour without its grid. One square of bare mat
+   between each pair (.flow__link) holds a hairline too, through the middle
+   of the square, at the height of the icons' centres.
+   Nothing is boxed but that outline: each step is an icon, its name in
+   mono, and the project that shows it, a link that is always there (a
+   touch screen has no hover to reveal one).
+   flow.js plays it once, when it comes into view: a line (.flow__trace, in
+   the drawn-line style) crosses the square to a step, runs round its outline
+   in both directions at once and leaves it on the far side, into the next
+   square; the step it has reached lights and draws its icon, and its clause
+   in the headline (.hl) lights too, the others grey. Then it stays as
+   printed: every step drawn, the headline all in the text colour, only the
+   hairlines left, no loop. Without JS, or with reduced motion, it is as
+   printed from the start. On a phone the strip stands up instead, the steps
+   one under another and the line running down through their icons (last
+   rule of this section).
    ------------------------------------------------------------------ */
 .sheet.flow {
-  --node: calc(var(--cell) * 1.15);
-  --lit: #fff;
+  /* The icons are one size, not a multiple of the square, so that their
+     stroke can be one weight: each drawing is 96 units, and --icon-sw is the
+     stroke width in those units that comes out at --stroke-line at this size
+     (1.5 x 96 / --node). They are drawn on, so non-scaling-stroke is out */
+  --node: 80px;
+  --icon-sw: 1.8;
   position: relative;
   list-style: none;
   margin: 0;
@@ -439,25 +472,29 @@ body {
   --ink: var(--text);
   --ink-2: var(--text-2);
 }
+@media (max-width: 1100px) {
+  .sheet.flow { --node: 64px; --icon-sw: 2.25; }
+}
 .flow li {
   position: relative;
   grid-column: span 2;      /* two squares wide, four tall: panel edges are grid lines */
   grid-row: 1 / span 4;
-  padding: calc(var(--cell) * 0.4) var(--space-1) calc(var(--cell) * 0.4);
-  background: var(--mat);     /* the mat's colour without its grid; its left edge is the grid line it covers */
-  box-shadow: inset 1px 0 0 var(--mat-line);
+  /* the icon's centre is the middle of the second row's squares (1.5 squares down) */
+  padding: calc(var(--cell) * 1.5 - var(--node) / 2) var(--space-1) 0;
+  background: var(--mat);     /* the mat's colour without its grid */
+  box-shadow: inset 0 0 0 var(--stroke-hair) var(--rule);   /* the outline: hairline */
   color: var(--ink);
   text-align: center;
 }
-/* the rail: a track along the top edge, and what has been reached on it */
-.flow li::before, .flow li::after {
+/* bare mat, crossed by a hairline through the middle of its second row */
+.flow li.flow__link { grid-column: span 1; padding: 0; background: none; box-shadow: none; }
+.flow li.flow__link::before {
   content: "";
   position: absolute;
-  inset: 0 0 auto;
-  height: 2px;
+  inset: calc(50% - var(--stroke-hair) / 2) 0 auto;   /* halfway down the panels' height: a grid line, between the 4 squares' middle rows */
+  height: var(--stroke-hair);
+  background: var(--rule);
 }
-.flow li::before { background: var(--rule); }
-.flow li::after { background: var(--lit); transform-origin: left; }
 .sheet.flow .flow__icon {     /* the icon alone: no frame, no disc */
   width: var(--node);
   height: var(--node);
@@ -468,57 +505,99 @@ body {
   box-shadow: none;
   place-items: center;
 }
-.flow__icon svg { width: 100%; height: 100%; fill: none; stroke: var(--ink); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; }
+.flow__icon svg { width: 100%; height: 100%; fill: none; stroke: var(--ink-line); stroke-width: var(--icon-sw); stroke-linecap: round; stroke-linejoin: round; }
+.flow__icon .bold { stroke-width: calc(var(--icon-sw) * 4 / 3); }   /* the accent, 2px: the one series picked out in a chart */
 .flow__icon .fill { fill: var(--paper); }          /* a shape that covers what is behind it */
 .flow__icon .soft { fill: var(--paper-fold); stroke: none; }
 .flow__text { display: grid; justify-items: center; padding-top: var(--space-3); }
-.flow__text .label { color: var(--ink-2); }        /* the number, in mono */
-.flow__text strong { display: block; font: 400 var(--text-xs)/var(--lh-title) var(--f-mono); letter-spacing: var(--track-caps); text-transform: uppercase; }
-.flow__text small { display: block; font-size: var(--text-sm); line-height: var(--lh-title); }
-/* the caption in the body text's colour; on hover it gives way to the
-   project that shows the step (the links stay in the page for keyboard
-   and screen readers, and show on focus) */
-.flow__sub { display: grid; justify-items: center; }
-.flow__sub > * { grid-area: 1 / 1; }
-.flow__proof { color: var(--lit); text-decoration: underline; text-underline-offset: 3px; font-size: var(--text-sm); line-height: var(--lh-title); opacity: 0; pointer-events: none; }
-.flow li:is(:hover, :focus-within, .is-held) .flow__proof { opacity: 1; pointer-events: auto; }
-.flow li:is(:hover, :focus-within, .is-held) .flow__sub small { opacity: 0; }
-.flow .note { color: var(--text); }
+.flow__text strong { display: block; min-height: 2lh; font: 400 var(--text-xs)/var(--lh-title) var(--f-mono); letter-spacing: var(--track-caps); text-transform: uppercase; }   /* two lines held for every name, so the projects line up whichever names wrap */
+/* the project that shows the step: underlined, so it is found without hovering */
+.flow__proof {
+  position: relative;
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
+  line-height: var(--lh-title);
+  text-decoration: underline;
+  text-decoration-color: var(--text-2);
+  text-decoration-thickness: var(--stroke-hair);
+  text-underline-offset: 3px;
+}
+.flow__proof::after { content: ""; position: absolute; inset: -14px -8px; }   /* a tap target of 44px, however short the link */
+.flow__proof:is(:hover, :focus-visible) { text-decoration-color: currentColor; }
 
-/* the pipeline, running (flow.js adds .is-live): steps ahead wait grey and
-   undrawn, those behind are done, the one being shown is white */
-.flow.is-live li:not(.is-done, .is-active)::after { transform: scaleX(0); }
-.flow.is-live li:not(.is-done, .is-active) :is(.flow__icon, .flow__text) { opacity: 0.35; }
+/* the line itself (flow.js builds it over the strip, in pixels): drawn
+   on, path by path, then faded to leave the hairlines */
+.flow__trace {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  fill: none;
+  stroke: var(--ink-line);
+  stroke-width: var(--stroke-line);
+  stroke-linejoin: round;   /* butt ends: a round cap on a path not yet drawn is a dot */
+}
+.flow__trace path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.flow__trace path.is-drawn { stroke-dashoffset: 0; }
+.flow__trace.is-done { opacity: 0; }
+
+/* the pipeline, playing (flow.js adds .is-live): steps ahead wait grey and
+   undrawn, those behind are done, the one being shown is lit */
+.flow.is-live li:not(.is-done, .is-active) .flow__icon { opacity: 0.35; }
+.flow.is-live li:not(.is-done, .is-active) .flow__text { opacity: 0.55; }   /* words stay readable while they wait (5:1 on the mat; 0.35 was under 3:1) */
 .flow.is-live li.is-done :is(.flow__icon, .flow__text) { opacity: 0.65; }
-.flow.is-live li.is-active .flow__icon svg { stroke: var(--lit); }
-.flow.is-live li.is-active :is(.label, strong, small) { color: var(--lit); }
+.flow.is-live li.is-active .flow__icon svg { stroke: var(--text); }
 .flow.is-live li .flow__icon svg * { stroke-dasharray: 1; stroke-dashoffset: 0; }
-.flow.is-live li:not(.is-done, .is-active) .flow__icon svg * { stroke-dashoffset: 1; }
+.flow.is-live li:not(.is-done, .is-active) .flow__icon svg * { stroke-dashoffset: 1; visibility: hidden; }   /* hidden, not just undrawn: a zero-length dash with a round cap is still a dot */
 .flow.is-live li:not(.is-done, .is-active) .flow__icon svg :is(.fill, .soft) { opacity: 0; }
-.flow.is-live li:is(:hover, :focus-within, .is-held) :is(.flow__icon, .flow__text) { opacity: 1; }
+
+/* The headline's clauses, one for each step (.hl). Pending (set before the
+   page paints, cleared when the strip has played): all grey until reached,
+   then lit, then settling to a lighter grey behind it. Without it the
+   headline is the text colour. */
+.flow-pending h1 .hl { color: color-mix(in srgb, var(--text) 45%, var(--mat)); }   /* 3.8:1, for text this large */
+.flow-pending h1 .hl.is-done { color: var(--text-2); }
+.flow-pending h1 .hl.is-active { color: var(--text); }
 
 @media (prefers-reduced-motion: no-preference) {
-  .flow__sub small, .flow__proof { transition: opacity var(--dur) var(--ease); }
-  .flow.is-live li::after { transition: transform 700ms var(--ease-in-out); }
+  .flow__trace { transition: opacity var(--dur-open) var(--ease); }
+  .flow__trace path.is-drawn { transition: stroke-dashoffset var(--d, 700ms) var(--ease-in-out); }
   .flow.is-live :is(.flow__icon, .flow__text) { transition: opacity var(--dur-open) var(--ease); }
   .flow.is-live .flow__icon svg { transition: stroke var(--dur-open) var(--ease); }
-  .flow.is-live :is(.label, strong, small) { transition: color var(--dur-open) var(--ease); }
-  .flow.is-live li .flow__icon svg * { transition: stroke-dashoffset 900ms var(--ease-out) calc(var(--i, 0) * 45ms), opacity 500ms var(--ease) 500ms; }
+  .flow.is-live li .flow__icon svg * { transition: stroke-dashoffset 650ms var(--ease-out) calc(var(--i, 0) * 45ms), opacity 500ms var(--ease) 500ms; }
   .flow.is-live li:not(.is-done, .is-active) .flow__icon svg * { transition: none; }
+  .flow-pending h1 .hl { transition: color var(--dur-open) var(--ease); }
+}
+
+/* The home hero before snap.js has run (it waits for the fonts): on phones of
+   390px and up its text fits two squares, not the three the HTML says, so
+   the page would jump a square when the script catches up. !important:
+   --h is set in the markup */
+@media (min-width: 390px) and (max-width: 700px) {
+  .sheet.center.hero { --h: 2 !important; }
+}
+
+@media (min-width: 721px) and (max-width: 900px) {
+  /* squares of 40-48px make panels of 80-96px: a name takes three lines and a
+     project two, so the panel is a row taller and every name holds three */
+  .flow li { grid-row: 1 / span 5; }
+  .flow__text strong { min-height: 3lh; }
 }
 
 @media (max-width: 720px) {
-  /* runs past the mat's edge (band and desk) to the screen's; the panel
-     cut off there is the sign there is more, as paper off a table would be */
-  .sheet.flow {
-    display: flex;
-    justify-content: flex-start;
-    margin-right: calc(-1 * (var(--band) + var(--space-2)));
-    overflow-x: auto;
-    scroll-snap-type: x proximity;
-    scrollbar-width: none;
-  }
-  .flow li { flex: none; width: calc(var(--cell) * 2); scroll-snap-align: start; }
+  /* Eight squares across don't fit a phone's six, so the strip stands up:
+     the steps one under another (the icon in the first square, the name and
+     project beside it, two squares tall), one square between each pair. The
+     line runs down through the icons: the middle of the first column */
+  .sheet.flow { --node: var(--cell); --icon-sw: 2.8; grid-row: span 8; }
+  .flow li { grid-column: 1 / -1; grid-row: auto / span 2; display: grid; grid-template-columns: subgrid; align-items: center; padding: 0; text-align: left; }
+  .flow li.flow__link { grid-row: auto / span 1; }
+  .flow li.flow__link::before { inset: 0 auto 0 calc(var(--cell) / 2 - var(--stroke-hair) / 2); width: var(--stroke-hair); height: auto; }
+  .sheet.flow .flow__icon { grid-column: 1; }
+  .flow__text { grid-column: 2 / -1; justify-items: start; padding: 0 var(--space-2) 0 var(--space-3); }
+  .flow__text strong { min-height: 0; }
 }
 
 /* ------------------------------------------------------------------
@@ -533,12 +612,12 @@ body {
 }
 
 @media (max-width: 720px) {
-  /* one empty row under each card: padding, not row-gap (that would open
-     a gap between every row, inside the cards too) */
   /* the card is the full width: its cover 5 of the 6 columns (left,
      then right), the artefact overhanging into the 6th, the caption
-     across all 6 */
-  .work .card { grid-column: 1 / -1; grid-row: auto / span 9; padding-bottom: var(--cell); }
+     across all 6. Cover (4) and caption (4) fill it exactly: the caption's
+     own spare squares are the space between cards (an empty row as well
+     left 110-150px of nothing) */
+  .work .card { grid-column: 1 / -1; grid-row: auto / span 8; --pb: 0; }
   .work .card > .frame { grid-column: 1 / span 5; }
   .work .card:nth-child(even) > .frame { grid-column: 2 / span 5; }
 }
@@ -608,14 +687,20 @@ body {
 .client abbr { text-decoration: none; }
 
 @media (max-width: 720px) {
-  /* a row: the artefact (2 x 2), then the caption beside it with its
-     arrow in the last column; data-snap fits each row to its text */
-  .more li { grid-row: span 4; }
-  .more a { grid-template-rows: repeat(4, var(--cell)); align-items: start; }
-  .more a > .more__thumb { grid-column: 1 / span 2; grid-row: 1 / span 2; }
-  .more a > .more__cap { grid-column: 3 / -1; grid-row: 1 / span 4; }
-  .more__cap > .label, .more__cap .cap__body { padding-left: var(--space-2); }
+  /* a row: the artefact across the full width (6 x 2: beside the text it
+     was a 2-square thumbnail and a 3-line title in a 4-square column),
+     then the caption under it with its arrow in the last column;
+     data-snap fits each row to its text */
+  .more li { grid-row: span 5; }
+  .more a { grid-template-rows: calc(var(--cell) * 2) auto; align-content: start; align-items: start; }
+  .more a > .more__thumb { grid-column: 1 / -1; grid-row: 1; --pad: var(--space-2); align-self: stretch; }
+  .more a > .more__cap { grid-column: 1 / -1; grid-row: 2; padding-top: var(--space-3); padding-bottom: var(--space-3); grid-template-rows: auto auto; }
+  .more .cap > .label { grid-row: 1; }
+  .more .cap > .cap__body { grid-row: 2; }
+  .more .cap > .go { grid-row: 1 / span 2; margin-top: 0; }
+  .more__cap > .label, .more__cap .cap__body { padding-left: 0; }
   .more .cap h3 { --clamp: 3; }
+  .more .cap__what { --clamp: 3; }
 }
 
 /* ------------------------------------------------------------------
@@ -774,7 +859,7 @@ p a, li a, h3 a, figcaption a { text-decoration-color: var(--text-2); }   /* a l
 
 /* Keyboard focus: one clear ring everywhere */
 a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
-  outline: 2px solid var(--text);
+  outline: var(--stroke-accent) solid var(--text);
   outline-offset: 3px;
 }
 
@@ -898,7 +983,7 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
   /* four caption squares (titles wrap more); the artefact sits on the
      cover's bottom line, overhanging into the side the card leaves empty */
   .card { --cap: 4; --pb: 1; }
-  .card__cap h3 { --clamp: 3; }
+  .card__cap h3, .card__cap .cap__what { --clamp: 3; }   /* a deliverable is cut off mid-word at two lines */
   .card__art { --lift: 0; }
   .work .card:nth-child(odd) .card__art { left: auto; right: 0; }
   .work .card:nth-child(even) .card__art { right: auto; left: 0; }
@@ -1114,10 +1199,10 @@ html:not(.js) [data-print] { display: none; }                  /* it needs cv.js
 }
 
 /* The bar whose entry the panel shows, and the project picked in a group */
-.tl__track li.is-selected::after { outline: 2px solid var(--text); outline-offset: 2px; }
+.tl__track li.is-selected::after { outline: var(--stroke-accent) solid var(--text); outline-offset: 2px; }
 .tl__track li.is-selected a { color: var(--text); text-decoration: underline; text-underline-offset: 4px; }
 .tl__track li.is-group.is-selected::after { outline: 0; background: var(--text); }
-.tl__tick.is-picked { background: var(--text); outline: 2px solid var(--text); outline-offset: 2px; }
+.tl__tick.is-picked { background: var(--text); outline: var(--stroke-accent) solid var(--text); outline-offset: 2px; }
 .tl__name, .tl__track { transition: opacity var(--dur) var(--ease); }
 .tl .is-dim { opacity: 0.25; }
 
@@ -1264,7 +1349,7 @@ html:not(.js) .tl-panel { display: none; }
 }
 .entry__row > summary::-webkit-details-marker { display: none; }
 .entry__row > summary:is(:hover, :focus-visible) { background: var(--row-lit); }   /* pointed at: a slightly brighter fill (and its chevron fills, as every icon button does) */
-.entry__row > summary:focus-visible { outline: 2px solid var(--text); outline-offset: -2px; }   /* keyboard: the usual ring too, inside the row so it isn't cut off */
+.entry__row > summary:focus-visible { outline: var(--stroke-accent) solid var(--text); outline-offset: -2px; }   /* keyboard: the usual ring too, inside the row so it isn't cut off */
 
 /* The mockup, whole: fitted in its slot, never cropped, with the shadow
    it casts on the mat ("More work" on the homepage). Editorial work
@@ -1588,14 +1673,15 @@ figcaption .label { display: inline; margin-right: 0.4em; }
    Tools: placed by the cell their top left corner is in, then pushed
    off the mat so they lie on the desk and only peek in over the edge.
      <div class="tool tool--l" style="--c: 1; --r: 3; --iw: 80; --ih: 910">
-     (column, row; --iw / --ih is the drawing's own size, from
-   toolShapes.json). All tools share one scale (--k, from the cell), so
+     (column, row; --iw / --ih is the drawing's own size, read from its
+   outline SVG's viewBox when the page is built: the toolShape filter in
+   .eleventy.js). All tools share one scale (--k, from the cell), so
    they keep their sizes relative to each other. .tool--l / --r / --t:
    the edge it hangs over; place it in the first column, the last, or
    row 1. Only --peek of it shows on the mat, less than the band, so a
    tool never reaches the grid or covers content.
-   Phones have half the columns, so each can carry its own phone
-   placement (--cs, --rs); without one it is hidden there.
+   Phones have no room for them: the band is the mat's edge there, and a
+   tool poking in over it reads as clipped. They are hidden.
    --rot tilts it, for the lazily-strewn look.
    ------------------------------------------------------------------ */
 .tool {
@@ -1618,16 +1704,18 @@ figcaption .label { display: inline; margin-right: 0.4em; }
   -webkit-user-select: none;
   -webkit-touch-callout: none;   /* no "copy / look up" menu on a long press */
 }
+/* The hover / drag area is bigger than the drawing: a pencil is 38px wide,
+   and hovering turns a tool 5deg about its centre, which swings the end of a
+   long one about 16px sideways, out from under the pointer (it would un-hover,
+   turn back, and flicker). The margin is invisible and sits on the empty
+   squares beside the mat (a tool never reaches the content). */
+.tool::before { content: ""; position: absolute; inset: calc(var(--space-5) * -1); }
 .tool--l { --ox: calc(var(--peek) - var(--band) - var(--tw)); }
 .tool--r { --ox: calc(var(--cell) + var(--band) - var(--peek)); }
 .tool--t { --oy: calc(var(--peek) - var(--band) - var(--th)); }
 
 @media (max-width: 720px) {
-  .tool {
-    grid-column: var(--cs);
-    grid-row: var(--rs);
-  }
-  .tool:not([style*="--cs"]) { display: none; }
+  .tool { display: none; }
 }
 
 /* Each tool is an outline drawing of itself; its photo takes over while
@@ -1638,7 +1726,12 @@ figcaption .label { display: inline; margin-right: 0.4em; }
    moved to. The two images are the same shape, stacked in one cell. */
 .tool picture { display: contents; }  /* the build wraps each <img> in one */
 .tool img { grid-area: 1 / 1; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
-.tool__line { filter: invert(1); opacity: 0.8; transition: opacity var(--dur) var(--ease); }  /* black line art, on a dark mat */
+/* The outline is inline (the toolShape filter, .eleventy.js), so it is drawn
+   in the one line style: the editor's black 2px stroke, scaled down with the
+   tool, came out at about 0.8px and then inverted */
+.tool__line { grid-area: 1 / 1; width: 100%; height: 100%; fill: none; stroke: var(--ink-line); stroke-width: var(--stroke-line); stroke-linecap: round; stroke-linejoin: round; pointer-events: none; transition: opacity var(--dur) var(--ease); }
+.tool__line path { vector-effect: non-scaling-stroke; }
+.js:not(.late) .tool__photo { display: none; }   /* photos are fetched once the page is idle (base.njk): the outline is all that shows until a hover */
 .tool__photo { opacity: 0; transition: opacity var(--dur) var(--ease); }
 .tool.is-held .tool__photo { opacity: 1; }
 .tool.is-held .tool__line { opacity: 0; }  /* the photo replaces the outline, not sits on it */

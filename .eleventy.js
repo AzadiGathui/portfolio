@@ -1,9 +1,49 @@
+const fs = require("node:fs");
+const path = require("node:path");
 const markdownIt = require("markdown-it");
 const md = markdownIt({ html: true }); // required: allows raw HTML (Tableau embeds, etc.) in .md files
 
 // async so we can import @11ty/eleventy-img, which is an ES module
 module.exports = async function (eleventyConfig) {
   eleventyConfig.setLibrary("md", md);
+
+  // ------------------------------------------------------------------
+  // TOOLS: a tool's size on the mat is its drawing's own size, read from the
+  // outline SVG's viewBox every time a page is built (layouts/base.njk:
+  // `{% set shape = tool.img | toolShape %}`). It used to be a hand-kept table
+  // (_data/toolShapes.json). That could go out of step with the artwork, and
+  // when the lookup came back empty (a dev server that had lost its data) the
+  // CSS got `--iw: ;` and every tool collapsed to one square, so its hover
+  // area no longer matched the drawing. Here there is nothing to keep in
+  // step, and a missing or unreadable drawing stops the build.
+  //
+  // The outline is also put into the page as an inline <svg> (`shape.svg`),
+  // paths only: the editor's own stroke, colour and size are dropped, so
+  // style.css draws every tool with the one drawn-line style ("Strokes").
+  // An <img> couldn't be styled, and its stroke shrank with the tool.
+  // ------------------------------------------------------------------
+  const toolsDir = path.join("src", "assets", "images", "tools");
+  eleventyConfig.addWatchTarget(toolsDir); // redrawing a tool rebuilds the pages
+  eleventyConfig.addFilter("toolShape", (img) => {
+    const file = path.join(toolsDir, `${img}-outline.svg`);
+    let svg;
+    try {
+      svg = fs.readFileSync(file, "utf8");
+    } catch {
+      throw new Error(`toolShape: no outline drawing for "${img}" (expected ${file})`);
+    }
+    const box = svg.match(/viewBox="\s*[-\d.]+[\s,]+[-\d.]+[\s,]+([\d.]+)[\s,]+([\d.]+)\s*"/);
+    if (!box || !(+box[1] > 0) || !(+box[2] > 0)) throw new Error(`toolShape: ${file} has no usable viewBox`);
+    const paths = [...svg.matchAll(/<path\b[^>]*?\sd="([^"]+)"/g)].map((m) => m[1]);
+    if (!paths.length) throw new Error(`toolShape: ${file} has no paths`);
+    const move = svg.match(/<g\b[^>]*?\stransform="([^"]+)"/);
+    const [w, h] = [Math.round(+box[1]), Math.round(+box[2])];
+    return {
+      w,
+      h,
+      svg: `<svg class="tool__line" viewBox="0 0 ${box[1]} ${box[2]}" aria-hidden="true" focusable="false"><g${move ? ` transform="${move[1]}"` : ""}>${paths.map((d) => `<path d="${d}"/>`).join("")}</g></svg>`,
+    };
+  });
 
   // ------------------------------------------------------------------
   // IMAGES: optimised at build time (nothing extra is sent to visitors)

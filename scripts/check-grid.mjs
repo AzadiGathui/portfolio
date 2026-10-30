@@ -1,4 +1,4 @@
-// The grid check, on every page at three widths: fails if a block isn't on a
+// The grid check, on every page at four widths, down to 320px: fails if a block isn't on a
 // mat line or a line of text isn't on the 4px unit. The check itself is
 // src/assets/js/grid.js, the one ?grid runs in the browser.
 //
@@ -12,7 +12,7 @@ import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 
 const ROOT = fileURLToPath(new URL("../_site/", import.meta.url));
-const WIDTHS = [390, 975, 1440]; // a phone, a small laptop (the old 62px square), a desktop
+const WIDTHS = [320, 390, 975, 1440]; // the smallest phone we test, a phone, a small laptop (the old 62px square), a desktop
 const TYPES = { ".html": "text/html", ".css": "text/css", ".js": "text/javascript", ".svg": "image/svg+xml", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp", ".avif": "image/avif", ".woff2": "font/woff2", ".json": "application/json", ".mp4": "video/mp4" };
 
 // Every page of the built site, except the CMS
