@@ -1,5 +1,5 @@
 ---
-title: "Measuring encroachment on Kenya's protected areas from space"
+title: Measuring encroachment on Kenya's protected areas
 tagline: Satellite change detection with deep learning
 client: Zindua School (Capstone project)
 industry: Geospatial AI
@@ -10,48 +10,36 @@ deliverables: Land-cover segmentation model, change-detection pipeline, Kenya ev
 order: 2
 coverImage: /assets/images/projects/edm/cover-header.jpg
 thumbnail: /assets/images/projects/edm/thumbnail-placeholder.png
-thumbnailKind: print   # phone | print | book: how the artefact is laid on the homepage card and case-study cover
+thumbnailKind: print
 ogImage: /assets/images/projects/edm/cover-header.jpg
-description: An end-to-end pipeline that segments Sentinel-2 imagery with a U-Net, compares 2016 with 2025 and measures new built-up land inside Kenya's protected areas, plus an honest evaluation of how well it works in Kenya.
+description: An end-to-end pipeline that segments Sentinel-2 imagery with a U-Net, compares 2016 with 2025 and measures new built-up land inside Kenya's protected areas.
 permalink: /projects/environmental-degradation-monitor/
 ---
 
 <div class="article-body">
 
-<h2 id="overview">Overview</h2>
+<h2 id="overview">32.8% of protected land is under intense human pressure</h2>
 
-Nairobi National Park was gazetted in 1946 as Kenya's first national park, and it sits at the edge of a city of millions. Karura Forest, a few kilometres from the city centre, is where Wangari Maathai's 1998–99 campaign against forest allocation became a landmark of land-rights activism. Both are protected, and both are surrounded by growth.
+Nairobi National Park was gazetted in 1946 as Kenya's first national park, and it sits at the edge of a city of millions. Karura Forest, a few kilometres from the city centre, is where Wangari Maathai's 1998–99 campaign against forest allocation became a landmark of land-rights activism. Both are protected, and both are surrounded by urbanisation.
 
 The pressure is not unique to Nairobi. A global study found that 32.8% of protected land is under intense human pressure (Jones et al., *Science*, 2018). In Kenya, aerial surveys recorded an average 68% decline in wildlife between 1977 and 2016 (Ogutu et al., *PLOS ONE*, 2016). Protecting land needs monitoring it, and rangers cannot watch every boundary on foot.
 
-Satellites already photograph all of it. The hard part is turning two photographs into one answer.
-
-**The goal:** for a chosen protected area, measure how much land inside its boundary, and in a 100 m margin around it, became built-up between 2016 and 2025.
-
-I built the whole pipeline: downloading imagery, segmenting it with a U-Net, comparing two years and reporting the area in square kilometres on an interactive map. Then I tested it on real Kenyan imagery and found that it does not yet work well enough to trust. This page covers both halves.
-
-<blockquote class="pull-quote">A model can be right about India and wrong about Nairobi.</blockquote>
+<blockquote class="pull-quote">For a chosen protected area, measure how much land inside its boundary, and in a 100 m margin around it, became built-up between 2016 and 2025.</blockquote>
 
 <h2 id="pipeline">The pipeline</h2>
 
-The system has five stages. Each is a separate module in the app, so one can be replaced without touching the others.
+The system has 5 stages; each is a separate module in the app, so one can be replaced without touching the others.
 
 <table>
   <thead><tr><th>Stage</th><th>What happens</th><th>Built with</th></tr></thead>
   <tbody>
-    <tr><td>1. Download</td><td>Fetch a true-colour Sentinel-2 composite for each year, at the native 10 m resolution</td><td>sentinelhub, Copernicus Data Space</td></tr>
-    <tr><td>2. Segment</td><td>Classify every pixel into one of 7 land-cover classes, for both years</td><td>TensorFlow / Keras U-Net</td></tr>
-    <tr><td>3. Compare</td><td>Find pixels that were not built-up in 2016 and are built-up in 2025</td><td>NumPy, rasterio</td></tr>
-    <tr><td>4. Measure</td><td>Intersect the change with protected areas plus a 100 m buffer; sum the area</td><td>geopandas, shapely</td></tr>
-    <tr><td>5. Present</td><td>Show both years, the change layer and the headline figure on one map</td><td>Streamlit, folium</td></tr>
+    <tr><td>Download</td><td>Fetch a true-colour Sentinel-2 composite for each year at 10 m resolution</td><td>sentinelhub, Copernicus Data Space</td></tr>
+    <tr><td>Segment</td><td>Classify every pixel into one of 7 land-cover classes, for both years</td><td>TensorFlow / Keras U-Net</td></tr>
+    <tr><td>Compare</td><td>Find pixels that were not built-up in 2016 and are built-up in 2025</td><td>NumPy, rasterio</td></tr>
+    <tr><td>Measure</td><td>Intersect the change with protected areas plus a 100 m buffer; sum the area</td><td>geopandas, shapely</td></tr>
+    <tr><td>Present</td><td>Show both years, the change and the figures on one map</td><td>Streamlit, folium</td></tr>
   </tbody>
 </table>
-
-### Narrowing the question
-
-The first version let a user pick any county and any dates. It was flexible and hard to trust: different dates and areas meant different image sizes, and larger areas had to be downloaded at a coarser resolution than the model was trained on.
-
-So I narrowed it. The tool now answers one question, **2016 → 2025**, with a full-year, least-cloud composite at each end. It covers two protected areas, each small enough to download in a single request at 10 m: Nairobi National Park (126 km²) and Karura Forest Reserve (10 km²). Larger areas such as the Mau complex and the Maasai Mara need tiled downloads, which are left for later. A smaller promise that holds is worth more than a bigger one that does not.
 
 <h2 id="data">The data</h2>
 
@@ -59,10 +47,9 @@ So I narrowed it. The tool now answers one question, **2016 → 2025**, with a f
   <thead><tr><th>Layer</th><th>Source</th><th>Used for</th></tr></thead>
   <tbody>
     <tr><td>Training chips</td><td>Sen-2 LULC (Sawant et al., Mendeley Data): 64×64 px RGB chips with 7-class masks</td><td>Training the model: 149,600 train, 32,079 validation, 32,079 test pairs</td></tr>
-    <tr><td>Satellite imagery</td><td>Copernicus Sentinel-2 L2A, via the Copernicus Data Space Ecosystem</td><td>Full-year least-cloud composites for 2016 and 2025</td></tr>
+    <tr><td>Satellite imagery</td><td>Copernicus Sentinel-2 L2A</td><td>Full-year least-cloud composites for 2016 and 2025</td></tr>
     <tr><td>Protected areas</td><td>UNEP-WCMC and IUCN, World Database on Protected Areas (WDPA) polygons</td><td>Deciding where a change counts as encroachment</td></tr>
     <tr><td>Reference land cover</td><td>UNDP GeoHub 10 m annual land use / land cover, 9 classes, four UTM tiles</td><td>Independent check on the model in Kenya (see below)</td></tr>
-    <tr><td>Waterways</td><td>HOTOSM Kenya waterways (HDX)</td><td>Riparian buffers (gathered, not yet used)</td></tr>
   </tbody>
 </table>
 
@@ -81,7 +68,11 @@ A building rarely appears exactly on a boundary line. I drew a 100 m buffer arou
 
 <h2 id="model">The model</h2>
 
-The segmentation model is a U-Net: an encoder that compresses the image into features, a decoder that rebuilds a full-resolution map, and skip connections that carry fine detail across. Skip connections matter here because edges, such as where a road ends and a field begins, are what the model has to get right.
+The segmentation model is a U-Net:
+- an encoder that compresses the image into features
+- a decoder that rebuilds a full-resolution map
+- and skip connections that carry fine detail across
+Skip connections matter here because edges, such as where a road ends and a field begins, are what the model has to get right.
 
 I scaled the standard design down to fit 64×64 px chips. The first draft was a 5-level, 1024-filter network sized for 256×256 images, far too large for chips this small.
 

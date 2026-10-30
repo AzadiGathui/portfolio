@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#242322">
+  <meta name="theme-color" content="#262626">
 
-  <link rel="icon" href="/assets/images/branding/AG Favicon Light on Dark.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/images/branding/ag-tile-dark.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/images/branding/favicon.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="/assets/images/branding/apple-touch-icon.png">
   <!-- Self-hosted fonts: preload the face every page renders first -->
@@ -19,9 +19,16 @@
   <!-- Open Graph -->
   <meta property="og:title" content="{% if title %}{{ title }} | {% endif %}{{ site.title }}">
   <meta property="og:description" content="{{ description | default(site.description) }}">
-  <meta property="og:image" content="{{ ogImage | default('/assets/images/branding/AG Favicon Light on Dark.svg') | ogImage }}">
+  {#- Share images: a 1200 x 630 PNG by default (the monogram on the mat), or the
+      page's own ogImage as a 1200px JPEG. Always an absolute address: the sites
+      that read these don't resolve relative ones, and none render SVG. -#}
+  {%- set shareImage = (ogImage | ogImage) if ogImage else "/assets/images/branding/og-default.png" %}
+  <meta property="og:image" content="{{ site.url }}{{ shareImage }}">
+  <meta property="og:image:alt" content="{% if title %}{{ title }}, by {% endif %}{{ site.title }}">
+  <meta property="og:site_name" content="{{ site.title }}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta name="twitter:card" content="summary_large_image">
 
   {#- Every page: snap.js fits blocks to the mat's squares, tools.js lets the
       tools be moved. A page or layout lists any others in `scripts`. #}
@@ -30,8 +37,31 @@
   {%- for script in scripts %}
   <script src="/assets/js/{{ script }}.js" defer></script>
   {%- endfor %}
-  {#- Set before first paint, so anything JS will fold (the CV on a phone) starts folded #}
+  {#- Set before first paint, so anything JS changes (the CV's timeline) starts as it will be #}
   <script>document.documentElement.classList.add("js")</script>
+  {#- ?grid on any address: draw the baseline grid and outline anything off it (grid.js) #}
+  <script>if (/[?&]grid\b/.test(location.search)) document.head.append(Object.assign(document.createElement("script"), { src: "/assets/js/grid.js" }))</script>
+  {#- Changing page (style.css, "Motion between and within pages"): which
+      way the sheet slides, by the keys' order (Home and its projects, CV,
+      Lab), and how far the old page was scrolled, so its sheet leaves from
+      where it was being read. Inline, so it's ready before the first paint. #}
+  <script>
+    (() => {
+      const rank = (url) => {
+        const path = new URL(url).pathname;
+        return path === "/" ? 0 : path.startsWith("/projects/") ? 1 : path.startsWith("/resume") ? 2 : 3;
+      };
+      addEventListener("pageswap", (e) => {
+        if (e.viewTransition) sessionStorage.setItem("sheet-scroll", String(scrollY));
+      });
+      addEventListener("pagereveal", (e) => {
+        if (!e.viewTransition) return;
+        const from = window.navigation?.activation?.from?.url;
+        if (from) e.viewTransition.types.add(rank(location.href) < rank(from) ? "back" : "forward");
+        document.documentElement.style.setProperty("--vt-from", `-${sessionStorage.getItem("sheet-scroll") || 0}px`);
+      });
+    })();
+  </script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -50,13 +80,15 @@
       </main>
 
       {#- Tools lying on the mat, from the page's or layout's `tools` list.
-          Each is placed by cell: --c column, --r row, --w / --h size,
+          Each shows its `img` (an outline drawing; the photo
+          of it takes over on hover or drag), placed by cell: --c column, --r row, --w / --h size,
           --cs / --rs / --ws / --hs the same on a phone, --rot a tilt.
           `edge` is the side it hangs over (l, r or t). #}
       {%- if tools %}
       <div class="mat__tools" aria-hidden="true">
         {%- for tool in tools %}
-        <div class="tool tool--{{ tool.edge }}" style="{{ tool.at }}">{{ tool.name }}</div>
+        {%- set shape = toolShapes[tool.img] %}
+        <div class="tool tool--{{ tool.edge }}" style="{{ tool.at }}; --iw: {{ shape.w }}; --ih: {{ shape.h }}"><img class="tool__line" src="/assets/images/tools/{{ tool.img }}-outline.svg" alt=""><img class="tool__photo" src="/assets/images/tools/{{ tool.img }}-photo.png" alt="" sizes="200px"></div>
         {%- endfor %}
       </div>
       {%- endif %}

@@ -1,0 +1,107 @@
+/* ------------------------------------------------------------------
+   The CV on paper (and "Save as PDF"). Loaded by /resume/ only, for
+   print only (media="print"), so nothing here touches the screen.
+
+   The screen page is a dark cutting mat on a grid that snap.js sizes;
+   on paper that's undone: black on white, one column, each card as
+   details on the left and the story on the right, like a printed CV.
+   Images, the timeline and the site's furniture are left out; links
+   to case studies are printed as addresses. cv.js opens every
+   row before printing and closes them again after.
+   ------------------------------------------------------------------ */
+@page { size: A4; margin: 16mm 16mm 18mm; }
+
+/* The brand on paper: the paper is the stock itself (nothing is printed
+   behind the text), brand black for ink. #555 is the paper theme's --ink-2. */
+:root {
+  --text: #1a1a1a;
+  --text-2: #555;
+  --rule: #ccc;
+  --mat: #fff;
+  --desk: #fff;
+}
+html, body { background: #fff !important; color: #1a1a1a; font-size: 9.5pt; line-height: 1.4; }
+
+/* Undo the mat: no grid, no snapping, no fixed heights */
+.desk, .mat, .mat__content { display: block !important; width: auto !important; padding: 0 !important; margin: 0 !important; background: none !important; box-shadow: none !important; border-radius: 0 !important; }
+.mat::before, .mat::after { display: none !important; }
+.mat__content .sheet, .mat__content .area { height: auto !important; min-height: 0 !important; padding: 0 !important; margin: 0; background: none !important; box-shadow: none !important; }
+
+/* Left out: furniture, decoration, images, the chart, buttons */
+.skip, .mat__keys, .mat__tools, .foot, .gap, .tl-frame, .reel, .note,
+.entry__toggle, .icon-link svg, [data-print] { display: none !important; }
+
+/* The intro: name, role, contact, as a letterhead */
+h1 { font-size: 22pt; line-height: 1.1; margin: 1mm 0 2mm; }
+.cv__tagline { display: block !important; max-width: none; margin: 0; color: var(--text-2); }
+.cv__ask { display: none !important; }
+.contact { display: flex !important; flex-wrap: wrap; gap: 0 6mm; margin: 3mm 0 0 !important; padding: 0; list-style: none; }
+.contact a { color: #1a1a1a; text-decoration: none; min-height: 0 !important; width: auto !important; border: 0 !important; }
+.contact .icon-link::after { content: attr(href); }
+/* the email prints as its address, not "mailto:" */
+.contact .icon-link[href^="mailto:"]::after { content: none; }
+.contact .contact__address { position: static !important; width: auto !important; height: auto !important; clip-path: none !important; overflow: visible !important; }
+.cv-section__all { display: none !important; }
+.cv-section { display: block !important; }
+/* No scroll animations on paper */
+.mat__content > * { animation: none !important; opacity: 1 !important; translate: none !important; }
+
+/* Each card: details on the left (a third), its story on the right */
+.sheet.entry {
+  display: grid !important;
+  grid-template-columns: 30% minmax(0, 1fr);   /* minmax: the story column may shrink, so nothing runs off the page */
+  gap: 0 6mm;
+  padding: 4mm 0 !important;
+  border-top: 0.5pt solid var(--rule);
+}
+.sheet.entry > .entry__meta { position: static !important; grid-column: 1; }
+.sheet.entry > .entry__body { display: block !important; grid-column: 2; }
+
+/* Rows: each line (what was made · years), then its role and text; no thumbnails */
+.entry__row { border: 0 !important; margin-top: 2.5mm; break-inside: avoid; }
+.entry__row:first-child { margin-top: 0; }
+.entry__row > summary { display: grid !important; grid-template-columns: minmax(0, 1fr) auto !important; gap: 0 3mm; min-height: 0 !important; padding: 0 !important; background: none !important; }
+.row__thumb, .row__chevron { display: none !important; }
+.row__title, .row__date { grid-column: auto !important; grid-row: auto !important; }
+.row__title { font-size: 10pt; font-weight: 600; display: block !important; -webkit-line-clamp: none !important; overflow: visible !important; }
+.row__body { padding: 0.5mm 0 0 !important; }
+.entry .row__body .tools { display: none !important; }   /* kept short: the card's say it */
+.entry__row::details-content { block-size: auto !important; opacity: 1 !important; }
+
+/* Type: small labels, a clear title per card */
+.label, .tag { font-size: 7pt; letter-spacing: 0.06em; color: var(--text-2); }
+.entry__meta h3 { font-size: 12pt; line-height: 1.2; margin: 0.5mm 0 0 !important; }
+.entry__meta .entry__about { margin-top: 1.5mm !important; font-size: 8.5pt; }
+.entry__meta .tools { margin-top: 2mm !important; font-size: 8.5pt; }
+.entry__where, .entry__date { font-size: 8.5pt; line-height: 1.4; }
+/* Headings step down one size per level, as on screen: h1 22pt, h2 14pt, h3 12pt, h4 10pt */
+h2 { font-size: 14pt; margin: 6mm 0 2mm !important; }
+a { color: #1a1a1a; }
+.entry__text p, .entry__text li { text-wrap: pretty; }
+.entry__text { padding-right: 0 !important; }
+
+/* Everything shows on paper */
+.entry .entry__roles { display: block !important; }
+.entry .entry__body, .entry .entry__about { display: block !important; -webkit-line-clamp: none !important; overflow: visible !important; }
+.entry .tools { display: block !important; }
+
+/* "See the full project" prints as the address */
+.entry__go { position: static !important; display: block; margin-top: 1mm; font-size: 8pt; color: var(--text-2); text-decoration: none; }
+.entry__go .entry__arrow { display: none !important; }
+.row__text .entry__go { width: auto !important; height: auto !important; display: block !important; }
+.entry__go { min-height: 0 !important; font: 400 8pt/1.4 var(--f-body) !important; letter-spacing: 0 !important; text-transform: none !important; }
+.entry__go::after { content: ": azadi.design" attr(href); }   /* "Read the case study: azadi.design/projects/…" (attr() reads the link's own href) */
+
+/* The screen's grid fitting is undone: blocks rounded up to whole squares
+   (min-heights set by snap.js), and the paddings that kept text off the
+   squares' buttons */
+[data-cells] { min-height: 0 !important; }
+.entry__meta { padding: 0 !important; }
+.row__text { padding: 0.5mm 0 0 !important; }
+.tl-head, .tl-figure { display: none !important; }
+.cv-intro .contact { gap: 0 6mm !important; }
+.cv-intro .contact li:not([data-print]) { display: block !important; }
+
+/* Keep things whole across pages */
+.entry__meta, .entry__text li { break-inside: avoid; }
+h1, h2, h3 { break-after: avoid; }

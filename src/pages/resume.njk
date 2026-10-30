@@ -1,593 +1,138 @@
 ---
 layout: layouts/base.njk
 title: Resume
-description: Resume of Azadi Gathui, data scientist and product designer, with experience across fintech, healthcare, climate, and conservation.
+# The role comes from site.json, so it reads the same everywhere
+eleventyComputed:
+  description: "Resume of Azadi Gathui, {{ site.role | lower | safe }}, with experience across fintech, healthcare, climate, and conservation."
 permalink: /resume/
 scripts: [reels, cv]
-tools:
-  - { name: tape, edge: r, at: "--c: 14; --r: 5; --w: 1; --h: 2; --rot: 4deg; --tint: #8fbcd4; --cs: 6; --rs: 5; --ws: 1; --hs: 2" }
-  - { name: ruler, edge: l, at: "--c: 1; --r: 24; --w: 1; --h: 9; --rot: -1deg; --tint: #c9a227" }
-  - { name: pencil, edge: r, at: "--c: 14; --r: 40; --w: 1; --h: 3; --rot: 2deg; --tint: #e0a030" }
+# The timeline's lanes, top to bottom. An entry joins one with
+# `timeline: { lane: … }` in its file in src/cv/.
+timelineFrom: 2020
+lanes:
+  - { key: data, name: "Data & ML" }
+  - { key: product, name: Product }
+  - { key: editorial, name: "Brand & editorial" }
 ---
-<section class="sheet" style="--h: 4" data-snap>
-  <span class="label">{{ site.role }}</span>
-  <h1>Azadi Gathui</h1>
-  <p class="cv__tagline">If it challenges assumptions, connects disciplines, or helps real humans live better, I'm probably already thinking about it.</p>
-  <p class="cv__ask">Let’s create meaningful impact together.</p>
+{#- Everything below the intro is built from the files in src/cv/ (one per
+    entry; see src/cv/README.md). Edit those, not this page. -#}
+{%- import "partials/cv-entry.njk" as cv -%}
+{%- set tl = collections.cv | cvTimeline(lanes, timelineFrom) -%}
+{#- On paper ("Save as PDF"): a plain, light CV. Only applies when printing -#}
+<link rel="stylesheet" href="/assets/css/cv-print.css" media="print">
+
+{#- The intro: its text rounded up to whole squares, then the contact row
+    on the squares below it (each button one or more squares) -#}
+<section class="sheet area cv-intro" data-snap>
+  <div class="cv-intro__text" data-cells>
+    <span class="label">{{ site.role }}</span>
+    <h1>Azadi Gathui</h1>
+    <p class="cv__tagline">If it challenges assumptions, connects disciplines, or helps real humans live better, I'm probably already thinking about it.</p>
+    <p class="cv__ask">Let’s create meaningful impact together.</p>
+  </div>
   <ul class="icon-links contact" aria-label="Contact">
-    <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+    <li><a class="icon-link" href="mailto:{{ site.email }}"><span class="visually-hidden">Email </span><span class="contact__address visually-hidden">{{ site.email }}</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.5 7 8.5 6.5L20.5 7"/></svg></a></li>
     {%- include "partials/social-links.njk" %}
+    <li data-print><button class="btn" type="button">Save as PDF</button></li>
   </ul>
 </section>
 
 <div class="gap" style="--rows: 1" aria-hidden="true"></div>
 
-<!-- The one figure: the timeline, in a frame like the other images -->
-<figure class="sheet frame tl-frame" id="timeline" style="--h: 8" data-snap>
+{#- What the panel under the chart shows for one entry (cv.js copies it in
+    when a bar is pointed at or chosen): the card's facts, short, and the
+    way to the full card. Hidden here, so the build still resizes its images. -#}
+{%- macro pv(item) -%}
+<div class="tl-pv" id="pv-{{ item.id }}" hidden data-open="{{ item.open or item.id }}"{% if item.back %} data-back="{{ item.back }}"{% endif %}>
+  {%- if item.thumbs.length %}
+  <div class="tl-pv__thumbs" aria-hidden="true">{% for src in item.thumbs %}<img src="{{ src }}" alt="" sizes="160px">{% endfor %}</div>
+  {%- endif %}
+  <div class="tl-pv__text">
+    <span class="label">{{ item.kind }}</span>
+    <h3>{{ item.title }}</h3>
+    <p class="tl-pv__meta">{{ [item.org, item.dates, item.duration] | cvJoin }}</p>
+    {%- if item.group %}
+    <ul class="tl-pv__list" aria-label="Projects">
+      {%- for m in item.members %}
+      <li><button type="button" data-pick="{{ m.id }}">{{ m.label }}<span class="visually-hidden">,</span> <span class="tl-pv__year">{{ m.years }}</span></button></li>
+      {%- endfor %}
+    </ul>
+    {%- else %}
+    {%- if item.about %}<p class="tl-pv__about">{{ item.about }}</p>{% endif %}
+    {#- the first three; the card has them all -#}
+    {%- if item.tags.length %}<p class="tl-pv__tags">{% for t in item.tags %}{% if loop.index <= 3 %}{{ t }}{% if loop.index < 3 and not loop.last %}, {% endif %}{% endif %}{% endfor %}{% if item.tags.length > 3 %} <span class="tl-pv__more">+{{ item.tags.length - 3 }} more</span>{% endif %}</p>{% endif %}
+    {%- endif %}
+  </div>
+  <div class="tl-pv__actions">
+    {%- if item.back %}<button class="btn" type="button" data-pick="{{ item.back }}">&larr; All projects</button>{% endif %}
+    <a class="btn" href="#{{ item.open or item.id }}" data-open>Full entry <span aria-hidden="true">&darr;</span></a>
+    {%- if item.caseStudy %}<a class="btn" href="{{ item.caseStudy }}">Case study <span aria-hidden="true">&rarr;</span></a>{% endif %}
+  </div>
+</div>
+{%- endmacro -%}
+
+<!-- The one figure: the timeline. A title and key above it, so it reads
+     at once; lane chips; the chart in a frame of whole squares; a panel
+     that shows the entry pointed at or chosen; the caption below,
+     outside the frame -->
+<div class="sheet area cv-section tl-head" style="--h: 1">
+  <h2 id="timeline-title">Career timeline</h2>
+  <p class="tl-key" aria-hidden="true"><span class="tl-key__bar tl-key__bar--major"></span>Roles<span class="tl-key__bar tl-key__bar--minor"></span>Freelance projects</p>
+</div>
+<figure class="sheet area tl-figure" id="timeline" aria-labelledby="timeline-title" data-snap>
+  <div class="frame tl-frame" data-snap>
   <div class="tl-scroll" tabindex="0" role="region" aria-label="Timeline of roles and projects">
-    <div class="tl">
-      <span class="tl__year" style="grid-column: 2">2020</span>
-      <span class="tl__year" style="grid-column: 3">2021</span>
-      <span class="tl__year" style="grid-column: 4">2022</span>
-      <span class="tl__year" style="grid-column: 5">2023</span>
-      <span class="tl__year" style="grid-column: 6">2024</span>
-      <span class="tl__year" style="grid-column: 7">2025</span>
-      <span class="tl__year" style="grid-column: 8">2026</span>
+    <div class="tl" style="--years: {{ tl.years | length }}">
+      {#- Heavier bars are roles; a freelance lane is one thin bar with a tick per project. cv.js draws them in, oldest first -#}
+      {%- for year in tl.years %}
+      <span class="tl__year" style="grid-column: {{ loop.index + 1 }}">{{ year }}</span>
+      {%- endfor %}
+      {% for lane in tl.lanes %}
+      <p class="tl__name" data-lane="{{ lane.key }}" style="--y: {{ lane.y }}; --rows: {{ lane.rows }}; --yp: {{ lane.yp }}">{{ lane.name }}</p>
+      <ol class="tl__track" data-lane="{{ lane.key }}" style="--y: {{ lane.y }}; --rows: {{ lane.rows }}; --yp: {{ lane.yp }}; --rp: {{ lane.rp }}">
+        {%- for item in lane.items %}
+        <li class="{{ 'is-major' if item.major else 'is-minor' }}{% if item.group %} is-group{% endif %}{% if item.ongoing %} is-ongoing{% endif %}{% if item.late %} is-late{% endif %}" data-id="{{ item.id }}" style="--s: {{ item.s }}; --e: {{ item.e }}; --r: {{ item.row }}"><a href="#{{ item.open or item.id }}">{{ item.label }}</a><span class="visually-hidden">, {{ item.title + ", " if item.group }}{{ item.spoken }}</span>
+          {%- if item.group %}{% for m in item.members %}<span class="tl__tick" data-id="{{ m.id }}" aria-hidden="true" style="--ts: {{ m.s }}; --te: {{ m.e }}"></span>{% endfor %}{% endif -%}
+        </li>
+        {%- endfor %}
+      </ol>
+      {%- endfor %}
 
-      <h3 class="tl__name" style="--y: 2; --rows: 2">Product</h3>
-      <ol class="tl__track" style="--y: 2; --rows: 2">
-        <li style="--s: 26; --e: 67; --r: 1"><a href="#leja">Leja</a><span class="visually-hidden">, February 2022 to June 2025</span></li>
-        <li style="--s: 54; --e: 55; --r: 2"><a href="#carnayo">CarNayo</a><span class="visually-hidden">, June 2024</span></li>
-        <li style="--s: 64; --e: 82; --r: 2"><a href="#jireh">Jireh Health</a><span class="visually-hidden">, April 2025 to September 2026</span></li>
-      </ol>
-      <h3 class="tl__name" style="--y: 4; --rows: 2">Editorial</h3>
-      <ol class="tl__track" style="--y: 4; --rows: 2">
-        <li style="--s: 2; --e: 3; --r: 1"><a href="#belva">3408 Belva</a><span class="visually-hidden">, February 2020</span></li>
-        <li style="--s: 22; --e: 25; --r: 1"><a href="#sid">SID Kenya</a><span class="visually-hidden">, October to December 2021</span></li>
-        <li style="--s: 34; --e: 35; --r: 1"><a href="#afriyoccc">AFRIYOCCC</a><span class="visually-hidden">, October 2022</span></li>
-        <li style="--s: 34; --e: 35; --r: 2"><a href="#lcoy">LCOY Kenya</a><span class="visually-hidden">, October 2022</span></li>
-        <li style="--s: 48; --e: 51; --r: 1"><a href="#ciff">CIFF / COP27</a><span class="visually-hidden">, December 2023 to February 2024</span></li>
-        <li style="--s: 53; --e: 54; --r: 2"><a href="#inable">inABLE</a><span class="visually-hidden">, May 2024</span></li>
-        <li style="--s: 57; --e: 58; --r: 3"><a href="#unfccc">UNFCCC Champions</a><span class="visually-hidden">, September 2024</span></li>
-      </ol>
-      <h3 class="tl__name" style="--y: 7; --rows: 2">Branding</h3>
-      <ol class="tl__track" style="--y: 7; --rows: 2">
-        <li style="--s: 6; --e: 13; --r: 1"><a href="#herbivore">Herbivore</a><span class="visually-hidden">, June to December 2020</span></li>
-        <li style="--s: 17; --e: 19; --r: 2"><a href="#lizopendwa">Lizopendwa</a><span class="visually-hidden">, May to June 2021</span></li>
-        <li style="--s: 19; --e: 20; --r: 3"><a href="#belva-homes">Belva Homes</a><span class="visually-hidden">, July 2021</span></li>
-        <li style="--s: 25; --e: 26; --r: 1"><a href="#qoba">Qoba</a><span class="visually-hidden">, January 2022</span></li>
-        <li style="--s: 54; --e: 55; --r: 2"><a href="#kwetu">KWETU Pride</a><span class="visually-hidden">, June 2024</span></li>
-      </ol>
-      <h3 class="tl__name" style="--y: 10">Data &amp; ML</h3>
-      <ol class="tl__track" style="--y: 10">
-        <li class="is-ongoing" style="--s: 68; --e: 82.5"><a href="#zindua">Zindua School</a><span class="visually-hidden">, August 2025 to now</span></li>
-      </ol>
-
-      <div class="tl__today" style="--s: 82.5" aria-hidden="true"><span>Today</span></div>
+      <div class="tl__today" style="--s: {{ tl.today }}" aria-hidden="true"><span>Today</span></div>
     </div>
   </div>
-  <figcaption><span class="label">Fig. 1</span>Roles and projects since 2020. Select one to jump to it.</figcaption>
+  </div>
+  <div class="tl-panel" id="tl-panel" role="region" aria-label="Selected entry" aria-live="polite" data-current="{{ tl.current }}">
+    <div class="tl-panel__body"></div>
+    <p class="tl-panel__hint" aria-hidden="true"></p>
+  </div>
+  <div hidden>
+    {%- for lane in tl.lanes %}{% for item in lane.items %}
+    {{ pv(item) }}
+    {%- if item.group %}{% for m in item.members %}{{ pv(m) }}{% endfor %}{% endif %}
+    {%- endfor %}{% endfor %}
+  </div>
+  <figcaption class="tl-caption"><span class="label">Fig. 1</span>Roles (heavy) and freelance work (light) since {{ timelineFrom }}. Point at or tap a bar to preview it, or a lane name to focus on it. The full entry is below.</figcaption>
 </figure>
 
-<div class="gap" aria-hidden="true"></div>
+<div class="gap" style="--rows: 1" aria-hidden="true"></div>
 
-<!-- ============ Experience, newest first, marked by year ============ -->
-<h2 class="visually-hidden" id="experience">Experience</h2>
+<!-- ============ Experience, most recent first ============ -->
+<div class="sheet area cv-section" style="--h: 1">
+  <h2 id="experience">Experience</h2>
+  {#- cv.js opens or closes every row; hidden without JS (rows are then plain <details>) -#}
+  <button class="btn cv-section__all" type="button" data-expand-all aria-pressed="false">Expand all</button>
+</div>
+{% for e in collections.cv | cvCards("experience") %}
+{{ cv.card(e, collections.cv) }}
+{% endfor %}
 
-<article class="sheet area entry entry--group" id="zindua" style="--h: 2" data-snap>
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Independent / academic</p>
-    <h2>Data Scientist</h2>
-    <p class="entry__client">Zindua School</p>
-    <p class="label entry__date">Aug ’25 – Present</p>
-  </header>
-  <div class="area entry__body">
-    <article class="sheet area entry entry--project" id="edm" style="--h: 2">
-      <header class="sheet entry__meta" style="--w: 3">
-        <h3><a href="/projects/environmental-degradation-monitor/">Environmental Degradation Monitor</a></h3>
-        <div class="tags"><span class="tag">python</span><span class="tag">u-net</span><span class="tag">TensorFlow</span><span class="tag">sentinel-2</span><span class="tag">Copernicus</span><span class="tag">streamlit</span><span class="tag">geopandas</span></div>
-        <a class="entry__go" href="/projects/environmental-degradation-monitor/"><span class="visually-hidden">See the full project</span><span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"/></svg></span></a>
-      </header>
-      <div class="area entry__body">
-          <div class="sheet entry__text">
-            <p>Trained and evaluated a semantic segmentation model (5.78M parameters) for satellite land-cover classification, and built a complete Streamlit application around it:</p>
-            <ul>
-            <li>On-demand Sentinel-2 imagery retrieval for protected area shapefiles</li>
-            <li>Mask-based change detection on an interactive Streamlit map</li>
-            <li>Domain-shift evaluation (India vs Kenya)</li>
-            <li>Datasets used:
-            <ul><li>Sentinel-2 imagery</li><li><a href="https://developers.google.com/earth-engine/datasets/catalog/WCMC_WDPA_current_polygons">World Database on Protected Areas (polygons)</a> by UNEP-WCMC</li></ul></li>
-            </ul>
-          </div>
-          <div class="sheet frame reel">
-            <div class="reel__track" tabindex="0" role="region" aria-label="Environmental Degradation Monitor: 4 images, scroll sideways">
-              <img src="/assets/images/projects/edm/karura-reference.png" sizes="(max-width: 720px) 60vw, 520px" alt="Karura Forest: reference land-cover map" loading="lazy">
-              <img src="/assets/images/projects/edm/karura-prediction.png" sizes="(max-width: 720px) 60vw, 520px" alt="Karura Forest: the model&#x27;s predicted land cover" loading="lazy">
-              <img src="/assets/images/projects/edm/nairobi-np-prediction.png" sizes="(max-width: 720px) 60vw, 520px" alt="Nairobi National Park: predicted land cover">
-              <img src="/assets/images/projects/edm/india-test-predictions.png" sizes="(max-width: 720px) 60vw, 520px" alt="Test predictions on Indian imagery">
-            </div>
-          </div>
-      </div>
-    </article>
+<div class="gap" style="--rows: 1" aria-hidden="true"></div>
 
-    <article class="sheet area entry entry--project" id="landcover" style="--h: 2">
-      <header class="sheet entry__meta" style="--w: 3">
-        <h3>Geospatial Deep Learning: Land-Cover Classification</h3>
-        <div class="tags"><span class="tag">Python</span><span class="tag">CNN</span><span class="tag">rasterio</span><span class="tag">geopandas</span></div>
-      </header>
-      <div class="area entry__body">
-          <div class="sheet entry__text">
-            <p>Built and hyperparameter-tuned a CNN for satellite land-cover classification, and a geospatial pre-processing pipeline to extend it to a real, unlabelled region (Kajiado County, Kenya).</p>
-            <ul>
-            <li>Datasets used:
-            <ul><li><a href="https://github.com/phelber/EuroSAT">‘EuroSAT: Land Use and Land Cover Classification with Sentinel-2’</a> by phelber</li></ul></li>
-            </ul>
-          </div>
-      </div>
-    </article>
-
-    <article class="sheet area entry entry--project" id="iucn" style="--h: 2">
-      <header class="sheet entry__meta" style="--w: 3">
-        <h3><a href="/projects/iucn-dd-species/">IUCN Data-Deficient Species Classifier</a></h3>
-        <div class="tags"><span class="tag">Python</span><span class="tag">scikit-learn</span><span class="tag">pandas</span><span class="tag">Machine Learning</span><span class="tag">data visualisation</span></div>
-        <a class="entry__go" href="/projects/iucn-dd-species/"><span class="visually-hidden">See the full project</span><span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"/></svg></span></a>
-      </header>
-      <div class="area entry__body">
-          <div class="sheet entry__text">
-            <p>Trained a Random Forest classifier predicting IUCN Red List threat status for Kenya's Data-Deficient species (35,000+ records).</p>
-            <ul>
-            <li>Resources used:
-            <ul><li>Inspired by <a href="https://www.nature.com/articles/s42003-022-03638-9">‘More than half of data deficient species predicted to be threatened by extinction’</a> by Borgelt et al.</li><li>Spatial data download by <a href="https://www.iucnredlist.org/resources/spatial-data-download">IUCN</a></li></ul></li>
-            </ul>
-          </div>
-          <div class="sheet frame reel">
-            <div class="reel__track" tabindex="0" role="region" aria-label="IUCN Data-Deficient Species Classifier: 3 images, scroll sideways">
-              <img src="/assets/images/projects/iucn/model_kenya_by_class.png" sizes="(max-width: 720px) 60vw, 520px" alt="Predicted threat status of Kenya&#x27;s Data-Deficient species, by class" loading="lazy">
-              <img src="/assets/images/projects/iucn/model_feature_importance.png" sizes="(max-width: 720px) 60vw, 520px" alt="Random Forest feature importance" loading="lazy">
-              <img src="/assets/images/projects/iucn/model_rf_confusion.png" sizes="(max-width: 720px) 60vw, 520px" alt="Random Forest confusion matrix">
-            </div>
-          </div>
-      </div>
-    </article>
-
-    <article class="sheet area entry entry--project" id="power" style="--h: 2">
-      <header class="sheet entry__meta" style="--w: 3">
-        <h3><a href="/projects/price-of-power/">Kenya Power Pricing Analysis</a></h3>
-        <div class="tags"><span class="tag">Tableau</span><span class="tag">SQL</span><span class="tag">excel</span></div>
-        <a class="entry__go" href="/projects/price-of-power/"><span class="visually-hidden">See the full project</span><span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"/></svg></span></a>
-      </header>
-      <div class="area entry__body">
-          <div class="sheet entry__text">
-            <p>Built an interactive Tableau dashboard exploring electricity pricing, affordability, and the renewable-energy transition, synthesising government tariff schedules, household income data, and regional generation statistics.</p>
-          </div>
-          <div class="sheet frame reel">
-            <div class="reel__track" tabindex="0" role="region" aria-label="Kenya Power Pricing Analysis: 2 images, scroll sideways">
-              <img src="/assets/images/projects/ren/price-of-power-dashboard-preview.png" sizes="(max-width: 720px) 60vw, 520px" alt="Price of Power dashboard preview" loading="lazy">
-              <img src="/assets/images/projects/ren/bills.png" sizes="(max-width: 720px) 60vw, 520px" alt="A Kenya Power bill broken down" loading="lazy">
-            </div>
-          </div>
-      </div>
-    </article>
-  </div>
-</article>
-
-<article class="sheet area entry" id="jireh" style="--h: 2" data-snap>
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Full-time</p>
-    <h2>UX Researcher</h2>
-    <p class="entry__client">Jireh Health</p>
-    <p class="label entry__date">Apr ’25 – Sep ’26</p>
-    <p class="entry__about">Accessible healthcare-financing web app, serving 4 facilities and 1,800+ users.</p>
-    <div class="tags"><span class="tag">User Research</span><span class="tag">Prototyping</span><span class="tag">Accessibility</span><span class="tag">Mobile UI</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <p>Sole designer working from PM-defined acceptance criteria through to engineering handoff.</p>
-        <ul>
-        <li>Redesigned flows to:
-        <ul><li>cut median signup time from 5.2 to 2.1 mins (-59%).</li></ul></li>
-        <li>Led Jireh Health’s frontend design-system modernisation by:
-        <ul><li>introducing reusable primitives, semantic tokens, and consistent UI patterns</li><li>improving scalability and maintainability across mobile and web experiences.</li></ul></li>
-        <li>Developed an in-house prototyping tool that:
-        <ul><li>mirrors the deployed frontend</li><li>decouples UX testing from backend dependencies</li></ul></li>
-        </ul>
-        <a class="entry__go" href="/projects/jireh-health/"><span class="visually-hidden">See the full project</span><span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"/></svg></span></a>
-      </div>
-      <div class="sheet frame reel has-note">
-        <div class="reel__track" tabindex="0" role="region" aria-label="Jireh Health: 4 images, scroll sideways">
-          <span class="phone-frame"><img src="/assets/images/resume/jireh/jireh-phone-1.png" sizes="(max-width: 720px) 30vw, 160px" alt="Jireh home: a Cashback card showing KES 3,200 earned, with discounts and offers" loading="lazy"></span>
-          <span class="phone-frame"><img src="/assets/images/resume/jireh/jireh-phone-2.png" sizes="(max-width: 720px) 30vw, 160px" alt="My Jireh Circle: members around the user, with dependants below" loading="lazy"></span>
-          <span class="phone-frame"><img src="/assets/images/resume/jireh/jireh-phone-3.png" sizes="(max-width: 720px) 30vw, 160px" alt="Ask Jireh: ‘Hi Azadi, ask about your health records’"></span>
-          <img src="/assets/images/resume/jireh/jireh-photo.jpg" sizes="(max-width: 720px) 60vw, 520px" alt="Hand holding a printed Jireh Health flyer: ‘Lipa bill, pata ka-kitu!’">
-        </div><span class="note" aria-hidden="true">out in the world!</span>
-      </div>
-  </div>
-</article>
-
-<article class="sheet area entry entry--compact" id="unfccc" style="--h: 2" data-snap>
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Freelance</p>
-    <h2>Editorial Designer</h2>
-    <p class="entry__client">UNFCCC High-Level Champions</p>
-    <p class="label entry__date">Sep ’24</p>
-    <div class="tags"><span class="tag">Adobe InDesign</span><span class="tag">Editorial Design</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <p>Laid out a position paper for the official champions of the Paris Agreement.</p>
-        <a class="entry__go" href="/projects/african-energy-transition-minerals/"><span class="visually-hidden">See the full project</span><span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"/></svg></span></a>
-      </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="UNFCCC High-Level Champions: 4 images, scroll sideways">
-          <img src="/assets/images/projects/aetm/spread-01-cover.jpg" sizes="(max-width: 720px) 60vw, 520px" alt="Position paper cover: a hand holding a turquoise mineral" loading="lazy">
-          <img src="/assets/images/projects/aetm/spread-03-executive-summary.jpg" sizes="(max-width: 720px) 60vw, 520px" alt="Executive summary spread with an acacia tree photo" loading="lazy">
-          <img src="/assets/images/projects/aetm/spread-06-looking-forward.jpg" sizes="(max-width: 720px) 60vw, 520px" alt="Looking forward: five numbered priorities">
-          <img src="/assets/images/projects/aetm/spread-07-case-irma.jpg" sizes="(max-width: 720px) 60vw, 520px" alt="IRMA case study spread">
-        </div>
-      </div>
-  </div>
-</article>
-
-<article class="sheet area entry entry--compact" id="kwetu" style="--h: 2" data-snap>
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Freelance</p>
-    <h2>Branding &amp; Web Designer</h2>
-    <p class="entry__client">KWETU Pride</p>
-    <p class="label entry__date">Jun ’24</p>
-    <div class="tags"><span class="tag">Figma</span><span class="tag">Design Systems</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <p>LGBTQ+ professional network for building safer &amp; more inclusive career spaces across the African continent.</p>
-      </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="KWETU Pride: 3 images, scroll sideways">
-          <img src="/assets/images/resume/kwetu/kwetu-01.png" sizes="(max-width: 720px) 60vw, 520px" alt="KWETU Pride website home: ‘Because transparency &amp; accountability is how real change begins’ over a Nairobi skyline" loading="lazy">
-          <img src="/assets/images/resume/kwetu/kwetu-02.png" sizes="(max-width: 720px) 60vw, 520px" alt="KWETU Pride ‘Our Mission’ section over a photo of a plant-filled workspace with a mural" loading="lazy">
-          <span class="phone-frame"><img src="/assets/images/resume/kwetu/kwetu-03.png" sizes="(max-width: 720px) 30vw, 160px" alt="KWETU Pride mobile page: Insights from KWETUpride"></span>
-        </div>
-      </div>
-  </div>
-</article>
-
-<article class="sheet area entry" id="carnayo" style="--h: 2" data-snap>
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Freelance</p>
-    <h2>Mobile UI Designer</h2>
-    <p class="entry__client">CarNayo</p>
-    <p class="label entry__date">Jun ’24</p>
-    <p class="entry__about">Congolese ride-hailing app.</p>
-    <div class="tags"><span class="tag">Figma</span><span class="tag">ios</span><span class="tag">android</span><span class="tag">Design Systems</span><span class="tag">User Flow Mapping</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <ul>
-        <li>Designed end-to-end UI/UX covering separate driver and passenger journeys.</li>
-        <li>Built a design system optimised for low-bandwidth conditions and entry-level Android devices.</li>
-        <li>Unified two distinct user mental models, driver and passenger, within a single navigation structure.</li>
-        </ul>
-      </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="CarNayo: 4 images, scroll sideways">
-          <span class="phone-frame"><img src="/assets/images/resume/carnayo/carnayo-phone-1.png" sizes="(max-width: 720px) 30vw, 160px" alt="CarNayo passenger app: choosing a ride type on the map" loading="lazy"></span>
-          <span class="phone-frame"><img src="/assets/images/resume/carnayo/carnayo-phone-2.png" sizes="(max-width: 720px) 30vw, 160px" alt="CarNayo driver application: photos of the vehicle" loading="lazy"></span>
-          <span class="phone-frame"><img src="/assets/images/resume/carnayo/carnayo-phone-3.png" sizes="(max-width: 720px) 30vw, 160px" alt="CarNayo: meet your driver, with the trip details"></span>
-          <span class="phone-frame"><img src="/assets/images/resume/carnayo/carnayo-phone-4.png" sizes="(max-width: 720px) 30vw, 160px" alt="CarNayo: rate your trip"></span>
-        </div>
-      </div>
-  </div>
-</article>
-
-<article class="sheet area entry entry--compact" id="inable" style="--h: 2" data-snap>
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Freelance</p>
-    <h2>Editorial Designer</h2>
-    <p class="entry__client">inABLE</p>
-    <p class="label entry__date">May ’24</p>
-    <div class="tags"><span class="tag">Adobe InDesign</span><span class="tag">Accessibility</span><span class="tag">Editorial Design</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <p>Annual accessibility conference in Nairobi.</p>
-        <a class="entry__go" href="/projects/inclusive-africa-conference/"><span class="visually-hidden">See the full project</span><span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"/></svg></span></a>
-      </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="inABLE: 4 images, scroll sideways">
-          <img src="/assets/images/resume/inable/inable-cover.png" sizes="(max-width: 720px) 60vw, 520px" alt="Inclusive Africa Conference 2024 booklet cover" loading="lazy">
-          <img src="/assets/images/resume/inable/inable-mockup-1.png" sizes="(max-width: 720px) 60vw, 520px" alt="The booklet open on the founder&#x27;s welcome remarks" loading="lazy">
-          <img src="/assets/images/resume/inable/inable-mockup-2.png" sizes="(max-width: 720px) 60vw, 520px" alt="The booklet open on the keynote speakers">
-          <img src="/assets/images/resume/inable/inable-mockup-3.png" sizes="(max-width: 720px) 60vw, 520px" alt="The booklet open on testimonials">
-        </div>
-      </div>
-  </div>
-</article>
-
-<article class="sheet area entry entry--compact" id="ciff" style="--h: 2" data-snap>
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Freelance</p>
-    <h2>Editorial Designer</h2>
-    <p class="entry__client">Children's Investment Fund Foundation (CIFF)</p>
-    <p class="label entry__date">Dec ’23 – Feb ’24</p>
-    <div class="tags"><span class="tag">Adobe InDesign</span><span class="tag">Report Layout</span><span class="tag">Editorial Design</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <ul><li>Designed the official event report for the Children &amp; Youth Pavilion at COP27, commissioned by CIFF.</li></ul>
-        <a class="entry__go" href="/projects/children-youth-pavilion/"><span class="visually-hidden">See the full project</span><span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"/></svg></span></a>
-      </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="Children&#x27;s Investment Fund Foundation (CIFF): 4 images, scroll sideways">
-          <img src="/assets/images/resume/ciff/ciff-cover.png" sizes="(max-width: 720px) 60vw, 520px" alt="Children &amp; Youth Pavilion at COP27 report cover" loading="lazy">
-          <img src="/assets/images/resume/ciff/ciff-mockup-1.png" sizes="(max-width: 720px) 60vw, 520px" alt="The report open on the executive summary" loading="lazy">
-          <img src="/assets/images/resume/ciff/ciff-mockup-2.png" sizes="(max-width: 720px) 60vw, 520px" alt="The report open on the impact of the pavilion, in large statistics">
-          <img src="/assets/images/resume/ciff/ciff-mockup-3.png" sizes="(max-width: 720px) 60vw, 520px" alt="The report open on the background and steering committee">
-        </div>
-      </div>
-  </div>
-</article>
-
-<article class="sheet area entry entry--compact" id="lcoy" style="--h: 2" data-snap>
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Volunteer</p>
-    <h2>Comms Team Member</h2>
-    <p class="entry__client">LCOY Kenya</p>
-    <p class="label entry__date">Oct ’22</p>
-    <div class="tags"><span class="tag">Adobe Illustrator</span><span class="tag">Branding</span><span class="tag">Event Design</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <ul><li>Rebranded and produced event graphics for YOUNGO's annual Local Conference of Youth on Climate Change in Kenya.</li></ul>
-      </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="LCOY Kenya: 4 images, scroll sideways">
-          <img src="/assets/images/resume/lcoy/poster-participants-white.jpg" sizes="(max-width: 720px) 60vw, 520px" alt="LCOY Kenya 2022 participant call poster in green on white" loading="lazy">
-          <img src="/assets/images/resume/lcoy/poster-register-to-exhibit.jpg" sizes="(max-width: 720px) 60vw, 520px" alt="LCOY Kenya ‘Register to Exhibit!’ poster on dark green" loading="lazy">
-          <img src="/assets/images/resume/lcoy/poster-participants-green.jpg" sizes="(max-width: 720px) 60vw, 520px" alt="LCOY Kenya participant poster on mid green">
-          <img src="/assets/images/resume/lcoy/poster-participants-mint.jpg" sizes="(max-width: 720px) 60vw, 520px" alt="LCOY Kenya participant poster on mint">
-        </div>
-      </div>
-  </div>
-</article>
-
-<article class="sheet area entry entry--compact" id="afriyoccc" style="--h: 2" data-snap>
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Volunteer</p>
-    <h2>Volunteer</h2>
-    <p class="entry__client">African Youth Conference on Climate Change (AFRIYOCCC)</p>
-    <p class="label entry__date">Oct ’22</p>
-    <div class="tags"><span class="tag">Adobe InDesign</span><span class="tag">Editorial Design</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <ul><li>Designed the attendee resource pack and conference programme for the African Youth Conference on Climate Change.</li></ul>
-      </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="African Youth Conference on Climate Change (AFRIYOCCC): 3 images, scroll sideways">
-          <img src="/assets/images/resume/afriyoccc/mockup-learn-play-act.png" sizes="(max-width: 720px) 60vw, 520px" alt="Conference programme mockup: the Learn, Play and Act spread" loading="lazy">
-          <img src="/assets/images/resume/afriyoccc/mockup-background.png" sizes="(max-width: 720px) 60vw, 520px" alt="Resource pack mockup: the Background spread with a savannah photo" loading="lazy">
-          <img src="/assets/images/resume/afriyoccc/resource-pack-learn-play-act.webp" sizes="(max-width: 720px) 60vw, 520px" alt="Resource pack spread organised as Learn, Play and Act" loading="lazy">
-        </div>
-      </div>
-  </div>
-</article>
-
-<article class="sheet area entry entry--group" id="leja" style="--h: 2" data-snap>
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Full-time</p>
-    <h2>Leja</h2>
-    <p class="label entry__date">Feb ’22 – Jun ’25</p>
-    <p class="entry__about">B2B payments &amp; bookkeeping mobile app serving Kenyan MSMEs and CICO agents.</p>
-    <div class="tags"><span class="tag">Figma</span><span class="tag">mui</span><span class="tag">android</span><span class="tag">prototyping</span><span class="tag">User Research</span></div>
-  </header>
-  <div class="area entry__body">
-      <article class="sheet area entry entry--project" id="leja-product" style="--h: 2">
-        <header class="sheet entry__meta" style="--w: 3">
-          <h3>Product Designer</h3>
-          <p class="label entry__date">Nov ’22 – Jun ’25</p>
-          <a class="entry__go" href="/projects/leja-business-app/"><span class="visually-hidden">See the full project</span><span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"/></svg></span></a>
-        </header>
-        <div class="area entry__body">
-          <div class="sheet entry__text">
-            <ul>
-            <li>Owned onboarding, referral, and transaction-flow design end-to-end: research, design, developer handoff, and iteration based on usage.</li>
-            <li>Designed for a low-bandwidth, non-technical, non-English-dominant user base.</li>
-            <li>Partnered directly with developers and product managers to ship designs to real users, then iterated based on usability testing and product feedback.</li>
-            <li>Formally led a 2-person design/research team on a dedicated initiative, assigning work and owning outcomes while remaining hands-on in the craft.</li>
-            <li>Designed interactive prototypes for partnership presentations and product demos using Figma and the Adobe suite.</li>
-            <li>Championed accessibility and usability against W3C/WCAG 2.1 guidelines; produced clear design documentation to ease developer handoff.</li>
-            </ul>
-          </div>
-          <div class="sheet frame reel">
-            <div class="reel__track" tabindex="0" role="region" aria-label="Leja, Product Designer: 3 images, scroll sideways">
-              <span class="phone-frame"><img src="/assets/images/resume/leja-ui/leja-phone-1.png" sizes="(max-width: 720px) 30vw, 160px" alt="Leja Grow: grow your money with savings, loans and investments" loading="lazy"></span>
-              <span class="phone-frame"><img src="/assets/images/resume/leja-ui/leja-phone-2.png" sizes="(max-width: 720px) 30vw, 160px" alt="Leja loans: the loan limit and loan history" loading="lazy"></span>
-              <span class="phone-frame"><img src="/assets/images/resume/leja-ui/leja-phone-3.png" sizes="(max-width: 720px) 30vw, 160px" alt="Leja savings goal: 25% closer to a goal of new stock"></span>
-            </div>
-          </div>
-        </div>
-      </article>
-      <article class="sheet area entry entry--project" id="leja-associate" style="--h: 2">
-        <header class="sheet entry__meta" style="--w: 3">
-          <h3>Design Associate</h3>
-          <p class="label entry__date">Feb – Oct ’22</p>
-        </header>
-        <div class="area entry__body">
-          <div class="sheet entry__text">
-            <p>Graphics and branding: campaign and social ads, merchandise and event stands.</p>
-          </div>
-          <div class="sheet frame reel">
-            <div class="reel__track" tabindex="0" role="region" aria-label="Leja, Design Associate: 6 images, scroll sideways">
-              <img src="/assets/images/resume/leja/LDA4.png" sizes="(max-width: 720px) 60vw, 520px" alt="Two Leja users posing with a pink social-media photo frame" loading="lazy">
-              <img src="/assets/images/resume/leja/LDA3.png" sizes="(max-width: 720px) 60vw, 520px" alt="Leja exhibition stand with a pull-up banner: ‘The ultimate finance app for MSMEs in Africa’" loading="lazy">
-              <img src="/assets/images/resume/leja/LDA1.png" sizes="(max-width: 720px) 60vw, 520px" alt="Leja tote bag printed with ‘Transforming lives one business at a time’">
-              <img src="/assets/images/resume/leja/LDA2.png" sizes="(max-width: 720px) 60vw, 520px" alt="Branded Leja water bottle and merchandise">
-              <img src="/assets/images/resume/leja/event-stand.jpg" sizes="(max-width: 720px) 60vw, 520px" alt="A visitor at a Leja event backdrop">
-              <img src="/assets/images/resume/leja/ad-hustle-mode.png" sizes="(max-width: 720px) 60vw, 520px" alt="Leja M-Pesa promotion ad: ‘Hustle mode activated!’">
-            </div>
-          </div>
-        </div>
-      </article>
-  </div>
-</article>
-
-<article class="sheet area entry entry--compact" id="qoba" style="--h: 2" data-snap>
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Freelance</p>
-    <h2>Branding Designer</h2>
-    <p class="entry__client">Qoba</p>
-    <p class="label entry__date">Jan ’22</p>
-    <div class="tags"><span class="tag">Adobe Illustrator</span><span class="tag">Brand Identity</span><span class="tag">SaaS Branding</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <p>An SME point-of-sale SaaS product.</p>
-      </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="Qoba: 3 images, scroll sideways">
-          <img src="/assets/images/resume/qoba/qoba-01.png" sizes="(max-width: 720px) 60vw, 520px" alt="Qoba logo significance sheet: the wordmark with notes on each letterform" loading="lazy">
-          <img src="/assets/images/resume/qoba/qoba-02.png" sizes="(max-width: 720px) 60vw, 520px" alt="Qoba logo in colour: black, blue and reversed versions" loading="lazy">
-          <img src="/assets/images/resume/qoba/qoba-03.png" sizes="(max-width: 720px) 60vw, 520px" alt="Qoba social post on blue: ‘9 out of 10 startups don&#x27;t make it’">
-        </div>
-      </div>
-  </div>
-</article>
-
-<article class="sheet area entry entry--compact" id="sid" style="--h: 2" data-snap>
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Freelance</p>
-    <h2>Editorial Designer</h2>
-    <p class="entry__client">Society for International Development (SID)</p>
-    <p class="label entry__date">Oct – Dec ’21</p>
-    <div class="tags"><span class="tag">Adobe InDesign</span><span class="tag">Complex Layouts</span><span class="tag">Data Visualisation</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <ul>
-        <li>Laid out a 300-page collaborative research publication for the Kenya Energy Atlas, a joint SID–government initiative.</li>
-        <li>Managed complex layouts integrating maps, charts, and long-form academic text across multiple thematic chapters.</li>
-        </ul>
-        <a class="entry__go" href="/projects/kenya-energy-atlas/"><span class="visually-hidden">See the full project</span><span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"/></svg></span></a>
-      </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="Society for International Development (SID): 4 images, scroll sideways">
-          <img src="/assets/images/projects/efw/EFW hero mockup.png" sizes="(max-width: 720px) 60vw, 520px" alt="Kenya Energy Atlas mockup" loading="lazy">
-          <img src="/assets/images/projects/efw/ch11-woodfuel-use.jpg" sizes="(max-width: 720px) 60vw, 520px" alt="Woodfuel use infographic on a green page" loading="lazy">
-          <img src="/assets/images/projects/efw/ch02-firewood-solar-lighting.jpg" sizes="(max-width: 720px) 60vw, 520px" alt="Bar charts of firewood and solar use for lighting by county">
-          <img src="/assets/images/projects/efw/infographic-regional-power-map.jpg" sizes="(max-width: 720px) 60vw, 520px" alt="Map of interconnected power projects in Eastern Africa">
-        </div>
-      </div>
-  </div>
-</article>
-
-<article class="sheet area entry entry--compact" id="belva-homes" style="--h: 2" data-snap>
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Freelance</p>
-    <h2>Branding Designer</h2>
-    <p class="entry__client">Belva Homes</p>
-    <p class="label entry__date">Jul ’21</p>
-    <div class="tags"><span class="tag">Adobe Illustrator</span><span class="tag">Brand Identity</span><span class="tag">Logo Design</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <p>A luxury residential real estate company in Nairobi.</p>
-      </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="Belva Homes: 4 images, scroll sideways">
-          <img src="/assets/images/resume/belva-homes/belva-homes-01.png" sizes="(max-width: 720px) 60vw, 520px" alt="The Belva Homes logo family: primary and secondary logos, submark and favicon" loading="lazy">
-          <img src="/assets/images/resume/belva-homes/belva-homes-02.png" sizes="(max-width: 720px) 60vw, 520px" alt="Belva Homes letterhead with the gold line logo" loading="lazy">
-          <img src="/assets/images/resume/belva-homes/belva-homes-03.png" sizes="(max-width: 720px) 60vw, 520px" alt="Belva Homes pattern in gold on dark brown">
-          <img src="/assets/images/resume/belva-homes/belva-homes-04.png" sizes="(max-width: 720px) 60vw, 520px" alt="Belva Homes material swatches in a hand, beside the logo on a reception wall">
-        </div>
-      </div>
-  </div>
-</article>
-
-<article class="sheet area entry entry--compact" id="lizopendwa" style="--h: 2" data-snap>
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Freelance</p>
-    <h2>Branding Designer</h2>
-    <p class="entry__client">Lizopendwa</p>
-    <p class="label entry__date">May – Jun ’21</p>
-    <div class="tags"><span class="tag">Adobe Illustrator</span><span class="tag">Brand Identity</span><span class="tag">Product Design</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <p>Kenyan brass jewellery brand.</p>
-      </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="Lizopendwa: 3 images, scroll sideways">
-          <img src="/assets/images/resume/lizopendwa/lizopendwa-01.png" sizes="(max-width: 720px) 60vw, 520px" alt="Introducing Lizopendwa Jewellery: the logo among leaves and soft colour shapes" loading="lazy">
-          <img src="/assets/images/resume/lizopendwa/lizopendwa-03.png" sizes="(max-width: 720px) 60vw, 520px" alt="Lizopendwa brand pattern of leaves and soft colour shapes" loading="lazy">
-          <img src="/assets/images/resume/lizopendwa/lizopendwa-02.png" sizes="(max-width: 720px) 60vw, 520px" alt="Lizopendwa brand backdrop: a mint panel framed by leaves and colour shapes">
-        </div>
-      </div>
-  </div>
-</article>
-
-<article class="sheet area entry entry--compact" id="herbivore" style="--h: 2" data-snap>
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Full-time</p>
-    <h2>Graphics Designer &amp; Social Media Manager</h2>
-    <p class="entry__client">Herbivore Garden Center</p>
-    <p class="label entry__date">Jun – Dec ’20</p>
-    <div class="tags"><span class="tag">Adobe Illustrator</span><span class="tag">Social Media Design</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <p>Nairobi-based garden centre.</p>
-      </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="Herbivore Garden Center: 5 images, scroll sideways">
-          <img src="/assets/images/resume/herbivore/herbivore-01.png" sizes="(max-width: 720px) 60vw, 520px" alt="Herbivore Garden Center poster: Children&#x27;s Gardening Classes, with a girl potting a plant" loading="lazy">
-          <img src="/assets/images/resume/herbivore/herbivore-02.png" sizes="(max-width: 720px) 60vw, 520px" alt="Bromeliad Auction! post on terracotta, with a potted bromeliad" loading="lazy">
-          <img src="/assets/images/resume/herbivore/herbivore-03.png" sizes="(max-width: 720px) 60vw, 520px" alt="Bromeliad auction terms on cream, with the plant and its height">
-          <img src="/assets/images/resume/herbivore/herbivore-04.png" sizes="(max-width: 720px) 60vw, 520px" alt="Bromeliad Auction! post on dark green, with a potted bromeliad">
-          <img src="/assets/images/resume/herbivore/herbivore-05.png" sizes="(max-width: 720px) 60vw, 520px" alt="Second bromeliad auction terms on cream, with the plant and a close-up of its bracts">
-        </div>
-      </div>
-  </div>
-</article>
-
-<article class="sheet area entry entry--compact" id="belva" style="--h: 2" data-snap>
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Freelance</p>
-    <h2>Editorial Designer</h2>
-    <p class="entry__client">3408 Belva</p>
-    <p class="label entry__date">Feb ’20</p>
-    <div class="tags"><span class="tag">Adobe InDesign</span><span class="tag">Editorial Layout</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet entry__text">
-        <ul><li>Designed a property catalogue for a green-living residential development in Parklands, Nairobi.</li></ul>
-      </div>
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="3408 Belva: 6 images, scroll sideways">
-          <img src="/assets/images/resume/belva/cover.jpg" sizes="(max-width: 720px) 60vw, 520px" alt="3408 Belva catalogue cover: the logo on green with a gold hexagon pattern" loading="lazy">
-          <img src="/assets/images/resume/belva/brochure-mockup.jpg" sizes="(max-width: 720px) 60vw, 520px" alt="The catalogue shown closed and open" loading="lazy">
-          <img src="/assets/images/resume/belva/spread-architects-view.jpg" sizes="(max-width: 720px) 60vw, 520px" alt="Architect’s View spread, left page">
-          <img src="/assets/images/resume/belva/spread-salon-wellness.jpg" sizes="(max-width: 720px) 60vw, 520px" alt="Salon and Wellness Centre spread, right page">
-          <img src="/assets/images/resume/belva/spread-finishes.jpg" sizes="(max-width: 720px) 60vw, 520px" alt="Finishes spread, left page">
-          <img src="/assets/images/resume/belva/spread-fittings.jpg" sizes="(max-width: 720px) 60vw, 520px" alt="Fittings spread, right page">
-        </div>
-      </div>
-  </div>
-</article>
-
-<article class="sheet area entry entry--compact" id="greenpeace" style="--h: 2" data-snap>
-  <header class="sheet entry__meta" style="--w: 3">
-    <p class="label">Volunteer</p>
-    <h2>Volunteer</h2>
-    <p class="entry__client">Greenpeace Africa – Kenya</p>
-    <div class="tags"><span class="tag">Adobe photoshop</span></div>
-  </header>
-  <div class="area entry__body">
-      <div class="sheet frame reel">
-        <div class="reel__track" tabindex="0" role="region" aria-label="Greenpeace Africa – Kenya: 4 images, scroll sideways">
-          <img src="/assets/images/resume/greenpeace/greenpeace-01.png" sizes="(max-width: 720px) 60vw, 520px" alt="World Hippopotamus Day post: a hippo&#x27;s head on bright green" loading="lazy">
-          <img src="/assets/images/resume/greenpeace/greenpeace-02.png" sizes="(max-width: 720px) 60vw, 520px" alt="Post: the threats to the hippo noted by the IUCN Red List" loading="lazy">
-          <img src="/assets/images/resume/greenpeace/greenpeace-03.png" sizes="(max-width: 720px) 60vw, 520px" alt="Post: KPLC&#x27;s switch to renewable energy, the Greenpeace Kenya take">
-          <img src="/assets/images/resume/greenpeace/greenpeace-04.png" sizes="(max-width: 720px) 60vw, 520px" alt="Recap post: Kenya Power&#x27;s plans to hybridise 23 remote diesel mini-grids with solar and wind">
-        </div>
-      </div>
-  </div>
-</article>
+<!-- ============ Education ============ -->
+<div class="sheet area cv-section" style="--h: 1">
+  <h2 id="education">Education</h2>
+</div>
+{% for e in collections.cv | cvCards("education") %}
+{{ cv.card(e, collections.cv) }}
+{% endfor %}

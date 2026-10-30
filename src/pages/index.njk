@@ -1,14 +1,17 @@
 ---
 layout: layouts/base.njk
-description: Azadi Gathui, data scientist and product designer. Portfolio of UX, data science, editorial and data visualisation work.
+eleventyComputed:
+  description: "Azadi Gathui, {{ site.role | lower | safe }}. Portfolio of UX, data science, editorial and data visualisation work."
 permalink: /
+scripts:
+  - flow
 tools:
-  - { name: scissors, edge: t, at: "--c: 11; --r: 1; --w: 3; --h: 1; --rot: -2deg; --tint: #d0453a; --cs: 4; --rs: 1; --ws: 3; --hs: 1" }
-  - { name: sticky note, edge: l, at: "--c: 1; --r: 14; --w: 1; --h: 1; --rot: -2deg; --tint: #d0453a" }
-  - { name: ruler, edge: r, at: "--c: 14; --r: 12; --w: 1; --h: 10; --rot: 1deg; --tint: #d0453a" }
-  - { name: pencil, edge: l, at: "--c: 1; --r: 34; --w: 1; --h: 3; --rot: 2deg; --tint: #d0453a" }
-  - { name: tape, edge: r, at: "--c: 14; --r: 40; --w: 1; --h: 2; --rot: -2deg; --tint: #d0453a; --cs: 6; --rs: 70; --ws: 1; --hs: 2" }
-  - { name: craft knife, edge: l, at: "--c: 1; --r: 48; --w: 1; --h: 3; --rot: -2deg; --tint: #d0453a" }
+  - { img: correction-tape, edge: r, at: "--c: 14; --r: 55; --rot: -2deg; --cs: 6; --rs: 86" }
+  - { img: earplugs, edge: l, at: "--c: 1; --r: 14; --rot: -2deg" }
+  - { img: mechanical-pencil, edge: r, at: "--c: 14; --r: 12; --rot: 1deg" }
+  - { img: icebear-cutter, edge: l, at: "--c: 1; --r: 34; --rot: 2deg" }
+  - { img: kneadable-eraser, edge: r, at: "--c: 14; --r: 40; --rot: -2deg; --cs: 6; --rs: 70" }
+  - { img: sharpener, edge: l, at: "--c: 1; --r: 48; --rot: -2deg" }
 ---
 <section class="sheet center" style="--h: 4" data-snap>
   <span class="label">{{ site.role }}</span>
@@ -19,9 +22,18 @@ tools:
 
 <div class="gap" style="--rows: 1" aria-hidden="true"></div>
 
+{#- A step's caption, and on hover the project that shows it, linked -#}
+{% macro proof(caption, slug, label, projects) -%}
+  <span class="flow__sub"><small>{{ caption }}</small>
+  {%- for p in projects %}{% if p.fileSlug == slug %}<a class="flow__proof" href="{{ p.url }}">{{ label }} &rarr;</a>{% endif %}{% endfor -%}
+  </span>
+{%- endmacro %}
+
 <!-- The whole workflow, from people to shipped screen: one person, end to end.
-     Each icon is a 2 × 2 frame (96-unit drawings, scaled to fit). -->
-<ol class="sheet area flow" style="--h: 4" aria-label="How I work, end to end" data-snap>
+     Each icon is a 2 × 2 frame (96-unit drawings, scaled to fit).
+     flow.js animates it as a pipeline; each step's caption gives way on
+     hover to the project that proves it. -->
+<ol class="sheet area flow" style="--x: 2; --w: 10; --h: 4" aria-label="How I work, end to end" data-snap>
   <li data-snap>
     <span class="frame flow__icon"><svg viewBox="0 0 96 96" aria-hidden="true">
       <!-- talk: a speech bubble with lines of text -->
@@ -34,7 +46,7 @@ tools:
       <circle cx="70" cy="64" r="6.5"/><path class="fill" d="M58 86c0-8 5.4-13 12-13s12 5 12 13"/>
       <circle class="fill" cx="48" cy="58" r="8"/><path class="fill" d="M33 86c0-10 6.7-16 15-16s15 6 15 16"/>
     </svg></span>
-    <div class="flow__text" data-snap><span class="label">01</span><strong>Research</strong><small>Talk to people, find the real problem</small></div>
+    <div class="flow__text" data-snap><strong>Research</strong>{{ proof("Find the real problem", "jireh-health", "Jireh Health", collections.projects) }}</div>
   </li>
   <li data-snap>
     <span class="frame flow__icon"><svg viewBox="0 0 96 96" aria-hidden="true">
@@ -47,7 +59,7 @@ tools:
       <ellipse class="fill" cx="66" cy="40" rx="18" ry="7"/>
       <path d="M48 52c0 3.9 8.1 7 18 7s18-3.1 18-7M48 64c0 3.9 8.1 7 18 7s18-3.1 18-7"/>
     </svg></span>
-    <div class="flow__text" data-snap><span class="label">02</span><strong>Data</strong><small>Collect &amp; clean datasets</small></div>
+    <div class="flow__text" data-snap><strong>Data</strong>{{ proof("Collect & clean", "iucn-dd-species", "IUCN species model", collections.projects) }}</div>
   </li>
   <li data-snap>
     <span class="frame flow__icon"><svg viewBox="0 0 96 96" aria-hidden="true">
@@ -58,7 +70,7 @@ tools:
       <path d="m38 28-8 8 8 8M58 28l8 8-8 8M52 24l-8 24"/>
       <path d="M24 53h12M40 53h8M52 53h16"/>
     </svg></span>
-    <div class="flow__text" data-snap><span class="label">03</span><strong>Models</strong><small>Statistics &amp; machine learning</small></div>
+    <div class="flow__text" data-snap><strong>Models</strong>{{ proof("Statistics & ML", "environmental-degradation-monitor", "Degradation monitor", collections.projects) }}</div>
   </li>
   <li data-snap>
     <span class="frame flow__icon"><svg viewBox="0 0 96 96" aria-hidden="true">
@@ -68,12 +80,12 @@ tools:
       <!-- line chart -->
       <path d="M14 30v20h40"/><path d="m16 46 9-8 8 4 10-11 9 4"/>
       <!-- donut -->
-      <circle cx="72" cy="40" r="9"/><path d="M72 31a9 9 0 0 1 8.6 11.7" stroke-width="4"/>
+      <circle cx="72" cy="40" r="9"/><path d="M72 31a9 9 0 0 1 8.6 11.7" stroke-width="3"/>
       <!-- bars and a number tile -->
-      <path d="M18 74V64M26 74V58M34 74V67M42 74V61M50 74V66" stroke-width="4"/>
+      <path d="M18 74V64M26 74V58M34 74V67M42 74V61M50 74V66" stroke-width="3"/>
       <rect x="60" y="58" width="22" height="16" rx="2"/><path d="M64 64h10M64 69h6"/>
     </svg></span>
-    <div class="flow__text" data-snap><span class="label">04</span><strong>Insight</strong><small>Analysis, dashboards &amp; reports</small></div>
+    <div class="flow__text" data-snap><strong>Insight</strong>{{ proof("Dashboards & reports", "price-of-power", "The cost of electricity", collections.projects) }}</div>
   </li>
   <li class="has-note" data-snap>
     <span class="frame flow__icon"><svg viewBox="0 0 96 96" aria-hidden="true">
@@ -87,7 +99,7 @@ tools:
       <path d="M69 39h8"/><rect class="soft" x="63" y="45" width="20" height="13"/>
       <path d="M63 64h20M63 70h13M70 79h6"/>
     </svg><span class="note note--right" aria-hidden="true">&hellip;to the screen!</span></span>
-    <div class="flow__text" data-snap><span class="label">05</span><strong>Design &amp; build</strong><small>Web &amp; mobile UI, shipped</small></div>
+    <div class="flow__text" data-snap><strong>Design &amp; build</strong>{{ proof("Ship the screen", "leja-business-app", "Leja business app", collections.projects) }}</div>
   </li>
 </ol>
 
