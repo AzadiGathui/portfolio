@@ -36,13 +36,13 @@
   /* The brand's three colours. Everything else below is a neutral between
      the first two, or one of them at an opacity. Signal red is for the one
      thing to look at (a highlighted series, a key figure): only as a mark,
-     a fill, a line or text 24px and up, never small text (3.6:1 on --mat). */
+     a fill, a line or text 24px and up, never small text (3.9:1 on --mat). */
   --brand-black: #1a1a1a;
   --brand-light: #e6e6e6;
   --signal: #e50000;
 
   --desk: #262626;          /* the table around the mat (texture later): a step lighter than it */
-  --mat: var(--brand-black);   /* black self-healing mat */
+  --mat: #121212;           /* black self-healing mat: a step darker than the brand black, so frames and text stand clear of it */
   --mat-line: rgba(255, 255, 255, 0.06);   /* very light: content stands out */
   --mat-print: rgba(255, 255, 255, 0.32);  /* the mat's printed numbers and ticks */
   --frame: #222222;         /* placeholder hatching */
@@ -417,81 +417,108 @@ body {
 .center h1 { max-width: 14em; margin-inline: auto; }   /* a hero is the same h1, centred */
 
 /* ------------------------------------------------------------------
-   Process (homepage hero): five steps, research to shipped UI, printed
-   on a dark strip of folded card lying on the mat, a little askew. Panels
-   alternate light and shade (the folds); a dashed ink line joins the
-   steps' nodes from first to last. The strip is an object on the mat,
-   not on its grid. On a phone it is the same strip, too long for the
-   mat: it runs off the edge to the screen's, and slides sideways.
+   Process (homepage hero): five steps, research to shipped UI, on a
+   strip printed on the mat: the mat's colour without its grid, panels
+   on the grid's squares, a hairline rail along their top edge.
+   Nothing is boxed: each step is an icon, a mono title and a caption.
+   With flow.js the rail fills and the steps light up one after another
+   (the step being shown goes white, the rest stay grey); without it, or
+   with reduced motion, the strip is as printed, every step drawn. On a
+   phone it is too long for the mat: it runs off the edge to the
+   screen's, and slides sideways.
    ------------------------------------------------------------------ */
 .sheet.flow {
   --node: calc(var(--cell) * 1.15);
-  display: flex;
-  justify-content: center;
+  --lit: #fff;
+  position: relative;
   list-style: none;
   margin: 0;
-  padding-block: calc(var(--cell) * 0.5);
-  rotate: -1.2deg;
   /* dark: the strip's paper and ink are the frames' greys and the mat's text */
-  --paper: var(--frame-2);
-  --paper-fold: var(--frame);
+  --paper: var(--mat);
+  --paper-fold: var(--frame-2);
   --ink: var(--text);
   --ink-2: var(--text-2);
 }
 .flow li {
   position: relative;
-  flex: none;
-  width: calc(var(--cell) * 2);
-  padding: calc(var(--cell) * 0.35) var(--space-2) calc(var(--cell) * 0.4);
-  background: linear-gradient(90deg, var(--paper), var(--paper-fold));
+  grid-column: span 2;      /* two squares wide, four tall: panel edges are grid lines */
+  grid-row: 1 / span 4;
+  padding: calc(var(--cell) * 0.4) var(--space-1) calc(var(--cell) * 0.4);
+  background: var(--mat);     /* the mat's colour without its grid; its left edge is the grid line it covers */
+  box-shadow: inset 1px 0 0 var(--mat-line);
   color: var(--ink);
   text-align: center;
-  box-shadow: var(--lift-2);
 }
-.flow li:nth-child(even) { background: linear-gradient(90deg, var(--paper-fold), var(--paper)); }
-/* the line: from the node to each panel edge, so it runs node to node */
-.flow li::before {
+/* the rail: a track along the top edge, and what has been reached on it */
+.flow li::before, .flow li::after {
   content: "";
   position: absolute;
-  top: calc(var(--cell) * 0.35 + var(--node) / 2);
-  left: 0;
-  right: 0;
-  border-top: 1px dashed var(--ink-2);
+  inset: 0 0 auto;
+  height: 2px;
 }
-.flow li:first-child::before { left: 50%; }
-.flow li:last-child::before { right: 50%; }
-.sheet.flow .flow__icon {     /* the node: a disc on the line */
-  position: relative;
+.flow li::before { background: var(--rule); }
+.flow li::after { background: var(--lit); transform-origin: left; }
+.sheet.flow .flow__icon {     /* the icon alone: no frame, no disc */
   width: var(--node);
   height: var(--node);
   margin: 0 auto;
   padding: 0;
-  border: 2px solid var(--ink);
-  background: var(--paper);
+  border: 0;
+  background: none;
   box-shadow: none;
   place-items: center;
 }
-.flow__icon svg { width: 70%; height: 70%; fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.flow__icon svg { width: 100%; height: 100%; fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .flow__icon .fill { fill: var(--paper); }          /* a shape that covers what is behind it */
 .flow__icon .soft { fill: var(--paper-fold); stroke: none; }
-.flow__text { padding-top: var(--space-2); }
-.flow__text .label { color: var(--ink-2); }
-.flow__text strong { display: block; font-weight: 600; }
-.flow__text small { display: block; color: var(--ink-2); font-size: var(--text-sm); line-height: var(--lh-title); }
+.flow__text { display: grid; justify-items: center; padding-top: var(--space-3); }
+.flow__text .label { color: var(--ink-2); }        /* the number, in mono */
+.flow__text strong { display: block; font: 400 var(--text-xs)/var(--lh-title) var(--f-mono); letter-spacing: var(--track-caps); text-transform: uppercase; }
+.flow__text small { display: block; font-size: var(--text-sm); line-height: var(--lh-title); }
+/* the caption in the body text's colour; on hover it gives way to the
+   project that shows the step (the links stay in the page for keyboard
+   and screen readers, and show on focus) */
+.flow__sub { display: grid; justify-items: center; }
+.flow__sub > * { grid-area: 1 / 1; }
+.flow__proof { color: var(--lit); text-decoration: underline; text-underline-offset: 3px; font-size: var(--text-sm); line-height: var(--lh-title); opacity: 0; pointer-events: none; }
+.flow li:is(:hover, :focus-within, .is-held) .flow__proof { opacity: 1; pointer-events: auto; }
+.flow li:is(:hover, :focus-within, .is-held) .flow__sub small { opacity: 0; }
 .flow .note { color: var(--text); }
+
+/* the pipeline, running (flow.js adds .is-live): steps ahead wait grey and
+   undrawn, those behind are done, the one being shown is white */
+.flow.is-live li:not(.is-done, .is-active)::after { transform: scaleX(0); }
+.flow.is-live li:not(.is-done, .is-active) :is(.flow__icon, .flow__text) { opacity: 0.35; }
+.flow.is-live li.is-done :is(.flow__icon, .flow__text) { opacity: 0.65; }
+.flow.is-live li.is-active .flow__icon svg { stroke: var(--lit); }
+.flow.is-live li.is-active :is(.label, strong, small) { color: var(--lit); }
+.flow.is-live li .flow__icon svg * { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.flow.is-live li:not(.is-done, .is-active) .flow__icon svg * { stroke-dashoffset: 1; }
+.flow.is-live li:not(.is-done, .is-active) .flow__icon svg :is(.fill, .soft) { opacity: 0; }
+.flow.is-live li:is(:hover, :focus-within, .is-held) :is(.flow__icon, .flow__text) { opacity: 1; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .flow__sub small, .flow__proof { transition: opacity var(--dur) var(--ease); }
+  .flow.is-live li::after { transition: transform 700ms var(--ease-in-out); }
+  .flow.is-live :is(.flow__icon, .flow__text) { transition: opacity var(--dur-open) var(--ease); }
+  .flow.is-live .flow__icon svg { transition: stroke var(--dur-open) var(--ease); }
+  .flow.is-live :is(.label, strong, small) { transition: color var(--dur-open) var(--ease); }
+  .flow.is-live li .flow__icon svg * { transition: stroke-dashoffset 900ms var(--ease-out) calc(var(--i, 0) * 45ms), opacity 500ms var(--ease) 500ms; }
+  .flow.is-live li:not(.is-done, .is-active) .flow__icon svg * { transition: none; }
+}
 
 @media (max-width: 720px) {
   /* runs past the mat's edge (band and desk) to the screen's; the panel
      cut off there is the sign there is more, as paper off a table would be */
   .sheet.flow {
+    display: flex;
     justify-content: flex-start;
     margin-right: calc(-1 * (var(--band) + var(--space-2)));
     overflow-x: auto;
     scroll-snap-type: x proximity;
     scrollbar-width: none;
-    rotate: -2deg;
   }
-  .flow li { scroll-snap-align: start; }
+  .flow li { flex: none; width: calc(var(--cell) * 2); scroll-snap-align: start; }
 }
 
 /* ------------------------------------------------------------------
