@@ -41,25 +41,29 @@
   // reel or embed is as tall as it is, so whatever follows one is moved down
   // to the next line: every block starts a whole number of lines below the
   // top of the text. A collage starts on a mat line instead (whole squares),
-  // as it does anywhere else. One pass, top to bottom: moving one block
-  // moves every block after it.
+  // as it does anywhere else; so does a framed block (.panel), which is also
+  // made whole squares tall, so all four of its edges lie on the mat's
+  // lines. One pass, top to bottom: moving one block moves every block
+  // after it.
   function keepRhythm(cell) {
     const line = parseFloat(getComputedStyle(content).getPropertyValue("--rhythm")) || 24;
     const matTop = content.getBoundingClientRect().top; // a mat line
     for (const prose of content.querySelectorAll(".prose")) {
       const box = prose.querySelector(":scope > .article-body") || prose;
       const blocks = [...box.children].filter((el) => getComputedStyle(el).position !== "absolute");
-      for (const el of blocks) el.style.removeProperty("margin-top");
+      for (const el of blocks) { el.style.removeProperty("margin-top"); el.style.removeProperty("min-height"); }
       const top = box.getBoundingClientRect().top + parseFloat(getComputedStyle(box).paddingTop);
       blocks.forEach((el, i) => {
         if (i === 0 || !el.offsetHeight) return;
         const style = getComputedStyle(el);
         // where the block's box is, without the baseline nudge (style.css) moving its text
         const nudge = style.translate === "none" ? 0 : parseFloat(style.translate.split(" ")[1]) || 0;
-        const isSpread = el.classList.contains("spread-grid");
-        const step = isSpread ? cell : line;
-        const past = ((el.getBoundingClientRect().top - nudge - (isSpread ? matTop : top)) % step + step) % step;
+        const isPanel = el.classList.contains("panel");   // a framed block: on the mat's lines, top and bottom
+        const onMat = isPanel || el.classList.contains("spread-grid");
+        const step = onMat ? cell : line;
+        const past = ((el.getBoundingClientRect().top - nudge - (onMat ? matTop : top)) % step + step) % step;
         if (past > 0.5 && step - past > 0.5) el.style.marginTop = `${parseFloat(style.marginTop) + step - past}px`;
+        if (isPanel) el.style.minHeight = `${Math.ceil(el.offsetHeight / cell - 0.01) * cell}px`;
       });
     }
   }
@@ -129,7 +133,10 @@
     // shorthand: CSS "span N" lives in grid-row-start, so setting only the end is ignored)
     const pad = getComputedStyle(sheet);
     let height = sheet.scrollHeight;
-    if (isEntry) {
+    // The facts too are measured from their rows: a team member's tooltip hangs below the last
+    // one (absolutely placed, hidden until hover) and scrollHeight would count it, leaving a
+    // square of empty table under the faces. The tooltip may cross the table's edge instead.
+    if (isEntry || sheet.classList.contains("facts")) {
       const { bottom } = contentBox(sheet);
       // padding-top is the start of the content, so content bottom + padding-bottom is the whole box.
       // Not scrollHeight: a closed row's hidden contents still count towards it

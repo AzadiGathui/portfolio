@@ -1,0 +1,62 @@
+{#- The research behind a case study: the sources (what was read, watched and
+    seen), lines that carry them down into one frame, and in the frame the
+    question they led to beside the key findings.
+
+    Everything comes from the page's front matter, so any case study can have
+    one:
+
+      research:
+        sources:      [{ title, image, alt?, url? }]   a source without a url is a photo of my own
+        timeline:     [{ title, points[] }]             the steps taken, shown above the sources (optional)
+        question:     the "how might we" the research led to
+        figure:       { src, alt, width }               a picture under the question (optional)
+        findings:     [{ title, detail? }]
+
+    Included through the oneLine filter (Markdown ends raw HTML at a blank line):
+      {% filter oneLine %}{% include "partials/study/research.njk" %}{% endfilter %}
+
+    Without scripts the sources are a plain grid, each with its title and
+    link. research.js gathers them into a pile that cycles, opens a source on
+    hover, focus or a tap, and can be paused (styles: "Research" in style.css). -#}
+{%- set r = research %}
+{%- if r.timeline %}
+<ol class="timeline">
+  {%- for s in r.timeline %}
+  <li class="timeline__step"><p class="timeline__t">{{ s.title }}</p>{% if s.points %}<ul class="timeline__list">{% for p in s.points %}<li>{{ p }}</li>{% endfor %}</ul>{% endif %}</li>
+  {%- endfor %}
+</ol>
+{%- endif %}
+<div class="rw" data-cycle="{{ r.cycle or 4 }}">
+  <ul class="rw__pile" role="list" aria-label="Research sources">
+    {%- for s in r.sources %}
+    <li class="rw__card" role="group" aria-label="{{ s.title }}">
+      <span class="rw__thumb"><img src="{{ s.image }}" alt="{{ s.alt or '' }}" sizes="(max-width: 720px) 60vw, 300px"></span>
+      <span class="rw__foot">
+        <span class="rw__text"><span class="rw__title">{{ s.title }}</span>{% if s.url %}<span class="rw__host">{{ s.url | host }}</span>{% endif %}</span>
+        {%- if s.url %}
+        <a class="icon-link rw__link" href="{{ s.url }}" target="_blank" rel="noopener noreferrer" aria-label="Open original source: {{ s.title }} (opens in a new tab)" title="Open source in a new tab"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M11 4h5v5M16 4l-7 7M14 11v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h4"/></svg></a>
+        {%- endif %}
+      </span>
+    </li>
+    {%- endfor %}
+  </ul>
+  <div class="rw__detail" hidden></div>
+  <button type="button" class="btn rw__pause" hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4v12M13 4v12"/></svg><span>Pause motion</span></button>
+  {% include "partials/study/flow.njk" %}
+</div>
+<div class="panel split">
+  <div class="split__lead">
+    <h3 class="question">{{ r.question }}</h3>
+    {%- if r.figure %}
+    <img class="question__fig" src="{{ r.figure.src }}" alt="{{ r.figure.alt or '' }}" style="--w: {{ r.figure.width or 248 }}" sizes="{{ r.figure.width or 248 }}px">
+    {%- endif %}
+  </div>
+  <div class="split__main">
+    <p class="label">Key findings</p>
+    <ol class="findings">
+      {%- for f in r.findings %}
+      <li class="finding"><span class="label">{{ "0" if loop.index < 10 }}{{ loop.index }}</span><div><p class="finding__t">{{ f.title }}</p>{% if f.detail %}<p class="caption">{{ f.detail }}</p>{% endif %}</div></li>
+      {%- endfor %}
+    </ol>
+  </div>
+</div>

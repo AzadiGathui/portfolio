@@ -129,17 +129,18 @@ module.exports = async function (eleventyConfig) {
   eleventyConfig.addFilter("currentYear", () => new Date().getFullYear());
 
   // Extracts h2 headings with id attributes from rendered HTML, used for sticky TOC
+  // A long heading can give the contents a shorter name: <h2 id="x" data-toc="Challenge">
   eleventyConfig.addFilter("tocEntries", (content) => {
-    const matches = [...content.matchAll(/<h2[^>]*\sid="([^"]+)"[^>]*>([\s\S]*?)<\/h2>/gi)];
-    return matches.map(([, id, html]) => ({
+    const matches = [...content.matchAll(/<h2([^>]*)\sid="([^"]+)"([^>]*)>([\s\S]*?)<\/h2>/gi)];
+    return matches.map(([, before, id, after, html]) => ({
       id,
-      text: html.replace(/<[^>]+>/g, "").trim(),
+      text: (`${before} ${after}`.match(/data-toc="([^"]+)"/) || [])[1] || html.replace(/<[^>]+>/g, "").trim(),
     }));
   });
 
   // ------------------------------------------------------------------
   // PHONE SCREENS: a row of mobile screens, each in the phone mockup with
-  // its step, title and caption beside it, in a reel (styles: "Reel" and
+  // its step, title and caption under it, in a reel (styles: "Reel" and
   // "Phone mockup" in style.css; previous / next buttons: reels.js).
   //
   //   {% phones "Fast Track screens" %}
@@ -153,9 +154,9 @@ module.exports = async function (eleventyConfig) {
     const text = [
       step && `<span class="label">${step}</span>`,
       title && `<strong>${title}</strong>`,
-      caption,
+      caption && `<span class="reel__text">${caption}</span>`,
     ].filter(Boolean).join(" ");
-    return `<figure class="reel__item"><span class="phone-frame"><img src="${escapeAttr(src)}" alt="${escapeAttr(alt)}" sizes="(max-width: 720px) 30vw, 160px" loading="lazy"></span>${text ? `<figcaption>${text}</figcaption>` : ""}</figure>`;
+    return `<figure class="reel__item"><span class="phone-frame"><img src="${escapeAttr(src)}" alt="${escapeAttr(alt)}" sizes="(max-width: 720px) 50vw, 220px" loading="lazy"></span>${text ? `<figcaption>${text}</figcaption>` : ""}</figure>`;
   });
 
   // Output goes on one line: markdown ends a raw HTML block at the first
@@ -165,6 +166,66 @@ module.exports = async function (eleventyConfig) {
     // tabindex: a scrolling region must be reachable by keyboard to be scrolled
     return `<div class="sheet frame reel"><div class="reel__track" tabindex="0" role="region" aria-label="${escapeAttr(label)}: ${phones.length} images, scroll sideways">${phones.join("")}</div></div>`;
   });
+
+  // ------------------------------------------------------------------
+  // CHAPTER: the head of a case study's section, centred on the page: a
+  // small label (optional), the heading, and a line or two under it
+  // (optional). One shortcode, so every case study's sections open the
+  // same way (styles: "Chapter" in style.css).
+  //
+  //   {% chapter { label: "The challenge", title: "…", id: "overview", toc: "Challenge", lede: "…" } %}
+  //
+  // id: the heading's anchor (it then appears in the contents); toc: a
+  // shorter name for it there. Output is one line: Markdown ends raw HTML
+  // at the first blank line.
+  // ------------------------------------------------------------------
+  eleventyConfig.addShortcode("chapter", ({ label, title = "", id, toc, lede } = {}) =>
+    `<header class="chapter">${label ? `<p class="label">${label}</p>` : ""}<h2${id ? ` id="${escapeAttr(id)}"` : ""}${toc ? ` data-toc="${escapeAttr(toc)}"` : ""}>${title}</h2>${lede ? `<p class="chapter__lede">${lede}</p>` : ""}</header>`
+  );
+
+  // "https://www.example.org/reports/x?y=1" → "example.org": a link's site, for a source's caption
+  eleventyConfig.addFilter("host", (url) => {
+    try { return new URL(url).hostname.replace(/^www\./, ""); } catch { return ""; }
+  });
+
+  // ------------------------------------------------------------------
+  // ANNOTATED SCREEN: one tall phone screen cut into slices (one per region
+  // of the screen), each with the note that explains it. A note is the
+  // slice's <figcaption>, so it is real text, tied to its slice by markup
+  // (not by pixel offsets that could drift), and on a phone it simply drops
+  // below the slice. reveal.js shows each note as its slice scrolls into
+  // view, and keeps it. Styles: "Annotated screen" in style.css.
+  //
+  //   {% annotated "Home screen, annotated" %}
+  //     {% region { src: "…", alt: "…", w: 288, x: 0, side: "l", note: "Every shilling is visible." } %}
+  //   {% endannotated %}
+  //
+  // w: the slice's width in the screen's own pixels (a 320px screen); x: where
+  // its left edge is, from the screen's left edge less its 16px padding (a
+  // slice that hangs out of the phone has a negative x); edge: "first" or
+  // "last" for the slices that carry the phone's rounded top or bottom.
+  // ------------------------------------------------------------------
+  eleventyConfig.addShortcode("region", ({ src, alt = "", w = 288, x = 0, side = "l", note, edge } = {}) => {
+    const mods = [edge && `annot__region--${edge}`, note && `annot__region--${side}`].filter(Boolean).map((m) => ` ${m}`).join("");
+    return `<figure class="annot__region${mods}" style="--w: ${w}; --x: ${x}"><div class="annot__shot"><span class="annot__img"><img src="${escapeAttr(src)}" alt="${escapeAttr(alt)}" sizes="(max-width: 720px) 90vw, 520px"></span></div>${note ? `<figcaption class="annot__note">${note}</figcaption>` : ""}</figure>`;
+  });
+
+  eleventyConfig.addPairedShortcode("annotated", (content, label = "Screen") => {
+    const regions = content.split("\n").map((line) => line.trim()).filter(Boolean);
+    return `<div class="annot" role="group" aria-label="${escapeAttr(label)}">${regions.join("")}</div>`;
+  });
+
+  // Collapses a block of HTML to one line, so a template written readably (an
+  // {% include %} of a figure with many parts) can sit in a case study: Markdown
+  // ends a block of raw HTML at its first blank line.
+  //
+  //   {% filter oneLine %}{% include "partials/jireh/wall.njk" %}{% endfilter %}
+  //
+  // A filter's result is escaped like any other output unless it is marked safe
+  // (it is our own markup, from our own include), hence markSafe. nunjucks is
+  // Eleventy's own template engine, so it is always installed beside it.
+  const { markSafe } = require("nunjucks").runtime;
+  eleventyConfig.addFilter("oneLine", (html) => markSafe(String(html).replace(/\s*\n\s*/g, " ").trim()));
 
   // ------------------------------------------------------------------
   // TABLES: every bare <table> (the ones written in the case studies; a table

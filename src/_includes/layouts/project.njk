@@ -1,7 +1,7 @@
 ---
 layout: layouts/base.njk
 readingBar: true
-scripts: [reels, reading-bar, spread-zoom]
+scripts: [reels, reading-bar, spread-zoom, reveal, faces, research]
 tools:
   - { img: kneadable-eraser, edge: r, at: "--c: 14; --r: 4; --rot: 4deg" }
   - { img: mechanical-pencil, edge: l, at: "--c: 1; --r: 9; --rot: -1deg" }
@@ -20,7 +20,8 @@ tools:
 
 <header class="sheet" style="--w: 10; --h: 4" data-snap>
   <span class="label">{{ industry }}</span>
-  <h1>{{ title }}{% if titleSup %}<sup class="title-sup">{{ titleSup }}</sup>{% endif %}</h1>
+  {#- headline (optional): the page's own heading, when it differs from the title the cards and pager use #}
+  <h1>{{ headline or title }}{% if titleSup %}<sup class="title-sup">{{ titleSup }}</sup>{% endif %}</h1>
   <p>{{ description }}</p>
 </header>
 
@@ -28,7 +29,7 @@ tools:
   <div class="frame frame--plain"><img src="{{ coverImage }}" alt="" sizes="(max-width: 720px) 90vw, 880px" loading="eager"{% if coverPosition %} style="object-position: {{ coverPosition }}"{% endif %}></div>
   {%- if thumbnail %}
   {%- if thumbnailKind == 'phone' and mockupImage %}
-  <span class="card__art card__art--phone"><span class="phone-frame"><img src="{{ mockupImage }}" alt="" sizes="(max-width: 720px) 30vw, 160px" loading="eager"></span></span>
+  <span class="card__art card__art--phone"><span class="phone-frame"><img src="{{ mockupImage }}" alt="" sizes="(max-width: 720px) 30vw, 216px" loading="eager"></span></span>
   {%- else %}
   <span class="card__art card__art--{{ thumbnailKind or 'print' }}"><img src="{{ thumbnail }}" alt="" sizes="220px" loading="eager"></span>
   {%- endif %}
@@ -42,20 +43,41 @@ tools:
   {%- if platform %}<div><dt class="label">Platform</dt><dd>{{ platform }}</dd></div>{% endif %}
   {%- if deliverables %}<div><dt class="label">Deliverables</dt><dd>{{ deliverables }}</dd></div>{% endif %}
   {%- if team %}
-  {#- team (optional): the people who did the work with me: [{ name, role, url? }] #}
-  <div><dt class="label">Team</dt><dd><ul class="team">
-    {%- for member in team %}
-    <li>{% if member.url %}<a href="{{ member.url }}" rel="noopener">{{ member.name }}</a>{% else %}{{ member.name }}{% endif %} <span class="team__role">{{ member.role }}</span></li>
-    {%- endfor %}
-  </ul></dd></div>
+  {#- team (optional): the people who did the work with me: [{ name, role, url?, photo? }].
+      With a photo for everyone, the team is a row of faces: each shows its name and role
+      under it on hover, focus or a tap, linked to the person's profile (faces.js).
+      Without photos, a list of names and roles. #}
+  {%- set faces = true %}
+  {%- for member in team %}{% if not member.photo %}{% set faces = false %}{% endif %}{% endfor %}
+  <div><dt class="label">Team</dt><dd>
+    {%- if faces %}
+    <ul class="faces">
+      {%- for member in team %}
+      <li class="face">
+        <{% if member.url %}a href="{{ member.url }}" rel="noopener"{% else %}span tabindex="0"{% endif %} class="face__link" aria-label="{{ member.name }}, {{ member.role }}">
+          <span class="face__img"><img src="{{ member.photo }}" alt="" width="56" height="56" sizes="56px" loading="eager"></span>
+          <span class="face__tip"><span class="face__card"><span class="face__name">{{ member.name }}</span><span class="face__role">{{ member.role }}</span></span></span>
+        </{% if member.url %}a{% else %}span{% endif %}>
+      </li>
+      {%- endfor %}
+    </ul>
+    {%- else %}
+    <ul class="team">
+      {%- for member in team %}
+      <li>{% if member.url %}<a href="{{ member.url }}" rel="noopener">{{ member.name }}</a>{% else %}{{ member.name }}{% endif %} <span class="team__role">{{ member.role }}</span></li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+  </dd></div>
   {%- endif %}
 </dl>
 
 <div class="gap" aria-hidden="true"></div>
 
 <!-- The story: contents on the left stick while the body scrolls -->
-<div class="sheet area study" data-snap>
-  {%- if toc.length %}
+<div class="sheet area study{% if sidebar == false %} study--centred{% endif %}" data-snap>
+  {#- sidebar: false drops the contents column and lets the story run the full width, its headings and text in a centred column (the contents still open from the reading bar on a phone) #}
+  {%- if toc.length and sidebar != false %}
   <nav class="toc" aria-label="On this page">
     <ol>
       {%- for item in toc %}

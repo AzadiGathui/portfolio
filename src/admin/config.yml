@@ -36,6 +36,10 @@ collections:
       - { label: "Title", name: title, widget: string }
       - { label: "Title Superscript", name: titleSup, widget: string, required: false,
           hint: "Small raised text after the project page title, e.g. a year or edition (2024, COP27)." }
+      - { label: "Page Heading", name: headline, widget: string, required: false,
+          hint: "The big heading on the project page, when it should differ from the Title (the Title is what the homepage cards and the next/previous links use)." }
+      - { label: "Full-width Story", name: sidebar, widget: boolean, default: true, required: false,
+          hint: "Switch off to drop the contents list beside the story: it then runs the full width, with its headings and text in a centred column." }
       - { label: "Tagline", name: tagline, widget: string,
           required: false,
           hint: "Not shown on the site at the moment: the description is shown under the title instead." }
