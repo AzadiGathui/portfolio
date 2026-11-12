@@ -1,12 +1,14 @@
-// Tap-to-zoom for publication spreads.
-// Tapping a spread opens it full screen at the best resolution the build made.
+// Tap-to-zoom for publication spreads, and for the pictures a narrow screen
+// shows smaller than they are (a page marks those img[data-enlarge]).
+// Tapping one opens it full screen at the best resolution the build made.
 // Tap the image to zoom in on the spot you tapped, drag to look around, and tap
 // again to fit it back to the screen. Pinch-zoom still works on top of that.
 (function () {
-  var images = document.querySelectorAll('.spread-grid img');
+  var images = document.querySelectorAll('.spread-grid img, img[data-enlarge]');
   if (!images.length || typeof HTMLDialogElement !== 'function') return;
 
   var ZOOM = 2.5; // how much bigger than "fit to screen" a tap makes it
+  var narrow = window.matchMedia('(max-width: 860px)'); // the same break as the page's miniatures (style.css)
 
   var dialog = document.createElement('dialog');
   dialog.className = 'zoom';
@@ -30,7 +32,7 @@
     var parts = copy.tagName === 'IMG' ? [copy] : [...copy.querySelectorAll('source, img')];
     parts.forEach(function (el) {
       el.setAttribute('sizes', '(max-width: 768px) 300vw, 100vw');
-      ['style', 'class', 'loading', 'role', 'tabindex', 'aria-label'].forEach(function (a) { el.removeAttribute(a); });
+      ['style', 'class', 'loading', 'role', 'tabindex', 'aria-label', 'data-enlarge', 'data-reveal'].forEach(function (a) { el.removeAttribute(a); });
     });
 
     stage.replaceChildren(copy);
@@ -80,17 +82,36 @@
     current = null;
   });
 
-  // Each spread becomes a button: tappable, focusable, and announced as one
+  // A spread is always a button: tappable, focusable, and announced as one. A
+  // picture marked data-enlarge is one only on a narrow screen, where the page
+  // shows it smaller than the screen it came from; wide, it is already at size,
+  // so it stays a plain picture (no extra tab stops, no zoom cursor).
+  function armed(img) {
+    return !img.hasAttribute('data-enlarge') || narrow.matches;
+  }
+
+  function sync() {
+    images.forEach(function (img) {
+      if (armed(img)) {
+        img.tabIndex = 0;
+        img.setAttribute('role', 'button');
+        img.setAttribute('aria-label', 'Enlarge: ' + img.alt);
+      } else {
+        ['tabindex', 'role', 'aria-label'].forEach(function (a) { img.removeAttribute(a); });
+      }
+    });
+  }
+
   images.forEach(function (img) {
-    img.tabIndex = 0;
-    img.setAttribute('role', 'button');
-    img.setAttribute('aria-label', 'Enlarge: ' + img.alt);
-    img.addEventListener('click', function () { open(img); });
+    img.addEventListener('click', function () { if (armed(img)) open(img); });
     img.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
+      if (armed(img) && (e.key === 'Enter' || e.key === ' ')) {
         e.preventDefault();
         open(img);
       }
     });
   });
+
+  narrow.addEventListener('change', sync);
+  sync();
 })();

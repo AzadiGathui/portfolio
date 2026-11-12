@@ -22,6 +22,7 @@
 @font-face { font-family: "Barlow"; src: url("/assets/fonts/barlow-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
 @font-face { font-family: "Barlow"; src: url("/assets/fonts/barlow-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
 @font-face { font-family: "Barlow"; src: url("/assets/fonts/barlow-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Bricolage Grotesque"; src: url("/assets/fonts/bricolage-grotesque-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: "JetBrains Mono"; src: url("/assets/fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
 /* Caveat (margin notes) is added by base.njk once the page has loaded: nothing above the fold uses it */
 
@@ -53,6 +54,7 @@
   --text-2: #b3b3b3;
   --f-body: "Barlow", system-ui, sans-serif;
   --f-mono: "JetBrains Mono", ui-monospace, monospace;
+  --f-display: "Bricolage Grotesque", var(--f-body);   /* page titles, section headings, callouts and quotes: Barlow stands in until it loads */
   --f-hand: "Caveat", "Segoe Print", cursive;   /* margin notes only */
 
   /* Inside a frame or reel: padding and the space between images */
@@ -791,6 +793,7 @@ body {
 /* Headings: one rule per level, used everywhere. Weight is always 400;
    600 is for emphasis (strong, figures) only. Only h1 and h2 are tracked. */
 h1, h2, h3, h4 { margin: 0; font-weight: 400; text-wrap-style: balance; }
+h1, h2 { font-family: var(--f-display); }   /* the display face: h1 and h2 only; h3 and below stay in the body face */
 h1 { margin-top: var(--space-2); font-size: clamp(var(--text-xl), 5cqi, var(--text-2xl)); line-height: var(--lh-display); letter-spacing: var(--track-tight); }
 @media (max-width: 720px) {
   h1 { font-size: var(--text-xl); }   /* 28px, a step down from the 36px display size */
@@ -809,8 +812,8 @@ p { margin: var(--space-3) 0 0; color: var(--text); text-wrap: pretty; }
    lying on the mat at an angle (the process strip, notes, tools) are left
    as they are. */
 .label, .btn, .tag, .ph, .tl__year, .tl__name, .tl__track a, .tl__today span, .tool, .prose th, .pull-quote cite, .title-sup { --k: 0.36; }
-.note, .frame--polaroid figcaption { --k: 0.33; }
-.mat__content :is(h1, h2, h3, h4, p, :is(.prose, .entry__text, .entry__roles, .team, .toc) li, dt, dd, .facts > div, figcaption, blockquote, .label, .caption, .row__date, .entry__date, .tl__name, .tl__year):not(.flow *, .note, .tool *, .frame--polaroid *, .key *, .toc-pill *, button *, .facts > div *, li:not(:has(> :is(p, dl, figcaption))) li, :has(> :is(p, dl, figcaption))) {
+.note, .annot__note, .frame--polaroid figcaption { --k: 0.33; }
+.mat__content :is(h1, h2, h3, h4, p, :is(.prose, .entry__text, .entry__roles, .team, .toc) li, dt, dd, .facts > div, figcaption, blockquote, .label, .caption, .row__date, .entry__date, .tl__name, .tl__year):not(.flow *, .note, .annot__note, .finding, .rw *, .tool *, .frame--polaroid *, .key *, .toc-pill *, button *, .facts > div *, li:not(:has(> :is(p, dl, figcaption))) li, :has(> :is(p, dl, figcaption))) {
   --o: calc(0.5lh + var(--k) * 1em + var(--top-off, 0px));   /* --top-off: how far into a unit the block starts, when it does (snap.js) */
   translate: 0 calc(round(nearest, var(--o), var(--unit)) - var(--o));
 }
@@ -854,7 +857,7 @@ p a, li a, h3 a, figcaption a, .more-link, .foot__mail, .toc a, .tl__track a {
 }
 p a, li a, h3 a, figcaption a { text-decoration-color: var(--text-2); }   /* a link must be found without hovering: 8.3:1 on the mat */
 :is(p a, li a, h3 a, figcaption a, .more-link, .foot__mail, .toc a, .tl__track a):is(:hover, :focus-visible) { text-decoration-color: currentColor; }
-.mat__content a[href^="http"]:not(.icon-link)::after { content: "\2009\2197"; font-size: 0.8em; line-height: 0; }   /* an icon already says where it goes. line-height 0: Barlow has no arrow, and the fallback font's taller one would make its line taller than the rest */
+.mat__content a[href^="http"]:not(.icon-link, .face__link)::after { content: "\2009\2197"; font-size: 0.8em; line-height: 0; }   /* an icon already says where it goes. line-height 0: Barlow has no arrow, and the fallback font's taller one would make its line taller than the rest */
 .more-link { display: inline-flex; align-items: center; min-height: var(--tap); margin-top: var(--space-1); color: var(--text); }
 
 /* Keyboard focus: one clear ring everywhere */
@@ -1043,6 +1046,12 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
 .cover > .frame img { filter: grayscale(1) brightness(0.75); }
 .cover .card__art { --hang: 2; left: var(--cell); bottom: calc(var(--hang) * var(--cell) * -1); }
 .cover .card__art--print, .cover .card__art--book { --hang: 1; }
+/* A phone in the header spans three squares (six tall): from the second to the
+   fourth, it is centred in the five squares left of the facts. On a phone-sized
+   screen the facts run underneath, so it stays two wide. */
+@media (min-width: 721px) {
+  .cover .card__art--phone { --aw: 3; --ah: 6; }
+}
 .cover .card__art:not(.card__art--phone) img { object-position: left bottom; }
 
 /* The case study itself: the project's own markdown, as long-form text
@@ -1060,7 +1069,7 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
   margin: var(--cell) 0 0;
   padding-left: var(--space-4);
   border-left: var(--line-accent);
-  font: 400 var(--text-lg)/var(--lh-title) var(--f-body);
+  font: 400 var(--text-lg)/var(--lh-title) var(--f-display);
   color: var(--text);
 }
 .prose .pj-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(var(--col-min), 1fr)); gap: var(--gap); margin: var(--space-5) 0 0; }
@@ -1572,14 +1581,19 @@ html:not(.js) .cv-section__all { display: none; }
 .reel__track.is-grabbable { cursor: grab; }
 .reel__track.is-grabbing { cursor: grabbing; }
 
-/* An image with its words beside it (a phone screen with its step, title
-   and caption): the image as usual, the text in a column to its right,
-   level with its top. */
-.reel__item { display: flex; gap: var(--gap); margin: 0; }
-.reel__item > .phone-frame { flex: none; height: 100%; }
-.reel__item figcaption { flex: none; width: calc(var(--cell) * 2); align-self: start; padding-top: var(--space-2); }
+/* A phone screen with its words (step, title, caption): the words sit
+   under the screen, in a column as wide as it, so the screen can be large
+   enough to read (one and a half times a plain reel's height) and the eye
+   goes screen, then words, the same way for every one. The reel is then
+   as tall as its tallest caption needs; a strip is kept clear along the
+   bottom for the previous / next buttons, so they never sit on a caption. */
+.sheet.reel:has(.reel__item) { --phone-h: round(nearest, calc((var(--cell) * var(--reel-h) - 2 * var(--pad)) * 1.5), var(--unit)); height: auto; }   /* whole units, so the caption under it starts on the grid */
+.reel:has(.reel__item) .reel__track { align-items: flex-start; padding-bottom: calc(var(--tap) + var(--space-2) * 2); }
+.reel__track > .reel__item { display: flex; flex-direction: column; gap: var(--space-3); width: calc(var(--phone-h) / 2); height: auto; margin: 0; }
+.reel__item > .phone-frame { flex: none; width: 100%; height: var(--phone-h); }
+.reel__item figcaption { padding-right: var(--space-4); }
 .reel__item figcaption .label { display: block; margin: 0 0 var(--space-1); }
-.reel__item figcaption strong { display: block; margin-bottom: var(--space-1); color: var(--text); font-weight: 600; }
+.reel__item figcaption strong { display: block; color: var(--text); font-weight: 600; }
 
 /* Previous / next: the same square button as everywhere, bottom right,
    the pair at any screen size. Disabled at either end; absent when
@@ -1918,7 +1932,7 @@ figcaption .label { display: inline; margin-right: 0.4em; }
 .spread-grid source { display: none; }
 .spread-grid > .stack, .spread-grid img { grid-column: var(--at, 1 / -1); }
 .spread-grid img { width: calc(100% - var(--space-2)); margin-inline: var(--space-1); filter: drop-shadow(var(--lift-1)); }
-.spread-grid img[role="button"] { cursor: zoom-in; }
+.spread-grid img[role="button"], img[data-enlarge][role="button"] { cursor: zoom-in; }
 .spread-grid .is-end { align-self: end; }
 @media (max-width: 720px) {
   .spread-grid, .spread-grid > .stack { grid-template-columns: minmax(0, 1fr); }
@@ -1930,7 +1944,11 @@ figcaption .label { display: inline; margin-right: 0.4em; }
 .zoom { width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: var(--mat); color: var(--text); }
 .zoom::backdrop { background: var(--mat); }
 .zoom__stage { display: flex; width: 100%; height: 100%; padding: var(--space-4); overflow: auto; overscroll-behavior: contain; }
-.zoom__stage img { margin: auto; max-height: 100%; cursor: zoom-in; }
+/* The picture steps out of the layout so the image is the flex item: its max sizes are then the stage's,
+   not those of a wrapper already as wide as the file. "auto" drops the width and height attributes, which
+   otherwise stretch it (they give the ratio, not the size) when one max clamps and the other doesn't. */
+.zoom__stage picture { display: contents; }
+.zoom__stage img { margin: auto; width: auto; height: auto; max-width: 100%; max-height: 100%; cursor: zoom-in; }
 .zoom__stage.is-zoomed { padding: 0; }
 .zoom__stage.is-zoomed img { max-width: none; max-height: none; cursor: zoom-out; }
 .zoom__close, .zoom__hint { position: fixed; background: var(--mat); color: var(--text); }
@@ -1968,6 +1986,523 @@ figcaption .label { display: inline; margin-right: 0.4em; }
 .team { margin: 0; padding: 0; list-style: none; }
 .team li + li { margin-top: var(--space-1); }
 .team__role { color: var(--text-2); font-size: var(--text-sm); line-height: 0; }   /* smaller text inside a line: it mustn't make the line taller than its 24px */
+
+/* ------------------------------------------------------------------
+   Tip (tip.js): a small card that opens from the thing it describes.
+   One card for every use; what differs is how it opens, named on the
+   element that owns it (its host, which is position: relative):
+
+     data-tip="hover"   a team member (Team, below): the card opens under
+                        the face on hover, on keyboard focus or a first tap
+     data-tip="click"   a pin (Pins, with the annotated screen): its button
+                        opens the card, and tip.js places it beside the
+                        button, on the side with room, with a pointer to it
+
+     <host data-tip="…"> … <span class="tip"><span class="tip__card">…</span></span> </host>
+
+   Square-cornered, like the mat's other plates.
+   ------------------------------------------------------------------ */
+.tip { position: absolute; z-index: 1; }
+.tip__card { position: relative; display: block; padding: var(--space-2) var(--space-3); background: var(--surface); box-shadow: inset 0 0 0 1px var(--rule), var(--lift-2); }
+
+[data-tip="hover"] .tip {
+  top: 100%; left: 50%; translate: -50% 0; padding-top: var(--space-2);   /* the gap is part of the link: nothing to fall through */
+  opacity: 0; visibility: hidden; transition: opacity var(--dur) var(--ease), visibility 0s var(--dur);
+}
+[data-tip="hover"]:is(:hover, :focus-within, .is-open):not(.is-put-away) .tip { opacity: 1; visibility: visible; transition-delay: 0s; }
+
+/* click: a few lines of text, on show only while open. display: none, not just invisible: a
+   hidden card still takes room to scroll to, and one by the screen's edge would widen the page. */
+[data-tip="click"] .tip {
+  display: none; left: var(--tip-x, 0); top: var(--tip-y, 0);   /* from the host's corner, set by tip.js */
+  width: max-content; max-width: min(15rem, calc(100vw - var(--space-3) * 2));   /* not "as wide as the room left of it": its offset must not narrow it */
+}
+[data-tip="click"].is-open .tip { display: block; }
+[data-tip="click"] .tip__card { color: var(--text); font-size: var(--text-sm); line-height: var(--lh-small); text-wrap: pretty; }
+/* its pointer: a square turned on its corner, on the edge that faces the button, as far along as the button is */
+.tip[data-side] .tip__card::before { content: ""; position: absolute; left: var(--tip-ax); width: 10px; height: 10px; margin-left: -5px; background: var(--surface); rotate: 45deg; }
+.tip[data-side="bottom"] .tip__card::before { top: -5px; border-top: var(--line); border-left: var(--line); }
+.tip[data-side="top"] .tip__card::before { bottom: -5px; border-bottom: var(--line); border-right: var(--line); }
+@media (prefers-reduced-motion: no-preference) {
+  [data-tip="click"].is-open .tip { animation: tip-in var(--dur-open) var(--ease-out) both; }   /* it arrives from the button's side */
+  .tip[data-side="bottom"] { --tip-from: 0 -6px; }
+  .tip[data-side="top"] { --tip-from: 0 6px; }
+}
+@keyframes tip-in { from { opacity: 0; translate: var(--tip-from, 0 0); } }
+
+/* Team, as faces (when everyone has a photo): a row of overlapping
+   portraits. A person's name and role appear in a small card (a tip) under
+   their face on hover, on keyboard focus, or on a first tap (tip.js); face and
+   card are one link to their profile, so the pointer can travel from one
+   to the other without the card closing. The photos are exported with a
+   margin and their own grey ring (56px for a 48px face): the margin is
+   cropped away by the circle. */
+.faces { display: flex; margin: 0; padding: 0; list-style: none; isolation: isolate; }
+.facts > div:has(.faces) { align-items: start; }   /* pictures have no text baseline to hang the label on: it sits where the other rows' labels do (6px below the line's top: 24px body line, 16px label) */
+.facts > div:has(.faces) dt { margin-top: 6px; }
+.face { position: relative; z-index: 1; }
+.face:nth-child(1) { z-index: 5; } .face:nth-child(2) { z-index: 4; } .face:nth-child(3) { z-index: 3; } .face:nth-child(4) { z-index: 2; }
+.face + .face { margin-left: calc(var(--space-2) * -1); }
+.face__link { display: block; border-radius: 50%; color: inherit; text-decoration: none; }
+.face__img { display: block; width: 48px; height: 48px; overflow: hidden; border-radius: 50%; box-shadow: var(--lift-1); transition: translate var(--dur) var(--ease); }
+.face__img picture { display: block; width: 100%; height: 100%; }
+.face__img img { display: block; width: calc(100% * 56 / 48); max-width: none; height: calc(100% * 56 / 48); margin: calc(100% * -4 / 48); }
+.face__card { display: grid; text-align: center; white-space: nowrap; }   /* the name over the role (and a tip's card, above) */
+.face__name { color: var(--text); line-height: var(--lh-title); }
+.face__role { color: var(--text-2); font-size: var(--text-sm); line-height: var(--lh-small); }
+a.face__link .face__name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.16em; }
+.face:is(:hover, :focus-within, .is-open) { z-index: 20; }
+.face:is(:hover, :focus-within, .is-open) .face__img { translate: 0 -2px; }
+.face__link:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+@media (max-width: 720px) {   /* near the mat's edges a card opens inwards */
+  .face:nth-last-child(-n + 2):not(:first-child) .tip { left: auto; right: 0; translate: none; }
+  .face:first-child .tip { left: 0; translate: none; }
+}
+@media (max-width: 480px) {   /* the value column is too narrow for five overlapping faces: let them wrap, side by side */
+  .faces { flex-wrap: wrap; gap: var(--space-2); }
+  .face + .face { margin-left: 0; }
+  .face__img { width: 40px; height: 40px; }   /* three to a row in the 145px column */
+}
+
+/* ------------------------------------------------------------------
+   Case study sections. What every case study can be built from:
+
+     {% chapter %}          a section's head: label, heading, a line under it
+     .panel                 a framed block, on the mat's lines (snap.js)
+     .pj-row / .stat-card   figures or short statements in columns
+     {% phones %}           phone screens in a reel, captions under them
+     {% annotated %}        one tall screen, cut up, with notes (numbered pins on a phone)
+     partials/study/research.njk   sources, lines, question and findings
+     .trio                  three pictures: one large, two smaller
+
+   and, further down, the Jireh Health study's own compositions
+   (partials/jireh/: collages round a phone, the icon system).
+
+   Only text is held to the 4px unit and 24px line (snap.js, grid.js);
+   pictures and their frames sit where they fall, and the block after
+   one is moved down to the next line. Everything is a direct child of
+   .article-body, so each starts on a line of the rhythm. Between 721px
+   and 860px the compositions that need three columns stack as they do
+   on a phone.
+   ------------------------------------------------------------------ */
+
+/* Chapter: a section's head. On a full-width study (no contents list,
+   .study--centred) it is centred, and so is the column of text under it:
+   eight squares wide, so its edges are mat lines. Headings and the short
+   line under them are centred and balanced; longer text and lists keep a
+   straight left edge inside that column, which is easier to read than
+   centred paragraphs. */
+.prose .chapter { margin: calc(var(--cell) * 1.5) 0 0; }
+.prose .chapter .label { margin: 0; }
+.prose .chapter h2 { margin: var(--space-3) 0 0; }
+.prose .chapter__lede { margin: var(--space-3) 0 0; color: var(--text); }
+.prose .article-body > :first-child { margin-top: 0; }
+.study--centred .chapter { max-width: var(--measure); margin-inline: auto; text-align: center; }
+.study--centred .chapter :is(h2, p) { max-width: none; text-wrap: balance; hyphens: manual; }
+.study--centred .article-body > :is(p, ul, ol, .pull-quote) { margin-inline: auto; }
+
+/* What I did: three columns of a line each, under the facts */
+.prose .role-row .caption { font-size: var(--text-base); line-height: var(--lh-body); }
+
+/* Panel: a framed block. A step lighter than the mat, edged with a
+   hairline, its content inset by one square, so the frame and what is in
+   it both lie on the mat's lines; snap.js starts it on a line and makes it
+   whole squares tall. What is inside is centred in whatever height that
+   leaves over. */
+.prose .panel {
+  display: grid; align-content: center;
+  margin: var(--cell) 0 0; padding: var(--cell);
+  background: var(--frame); box-shadow: inset 0 0 0 1px var(--rule);
+}
+.prose .panel > * { min-width: 0; }
+.prose .panel > :first-child { margin-top: 0; }
+.prose .panel .stat-card { box-shadow: inset 0 1px 0 var(--bezel); }   /* the hairline, a little stronger on the lighter fill */
+
+/* Columns that stay in one row on a wide screen: four statements side by
+   side (the rules), not three and one */
+.pj-row--rules .stat-card__value { font-family: var(--f-display); font-size: var(--text-md); font-weight: 400; line-height: var(--lh-title); text-wrap: balance; }
+@media (min-width: 861px) {
+  .prose .pj-row--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-5); }
+}
+
+/* Three pictures: a large one in the middle, a smaller one to either side,
+   each starting a little lower than the last (the challenge: the invoice,
+   the people it lands on, the place). The steps down are a share of the
+   row's width (a % margin is measured from the width), so the arrangement
+   keeps its shape at any size. */
+.prose .trio {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr); align-items: start; gap: var(--space-4);
+  margin: var(--space-5) 0 0;
+}
+.trio .frame { margin: 0; }
+.trio__main { grid-column: 2; grid-row: 1; aspect-ratio: 408 / 389; }
+.trio__left { grid-column: 1; grid-row: 1; justify-self: end; width: 86%; margin-top: 49%; aspect-ratio: 171 / 235; box-shadow: var(--lift-2); }
+.trio__right { grid-column: 3; grid-row: 1; margin-top: 20%; aspect-ratio: 200 / 246; }
+.trio__left img { object-position: top; }
+
+/* A timeline (research.timeline in the front matter, drawn by research.njk):
+   the steps of a process on a rail, each with a dot, a title and a few
+   bullets. Four across on a wide screen; on a narrow one the same rail, kept
+   at the same size, to swipe along, the next step peeking in at the edge
+   (fold.js makes it reachable by keyboard while it overflows). */
+.prose .timeline { display: flex; gap: var(--space-5); max-width: none; margin: var(--space-5) 0 0; padding: 0; list-style: none; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.prose .timeline::-webkit-scrollbar { display: none; }
+.timeline__step { position: relative; display: grid; align-content: start; gap: var(--space-2); min-width: 0; flex: 0 0 min(78%, 16rem); padding: var(--space-5) 0 0; scroll-snap-align: start; }
+.timeline__step::before { content: ""; position: absolute; left: 0; top: 0; width: 9px; height: 9px; border-radius: 50%; background: var(--text); }
+.timeline__step::after { content: ""; position: absolute; top: 4px; right: calc(var(--space-5) * -1 + 2px); left: 14px; height: 1px; background: var(--rule); }
+.timeline__step:last-child::after { content: none; }
+.prose .timeline__t { max-width: none; margin: 0; color: var(--text); font-weight: 500; line-height: var(--lh-title); }
+.prose .timeline__list { display: grid; gap: var(--space-1); max-width: none; margin: 0; padding: 0; list-style: none; color: var(--text-2); font-size: var(--text-sm); line-height: var(--lh-small); }
+.timeline__list li { position: relative; padding-left: var(--space-4); }
+.timeline__list li::before { content: "\2013"; position: absolute; left: 0; }
+/* Where you are along a rail: "2 / 4" (fold.js adds it while there is more to swipe to) */
+.prose .rail__count { max-width: none; margin: var(--space-2) 0 0; color: var(--text-2); font-variant-numeric: tabular-nums; }
+.rail__count[hidden] { display: none; }
+@media (min-width: 861px) {
+  .prose .timeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: visible; scroll-snap-type: none; }
+}
+
+/* ------------------------------------------------------------------
+   Research (partials/study/research.njk, research.js): the sources in a
+   loose pile, lines that run down from it, then a panel with the
+   question the research led to and the key findings.
+
+   Without scripts the sources are a grid, each with its title and link.
+   With them (.is-live) they are a pile: every source is placed by
+   research.js as a fraction of the pile's width (--cw), so the whole
+   arrangement scales with the column. One source at a time comes
+   forward in colour with its title; pointing at one, or tabbing or
+   tapping to it, adds where it is from and a link. Where the column is
+   under 640px the pile becomes a strip that scrolls sideways (--rw-mode
+   tells the script which), with the open source's words in a box under it.
+   ------------------------------------------------------------------ */
+.prose .rw { --rw-mode: strip; container-type: inline-size; margin: var(--space-5) 0 0; }
+.prose .rw__pile { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 9rem), 1fr)); gap: var(--space-5) var(--space-4); align-items: start; max-width: none; margin: 0; padding: 0; list-style: none; }
+.rw__card { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
+.rw__thumb { display: block; }
+.rw__thumb picture { display: block; }
+.rw__thumb img { display: block; width: 100%; height: auto; }
+.rw__foot, .rw__info { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
+.rw__text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-1); }
+.rw__title { color: var(--text); line-height: var(--lh-title); overflow-wrap: anywhere; text-wrap: balance; }
+.rw__host { overflow: hidden; color: var(--text-2); font: 400 var(--text-xs)/var(--lh-title) var(--f-mono); letter-spacing: var(--track-caps); text-overflow: ellipsis; white-space: nowrap; }
+.rw__link { flex: none; display: grid; place-items: center; width: var(--tap); height: var(--tap); }
+.rw__pause { display: flex; gap: var(--space-2); margin: var(--space-4) auto 0; font: 400 var(--text-xs)/var(--lh-title) var(--f-mono); letter-spacing: var(--track-caps); text-transform: uppercase; }
+.rw__pause[hidden] { display: none; }
+.rw__pause svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: var(--stroke-line); stroke-linecap: round; stroke-linejoin: round; }
+.rw__pause:disabled { border-color: var(--rule); color: var(--text-2); cursor: default; }
+.rw__pause:disabled:hover { background: none; }
+
+/* The lines: five threads into one, pointing down at the panel. They rise
+   out of the pile (faded in from the top); the dashes travel along them */
+.rw__flow { position: relative; width: min(100%, 20rem); height: 72px; margin: var(--space-4) auto 0; }
+.rw__lines { position: absolute; top: 0; left: 0; width: 100%; height: calc(100% - 2px); overflow: visible; fill: none; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 30%); mask-image: linear-gradient(to bottom, transparent, #000 30%); }
+.rw__lines path { vector-effect: non-scaling-stroke; }
+.rw__base { stroke: var(--rule); stroke-width: 1; }
+.rw__base.rw__trunk { stroke: var(--text-2); }
+.rw__dash { stroke: var(--text-2); stroke-width: 1.5; stroke-linecap: round; stroke-dasharray: 2 6; }
+.rw__dash.rw__trunk { stroke: var(--text); stroke-width: 2; stroke-dasharray: 2 3; }
+.rw__chev { position: absolute; left: 50%; bottom: 0; width: 12px; height: 9px; translate: -50% 0; fill: none; stroke: var(--text); stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.prose .rw + .panel { margin-top: var(--space-2); }
+@media (prefers-reduced-motion: no-preference) {
+  :is(.rw.is-live:not([data-motion="reduced"]), .system) .rw__dash { stroke-dasharray: 1 8; animation: rw-flow 1.6s linear infinite; }
+  :is(.rw.is-live:not([data-motion="reduced"]), .system) .rw__dash.rw__trunk { stroke-dasharray: 1 4; animation-name: rw-flow-trunk; }
+  .rw.is-live[data-motion="paused"] .rw__dash { animation-play-state: paused; }
+}
+@keyframes rw-flow { to { stroke-dashoffset: -18; } }
+@keyframes rw-flow-trunk { to { stroke-dashoffset: -10; } }
+
+/* Live, narrow: the strip. Thumbnails of one height in a row that scrolls;
+   a line under the open one; its title and link in the box below (all of
+   them share one grid cell, so the box never changes height) */
+.rw.is-live .rw__pile { position: relative; display: flex; align-items: flex-start; gap: var(--space-3); overflow-x: auto; margin: 0 -6px; padding: 6px 6px var(--space-4); scrollbar-width: thin; scrollbar-color: var(--rule) transparent; }
+.rw.is-live .rw__card { position: relative; flex: none; height: 96px; min-width: var(--tap); aspect-ratio: var(--asp); cursor: pointer; }
+.rw.is-live .rw__thumb { position: absolute; inset: 0; }
+.rw.is-live .rw__thumb picture { height: 100%; }
+.rw.is-live .rw__thumb img { height: 100%; object-fit: contain; filter: grayscale(1) brightness(0.75); transition: filter var(--dur) var(--ease); }
+.rw.is-live .rw__card:is(.is-on, .is-detail) .rw__thumb img { filter: none; }
+.rw.is-live .rw__card .rw__foot { display: none; }
+.rw.is-live .rw__card::after { content: ""; position: absolute; left: 0; right: 0; bottom: calc(var(--space-2) * -1); height: 2px; background: transparent; transition: background-color var(--dur) var(--ease); }
+.rw.is-live .rw__card.is-on::after { background: var(--text-2); }
+.rw.is-live .rw__card.is-detail::after { height: 3px; background: var(--text); }
+.rw__card:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+.rw__detail { display: grid; background: var(--surface); box-shadow: inset 0 0 0 1px var(--rule); }
+.rw__detail[hidden] { display: none; }
+.rw__info { grid-area: 1 / 1; padding: var(--space-4); visibility: hidden; }
+.rw__info.is-act { visibility: visible; }
+
+/* Live, wide: the pile. A square a little taller than wide; the cards are
+   placed and turned by research.js */
+@container (min-width: 640px) {
+  .rw.is-live > * { --rw-mode: pile; }
+  .rw.is-live .rw__pile { --cw: min(100cqw, 42rem); display: block; width: var(--cw); aspect-ratio: 1 / 1.05; overflow: visible; margin: 0 auto; padding: 0; }
+  .rw.is-live .rw__card { position: absolute; display: flex; height: auto; min-width: 0; aspect-ratio: auto; gap: var(--space-2); padding: 0; background: transparent; box-shadow: var(--lift-1); cursor: default; }
+  .rw.is-live .rw__card::after { content: none; }
+  .rw.is-live .rw__thumb { position: static; flex: none; width: var(--img-w); aspect-ratio: var(--asp); background: var(--frame); }
+  /* the one brought forward: a card of its own, 16px round the picture */
+  .rw.is-live .rw__card.is-on { gap: var(--space-3); padding: var(--space-4); background: var(--surface); box-shadow: inset 0 0 0 1px var(--text-2), var(--lift-2); }
+  .rw.is-live .rw__card.is-on .rw__foot { display: flex; }
+  .rw.is-live .rw__card:not(.is-detail) :is(.rw__host, .rw__link) { display: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .rw.is-live .rw__card { transition: left var(--dur-open) var(--ease-out), top var(--dur-open) var(--ease-out), width var(--dur-open) var(--ease-out), transform var(--dur-open) var(--ease-out), padding var(--dur) var(--ease), background-color var(--dur) var(--ease); }
+  .rw.is-live .rw__card.is-on .rw__foot, .rw__info.is-act { animation: rw-in var(--dur-open) var(--ease-out) both; }
+}
+@keyframes rw-in { from { opacity: 0; transform: translateY(4px); } }
+
+/* The panel under the lines: the question (and a picture) on the left, the
+   findings stacked on the right */
+.prose .split { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--cell); align-content: start; }
+.split__lead { display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-5); }
+.prose .question { max-width: none; margin: 0; font-family: var(--f-display); font-size: var(--text-xl); font-weight: 400; line-height: var(--lh-display); letter-spacing: var(--track-snug); text-wrap: balance; }
+.split picture { display: contents; }
+.split source { display: none; }
+.question__fig { width: min(calc(var(--w) * 1px), 100%); height: auto; border-radius: var(--space-3); box-shadow: var(--lift-1); }   /* the diagram is a white app card: rounded like one */
+.prose .split .label { margin: 0; }
+.prose .findings { display: grid; gap: var(--space-4); max-width: none; margin: var(--space-4) 0 0; padding: 0; list-style: none; }
+.finding { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-4); padding: var(--space-4); box-shadow: inset 0 0 0 1px var(--bezel); }
+.prose .finding p { max-width: none; margin: 0; }
+.finding__t { color: var(--text); font-size: var(--text-md); font-weight: 500; line-height: var(--lh-title); text-wrap: balance; }
+.prose .finding .caption { margin-top: var(--space-2); }
+/* What the finding led to: a line under its detail that links to the rule (and the rule links back) */
+.finding__rule { display: block; margin-top: var(--space-2); color: var(--text); }
+.finding__rule a { color: inherit; text-decoration: underline; text-underline-offset: 0.2em; }
+
+/* Folds (fold.js): on a narrow screen a row's head is a button, and what the
+   row says opens under it, one row at a time. Everything here waits for
+   [data-folded], which the script sets only then, so a wide screen, or no
+   script, shows every row whole. A finding is a card the whole of which
+   opens it (the button is its title, for the keyboard and for screen readers). */
+.fold__btn { position: relative; display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); width: 100%; min-height: var(--tap); margin: 0; padding: 0; border: 0; background: none; color: inherit; font: inherit; letter-spacing: inherit; text-align: left; text-wrap: inherit; cursor: pointer; }
+.fold__btn::after { content: ""; flex: none; width: 14px; height: 14px; color: var(--text-2); background: linear-gradient(currentColor 0 0) center / 100% 1.5px no-repeat, linear-gradient(currentColor 0 0) center / 1.5px 100% no-repeat; transition: background-size var(--dur) var(--ease); }   /* a plus, whose upright goes when the row is open */
+.fold__btn[aria-expanded="true"]::after { background-size: 100% 1.5px, 1.5px 0; }
+/* Shut bodies are hidden on screen only: a printed page can't be tapped open, so print never hides
+   them. (Not a print rule that wins back "display: block": that needs a selector as heavy as this
+   one, since :not() counts as a class, and it would force block onto a body that isn't one.) */
+@media not print { [data-folded] [data-fold-item]:not(.is-open) [data-fold-body] { display: none; } }
+[data-folded] .finding { cursor: pointer; }
+[data-folded] .finding.is-open { box-shadow: inset 0 0 0 1px var(--text-2); }
+@media (prefers-reduced-motion: no-preference) {
+  [data-folded] .is-open [data-fold-body] { animation: rw-in var(--dur-open) var(--ease-out) both; }
+}
+@media print { .fold__btn::after { content: none; } }
+
+/* ------------------------------------------------------------------
+   The Jireh Health study's own compositions (partials/jireh/)
+   ------------------------------------------------------------------ */
+
+/* A collage around a phone: the screen in the middle, the pieces it is made
+   of to either side, spread down its height. A piece is as wide as its
+   --w (px) unless the column is narrower */
+.prose .collage { display: grid; grid-template-columns: minmax(0, 1fr) min(332px, 100%) minmax(0, 1fr); gap: var(--space-5); margin: var(--space-5) 0 0; }
+.collage__l, .collage__r { display: flex; flex-direction: column; justify-content: space-evenly; gap: var(--space-5); min-width: 0; }
+.collage__l { align-items: flex-end; }
+.collage__r { align-items: flex-start; }
+.collage__c { display: flex; justify-content: center; }
+.collage picture, .system picture { display: contents; }
+.collage source, .system source { display: none; }
+.collage img, .system img { width: min(calc(var(--w) * 1px), 100%); height: auto; }
+
+/* The icon system: three steps, one foundation, three families */
+.prose .system { display: grid; justify-items: center; gap: var(--space-4); counter-reset: step; }
+.prose .system:not(.panel) { margin: var(--space-5) 0 0; }
+.system :is(.system__steps, .system__groups) { width: 100%; max-width: 52rem; }
+.system__steps, .system__groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: var(--space-5) var(--gap); }
+.system__step, .system__groups figure { display: grid; align-content: start; justify-items: center; gap: var(--space-3); margin: 0; text-align: center; }
+.system__step figcaption::before { counter-increment: step; content: "0" counter(step) "\2002"; color: var(--text); }
+.system__groups figcaption { color: var(--text); }
+.system__groups img { margin: 0 auto; }
+
+/* A phone's Home screen cut into slices, each with its note. The slices are
+   exported from the design at the size they have inside the 320px screen
+   (--x: how far from the screen's left edge, --w: how wide), so some run on
+   past its edge, as cards do in the app; --w and --x are scaled with the
+   screen's width (cqw), which keeps them true when the screen shrinks.
+   The phone's edge (6px of grey) is drawn along the slices; the first and
+   the last carry its rounded top and bottom. A note sits in the column on
+   the side the slice does not run out to, and is written on the mat. */
+.prose .annot {
+  --screen: min(320px, 100%);
+  /* The phone's edge and corners, the same as a collage's phone: 6px of grey
+     and 30px / 24px radii (outside / the glass) at 332px wide. Narrow, they
+     scale with the phone (below). */
+  --bz: 6px; --ro: 30px; --ri: 24px;
+  display: grid; grid-template-columns: minmax(0, 1fr) var(--screen) minmax(0, 1fr);
+  margin: var(--space-5) 0 0; padding: var(--bz);   /* room for the phone's edge */
+}
+.annot__region { display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; align-items: center; margin: 0; }
+.annot__shot { grid-column: 2; grid-row: 1; position: relative; isolation: isolate; container-type: inline-size; padding-block: var(--space-3); }
+.annot__shot::before, .annot__shot::after { content: ""; position: absolute; z-index: -1; }
+.annot__shot::before { inset: 0 calc(var(--bz) * -1); background: var(--bezel); }
+.annot__shot::after { inset: 0; background: #fff; }
+.annot__img { display: block; width: calc(var(--w) / 320 * 100cqw); margin-left: calc((var(--x) + 16) / 320 * 100cqw); }
+.annot__img picture { display: block; }
+.annot__img img { display: block; width: 100%; height: auto; }
+
+.annot__region--first .annot__shot, .annot__region--last .annot__shot { padding-block: 0; }
+.annot__region--first .annot__shot::before { inset: calc(var(--bz) * -1) calc(var(--bz) * -1) 0; border-radius: var(--ro) var(--ro) 0 0; }
+.annot__region--last .annot__shot::before { inset: 0 calc(var(--bz) * -1) calc(var(--bz) * -1); border-radius: 0 0 var(--ro) var(--ro); }
+.annot__region--first .annot__shot::after, .annot__region--first .annot__img { border-radius: var(--ri) var(--ri) 0 0; }
+.annot__region--last .annot__shot::after, .annot__region--last .annot__img { border-radius: 0 0 var(--ri) var(--ri); }
+.annot__region--first .annot__img, .annot__region--last .annot__img { overflow: hidden; }   /* the export's corners are the backdrop's: cut away, they show the phone's edge */
+
+/* A note is as tall as it needs, but takes no height of its own: it is
+   centred on its slice (height 0, the text overflowing both ways), so a
+   short slice with a long note doesn't open a gap in the screen */
+.annot__note {
+  position: relative; grid-row: 1; display: flex; align-items: center; height: 0; max-width: min(100%, 15rem); margin: 0;
+  font: 400 var(--text-hand)/var(--lh-display) var(--f-hand); color: var(--text); text-wrap: balance;
+}
+.annot__note::after { content: ""; position: absolute; top: 50%; width: 32px; height: 1.5px; background: var(--text-2); }   /* the leader, from the note to its slice */
+.annot__region--l .annot__note { grid-column: 1; justify-self: end; padding-right: 40px; text-align: right; rotate: -2deg; }
+.annot__region--l .annot__note::after { right: 0; }
+.annot__region--r .annot__note { grid-column: 3; justify-self: start; padding-left: 40px; text-align: left; rotate: 2deg; }
+.annot__region--r .annot__note::after { left: 0; }
+
+/* Narrow: one column, the screen centred; a note comes below its slice (the
+   last one above its, which has the phone's rounded bottom), between the
+   phone's edges. What runs past the screen's edge is left to, as on a wide
+   one (the viewport cuts it if it must) */
+@media (max-width: 860px) {
+  /* A screen never runs the whole width of the text: a square is left free
+     either side of it. On a phone the text is 6 squares wide, so a screen
+     spans the middle 4, its edges on two of the printed lines; wider than a
+     phone it stops at the width it was drawn at. --phone is that width, its
+     edge included, and both the long screen and a collage's phone use it, so
+     they are always the same width */
+  .prose :is(.annot, .collage) { --phone: min(332px, calc((var(--cols) - 2 * var(--margin) - 2) * var(--cell))); }
+  .prose .annot {
+    --bz: calc(var(--phone) * 6 / 332); --ro: calc(var(--phone) * 30 / 332); --ri: calc(var(--phone) * 24 / 332);
+    --screen: calc(var(--phone) - 2 * var(--bz)); grid-template-columns: var(--screen); justify-content: center;
+  }
+  .annot__region { grid-column: 1; }
+  .annot__shot { grid-column: 1; }
+  .annot__region .annot__note { grid-column: 1; grid-row: 2; display: block; height: auto; justify-self: stretch; max-width: none; padding: var(--space-3) var(--space-4); text-align: left; rotate: none; box-shadow: calc(var(--bz) * -1) 0 0 var(--bezel), var(--bz) 0 0 var(--bezel); }
+  .annot__region .annot__note::after { display: none; }
+  .annot__region--last .annot__note { grid-row: 1; }
+  .annot__region--last .annot__shot { grid-row: 2; }
+
+  /* A collage keeps its screen in the middle, at the width of the long
+     screen, and the pieces round it are laid over its edges instead of
+     squeezed into columns beside it (there is no room beside it). Each keeps
+     the size it was drawn at relative to the others, all of them at the same
+     scale as the screen (--piece: its drawn width, scaled as the 332px screen
+     is to --phone), so they are as legible as beside it on a wide one. A
+     piece hangs off its side in the free square and covers the screen with
+     the rest, at most 30% of its width; --at is how far up or down the
+     screen it sits. The columns dissolve
+     (display: contents) and screen and pieces share one grid cell. */
+  .prose .collage {
+    --free: calc(((var(--cols) - 2 * var(--margin)) * var(--cell) - var(--phone)) / 2);   /* from the screen's edge to the text column's: one square on a phone */
+    grid-template-columns: var(--phone); justify-content: center; gap: 0;
+  }
+  .collage__l, .collage__r { display: contents; }
+  .collage__c, .collage :is(.collage__l, .collage__r) img { grid-area: 1 / 1; }
+  .collage__c img { width: 100%; }
+  .collage :is(.collage__l, .collage__r) img {
+    --piece: calc(var(--w) / 332 * var(--phone));
+    width: var(--piece); z-index: 1;
+    align-self: var(--at, center);
+    margin-block: calc(var(--phone) * 0.15);   /* off the screen's top and bottom edge */
+    /* Lifted off the screen, as the tip is (--lift-1, but a drop-shadow follows
+       the piece's own outline, which a box-shadow can't: they have no box) */
+    filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.35));
+  }
+  .collage__l img { justify-self: start; margin-left: max(var(--piece) * -0.7, var(--free) * -1); }   /* never past the printed grid's edge */
+  .collage__r img { justify-self: end; margin-right: max(var(--piece) * -0.7, var(--free) * -1); }
+
+  /* The icon system: the three steps are a sequence, so a rail to swipe along (fold.js counts it,
+     as it does the timeline); the three families are peers, so they stay three across */
+  .system__steps { display: flex; gap: var(--space-5); overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .system__steps::-webkit-scrollbar { display: none; }
+  .system__step { flex: 0 0 min(78%, 14rem); scroll-snap-align: start; }
+  .system__groups { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4) var(--space-2); }
+  /* Labels wrap to different heights in columns this narrow (a soft hyphen in
+     "Authen-tication" breaks the one word too long for its column). Each figure
+     spans the grid's two rows, so the three labels share a row and the three
+     pictures share the next: they start on one line however many lines a label
+     takes. Without subgrid they keep their own heights, which only staggers them. */
+  @supports (grid-template-rows: subgrid) {
+    .system__groups figure { grid-row: span 2; grid-template-rows: subgrid; }
+  }
+  .system .rw__flow { display: none; }
+  .prose .split { grid-template-columns: minmax(0, 1fr); row-gap: var(--cell); }
+  .question__fig { width: min(calc(var(--w) * 1px), 100%, 15rem); }
+  .prose .panel { padding: var(--space-5); }
+}
+@media (max-width: 720px) {
+  .prose .trio { gap: var(--space-2); }
+  .prose .panel { padding: var(--space-5) var(--space-4); }
+}
+
+/* ------------------------------------------------------------------
+   Pins (pins.js; the card they open is the Tip, above). Where there is
+   no room beside the phone for its notes (860px and under), each note
+   becomes a numbered circle on the phone's edge, on the side the note
+   would have been, and pressing it opens the note in a tip beside it.
+   The slices stay whole and in view, and nothing moves when a note
+   opens: it floats over the page. (A row that opened a picture under
+   itself did the reverse: the picture came above the button that
+   opened it, and closed the one being read.)
+
+   The circle is a button pins.js adds, and it is hidden until here: on
+   a screen only (print has no one to press it), once the script has run
+   ([data-pinned]), and at these widths only. Everywhere else the notes
+   themselves are on show. To have pins at every width, take the width
+   off the media query.
+   ------------------------------------------------------------------ */
+.pin { display: none; }
+@media screen and (max-width: 860px) {
+  .annot[data-pinned] .annot__note { display: none; }   /* its words are the tip's now */
+  .annot[data-pinned] .annot__region--last .annot__shot { grid-row: 1; }   /* the note that came above it is gone */
+  .annot[data-pinned] [data-pin] { position: relative; }   /* the pin and its tip are placed from here */
+  .annot[data-pinned] [data-pin].is-open { z-index: 20; }   /* an open tip lies over the slices below it, and their pins */
+
+  /* A paper dot with an ink ring, like a sticker on the screen: light against the mat, ringed
+     dark so it parts from the white of a slice. Its number is handwritten, as the notes are on
+     a wide screen. It straddles the phone's edge (centred on the 6px bezel), so half of it is
+     in the margin and it covers only 5px of the slice. */
+  .annot[data-pinned] .pin {
+    --size: 28px;
+    position: absolute; top: 50%; z-index: 2;
+    display: grid; place-items: center;
+    width: var(--size); height: var(--size); margin: calc(var(--size) / -2) 0 0; padding: 0;
+    border: 0; border-radius: 50%;
+    background: var(--paper); color: var(--ink);
+    font: 400 1.25rem/1 var(--f-hand);
+    box-shadow: 0 0 0 2px var(--mat), var(--lift-1);
+    cursor: pointer;
+    transition: scale var(--dur-fast), background-color var(--dur) var(--ease), color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  }
+  .annot[data-pinned] [data-pin="l"] > .pin { left: calc(var(--size) / -2 - 3px); }
+  .annot[data-pinned] [data-pin="r"] > .pin { right: calc(var(--size) / -2 - 3px); }
+  .annot[data-pinned] .pin::after { content: ""; position: absolute; inset: -8px; border-radius: 50%; }   /* a 44px target for a 28px circle */
+  .annot[data-pinned] .pin[aria-expanded="true"] { background: var(--ink); color: var(--paper); box-shadow: 0 0 0 2px var(--paper), var(--lift-1); }   /* open: inverted */
+  .annot[data-pinned] .pin:active { scale: 0.92; }
+  @media (hover: hover) { .annot[data-pinned] .pin:hover { scale: 1.1; } }
+  /* focus: a dark ring, a light one, a dark one: one of them shows on the white of a slice and on the mat. The transparent outline is for forced colours. */
+  .annot[data-pinned] .pin:focus-visible { outline: 2px solid transparent; outline-offset: 6px; box-shadow: 0 0 0 2px var(--mat), 0 0 0 4px var(--text), 0 0 0 6px var(--mat), var(--lift-1); }
+}
+/* Once, as a slice comes into view (reveal.js marks it): a ring spreads from its circle, to say that it can be pressed */
+@media screen and (max-width: 860px) and (prefers-reduced-motion: no-preference) {
+  .annot[data-pinned] .annot__region.is-shown .pin::before { content: ""; position: absolute; inset: 0; border-radius: 50%; box-shadow: 0 0 0 2px var(--text); opacity: 0; animation: pin-ping 1.2s var(--ease-out) 0.4s 1 forwards; }
+}
+@keyframes pin-ping { from { opacity: 0.9; scale: 1; } to { opacity: 0; scale: 2.2; } }
+
+/* Scroll reveals (reveal.js): hidden only with scripts running and motion
+   allowed, on a screen; otherwise everything is simply there */
+@media screen and (prefers-reduced-motion: no-preference) {
+  .js .annot__note { opacity: 0; translate: -14px 0; transition: opacity var(--dur-open) var(--ease-out), translate var(--dur-open) var(--ease-out); }
+  .js .annot__region--r .annot__note { translate: 14px 0; }
+  .js .annot__note::after { scale: 0 1; transition: scale var(--dur-open) var(--ease-out) 0.18s; }
+  .js .annot__region--l .annot__note::after { transform-origin: right center; }
+  .js .annot__region--r .annot__note::after { transform-origin: left center; }
+  .js .annot__region.is-shown .annot__note { opacity: 1; translate: 0 0; }
+  .js .annot__region.is-shown .annot__note::after { scale: 1 1; }
+
+  .js [data-reveal] { transition: opacity var(--dur-open) var(--ease-out), transform var(--dur-open) var(--ease-out); transition-delay: calc(var(--i, 0) * 90ms); }
+  .js [data-reveal]:not(.is-shown) { opacity: 0; transform: translateY(12px); }
+}
 
 /* ------------------------------------------------------------------
    Motion between and within pages (none with "reduce motion")

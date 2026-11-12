@@ -19,7 +19,7 @@
 
   const TOLERANCE = 0.6; // px: browsers round line positions to device pixels
   const TEXT = "h1, h2, h3, h4, p, :is(.prose, .entry__text, .entry__roles, .team, .toc) li, dt, dd, figcaption, blockquote, .label, .caption, .row__date, .entry__date, .tl__name, .tl__year";
-  const LEFT_OUT = ".toc, .flow, .note, .tool, .frame--polaroid, .key, .toc-pill, .to-top, .reading-bar, .mat__keys, .mat__tools, .tl__track, button, .visually-hidden, [aria-hidden='true']";
+  const LEFT_OUT = ".toc, .flow, .note, .annot__note, .rw, .faces, .tip, .tool, .frame--polaroid, .key, .toc-pill, .to-top, .reading-bar, .mat__keys, .mat__tools, .tl__track, button, .visually-hidden, [aria-hidden='true']";
 
   // Half the font's ascent less its descent, as in style.css (--k)
   const offsetOf = (style) => /JetBrains/.test(style.fontFamily) ? 0.36 : /Caveat/.test(style.fontFamily) ? 0.33 : 0.4;
