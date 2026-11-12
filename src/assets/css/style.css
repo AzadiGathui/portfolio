@@ -1932,7 +1932,7 @@ figcaption .label { display: inline; margin-right: 0.4em; }
 .spread-grid source { display: none; }
 .spread-grid > .stack, .spread-grid img { grid-column: var(--at, 1 / -1); }
 .spread-grid img { width: calc(100% - var(--space-2)); margin-inline: var(--space-1); filter: drop-shadow(var(--lift-1)); }
-.spread-grid img[role="button"] { cursor: zoom-in; }
+.spread-grid img[role="button"], img[data-enlarge][role="button"] { cursor: zoom-in; }
 .spread-grid .is-end { align-self: end; }
 @media (max-width: 720px) {
   .spread-grid, .spread-grid > .stack { grid-template-columns: minmax(0, 1fr); }
@@ -1944,7 +1944,11 @@ figcaption .label { display: inline; margin-right: 0.4em; }
 .zoom { width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: var(--mat); color: var(--text); }
 .zoom::backdrop { background: var(--mat); }
 .zoom__stage { display: flex; width: 100%; height: 100%; padding: var(--space-4); overflow: auto; overscroll-behavior: contain; }
-.zoom__stage img { margin: auto; max-height: 100%; cursor: zoom-in; }
+/* The picture steps out of the layout so the image is the flex item: its max sizes are then the stage's,
+   not those of a wrapper already as wide as the file. "auto" drops the width and height attributes, which
+   otherwise stretch it (they give the ratio, not the size) when one max clamps and the other doesn't. */
+.zoom__stage picture { display: contents; }
+.zoom__stage img { margin: auto; width: auto; height: auto; max-width: 100%; max-height: 100%; cursor: zoom-in; }
 .zoom__stage.is-zoomed { padding: 0; }
 .zoom__stage.is-zoomed img { max-width: none; max-height: none; cursor: zoom-out; }
 .zoom__close, .zoom__hint { position: fixed; background: var(--mat); color: var(--text); }
@@ -1983,9 +1987,52 @@ figcaption .label { display: inline; margin-right: 0.4em; }
 .team li + li { margin-top: var(--space-1); }
 .team__role { color: var(--text-2); font-size: var(--text-sm); line-height: 0; }   /* smaller text inside a line: it mustn't make the line taller than its 24px */
 
+/* ------------------------------------------------------------------
+   Tip (tip.js): a small card that opens from the thing it describes.
+   One card for every use; what differs is how it opens, named on the
+   element that owns it (its host, which is position: relative):
+
+     data-tip="hover"   a team member (Team, below): the card opens under
+                        the face on hover, on keyboard focus or a first tap
+     data-tip="click"   a pin (Pins, with the annotated screen): its button
+                        opens the card, and tip.js places it beside the
+                        button, on the side with room, with a pointer to it
+
+     <host data-tip="…"> … <span class="tip"><span class="tip__card">…</span></span> </host>
+
+   Square-cornered, like the mat's other plates.
+   ------------------------------------------------------------------ */
+.tip { position: absolute; z-index: 1; }
+.tip__card { position: relative; display: block; padding: var(--space-2) var(--space-3); background: var(--surface); box-shadow: inset 0 0 0 1px var(--rule), var(--lift-2); }
+
+[data-tip="hover"] .tip {
+  top: 100%; left: 50%; translate: -50% 0; padding-top: var(--space-2);   /* the gap is part of the link: nothing to fall through */
+  opacity: 0; visibility: hidden; transition: opacity var(--dur) var(--ease), visibility 0s var(--dur);
+}
+[data-tip="hover"]:is(:hover, :focus-within, .is-open):not(.is-put-away) .tip { opacity: 1; visibility: visible; transition-delay: 0s; }
+
+/* click: a few lines of text, on show only while open. display: none, not just invisible: a
+   hidden card still takes room to scroll to, and one by the screen's edge would widen the page. */
+[data-tip="click"] .tip {
+  display: none; left: var(--tip-x, 0); top: var(--tip-y, 0);   /* from the host's corner, set by tip.js */
+  width: max-content; max-width: min(15rem, calc(100vw - var(--space-3) * 2));   /* not "as wide as the room left of it": its offset must not narrow it */
+}
+[data-tip="click"].is-open .tip { display: block; }
+[data-tip="click"] .tip__card { color: var(--text); font-size: var(--text-sm); line-height: var(--lh-small); text-wrap: pretty; }
+/* its pointer: a square turned on its corner, on the edge that faces the button, as far along as the button is */
+.tip[data-side] .tip__card::before { content: ""; position: absolute; left: var(--tip-ax); width: 10px; height: 10px; margin-left: -5px; background: var(--surface); rotate: 45deg; }
+.tip[data-side="bottom"] .tip__card::before { top: -5px; border-top: var(--line); border-left: var(--line); }
+.tip[data-side="top"] .tip__card::before { bottom: -5px; border-bottom: var(--line); border-right: var(--line); }
+@media (prefers-reduced-motion: no-preference) {
+  [data-tip="click"].is-open .tip { animation: tip-in var(--dur-open) var(--ease-out) both; }   /* it arrives from the button's side */
+  .tip[data-side="bottom"] { --tip-from: 0 -6px; }
+  .tip[data-side="top"] { --tip-from: 0 6px; }
+}
+@keyframes tip-in { from { opacity: 0; translate: var(--tip-from, 0 0); } }
+
 /* Team, as faces (when everyone has a photo): a row of overlapping
-   portraits. A person's name and role appear in a small card under their
-   face on hover, on keyboard focus, or on a first tap (faces.js); face and
+   portraits. A person's name and role appear in a small card (a tip) under
+   their face on hover, on keyboard focus, or on a first tap (tip.js); face and
    card are one link to their profile, so the pointer can travel from one
    to the other without the card closing. The photos are exported with a
    margin and their own grey ring (56px for a 48px face): the margin is
@@ -2000,21 +2047,16 @@ figcaption .label { display: inline; margin-right: 0.4em; }
 .face__img { display: block; width: 48px; height: 48px; overflow: hidden; border-radius: 50%; box-shadow: var(--lift-1); transition: translate var(--dur) var(--ease); }
 .face__img picture { display: block; width: 100%; height: 100%; }
 .face__img img { display: block; width: calc(100% * 56 / 48); max-width: none; height: calc(100% * 56 / 48); margin: calc(100% * -4 / 48); }
-.face__tip {
-  position: absolute; top: 100%; left: 50%; z-index: 1; translate: -50% 0; padding-top: var(--space-2);   /* the gap is part of the link: nothing to fall through */
-  opacity: 0; visibility: hidden; transition: opacity var(--dur) var(--ease), visibility 0s var(--dur);
-}
-.face__card { display: grid; padding: var(--space-2) var(--space-3); background: var(--surface); box-shadow: inset 0 0 0 1px var(--rule), var(--lift-2); text-align: center; white-space: nowrap; }
+.face__card { display: grid; text-align: center; white-space: nowrap; }   /* the name over the role (and a tip's card, above) */
 .face__name { color: var(--text); line-height: var(--lh-title); }
 .face__role { color: var(--text-2); font-size: var(--text-sm); line-height: var(--lh-small); }
 a.face__link .face__name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.16em; }
 .face:is(:hover, :focus-within, .is-open) { z-index: 20; }
-.face:is(:hover, :focus-within, .is-open):not(.is-put-away) .face__tip { opacity: 1; visibility: visible; transition-delay: 0s; }
 .face:is(:hover, :focus-within, .is-open) .face__img { translate: 0 -2px; }
 .face__link:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
 @media (max-width: 720px) {   /* near the mat's edges a card opens inwards */
-  .face:nth-last-child(-n + 2):not(:first-child) .face__tip { left: auto; right: 0; translate: none; }
-  .face:first-child .face__tip { left: 0; translate: none; }
+  .face:nth-last-child(-n + 2):not(:first-child) .tip { left: auto; right: 0; translate: none; }
+  .face:first-child .tip { left: 0; translate: none; }
 }
 @media (max-width: 480px) {   /* the value column is too narrow for five overlapping faces: let them wrap, side by side */
   .faces { flex-wrap: wrap; gap: var(--space-2); }
@@ -2029,7 +2071,7 @@ a.face__link .face__name { text-decoration: underline; text-decoration-thickness
      .panel                 a framed block, on the mat's lines (snap.js)
      .pj-row / .stat-card   figures or short statements in columns
      {% phones %}           phone screens in a reel, captions under them
-     {% annotated %}        one tall screen, cut up, with notes
+     {% annotated %}        one tall screen, cut up, with notes (numbered pins on a phone)
      partials/study/research.njk   sources, lines, question and findings
      .trio                  three pictures: one large, two smaller
 
@@ -2100,22 +2142,24 @@ a.face__link .face__name { text-decoration: underline; text-decoration-thickness
 
 /* A timeline (research.timeline in the front matter, drawn by research.njk):
    the steps of a process on a rail, each with a dot, a title and a few
-   bullets. Stacked down a rail on the left on a narrow screen, four across
-   under a rail on a wide one. */
-.prose .timeline { display: grid; gap: var(--space-5); max-width: none; margin: var(--space-5) 0 0; padding: 0; list-style: none; }
-.timeline__step { position: relative; display: grid; align-content: start; gap: var(--space-2); min-width: 0; padding-left: var(--space-5); }
-.timeline__step::before { content: ""; position: absolute; left: 0; top: 6px; width: 9px; height: 9px; border-radius: 50%; background: var(--text); }
-.timeline__step::after { content: ""; position: absolute; left: 4px; top: 20px; bottom: calc(var(--space-5) * -1 + 2px); width: 1px; background: var(--rule); }
+   bullets. Four across on a wide screen; on a narrow one the same rail, kept
+   at the same size, to swipe along, the next step peeking in at the edge
+   (fold.js makes it reachable by keyboard while it overflows). */
+.prose .timeline { display: flex; gap: var(--space-5); max-width: none; margin: var(--space-5) 0 0; padding: 0; list-style: none; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.prose .timeline::-webkit-scrollbar { display: none; }
+.timeline__step { position: relative; display: grid; align-content: start; gap: var(--space-2); min-width: 0; flex: 0 0 min(78%, 16rem); padding: var(--space-5) 0 0; scroll-snap-align: start; }
+.timeline__step::before { content: ""; position: absolute; left: 0; top: 0; width: 9px; height: 9px; border-radius: 50%; background: var(--text); }
+.timeline__step::after { content: ""; position: absolute; top: 4px; right: calc(var(--space-5) * -1 + 2px); left: 14px; height: 1px; background: var(--rule); }
 .timeline__step:last-child::after { content: none; }
 .prose .timeline__t { max-width: none; margin: 0; color: var(--text); font-weight: 500; line-height: var(--lh-title); }
 .prose .timeline__list { display: grid; gap: var(--space-1); max-width: none; margin: 0; padding: 0; list-style: none; color: var(--text-2); font-size: var(--text-sm); line-height: var(--lh-small); }
 .timeline__list li { position: relative; padding-left: var(--space-4); }
 .timeline__list li::before { content: "\2013"; position: absolute; left: 0; }
+/* Where you are along a rail: "2 / 4" (fold.js adds it while there is more to swipe to) */
+.prose .rail__count { max-width: none; margin: var(--space-2) 0 0; color: var(--text-2); font-variant-numeric: tabular-nums; }
+.rail__count[hidden] { display: none; }
 @media (min-width: 861px) {
-  .prose .timeline { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-5); }
-  .timeline__step { padding: var(--space-5) 0 0; }
-  .timeline__step::before { top: 0; }
-  .timeline__step::after { top: 4px; right: calc(var(--space-5) * -1 + 2px); bottom: auto; left: 14px; width: auto; height: 1px; }
+  .prose .timeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: visible; scroll-snap-type: none; }
 }
 
 /* ------------------------------------------------------------------
@@ -2220,6 +2264,28 @@ a.face__link .face__name { text-decoration: underline; text-decoration-thickness
 .prose .finding p { max-width: none; margin: 0; }
 .finding__t { color: var(--text); font-size: var(--text-md); font-weight: 500; line-height: var(--lh-title); text-wrap: balance; }
 .prose .finding .caption { margin-top: var(--space-2); }
+/* What the finding led to: a line under its detail that links to the rule (and the rule links back) */
+.finding__rule { display: block; margin-top: var(--space-2); color: var(--text); }
+.finding__rule a { color: inherit; text-decoration: underline; text-underline-offset: 0.2em; }
+
+/* Folds (fold.js): on a narrow screen a row's head is a button, and what the
+   row says opens under it, one row at a time. Everything here waits for
+   [data-folded], which the script sets only then, so a wide screen, or no
+   script, shows every row whole. A finding is a card the whole of which
+   opens it (the button is its title, for the keyboard and for screen readers). */
+.fold__btn { position: relative; display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); width: 100%; min-height: var(--tap); margin: 0; padding: 0; border: 0; background: none; color: inherit; font: inherit; letter-spacing: inherit; text-align: left; text-wrap: inherit; cursor: pointer; }
+.fold__btn::after { content: ""; flex: none; width: 14px; height: 14px; color: var(--text-2); background: linear-gradient(currentColor 0 0) center / 100% 1.5px no-repeat, linear-gradient(currentColor 0 0) center / 1.5px 100% no-repeat; transition: background-size var(--dur) var(--ease); }   /* a plus, whose upright goes when the row is open */
+.fold__btn[aria-expanded="true"]::after { background-size: 100% 1.5px, 1.5px 0; }
+/* Shut bodies are hidden on screen only: a printed page can't be tapped open, so print never hides
+   them. (Not a print rule that wins back "display: block": that needs a selector as heavy as this
+   one, since :not() counts as a class, and it would force block onto a body that isn't one.) */
+@media not print { [data-folded] [data-fold-item]:not(.is-open) [data-fold-body] { display: none; } }
+[data-folded] .finding { cursor: pointer; }
+[data-folded] .finding.is-open { box-shadow: inset 0 0 0 1px var(--text-2); }
+@media (prefers-reduced-motion: no-preference) {
+  [data-folded] .is-open [data-fold-body] { animation: rw-in var(--dur-open) var(--ease-out) both; }
+}
+@media print { .fold__btn::after { content: none; } }
 
 /* ------------------------------------------------------------------
    The Jireh Health study's own compositions (partials/jireh/)
@@ -2257,23 +2323,27 @@ a.face__link .face__name { text-decoration: underline; text-decoration-thickness
    the side the slice does not run out to, and is written on the mat. */
 .prose .annot {
   --screen: min(320px, 100%);
+  /* The phone's edge and corners, the same as a collage's phone: 6px of grey
+     and 30px / 24px radii (outside / the glass) at 332px wide. Narrow, they
+     scale with the phone (below). */
+  --bz: 6px; --ro: 30px; --ri: 24px;
   display: grid; grid-template-columns: minmax(0, 1fr) var(--screen) minmax(0, 1fr);
-  margin: var(--space-5) 0 0; padding: 6px;   /* room for the phone's edge */
+  margin: var(--space-5) 0 0; padding: var(--bz);   /* room for the phone's edge */
 }
 .annot__region { display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; align-items: center; margin: 0; }
 .annot__shot { grid-column: 2; grid-row: 1; position: relative; isolation: isolate; container-type: inline-size; padding-block: var(--space-3); }
 .annot__shot::before, .annot__shot::after { content: ""; position: absolute; z-index: -1; }
-.annot__shot::before { inset: 0 -6px; background: var(--bezel); }
+.annot__shot::before { inset: 0 calc(var(--bz) * -1); background: var(--bezel); }
 .annot__shot::after { inset: 0; background: #fff; }
 .annot__img { display: block; width: calc(var(--w) / 320 * 100cqw); margin-left: calc((var(--x) + 16) / 320 * 100cqw); }
 .annot__img picture { display: block; }
 .annot__img img { display: block; width: 100%; height: auto; }
 
 .annot__region--first .annot__shot, .annot__region--last .annot__shot { padding-block: 0; }
-.annot__region--first .annot__shot::before { inset: -6px -6px 0; border-radius: 38px 38px 0 0; }
-.annot__region--last .annot__shot::before { inset: 0 -6px -6px; border-radius: 0 0 38px 38px; }
-.annot__region--first .annot__shot::after, .annot__region--first .annot__img { border-radius: 32px 32px 0 0; }
-.annot__region--last .annot__shot::after, .annot__region--last .annot__img { border-radius: 0 0 32px 32px; }
+.annot__region--first .annot__shot::before { inset: calc(var(--bz) * -1) calc(var(--bz) * -1) 0; border-radius: var(--ro) var(--ro) 0 0; }
+.annot__region--last .annot__shot::before { inset: 0 calc(var(--bz) * -1) calc(var(--bz) * -1); border-radius: 0 0 var(--ro) var(--ro); }
+.annot__region--first .annot__shot::after, .annot__region--first .annot__img { border-radius: var(--ri) var(--ri) 0 0; }
+.annot__region--last .annot__shot::after, .annot__region--last .annot__img { border-radius: 0 0 var(--ri) var(--ri); }
 .annot__region--first .annot__img, .annot__region--last .annot__img { overflow: hidden; }   /* the export's corners are the backdrop's: cut away, they show the phone's edge */
 
 /* A note is as tall as it needs, but takes no height of its own: it is
@@ -2291,31 +2361,133 @@ a.face__link .face__name { text-decoration: underline; text-decoration-thickness
 
 /* Narrow: one column, the screen centred; a note comes below its slice (the
    last one above its, which has the phone's rounded bottom), between the
-   phone's edges, and what runs past the screen's edge is cut off */
+   phone's edges. What runs past the screen's edge is left to, as on a wide
+   one (the viewport cuts it if it must) */
 @media (max-width: 860px) {
-  .prose .annot { grid-template-columns: var(--screen); justify-content: center; }
+  /* A screen never runs the whole width of the text: a square is left free
+     either side of it. On a phone the text is 6 squares wide, so a screen
+     spans the middle 4, its edges on two of the printed lines; wider than a
+     phone it stops at the width it was drawn at. --phone is that width, its
+     edge included, and both the long screen and a collage's phone use it, so
+     they are always the same width */
+  .prose :is(.annot, .collage) { --phone: min(332px, calc((var(--cols) - 2 * var(--margin) - 2) * var(--cell))); }
+  .prose .annot {
+    --bz: calc(var(--phone) * 6 / 332); --ro: calc(var(--phone) * 30 / 332); --ri: calc(var(--phone) * 24 / 332);
+    --screen: calc(var(--phone) - 2 * var(--bz)); grid-template-columns: var(--screen); justify-content: center;
+  }
   .annot__region { grid-column: 1; }
   .annot__shot { grid-column: 1; }
-  .annot__region .annot__note { grid-column: 1; grid-row: 2; display: block; height: auto; justify-self: stretch; max-width: none; padding: var(--space-3) var(--space-4); text-align: left; rotate: none; box-shadow: -6px 0 0 var(--bezel), 6px 0 0 var(--bezel); }
+  .annot__region .annot__note { grid-column: 1; grid-row: 2; display: block; height: auto; justify-self: stretch; max-width: none; padding: var(--space-3) var(--space-4); text-align: left; rotate: none; box-shadow: calc(var(--bz) * -1) 0 0 var(--bezel), var(--bz) 0 0 var(--bezel); }
   .annot__region .annot__note::after { display: none; }
   .annot__region--last .annot__note { grid-row: 1; }
   .annot__region--last .annot__shot { grid-row: 2; }
-  .annot__img { clip-path: inset(0 calc((var(--w) + var(--x) + 16) / 320 * 100cqw - 100cqw) 0 calc((var(--x) + 16) / -320 * 100cqw)); }
 
-  .prose .collage { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
-  .collage__c { grid-column: 1 / -1; order: -1; }
-  .collage__l, .collage__r { align-items: center; }
+  /* A collage keeps its screen in the middle, at the width of the long
+     screen, and the pieces round it are laid over its edges instead of
+     squeezed into columns beside it (there is no room beside it). Each keeps
+     the size it was drawn at relative to the others, all of them at the same
+     scale as the screen (--piece: its drawn width, scaled as the 332px screen
+     is to --phone), so they are as legible as beside it on a wide one. A
+     piece hangs off its side in the free square and covers the screen with
+     the rest, at most 30% of its width; --at is how far up or down the
+     screen it sits. The columns dissolve
+     (display: contents) and screen and pieces share one grid cell. */
+  .prose .collage {
+    --free: calc(((var(--cols) - 2 * var(--margin)) * var(--cell) - var(--phone)) / 2);   /* from the screen's edge to the text column's: one square on a phone */
+    grid-template-columns: var(--phone); justify-content: center; gap: 0;
+  }
+  .collage__l, .collage__r { display: contents; }
+  .collage__c, .collage :is(.collage__l, .collage__r) img { grid-area: 1 / 1; }
+  .collage__c img { width: 100%; }
+  .collage :is(.collage__l, .collage__r) img {
+    --piece: calc(var(--w) / 332 * var(--phone));
+    width: var(--piece); z-index: 1;
+    align-self: var(--at, center);
+    margin-block: calc(var(--phone) * 0.15);   /* off the screen's top and bottom edge */
+    /* Lifted off the screen, as the tip is (--lift-1, but a drop-shadow follows
+       the piece's own outline, which a box-shadow can't: they have no box) */
+    filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.35));
+  }
+  .collage__l img { justify-self: start; margin-left: max(var(--piece) * -0.7, var(--free) * -1); }   /* never past the printed grid's edge */
+  .collage__r img { justify-self: end; margin-right: max(var(--piece) * -0.7, var(--free) * -1); }
+
+  /* The icon system: the three steps are a sequence, so a rail to swipe along (fold.js counts it,
+     as it does the timeline); the three families are peers, so they stay three across */
+  .system__steps { display: flex; gap: var(--space-5); overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .system__steps::-webkit-scrollbar { display: none; }
+  .system__step { flex: 0 0 min(78%, 14rem); scroll-snap-align: start; }
+  .system__groups { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4) var(--space-2); }
+  /* Labels wrap to different heights in columns this narrow (a soft hyphen in
+     "Authen-tication" breaks the one word too long for its column). Each figure
+     spans the grid's two rows, so the three labels share a row and the three
+     pictures share the next: they start on one line however many lines a label
+     takes. Without subgrid they keep their own heights, which only staggers them. */
+  @supports (grid-template-rows: subgrid) {
+    .system__groups figure { grid-row: span 2; grid-template-rows: subgrid; }
+  }
   .system .rw__flow { display: none; }
   .prose .split { grid-template-columns: minmax(0, 1fr); row-gap: var(--cell); }
+  .question__fig { width: min(calc(var(--w) * 1px), 100%, 15rem); }
   .prose .panel { padding: var(--space-5); }
 }
 @media (max-width: 720px) {
-  .prose .trio { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .trio__main { grid-column: 1 / -1; aspect-ratio: 3 / 2; }
-  .trio__left, .trio__right { grid-row: 2; justify-self: stretch; width: auto; margin-top: 0; aspect-ratio: 3 / 4; }
-  .trio__right { grid-column: 2; }
+  .prose .trio { gap: var(--space-2); }
   .prose .panel { padding: var(--space-5) var(--space-4); }
 }
+
+/* ------------------------------------------------------------------
+   Pins (pins.js; the card they open is the Tip, above). Where there is
+   no room beside the phone for its notes (860px and under), each note
+   becomes a numbered circle on the phone's edge, on the side the note
+   would have been, and pressing it opens the note in a tip beside it.
+   The slices stay whole and in view, and nothing moves when a note
+   opens: it floats over the page. (A row that opened a picture under
+   itself did the reverse: the picture came above the button that
+   opened it, and closed the one being read.)
+
+   The circle is a button pins.js adds, and it is hidden until here: on
+   a screen only (print has no one to press it), once the script has run
+   ([data-pinned]), and at these widths only. Everywhere else the notes
+   themselves are on show. To have pins at every width, take the width
+   off the media query.
+   ------------------------------------------------------------------ */
+.pin { display: none; }
+@media screen and (max-width: 860px) {
+  .annot[data-pinned] .annot__note { display: none; }   /* its words are the tip's now */
+  .annot[data-pinned] .annot__region--last .annot__shot { grid-row: 1; }   /* the note that came above it is gone */
+  .annot[data-pinned] [data-pin] { position: relative; }   /* the pin and its tip are placed from here */
+  .annot[data-pinned] [data-pin].is-open { z-index: 20; }   /* an open tip lies over the slices below it, and their pins */
+
+  /* A paper dot with an ink ring, like a sticker on the screen: light against the mat, ringed
+     dark so it parts from the white of a slice. Its number is handwritten, as the notes are on
+     a wide screen. It straddles the phone's edge (centred on the 6px bezel), so half of it is
+     in the margin and it covers only 5px of the slice. */
+  .annot[data-pinned] .pin {
+    --size: 28px;
+    position: absolute; top: 50%; z-index: 2;
+    display: grid; place-items: center;
+    width: var(--size); height: var(--size); margin: calc(var(--size) / -2) 0 0; padding: 0;
+    border: 0; border-radius: 50%;
+    background: var(--paper); color: var(--ink);
+    font: 400 1.25rem/1 var(--f-hand);
+    box-shadow: 0 0 0 2px var(--mat), var(--lift-1);
+    cursor: pointer;
+    transition: scale var(--dur-fast), background-color var(--dur) var(--ease), color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  }
+  .annot[data-pinned] [data-pin="l"] > .pin { left: calc(var(--size) / -2 - 3px); }
+  .annot[data-pinned] [data-pin="r"] > .pin { right: calc(var(--size) / -2 - 3px); }
+  .annot[data-pinned] .pin::after { content: ""; position: absolute; inset: -8px; border-radius: 50%; }   /* a 44px target for a 28px circle */
+  .annot[data-pinned] .pin[aria-expanded="true"] { background: var(--ink); color: var(--paper); box-shadow: 0 0 0 2px var(--paper), var(--lift-1); }   /* open: inverted */
+  .annot[data-pinned] .pin:active { scale: 0.92; }
+  @media (hover: hover) { .annot[data-pinned] .pin:hover { scale: 1.1; } }
+  /* focus: a dark ring, a light one, a dark one: one of them shows on the white of a slice and on the mat. The transparent outline is for forced colours. */
+  .annot[data-pinned] .pin:focus-visible { outline: 2px solid transparent; outline-offset: 6px; box-shadow: 0 0 0 2px var(--mat), 0 0 0 4px var(--text), 0 0 0 6px var(--mat), var(--lift-1); }
+}
+/* Once, as a slice comes into view (reveal.js marks it): a ring spreads from its circle, to say that it can be pressed */
+@media screen and (max-width: 860px) and (prefers-reduced-motion: no-preference) {
+  .annot[data-pinned] .annot__region.is-shown .pin::before { content: ""; position: absolute; inset: 0; border-radius: 50%; box-shadow: 0 0 0 2px var(--text); opacity: 0; animation: pin-ping 1.2s var(--ease-out) 0.4s 1 forwards; }
+}
+@keyframes pin-ping { from { opacity: 0.9; scale: 1; } to { opacity: 0; scale: 2.2; } }
 
 /* Scroll reveals (reveal.js): hidden only with scripts running and motion
    allowed, on a screen; otherwise everything is simply there */

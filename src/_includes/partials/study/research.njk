@@ -10,7 +10,9 @@
         timeline:     [{ title, points[] }]             the steps taken, shown above the sources (optional)
         question:     the "how might we" the research led to
         figure:       { src, alt, width }               a picture under the question (optional)
-        findings:     [{ title, detail? }]
+        findings:     [{ title, detail?, rule? }]       rule: the principle it led to, linked to the card with
+                                                          id="rule-N" (N is the finding's place in the list), which
+                                                          links back to the finding (id="finding-N")
 
     Included through the oneLine filter (Markdown ends raw HTML at a blank line):
       {% filter oneLine %}{% include "partials/study/research.njk" %}{% endfilter %}
@@ -20,7 +22,7 @@
     hover, focus or a tap, and can be paused (styles: "Research" in style.css). -#}
 {%- set r = research %}
 {%- if r.timeline %}
-<ol class="timeline">
+<ol class="timeline" data-rail aria-label="How the research went, step by step">
   {%- for s in r.timeline %}
   <li class="timeline__step"><p class="timeline__t">{{ s.title }}</p>{% if s.points %}<ul class="timeline__list">{% for p in s.points %}<li>{{ p }}</li>{% endfor %}</ul>{% endif %}</li>
   {%- endfor %}
@@ -48,14 +50,15 @@
   <div class="split__lead">
     <h3 class="question">{{ r.question }}</h3>
     {%- if r.figure %}
-    <img class="question__fig" src="{{ r.figure.src }}" alt="{{ r.figure.alt or '' }}" style="--w: {{ r.figure.width or 248 }}" sizes="{{ r.figure.width or 248 }}px">
+    <img class="question__fig" data-enlarge src="{{ r.figure.src }}" alt="{{ r.figure.alt or '' }}" style="--w: {{ r.figure.width or 248 }}" sizes="(max-width: 860px) 240px, {{ r.figure.width or 248 }}px">
     {%- endif %}
   </div>
   <div class="split__main">
     <p class="label">Key findings</p>
-    <ol class="findings">
+    {#- On a narrow screen each finding is a fold (fold.js): its title is the row, the detail opens under it, one at a time, the first starting open -#}
+    <ol class="findings" data-fold data-fold-hit="item">
       {%- for f in r.findings %}
-      <li class="finding"><span class="label">{{ "0" if loop.index < 10 }}{{ loop.index }}</span><div><p class="finding__t">{{ f.title }}</p>{% if f.detail %}<p class="caption">{{ f.detail }}</p>{% endif %}</div></li>
+      <li class="finding" id="finding-{{ loop.index }}"{% if f.detail %} data-fold-item{% if loop.first %} data-fold-open{% endif %}{% endif %}><span class="label">{{ "0" if loop.index < 10 }}{{ loop.index }}</span><div><p class="finding__t"{% if f.detail %} data-fold-head{% endif %}>{{ f.title }}</p>{% if f.detail %}<p class="caption" data-fold-body>{{ f.detail }}{% if f.rule %}<span class="finding__rule">Led to rule {{ loop.index }}: <a href="#rule-{{ loop.index }}">{{ f.rule }}</a></span>{% endif %}</p>{% endif %}</div></li>
       {%- endfor %}
     </ol>
   </div>

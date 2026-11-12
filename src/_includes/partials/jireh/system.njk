@@ -1,14 +1,16 @@
-{#- The icon system: from a borrowed set to a foundation, then the three families built on it. -#}
+{#- The icon system: from a borrowed set to a foundation, then the three families built on it.
+    On a narrow screen the three steps (a sequence) are a rail to swipe along, counted by fold.js, and the three
+    families (peers) stay three across; every picture opens full screen on a tap there (spread-zoom.js). -#}
 <div class="panel system">
-  <div class="system__steps">
-    <figure class="system__step"><figcaption class="label">Study the original assets</figcaption><img src="/assets/images/projects/jh/system-study.png" alt="A poster for NeoPop by CRED: outlined letters behind a phone with rings around it" style="--w: 200" sizes="(max-width: 720px) 60vw, 200px"></figure>
-    <figure class="system__step"><figcaption class="label">Define a grid</figcaption><img src="/assets/images/projects/jh/system-grid.png" alt="A cube in a 3D grid, with red, green and blue axes" style="--w: 200" sizes="(max-width: 720px) 60vw, 200px"></figure>
-    <figure class="system__step"><figcaption class="label">Create a foundation</figcaption><img src="/assets/images/projects/jh/system-foundation.png" alt="Four white base shapes with teal depth edges: a shield, a circle, a square and a star" style="--w: 200" sizes="(max-width: 720px) 60vw, 200px"></figure>
+  <div class="system__steps" data-rail role="group" aria-label="Three steps, from a borrowed icon set to a foundation">
+    <figure class="system__step"><figcaption class="label">Study the original assets</figcaption><img data-enlarge src="/assets/images/projects/jh/system-study.png" alt="A poster for NeoPop by CRED: outlined letters behind a phone with rings around it" style="--w: 200" sizes="(max-width: 860px) 60vw, 200px"></figure>
+    <figure class="system__step"><figcaption class="label">Define a grid</figcaption><img data-enlarge src="/assets/images/projects/jh/system-grid.png" alt="A cube in a 3D grid, with red, green and blue axes" style="--w: 200" sizes="(max-width: 860px) 60vw, 200px"></figure>
+    <figure class="system__step"><figcaption class="label">Create a foundation</figcaption><img data-enlarge src="/assets/images/projects/jh/system-foundation.png" alt="Four white base shapes with teal depth edges: a shield, a circle, a square and a star" style="--w: 200" sizes="(max-width: 860px) 60vw, 200px"></figure>
   </div>
   {% include "partials/study/flow.njk" %}
   <div class="system__groups">
-    <figure><figcaption class="label">Payments</figcaption><img src="/assets/images/projects/jh/system-payments.png" alt="Payments icons: a map with a pin, a tick, a card, a percent badge and a phone with a receipt" style="--w: 184" sizes="(max-width: 720px) 60vw, 184px"></figure>
-    <figure><figcaption class="label">Authentication</figcaption><img src="/assets/images/projects/jh/system-auth.png" alt="Authentication icons: a profile card with a masked PIN, and four small ID cards with add, alert and tick badges" style="--w: 216" sizes="(max-width: 720px) 60vw, 216px"></figure>
-    <figure><figcaption class="label">Misc</figcaption><img src="/assets/images/projects/jh/system-misc.png" alt="Miscellaneous icons: an open book on a stack of books, a bin, chat bubbles, a gift and blocks" style="--w: 193" sizes="(max-width: 720px) 60vw, 193px"></figure>
+    <figure><figcaption class="label">Payments</figcaption><img data-enlarge src="/assets/images/projects/jh/system-payments.png" alt="Payments icons: a map with a pin, a tick, a card, a percent badge and a phone with a receipt" style="--w: 184" sizes="(max-width: 860px) 30vw, 184px"></figure>
+    <figure><figcaption class="label">Authen&shy;tication</figcaption><img data-enlarge src="/assets/images/projects/jh/system-auth.png" alt="Authentication icons: a profile card with a masked PIN, and four small ID cards with add, alert and tick badges" style="--w: 216" sizes="(max-width: 860px) 30vw, 216px"></figure>
+    <figure><figcaption class="label">Misc</figcaption><img data-enlarge src="/assets/images/projects/jh/system-misc.png" alt="Miscellaneous icons: an open book on a stack of books, a bin, chat bubbles, a gift and blocks" style="--w: 193" sizes="(max-width: 860px) 30vw, 193px"></figure>
   </div>
 </div>

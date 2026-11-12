@@ -1,14 +1,19 @@
-{#- Fast Track, one bill from several sources: the screen, the sources you can add, and what each choice shows beside it. -#}
+{#- Fast Track, one bill from several sources: the screen, the sources you can add, and what each choice shows beside it.
+    On a narrow screen it is the same collage with the pieces laid over the screen's edges (style.css): --at is where a piece
+    sits along the screen's height (start, end or centre), and each is drawn at the size, relative to the screen, it has beside it
+    on a wide one. A piece with data-enlarge opens full screen on a tap there (spread-zoom.js), so what is too small to
+    read can be read. A piece's image must have a transparent background, as it lies over the white screen there: one exported
+    on the mat has #121212 behind it, which scripts/cutout.js takes off. -#}
 <div class="collage">
   <div class="collage__l">
-    <img data-reveal src="/assets/images/projects/jh/split-star.png" alt="A starburst badge with a percent sign, marking a discount" style="--w: 80" sizes="80px">
-    <img data-reveal src="/assets/images/projects/jh/split-sources.png" alt="Add source of funds: MPESA, Jireh Cashback earned and Jireh Medical Loan, each with a plus button" style="--w: 224" sizes="(max-width: 860px) 45vw, 224px">
+    <img data-reveal src="/assets/images/projects/jh/split-star.png" alt="A starburst badge with a percent sign, marking a discount" style="--w: 80; --at: start" sizes="(max-width: 860px) 25vw, 80px">
+    <img data-reveal data-enlarge src="/assets/images/projects/jh/split-sources.png" alt="Add source of funds: MPESA, Jireh Cashback earned and Jireh Medical Loan, each with a plus button" style="--w: 224; --at: end" sizes="(max-width: 860px) 25vw, 224px">
   </div>
   <div class="collage__c">
-    <img src="/assets/images/projects/jh/split-phone.png" alt="Choose how to pay, step 3 of 5: KES 3,000 allocated of a KES 3,000 bill, from Jireh Cashback earned KES 500 and Jireh Medical Loan KES 2,500, with MPESA available to add, and a Proceed to pay button" style="--w: 332" sizes="(max-width: 720px) 95vw, 332px">
+    <img data-enlarge src="/assets/images/projects/jh/split-phone.png" alt="Choose how to pay, step 3 of 5: KES 3,000 allocated of a KES 3,000 bill, from Jireh Cashback earned KES 500 and Jireh Medical Loan KES 2,500, with MPESA available to add, and a Proceed to pay button" style="--w: 332" sizes="(max-width: 860px) min(332px, 62vw), 332px">
   </div>
   <div class="collage__r">
-    <img data-reveal src="/assets/images/projects/jh/split-tip.png" alt="A tip: with a bill of KES 3,500, you could earn up to KES 700 cashback" style="--w: 268" sizes="(max-width: 860px) 45vw, 268px">
-    <img data-reveal src="/assets/images/projects/jh/split-loan.png" alt="A loan card: your loan is due on 20 Dec, KES 1,000 repaid of KES 2,500, with a prompt to repay a week early and earn KES 500 cashback, and a Make a repayment button" style="--w: 288" sizes="(max-width: 860px) 45vw, 288px">
+    <img data-reveal data-enlarge src="/assets/images/projects/jh/split-tip.png" alt="A tip: with a bill of KES 3,500, you could earn up to KES 700 cashback" style="--w: 268; --at: start" sizes="(max-width: 860px) 25vw, 268px">
+    <img data-reveal data-enlarge src="/assets/images/projects/jh/split-loan.png" alt="A loan card: your loan is due on 20 Dec, KES 1,000 repaid of KES 2,500, with a prompt to repay a week early and earn KES 500 cashback, and a Make a repayment button" style="--w: 288; --at: center" sizes="(max-width: 860px) 25vw, 288px">
   </div>
 </div>

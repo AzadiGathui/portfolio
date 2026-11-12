@@ -60,6 +60,17 @@ for (const width of WIDTHS) {
       console.log(`FAIL  ${String(width).padStart(4)}px  ${url}  couldn't run the check: ${error.message.split("\n")[0]}`);
       continue;
     }
+    const report = (what, result) => {
+      const label = `${String(width).padStart(4)}px  ${url}${what}  square ${result.cell}px`;
+      if (!result.problems.length) {
+        console.log(`ok    ${label}  ${result.checked} checked`);
+        return;
+      }
+      failures += result.problems.length;
+      console.log(`FAIL  ${label}  ${result.problems.length} of ${result.checked} off the grid`);
+      for (const { kind, by, what } of result.problems.slice(0, 12)) console.log(`        ${kind} ${by}px  ${what}`);
+      if (result.problems.length > 12) console.log(`        … and ${result.problems.length - 12} more`);
+    };
     // The CV: check it with every row open too
     const runs = url.startsWith("/resume") ? ["closed", "open"] : ["page"];
     for (const run of runs) {
@@ -70,16 +81,39 @@ for (const width of WIDTHS) {
         }
         return window.gridAudit();
       }, run === "open");
-      const label = `${String(width).padStart(4)}px  ${url}${run === "open" ? " (rows open)" : ""}  square ${result.cell}px`;
-      if (!result.problems.length) {
-        console.log(`ok    ${label}  ${result.checked} checked`);
-        continue;
-      }
-      failures += result.problems.length;
-      console.log(`FAIL  ${label}  ${result.problems.length} of ${result.checked} off the grid`);
-      for (const { kind, by, what } of result.problems.slice(0, 12)) console.log(`        ${kind} ${by}px  ${what}`);
-      if (result.problems.length > 12) console.log(`        … and ${result.problems.length - 12} more`);
+      report(run === "open" ? " (rows open)" : "", result);
     }
+    // A narrow screen's folds (fold.js) open one row at a time, and each changes the page's height:
+    // check each row open in turn (the one that starts open was checked above), then every row shut
+    const folds = await page.evaluate(() => document.querySelectorAll(".fold__btn").length);
+    for (let i = 0; i < folds; i++) {
+      const result = await page.evaluate(async (n) => {
+        const button = document.querySelectorAll(".fold__btn")[n];
+        if (button.getAttribute("aria-expanded") === "true") return null;   // open already: checked
+        button.click();
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        return window.gridAudit();
+      }, i);
+      if (result) report(` (fold ${i + 1} open)`, result);
+    }
+    if (folds) {
+      const shut = await page.evaluate(async () => {
+        document.querySelectorAll(".fold__btn[aria-expanded='true']").forEach((button) => button.click());
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        return window.gridAudit();
+      });
+      report(" (folds shut)", shut);
+    }
+    // A narrow screen's pins (pins.js) open their notes as tips. A tip floats over the page and is no
+    // part of the mat (the check leaves it out), so it must move nothing: look with one open
+    const tipOpen = await page.evaluate(async () => {
+      const pin = [...document.querySelectorAll(".pin")].find((el) => getComputedStyle(el).display !== "none");
+      if (!pin) return null;
+      pin.click();
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      return window.gridAudit();
+    });
+    if (tipOpen) report(" (a tip open)", tipOpen);
   }
   await page.close();
 }

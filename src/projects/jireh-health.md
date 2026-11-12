@@ -57,12 +57,16 @@ research:
   findings:
     - title: Paying for someone else is the default.
       detail: Parents for their children, adults for their elderly parents. The bill is rarely your own.
+      rule: Pay for others as easily as for yourself.
     - title: Payment happens under pressure, on 3G and a low-end phone.
       detail: At a counter, often when someone is unwell. Heavy screens and dropped connections cost trust before it is earned.
+      rule: One decision per screen, from one shared system.
     - title: Money questions come before everything else.
       detail: "Where can we use Jireh next time? What can I do with the cashback I've earned? The long Home screen answers these up front."
+      rule: Every shilling is visible.
     - title: People share an ID, selfie or PIN only when they know why.
       detail: Every request has to explain itself, and nothing is switched on until the person chooses it.
+      rule: Earn every request, and never lose progress.
   sources:
     - title: "Community Group Buying: the 'US military vs the Red Army'"
       image: /assets/images/projects/jh/research-src-news.png
@@ -127,10 +131,10 @@ The gap is covered by phone calls to family and by borrowing on terms nobody has
 
 <div class="panel">
 <div class="pj-row pj-row--4 pj-row--rules">
-  <div class="stat-card"><span class="label label--accent">From finding 01</span><p class="stat-card__value">Pay for others as easily as for yourself.</p><p class="caption"><a href="#circle">The Circle</a></p></div>
-  <div class="stat-card"><span class="label label--accent">From finding 02</span><p class="stat-card__value">One decision per screen, from one shared system.</p><p class="caption"><a href="#fast-track">Fast Track</a> and the <a href="#system">icon system</a></p></div>
-  <div class="stat-card"><span class="label label--accent">From finding 03</span><p class="stat-card__value">Every shilling is visible.</p><p class="caption"><a href="#home">Home</a></p></div>
-  <div class="stat-card"><span class="label label--accent">From finding 04</span><p class="stat-card__value">Earn every request, and never lose progress.</p><p class="caption"><a href="#onboarding">Onboarding</a></p></div>
+  <div class="stat-card" id="rule-1"><a class="label label--accent" href="#finding-1">From finding 01</a><p class="stat-card__value">Pay for others as easily as for yourself.</p><p class="caption"><a href="#circle">The Circle</a></p></div>
+  <div class="stat-card" id="rule-2"><a class="label label--accent" href="#finding-2">From finding 02</a><p class="stat-card__value">One decision per screen, from one shared system.</p><p class="caption"><a href="#fast-track">Fast Track</a> and the <a href="#system">icon system</a></p></div>
+  <div class="stat-card" id="rule-3"><a class="label label--accent" href="#finding-3">From finding 03</a><p class="stat-card__value">Every shilling is visible.</p><p class="caption"><a href="#home">Home</a></p></div>
+  <div class="stat-card" id="rule-4"><a class="label label--accent" href="#finding-4">From finding 04</a><p class="stat-card__value">Earn every request, and never lose progress.</p><p class="caption"><a href="#onboarding">Onboarding</a></p></div>
 </div>
 </div>
 

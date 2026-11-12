@@ -1,7 +1,7 @@
 ---
 layout: layouts/base.njk
 readingBar: true
-scripts: [reels, reading-bar, spread-zoom, reveal, faces, research]
+scripts: [reels, reading-bar, spread-zoom, reveal, tip, pins, research, fold]
 tools:
   - { img: kneadable-eraser, edge: r, at: "--c: 14; --r: 4; --rot: 4deg" }
   - { img: mechanical-pencil, edge: l, at: "--c: 1; --r: 9; --rot: -1deg" }
@@ -45,7 +45,7 @@ tools:
   {%- if team %}
   {#- team (optional): the people who did the work with me: [{ name, role, url?, photo? }].
       With a photo for everyone, the team is a row of faces: each shows its name and role
-      under it on hover, focus or a tap, linked to the person's profile (faces.js).
+      under it on hover, focus or a tap, linked to the person's profile (a tip: tip.js).
       Without photos, a list of names and roles. #}
   {%- set faces = true %}
   {%- for member in team %}{% if not member.photo %}{% set faces = false %}{% endif %}{% endfor %}
@@ -53,10 +53,10 @@ tools:
     {%- if faces %}
     <ul class="faces">
       {%- for member in team %}
-      <li class="face">
+      <li class="face" data-tip="hover">
         <{% if member.url %}a href="{{ member.url }}" rel="noopener"{% else %}span tabindex="0"{% endif %} class="face__link" aria-label="{{ member.name }}, {{ member.role }}">
           <span class="face__img"><img src="{{ member.photo }}" alt="" width="56" height="56" sizes="56px" loading="eager"></span>
-          <span class="face__tip"><span class="face__card"><span class="face__name">{{ member.name }}</span><span class="face__role">{{ member.role }}</span></span></span>
+          <span class="tip"><span class="tip__card face__card"><span class="face__name">{{ member.name }}</span><span class="face__role">{{ member.role }}</span></span></span>
         </{% if member.url %}a{% else %}span{% endif %}>
       </li>
       {%- endfor %}

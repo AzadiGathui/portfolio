@@ -194,7 +194,8 @@ module.exports = async function (eleventyConfig) {
   // slice's <figcaption>, so it is real text, tied to its slice by markup
   // (not by pixel offsets that could drift), and on a phone it simply drops
   // below the slice. reveal.js shows each note as its slice scrolls into
-  // view, and keeps it. Styles: "Annotated screen" in style.css.
+  // view, and keeps it. Styles: "A phone's Home screen cut into slices" and
+  // "Pins" in style.css.
   //
   //   {% annotated "Home screen, annotated" %}
   //     {% region { src: "…", alt: "…", w: 288, x: 0, side: "l", note: "Every shilling is visible." } %}
@@ -204,15 +205,23 @@ module.exports = async function (eleventyConfig) {
   // its left edge is, from the screen's left edge less its 16px padding (a
   // slice that hangs out of the phone has a negative x); edge: "first" or
   // "last" for the slices that carry the phone's rounded top or bottom.
+  //
+  // Where there is no room beside the phone (860px and under) the notes
+  // become numbered pins on the phone's edge, each opening its note as a tip
+  // (pins.js, tip.js). The attributes are all those scripts need: a slice with
+  // a note is a [data-pin], whose value is the edge its pin sits on ("l" or
+  // "r", the side of its note), and the note is its [data-pin-note]. Without
+  // the scripts, and in print, the notes are simply there, under their slices.
   // ------------------------------------------------------------------
   eleventyConfig.addShortcode("region", ({ src, alt = "", w = 288, x = 0, side = "l", note, edge } = {}) => {
-    const mods = [edge && `annot__region--${edge}`, note && `annot__region--${side}`].filter(Boolean).map((m) => ` ${m}`).join("");
-    return `<figure class="annot__region${mods}" style="--w: ${w}; --x: ${x}"><div class="annot__shot"><span class="annot__img"><img src="${escapeAttr(src)}" alt="${escapeAttr(alt)}" sizes="(max-width: 720px) 90vw, 520px"></span></div>${note ? `<figcaption class="annot__note">${note}</figcaption>` : ""}</figure>`;
+    const edgeSide = side === "r" ? "r" : "l";
+    const mods = [edge && `annot__region--${edge}`, note && `annot__region--${edgeSide}`].filter(Boolean).map((m) => ` ${m}`).join("");
+    return `<figure class="annot__region${mods}"${note ? ` data-pin="${edgeSide}"` : ""} style="--w: ${w}; --x: ${x}"><div class="annot__shot"><span class="annot__img"><img src="${escapeAttr(src)}" alt="${escapeAttr(alt)}" sizes="(max-width: 720px) 90vw, 520px"></span></div>${note ? `<figcaption class="annot__note" data-pin-note>${note}</figcaption>` : ""}</figure>`;
   });
 
   eleventyConfig.addPairedShortcode("annotated", (content, label = "Screen") => {
     const regions = content.split("\n").map((line) => line.trim()).filter(Boolean);
-    return `<div class="annot" role="group" aria-label="${escapeAttr(label)}">${regions.join("")}</div>`;
+    return `<div class="annot" role="group" aria-label="${escapeAttr(label)}" data-pins>${regions.join("")}</div>`;
   });
 
   // Collapses a block of HTML to one line, so a template written readably (an
