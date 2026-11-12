@@ -36,6 +36,10 @@ collections:
       - { label: "Title", name: title, widget: string }
       - { label: "Title Superscript", name: titleSup, widget: string, required: false,
           hint: "Small raised text after the project page title, e.g. a year or edition (2024, COP27)." }
+      - { label: "Page Heading", name: headline, widget: string, required: false,
+          hint: "The big heading on the project page, when it should differ from the Title (the Title is what the homepage cards and the next/previous links use)." }
+      - { label: "Full-width Story", name: sidebar, widget: boolean, default: true, required: false,
+          hint: "Switch off to drop the contents list beside the story: it then runs the full width, with its headings and text in a centred column." }
       - { label: "Tagline", name: tagline, widget: string,
           required: false,
           hint: "Not shown on the site at the moment: the description is shown under the title instead." }
@@ -43,14 +47,82 @@ collections:
       - { label: "Industry", name: industry, widget: string, required: false,
           hint: "The label above the title, on the homepage card and the project page." }
       - { label: "Role", name: role, widget: string }
+      - { label: "Timeline", name: timeline, widget: string, required: false,
+          hint: "Shown in the project's facts, e.g. Apr 2025 – Sep 2026." }
+      - { label: "Platform", name: platform, widget: string, required: false,
+          hint: "Shown in the project's facts, e.g. Installable web app (PWA), Android first." }
       - { label: "Deliverables", name: deliverables, widget: string,
           hint: "Shown under the title on the homepage card, and in the project's facts." }
+      # Declared here so the editor shows them and keeps them when an entry is saved
+      - label: "Team"
+        name: team
+        widget: list
+        required: false
+        hint: "The people who did the work with you, shown in the project's facts. With a photo for everyone it is a row of faces (name and role on hover or tap); without, a list of names and roles."
+        fields:
+          - { label: "Name", name: name, widget: string }
+          - { label: "Role", name: role, widget: string }
+          - { label: "Profile link", name: url, widget: string, required: false,
+              hint: "Links the name or face to their profile, e.g. LinkedIn." }
+          - { label: "Photo", name: photo, widget: image, required: false,
+              hint: "Square, shown at 56px." }
+      - label: "Research"
+        name: research
+        widget: object
+        required: false
+        hint: "The research section of a case study: the steps taken, the sources behind it, the question it led to and the key findings. Place it in the Body with the research include."
+        fields:
+          - { label: "Question", name: question, widget: string,
+              hint: "The how-might-we the research led to." }
+          - label: "Figure"
+            name: figure
+            widget: object
+            required: false
+            hint: "A picture under the question."
+            fields:
+              - { label: "Image", name: src, widget: image }
+              - { label: "Alt text", name: alt, widget: string, required: false,
+                  hint: "Describe what it shows, for people who can't see it." }
+              - { label: "Width", name: width, widget: number, value_type: int, required: false, default: 248,
+                  hint: "In pixels, on a wide screen." }
+          - label: "Timeline"
+            name: timeline
+            widget: list
+            required: false
+            hint: "The steps taken, shown above the sources."
+            fields:
+              - { label: "Step", name: title, widget: string }
+              - { label: "Points", name: points, widget: list, required: false,
+                  field: { label: "Point", name: point, widget: string } }
+          - label: "Findings"
+            name: findings
+            widget: list
+            hint: "Keep them in the order of the rules they led to: the Nth finding links to the Nth rule."
+            fields:
+              - { label: "Finding", name: title, widget: string }
+              - { label: "Detail", name: detail, widget: text, required: false }
+              - { label: "Rule it led to", name: rule, widget: string, required: false,
+                  hint: "Shown under the detail as a link to the Nth rule card (give that card id=rule-N, and link its label back to finding-N)." }
+          - label: "Sources"
+            name: sources
+            widget: list
+            hint: "What was read, watched and seen. A source without a link reads as a photo of your own."
+            fields:
+              - { label: "Title", name: title, widget: string }
+              - { label: "Image", name: image, widget: image }
+              - { label: "Alt text", name: alt, widget: string, required: false }
+              - { label: "Link", name: url, widget: string, required: false,
+                  hint: "The original source. Opens in a new tab." }
+          - { label: "Seconds per source", name: cycle, widget: number, value_type: int, required: false, default: 4,
+              hint: "How long each source stays on top while the pile cycles." }
       - { label: "Homepage Order", name: order, widget: number, value_type: int,
           hint: "Lower number = earlier on the homepage. The first five are Selected work. Use 1, 2, 3…" }
       - { label: "Published", name: published, widget: boolean, default: true,
           hint: "Uncheck to hide from homepage without deleting the page." }
       - { label: "Cover Image", name: coverImage, widget: image,
           hint: "The photo behind the artefact, in grey, on the homepage card and the project page." }
+      - { label: "Cover Position", name: coverPosition, widget: string, required: false,
+          hint: "Which part of the cover photo stays in view when it is cropped, as a CSS object-position, e.g. 50% 20%." }
       - { label: "Mockup Image", name: mockupImage, widget: image, required: false,
           hint: "A phone screen, shown in the phone mockup when Artefact kind is phone." }
       - { label: "Client Logo", name: clientLogo, widget: image, required: false,

@@ -1,0 +1,10 @@
+{#- Dashed lines that run from the top and join into one, pointing down at what comes next (the research sources into their findings, the icon steps into their families). The dashes travel along the lines unless the visitor prefers reduced motion. Included by research.njk and by the icon system; styles: ".rw__flow" in style.css. -#}
+<div class="rw__flow" data-reveal aria-hidden="true">
+  <svg class="rw__lines" viewBox="0 0 300 80" preserveAspectRatio="none" focusable="false">
+    {%- for d in ["M28 0C28 28 150 24 150 47", "M89 0C89 28 150 24 150 47", "M150 0L150 47", "M211 0C211 28 150 24 150 47", "M272 0C272 28 150 24 150 47"] %}
+    <path class="rw__base" d="{{ d }}"/><path class="rw__dash" d="{{ d }}"/>
+    {%- endfor %}
+    <path class="rw__base rw__trunk" d="M150 47L150 80"/><path class="rw__dash rw__trunk" d="M150 47L150 80"/>
+  </svg>
+  <svg class="rw__chev" viewBox="0 0 12 9" focusable="false"><path d="M1 1l5 6 5-6"/></svg>
+</div>
