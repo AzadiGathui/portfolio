@@ -28,7 +28,7 @@ html, body { background: #fff !important; color: #1a1a1a; font-size: 9.5pt; line
 .mat__content .sheet, .mat__content .area { height: auto !important; min-height: 0 !important; padding: 0 !important; margin: 0; background: none !important; box-shadow: none !important; }
 
 /* Left out: furniture, decoration, images, the chart, buttons */
-.skip, .mat__keys, .mat__tools, .foot, .gap, .tl-frame, .reel, .note,
+.skip, .keys,.mat__tools, .foot, .gap, .tl-frame, .reel, .note,
 .entry__toggle, .icon-link svg, [data-print] { display: none !important; }
 
 /* The intro: name, role, contact, as a letterhead */

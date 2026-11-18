@@ -1,9 +1,11 @@
 // Case studies on a phone: the reading bar
 // (partials/reading-bar.njk). The pill shows the section being read
-// and opens the contents as a sheet; the up arrow shows only while the
-// reader scrolls back up, the moment they're most likely looking for the
-// top. Both appear once the reader is into the story and hide at its end,
-// so they never cover the links there. Styles: "Reading bar" in style.css.
+// and opens the contents as a sheet; the up arrow is beside it. Both appear
+// once the reader is into the story and hide at its end, so they never
+// cover the links there. They sit on the mat's own columns, the same
+// squares as the keys at the top: fit() measures those keys and hands the
+// bar their left edge, the number of columns and the square.
+// Styles: "Reading bar" in style.css.
 (() => {
   const pill = document.querySelector(".toc-pill");
   const toTop = document.querySelector(".to-top");
@@ -16,8 +18,19 @@
   const headings = sheetLinks.map((a) => document.querySelector(a.getAttribute("href"))).filter(Boolean);
   const section = pill?.querySelector(".toc-pill__section");
   const count = pill?.querySelector(".toc-pill__count");
-  let lastY = scrollY;
-  let goingUp = false;
+  const keys = document.querySelector(".keys");
+  const content = document.querySelector(".mat__content");
+  const bar = document.querySelector(".reading-bar");
+
+  function fit() {
+    if (!keys || !content || !bar) return;
+    const cell = parseFloat(getComputedStyle(content).gridAutoRows);   // the same square snap.js uses
+    const box = keys.getBoundingClientRect();
+    if (!cell || !box.width) return;
+    bar.style.setProperty("--rb-left", `${box.left}px`);
+    bar.style.setProperty("--rb-cell", `${cell}px`);
+    bar.style.setProperty("--rb-cols", String(Math.round(box.width / cell)));
+  }
 
   function update() {
     // the section whose heading has passed the top quarter of the screen
@@ -29,12 +42,9 @@
       else a.removeAttribute("aria-current");
     });
 
-    // direction, ignoring small jitters (the address bar resizing the page)
-    if (Math.abs(scrollY - lastY) > 8) { goingUp = scrollY < lastY; lastY = scrollY; }
-
     const inStory = story.getBoundingClientRect().top < innerHeight * 0.6;
     const atEnd = end && end.getBoundingClientRect().top < innerHeight;
-    toTop.classList.toggle("is-visible", inStory && goingUp && !atEnd);
+    toTop.classList.toggle("is-visible", inStory && !atEnd);
     if (!pill) return;
     section.textContent = index >= 0 ? sheetLinks[index].textContent : "Contents";
     count.textContent = index >= 0 ? `${index + 1}/${headings.length}` : "";
@@ -42,7 +52,9 @@
   }
 
   addEventListener("scroll", update, { passive: true });
-  addEventListener("resize", update, { passive: true });
+  addEventListener("resize", () => { fit(); update(); }, { passive: true });
+  document.fonts?.ready.then(fit);
+  fit();
   update();
 
   // The contents sheet: a modal <dialog>, so focus stays inside it and Esc

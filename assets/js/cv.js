@@ -8,8 +8,8 @@
 // - a link to a card or row (#jireh, #ciff), from the timeline or
 //   another page, opens it, scrolls to it and lights it briefly
 // - a timeline bar and its card or row light up together on hover
-// - the panel under the timeline previews the bar pointed at, or keeps the
-//   one clicked or tapped; pointing at a lane's name fades the other lanes
+// - pointing at a lane's name on the timeline fades the other lanes; a bar is
+//   a link to its card, which opens
 // - the timeline draws itself in once it's on screen
 // - printing ("Save as PDF") opens every row, then puts them back
 (() => {
@@ -113,64 +113,6 @@
   if (chart) {
     // Its bars, by the id of the card or row each stands for
     const bars = new Map([...chart.querySelectorAll(".tl__track a")].map((a) => [a.hash.slice(1), a.closest("li")]));
-
-    // The panel under the chart shows one entry: the one pointed at (a
-    // preview, gone when the pointer leaves), else the one chosen (kept; the
-    // job you're in now to begin with). Each entry's content is built into
-    // the page, hidden (resume.njk: .tl-pv); this copies it in.
-    const panel = document.getElementById("tl-panel");
-    const body = panel?.querySelector(".tl-panel__body");
-    const hint = panel?.querySelector(".tl-panel__hint");
-    const lis = new Map([...chart.querySelectorAll(".tl__track li")].map((li) => [li.dataset.id, li]));
-    const ticks = new Map([...chart.querySelectorAll(".tl__tick")].map((t) => [t.dataset.id, t]));
-    let chosen = panel?.dataset.current || lis.keys().next().value;
-
-    const show = (id, preview = false) => {
-      const pv = document.getElementById(`pv-${id}`);
-      if (!pv || !body) return;
-      body.replaceChildren(...[...pv.children].map((c) => c.cloneNode(true)));
-      body.dataset.id = id;
-      hint.textContent = preview ? "Click to keep" : "";
-      // the bar it belongs to (a project in a group lights the group, and its own tick)
-      const group = pv.dataset.back;
-      lis.forEach((li, key) => li.classList.toggle("is-selected", key === (group || id)));
-      ticks.forEach((t, key) => t.classList.toggle("is-picked", key === id));
-      resnap();
-    };
-    const choose = (id) => { chosen = id; show(id); };
-    if (panel) show(chosen);
-
-    // Choosing: a click or tap on a bar (not a jump: the panel has the link to the card),
-    // or a project or "all projects" inside the panel
-    chart.addEventListener("click", (e) => {
-      const li = e.target.closest(".tl__track li");
-      if (!li || !panel) return;
-      e.preventDefault();
-      choose(li.dataset.id);
-    });
-    panel?.addEventListener("click", (e) => {
-      const pick = e.target.closest("[data-pick]");
-      if (pick) return choose(pick.dataset.pick);
-      // "Full entry": the way to the card, which opens and lights up
-      const open = e.target.closest("a[data-open]");
-      if (!open) return;
-      e.preventDefault();
-      history.pushState(null, "", open.hash);
-      openTarget(smooth());
-    });
-
-    // Pointing at a bar previews it (a mouse or pen; a finger just chooses)
-    chart.addEventListener("pointerover", (e) => {
-      const li = e.target.closest?.(".tl__track li");
-      if (li && e.pointerType !== "touch" && li.dataset.id !== body?.dataset.id) show(li.dataset.id, true);
-    });
-    chart.addEventListener("pointerleave", (e) => e.pointerType !== "touch" && show(chosen));
-    // the keyboard previews as it moves; choosing is Enter
-    chart.addEventListener("focusin", (e) => {
-      const li = e.target.closest?.(".tl__track li");
-      if (li && li.matches(":has(:focus-visible)")) show(li.dataset.id, true);
-    });
-    chart.addEventListener("focusout", (e) => !chart.contains(e.relatedTarget) && show(chosen));
 
     // The lane names, on the left axis: point at one (or focus it) and its
     // projects stand out, the other lanes fade. Click or tap keeps it; again clears it.

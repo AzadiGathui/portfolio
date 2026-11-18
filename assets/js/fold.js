@@ -4,8 +4,8 @@
 // [data-fold-head] (the title that stays) and a [data-fold-body] (what opens
 // under it). A row marked data-fold-open starts open. On a narrow screen the
 // head's text is wrapped in a real <button> (aria-expanded, aria-controls),
-// and opening one row closes the others. On a wide screen, and without
-// scripts, nothing is folded: every body is simply there, and no button is.
+// and opening one row closes the others. On a wide screen (unless the group is
+// [data-fold-always]), and without scripts, nothing is folded: every body is simply there, and no button is.
 //
 // RAILS. A [data-rail] is a row to swipe along. A scroller nobody can reach by
 // keyboard can't be scrolled by keyboard, so it is made reachable (tabindex)
@@ -73,8 +73,9 @@
 
   function sync() {
     for (const { group, rows } of groups) {
-      group.toggleAttribute("data-folded", narrow.matches);
-      for (const row of rows) narrow.matches ? !row.button && fold(row, rows) : unfold(row);
+      const on = narrow.matches || group.hasAttribute("data-fold-always");   // data-fold-always: folded on a wide screen too (long notes)
+      group.toggleAttribute("data-folded", on);
+      for (const row of rows) on ? !row.button && fold(row, rows) : unfold(row);
     }
     snap();
   }
@@ -83,6 +84,7 @@
   // was linked to is on screen and not a title with its detail shut
   function openLinked() {
     const id = location.hash.slice(1);
+    if (!id) return;   // no link: a row without an id of its own must not match ""
     for (const { rows } of groups) {
       const row = rows.find((r) => r.item.id === id);
       if (row?.button && !row.item.classList.contains("is-open")) toggle(row, rows);

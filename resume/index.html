@@ -4,23 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#262626">
+  <meta name="theme-color" content="#1a1a1a">
 
   <link rel="icon" href="/assets/images/branding/ag-tile-dark.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/images/branding/favicon.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="/assets/images/branding/apple-touch-icon.png">
   <!-- Self-hosted fonts: preload the face every page renders first -->
-  <link rel="preload" href="/assets/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="">
-  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="">
+  <link rel="preload" href="/assets/fonts/inter-latin-variable-normal.woff2" as="font" type="font/woff2" crossorigin="">
   <link rel="preload" href="/assets/fonts/jetbrains-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin="">
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <title>Resume | Azadi Gathui</title>
-  <meta name="description" content="Resume of Azadi Gathui, data scientist &amp; designer, with experience across fintech, healthcare, climate, and conservation.">
+  <meta name="description" content="Resume of Azadi Gathui, researcher, analyst &amp; designer, with experience across fintech, healthcare, climate, and conservation.">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Resume | Azadi Gathui">
-  <meta property="og:description" content="Resume of Azadi Gathui, data scientist &amp; designer, with experience across fintech, healthcare, climate, and conservation.">
+  <meta property="og:description" content="Resume of Azadi Gathui, researcher, analyst &amp; designer, with experience across fintech, healthcare, climate, and conservation.">
   <meta property="og:image" content="https://azadi.design/assets/images/branding/og-default.png">
   <meta property="og:image:alt" content="Resume, by Azadi Gathui">
   <meta property="og:site_name" content="Azadi Gathui">
@@ -29,6 +28,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <script src="/assets/js/snap.js" defer=""></script>
   <script src="/assets/js/tools.js" defer=""></script>
+  <script src="/assets/js/protect.js" defer=""></script>
   <script src="/assets/js/reels.js" defer=""></script>
   <script src="/assets/js/cv.js" defer=""></script>
   <script>document.documentElement.classList.add("js")</script><script>
@@ -60,32 +60,35 @@
 <body>
   <a class="skip" href="#main">Skip to content</a>
   <div class="desk">
-    <div class="mat">
-      
-<div class="mat__keys">
-  <nav class="keys" aria-label="Main">
-    <a class="key" href="/" style="--k: 1; --kw: 2; --ks: 1"><span>Azadi<br>Gathui</span></a>
-    <a class="key key--icon" href="#contact" style="--k: 12; --ks: 4"><span>Contact</span><svg class="key__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"></rect><path d="m3.5 7 8.5 6.5L20.5 7"></path></svg></a>
-    <a class="key key--icon" href="/resume/" style="--k: 13; --ks: 5" aria-current="page"><span>CV</span><svg class="key__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3h8L19 7.5V21H6.5z"></path><path d="M14.5 3v4.5H19M9.5 12h6M9.5 15.5h6M9.5 8.5h2"></path></svg></a>
-    <a class="key key--icon" href="/lab/" style="--k: 14; --ks: 6"><span>Lab</span><svg class="key__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3h5M10.5 3v6.2L5 18.4A1.7 1.7 0 0 0 6.5 21h11a1.7 1.7 0 0 0 1.5-2.6L13.5 9.2V3"></path><path d="M7.4 15h9.2"></path></svg></a>
-  </nav>
-</div>
+    
+<nav class="keys" aria-label="Main">
+  <a class="key" href="/" style="--k: 1; --kw: 2; --ks: 1"><span>Azadi<br>Gathui</span></a>
+  <a class="key key--icon" href="#contact" style="--k: 12; --ks: 4"><span>Contact</span><svg class="key__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"></rect><path d="m3.5 7 8.5 6.5L20.5 7"></path></svg></a>
+  <a class="key key--icon" href="/resume/" style="--k: 13; --ks: 5" aria-current="page"><span>CV</span><svg class="key__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3h8L19 7.5V21H6.5z"></path><path d="M14.5 3v4.5H19M9.5 12h6M9.5 15.5h6M9.5 8.5h2"></path></svg></a>
+  <a class="key key--icon" href="/lab/" style="--k: 14; --ks: 6"><span>Lab</span><svg class="key__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3h5M10.5 3v6.2L5 18.4A1.7 1.7 0 0 0 6.5 21h11a1.7 1.7 0 0 0 1.5-2.6L13.5 9.2V3"></path><path d="M7.4 15h9.2"></path></svg></a>
+</nav>
 <script>
-  // Once the page has scrolled, a soft mat-coloured fade sits behind the keys
-  // so text no longer shows between them (styles: .is-scrolled in style.css)
+  // Once the mat's top edge has scrolled up under the keys, a soft mat-coloured
+  // fade sits behind them so text no longer shows between them (styles:
+  // .is-scrolled in style.css). Before that the keys are on the desk and need none.
   (() => {
     const root = document.documentElement;
-    const update = () => root.classList.toggle("is-scrolled", scrollY > 8);
+    // the mat comes after this script in the page, so it is looked up each time
+    const update = () => {
+      const mat = document.querySelector(".mat");
+      if (mat) root.classList.toggle("is-scrolled", mat.getBoundingClientRect().top <= 0);
+    };
     addEventListener("scroll", update, { passive: true });
-    update();
+    addEventListener("resize", update, { passive: true });
+    addEventListener("DOMContentLoaded", update);
   })();
 </script>
 
-
+    <div class="mat">
       <main class="mat__content" id="main">
         <link rel="stylesheet" href="/assets/css/cv-print.css" media="print"><section class="sheet area cv-intro" data-snap="">
   <div class="cv-intro__text" data-cells="">
-    <span class="label">Data scientist &amp; designer</span>
+    <span class="label">Researcher, Analyst &amp; Designer</span>
     <h1>Azadi Gathui</h1>
     <p class="cv__tagline">If it challenges assumptions, connects disciplines, or helps real humans live better, I'm probably already thinking about it.</p>
     <p class="cv__ask">Let’s create meaningful impact together.</p>
@@ -98,10 +101,11 @@
   </ul>
 </section>
 
-<div class="gap" style="--rows: 1" aria-hidden="true"></div><!-- The one figure: the timeline. A title and key above it, so it reads
-     at once; lane chips; the chart in a frame of whole squares; a panel
-     that shows the entry pointed at or chosen; the caption below,
-     outside the frame -->
+<div class="gap" style="--rows: 1" aria-hidden="true"></div>
+
+<!-- The one figure: the timeline. A title and key above it, so it reads
+     at once; the chart in a frame of whole squares, each bar a link to its
+     card below; the caption below, outside the frame -->
 <div class="sheet area cv-section tl-head" style="--h: 1">
   <h2 id="timeline-title">Career timeline</h2>
   <p class="tl-key" aria-hidden="true"><span class="tl-key__bar tl-key__bar--major"></span>Roles<span class="tl-key__bar tl-key__bar--minor"></span>Freelance projects</p>
@@ -120,7 +124,7 @@
       
       <p class="tl__name" data-lane="data" style="--y: 2; --rows: 1; --yp: 2">Data &amp; ML</p>
       <ol class="tl__track" data-lane="data" style="--y: 2; --rows: 1; --yp: 2; --rp: 2">
-        <li class="is-major is-ongoing is-late" data-id="data-science" style="--s: 68; --e: 83.4; --r: 1"><a href="#data-science">Data science</a><span class="visually-hidden">, August 2025 to now</span></li>
+        <li class="is-major is-ongoing is-late" data-id="data-science" style="--s: 68; --e: 83.6; --r: 1"><a href="#data-science">Data science</a><span class="visually-hidden">, August 2025 to now</span></li>
       </ol>
       <p class="tl__name" data-lane="product" style="--y: 3; --rows: 3; --yp: 4">Product</p>
       <ol class="tl__track" data-lane="product" style="--y: 3; --rows: 3; --yp: 4; --rp: 4">
@@ -134,205 +138,11 @@
         <li class="is-major" data-id="herbivore" style="--s: 6; --e: 13; --r: 2"><a href="#herbivore">Herbivore</a><span class="visually-hidden">, June to December 2020</span></li>
       </ol>
 
-      <div class="tl__today" style="--s: 83.4" aria-hidden="true"><span>Today</span></div>
+      <div class="tl__today" style="--s: 83.6" aria-hidden="true"><span>Today</span></div>
     </div>
   </div>
   </div>
-  <div class="tl-panel" id="tl-panel" role="region" aria-label="Selected entry" aria-live="polite" data-current="data-science">
-    <div class="tl-panel__body"></div>
-    <p class="tl-panel__hint" aria-hidden="true"></p>
-  </div>
-  <div hidden="">
-    <div class="tl-pv" id="pv-data-science" hidden="" data-open="data-science">
-  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/XuLG9x2Xim-400.avif 400w, /img/XuLG9x2Xim-800.avif 800w" sizes="160px"><img loading="lazy" decoding="async" src="/img/XuLG9x2Xim-400.webp" alt="" width="800" height="358" srcset="/img/XuLG9x2Xim-400.webp 400w, /img/XuLG9x2Xim-800.webp 800w" sizes="160px"></picture><picture><source type="image/avif" srcset="/img/EqQLiFpiBe-400.avif 400w, /img/EqQLiFpiBe-800.avif 800w, /img/EqQLiFpiBe-1200.avif 1200w" sizes="160px"><img loading="lazy" decoding="async" src="/img/EqQLiFpiBe-400.webp" alt="" width="1200" height="865" srcset="/img/EqQLiFpiBe-400.webp 400w, /img/EqQLiFpiBe-800.webp 800w, /img/EqQLiFpiBe-1200.webp 1200w" sizes="160px"></picture><picture><source type="image/avif" srcset="/img/bNZ2Mb3Y9V-400.avif 400w, /img/bNZ2Mb3Y9V-800.avif 800w, /img/bNZ2Mb3Y9V-1200.avif 1200w" sizes="160px"><img loading="lazy" decoding="async" src="/img/bNZ2Mb3Y9V-400.webp" alt="" width="1200" height="790" srcset="/img/bNZ2Mb3Y9V-400.webp 400w, /img/bNZ2Mb3Y9V-800.webp 800w, /img/bNZ2Mb3Y9V-1200.webp 1200w" sizes="160px"></picture></div>
-  <div class="tl-pv__text">
-    <span class="label">Independent</span>
-    <h3>Data scientist</h3>
-    <p class="tl-pv__meta">Aug ’25 – Present · 1 yr 4 mos</p><p class="tl-pv__about">Geospatial machine learning and data analysis for conservation and energy, alongside Zindua School&#39;s data science programme.</p>
-  </div>
-  <div class="tl-pv__actions">
-    <a class="btn" href="#data-science" data-open="">Full entry <span aria-hidden="true">&darr;</span></a><a class="btn" href="/projects/environmental-degradation-monitor/">Case study <span aria-hidden="true">&rarr;</span></a>
-  </div>
-</div>
-    <div class="tl-pv" id="pv-leja" hidden="" data-open="leja">
-  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/ZVvtiVPQHY-400.avif 400w, /img/ZVvtiVPQHY-640.avif 640w" sizes="160px"><img loading="lazy" decoding="async" src="/img/ZVvtiVPQHY-400.webp" alt="" width="640" height="1280" srcset="/img/ZVvtiVPQHY-400.webp 400w, /img/ZVvtiVPQHY-640.webp 640w" sizes="160px"></picture><picture><source type="image/avif" srcset="/img/U88tE1IPCP-400.avif" sizes="160px"><img loading="lazy" decoding="async" src="/img/U88tE1IPCP-400.webp" alt="" width="400" height="400"></picture></div>
-  <div class="tl-pv__text">
-    <span class="label">Full-time</span>
-    <h3>Product designer</h3>
-    <p class="tl-pv__meta">Leja · Feb ’22 – Jun ’25 · 3 yrs 5 mos</p><p class="tl-pv__about">B2B payments &amp; bookkeeping mobile app serving Kenyan MSMEs and CICO agents.</p><p class="tl-pv__tags">Figma, MUI, Android <span class="tl-pv__more">+2 more</span></p>
-  </div>
-  <div class="tl-pv__actions">
-    <a class="btn" href="#leja" data-open="">Full entry <span aria-hidden="true">&darr;</span></a><a class="btn" href="/projects/leja-business-app/">Case study <span aria-hidden="true">&rarr;</span></a>
-  </div>
-</div>
-    <div class="tl-pv" id="pv-carnayo" hidden="" data-open="carnayo">
-  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/oSwCK27McW-400.avif 400w, /img/oSwCK27McW-640.avif 640w" sizes="160px"><img loading="lazy" decoding="async" src="/img/oSwCK27McW-400.webp" alt="" width="640" height="1280" srcset="/img/oSwCK27McW-400.webp 400w, /img/oSwCK27McW-640.webp 640w" sizes="160px"></picture></div>
-  <div class="tl-pv__text">
-    <span class="label">Freelance project</span>
-    <h3>UI/UX design for CarNayo’s driver and passenger apps</h3>
-    <p class="tl-pv__meta">CarNayo · Jun ’24</p><p class="tl-pv__about">Congolese ride-hailing app.</p><p class="tl-pv__tags">Figma, iOS, Android <span class="tl-pv__more">+2 more</span></p>
-  </div>
-  <div class="tl-pv__actions">
-    <a class="btn" href="#carnayo" data-open="">Full entry <span aria-hidden="true">&darr;</span></a>
-  </div>
-</div>
-    <div class="tl-pv" id="pv-jireh" hidden="" data-open="jireh">
-  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/rtzC21WT7l-400.avif 400w, /img/rtzC21WT7l-640.avif 640w" sizes="160px"><img loading="lazy" decoding="async" src="/img/rtzC21WT7l-400.webp" alt="" width="640" height="1280" srcset="/img/rtzC21WT7l-400.webp 400w, /img/rtzC21WT7l-640.webp 640w" sizes="160px"></picture></div>
-  <div class="tl-pv__text">
-    <span class="label">Full-time</span>
-    <h3>UX researcher</h3>
-    <p class="tl-pv__meta">Jireh Health · Apr ’25 – Sep ’26 · 1 yr 6 mos</p><p class="tl-pv__about">Sole designer on an accessible healthcare-financing web app serving 4 facilities and 1,800+ users.</p><p class="tl-pv__tags">User research, Prototyping, Accessibility <span class="tl-pv__more">+1 more</span></p>
-  </div>
-  <div class="tl-pv__actions">
-    <a class="btn" href="#jireh" data-open="">Full entry <span aria-hidden="true">&darr;</span></a><a class="btn" href="/projects/jireh-health/">Case study <span aria-hidden="true">&rarr;</span></a>
-  </div>
-</div>
-    <div class="tl-pv" id="pv-group-editorial" hidden="" data-open="freelance">
-  <div class="tl-pv__text">
-    <span class="label">Freelance &amp; volunteer</span>
-    <h3>11 projects</h3>
-    <p class="tl-pv__meta">2020–24</p>
-    <ul class="tl-pv__list" aria-label="Projects">
-      <li><button type="button" data-pick="belva">3408 Belva<span class="visually-hidden">,</span> <span class="tl-pv__year">2020</span></button></li>
-      <li><button type="button" data-pick="lizopendwa">Lizopendwa<span class="visually-hidden">,</span> <span class="tl-pv__year">2021</span></button></li>
-      <li><button type="button" data-pick="belva-homes">Belva Homes<span class="visually-hidden">,</span> <span class="tl-pv__year">2021</span></button></li>
-      <li><button type="button" data-pick="sid">SID Kenya<span class="visually-hidden">,</span> <span class="tl-pv__year">2021</span></button></li>
-      <li><button type="button" data-pick="qoba">Qoba<span class="visually-hidden">,</span> <span class="tl-pv__year">2022</span></button></li>
-      <li><button type="button" data-pick="lcoy">LCOY Kenya<span class="visually-hidden">,</span> <span class="tl-pv__year">2022</span></button></li>
-      <li><button type="button" data-pick="afriyoccc">AFRIYOCCC<span class="visually-hidden">,</span> <span class="tl-pv__year">2022</span></button></li>
-      <li><button type="button" data-pick="ciff">CIFF / COP27<span class="visually-hidden">,</span> <span class="tl-pv__year">2023–24</span></button></li>
-      <li><button type="button" data-pick="inable">inABLE<span class="visually-hidden">,</span> <span class="tl-pv__year">2024</span></button></li>
-      <li><button type="button" data-pick="kwetu">KWETU Pride<span class="visually-hidden">,</span> <span class="tl-pv__year">2024</span></button></li>
-      <li><button type="button" data-pick="unfccc">UNFCCC Champions<span class="visually-hidden">,</span> <span class="tl-pv__year">2024</span></button></li>
-    </ul>
-  </div>
-  <div class="tl-pv__actions">
-    <a class="btn" href="#freelance" data-open="">Full entry <span aria-hidden="true">&darr;</span></a>
-  </div>
-</div><div class="tl-pv" id="pv-belva" hidden="" data-open="belva" data-back="group-editorial">
-  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/b_F2pDtqyZ-400.avif 400w, /img/b_F2pDtqyZ-800.avif 800w, /img/b_F2pDtqyZ-1200.avif 1200w" sizes="160px"><img loading="lazy" decoding="async" src="/img/b_F2pDtqyZ-400.webp" alt="" width="1200" height="615" srcset="/img/b_F2pDtqyZ-400.webp 400w, /img/b_F2pDtqyZ-800.webp 800w, /img/b_F2pDtqyZ-1200.webp 1200w" sizes="160px"></picture></div>
-  <div class="tl-pv__text">
-    <span class="label">Freelance project</span>
-    <h3>Designed the 3408 Belva property catalogue</h3>
-    <p class="tl-pv__meta">3408 Belva · Feb ’20</p><p class="tl-pv__tags">Adobe InDesign, Editorial layout</p>
-  </div>
-  <div class="tl-pv__actions"><button class="btn" type="button" data-pick="group-editorial">&larr; All projects</button>
-    <a class="btn" href="#belva" data-open="">Full entry <span aria-hidden="true">&darr;</span></a>
-  </div>
-</div><div class="tl-pv" id="pv-lizopendwa" hidden="" data-open="lizopendwa" data-back="group-editorial">
-  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/eJMesjOgh6-400.avif 400w, /img/eJMesjOgh6-800.avif 800w, /img/eJMesjOgh6-1200.avif 1200w" sizes="160px"><img loading="lazy" decoding="async" src="/img/eJMesjOgh6-400.webp" alt="" width="1200" height="1200" srcset="/img/eJMesjOgh6-400.webp 400w, /img/eJMesjOgh6-800.webp 800w, /img/eJMesjOgh6-1200.webp 1200w" sizes="160px"></picture></div>
-  <div class="tl-pv__text">
-    <span class="label">Freelance project</span>
-    <h3>Brand identity for Lizopendwa, a Kenyan brass jewellery brand</h3>
-    <p class="tl-pv__meta">Lizopendwa · May – Jun ’21 · 2 mos</p><p class="tl-pv__tags">Adobe Illustrator, Brand identity, Product design</p>
-  </div>
-  <div class="tl-pv__actions"><button class="btn" type="button" data-pick="group-editorial">&larr; All projects</button>
-    <a class="btn" href="#lizopendwa" data-open="">Full entry <span aria-hidden="true">&darr;</span></a>
-  </div>
-</div><div class="tl-pv" id="pv-belva-homes" hidden="" data-open="belva-homes" data-back="group-editorial">
-  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/BvQvmtE1Vy-400.avif 400w, /img/BvQvmtE1Vy-800.avif 800w, /img/BvQvmtE1Vy-1200.avif 1200w" sizes="160px"><img loading="lazy" decoding="async" src="/img/BvQvmtE1Vy-400.webp" alt="" width="1200" height="675" srcset="/img/BvQvmtE1Vy-400.webp 400w, /img/BvQvmtE1Vy-800.webp 800w, /img/BvQvmtE1Vy-1200.webp 1200w" sizes="160px"></picture></div>
-  <div class="tl-pv__text">
-    <span class="label">Freelance project</span>
-    <h3>Brand identity for Belva Homes</h3>
-    <p class="tl-pv__meta">Belva Homes · Jul ’21</p><p class="tl-pv__tags">Adobe Illustrator, Brand identity, Logo design</p>
-  </div>
-  <div class="tl-pv__actions"><button class="btn" type="button" data-pick="group-editorial">&larr; All projects</button>
-    <a class="btn" href="#belva-homes" data-open="">Full entry <span aria-hidden="true">&darr;</span></a>
-  </div>
-</div><div class="tl-pv" id="pv-sid" hidden="" data-open="sid" data-back="group-editorial">
-  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/0nSzBgceFs-400.avif" sizes="160px"><img loading="lazy" decoding="async" src="/img/0nSzBgceFs-400.webp" alt="" width="400" height="226"></picture></div>
-  <div class="tl-pv__text">
-    <span class="label">Freelance project</span>
-    <h3>Laid out the 300-page Kenya Energy Atlas for SID</h3>
-    <p class="tl-pv__meta">Society for International Development (SID) · Oct – Dec ’21 · 3 mos</p><p class="tl-pv__tags">Adobe InDesign, Complex layouts, Data visualisation</p>
-  </div>
-  <div class="tl-pv__actions"><button class="btn" type="button" data-pick="group-editorial">&larr; All projects</button>
-    <a class="btn" href="#sid" data-open="">Full entry <span aria-hidden="true">&darr;</span></a><a class="btn" href="/projects/kenya-energy-atlas/">Case study <span aria-hidden="true">&rarr;</span></a>
-  </div>
-</div><div class="tl-pv" id="pv-qoba" hidden="" data-open="qoba" data-back="group-editorial">
-  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/gtlEaTdye8-400.avif 400w, /img/gtlEaTdye8-800.avif 800w, /img/gtlEaTdye8-1200.avif 1200w" sizes="160px"><img loading="lazy" decoding="async" src="/img/gtlEaTdye8-400.webp" alt="" width="1200" height="675" srcset="/img/gtlEaTdye8-400.webp 400w, /img/gtlEaTdye8-800.webp 800w, /img/gtlEaTdye8-1200.webp 1200w" sizes="160px"></picture></div>
-  <div class="tl-pv__text">
-    <span class="label">Freelance project</span>
-    <h3>Brand identity for Qoba, a point-of-sale SaaS</h3>
-    <p class="tl-pv__meta">Qoba · Jan ’22</p><p class="tl-pv__tags">Adobe Illustrator, Brand identity, SaaS branding</p>
-  </div>
-  <div class="tl-pv__actions"><button class="btn" type="button" data-pick="group-editorial">&larr; All projects</button>
-    <a class="btn" href="#qoba" data-open="">Full entry <span aria-hidden="true">&darr;</span></a>
-  </div>
-</div><div class="tl-pv" id="pv-lcoy" hidden="" data-open="lcoy" data-back="group-editorial">
-  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/3S9Xf9J1y_-400.avif 400w, /img/3S9Xf9J1y_-800.avif 800w, /img/3S9Xf9J1y_-1200.avif 1200w" sizes="160px"><img loading="lazy" decoding="async" src="/img/3S9Xf9J1y_-400.webp" alt="" width="1200" height="1200" srcset="/img/3S9Xf9J1y_-400.webp 400w, /img/3S9Xf9J1y_-800.webp 800w, /img/3S9Xf9J1y_-1200.webp 1200w" sizes="160px"></picture></div>
-  <div class="tl-pv__text">
-    <span class="label">Volunteer project</span>
-    <h3>Rebranded LCOY Kenya and produced its event graphics</h3>
-    <p class="tl-pv__meta">LCOY Kenya · Oct ’22</p><p class="tl-pv__tags">Adobe Illustrator, Branding, Event design</p>
-  </div>
-  <div class="tl-pv__actions"><button class="btn" type="button" data-pick="group-editorial">&larr; All projects</button>
-    <a class="btn" href="#lcoy" data-open="">Full entry <span aria-hidden="true">&darr;</span></a>
-  </div>
-</div><div class="tl-pv" id="pv-afriyoccc" hidden="" data-open="afriyoccc" data-back="group-editorial">
-  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/NIHZ8NoNJ4-400.avif 400w, /img/NIHZ8NoNJ4-800.avif 800w, /img/NIHZ8NoNJ4-1200.avif 1200w" sizes="160px"><img loading="lazy" decoding="async" src="/img/NIHZ8NoNJ4-400.webp" alt="" width="1200" height="897" srcset="/img/NIHZ8NoNJ4-400.webp 400w, /img/NIHZ8NoNJ4-800.webp 800w, /img/NIHZ8NoNJ4-1200.webp 1200w" sizes="160px"></picture></div>
-  <div class="tl-pv__text">
-    <span class="label">Volunteer project</span>
-    <h3>Designed AFRIYOCCC’s conference programme and resource pack</h3>
-    <p class="tl-pv__meta">African Youth Conference on Climate Change (AFRIYOCCC) · Oct ’22</p><p class="tl-pv__tags">Adobe InDesign, Editorial design</p>
-  </div>
-  <div class="tl-pv__actions"><button class="btn" type="button" data-pick="group-editorial">&larr; All projects</button>
-    <a class="btn" href="#afriyoccc" data-open="">Full entry <span aria-hidden="true">&darr;</span></a>
-  </div>
-</div><div class="tl-pv" id="pv-ciff" hidden="" data-open="ciff" data-back="group-editorial">
-  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/1aF1JsJ9Q--400.avif 400w, /img/1aF1JsJ9Q--720.avif 720w" sizes="160px"><img loading="lazy" decoding="async" src="/img/1aF1JsJ9Q--400.webp" alt="" width="720" height="558" srcset="/img/1aF1JsJ9Q--400.webp 400w, /img/1aF1JsJ9Q--720.webp 720w" sizes="160px"></picture></div>
-  <div class="tl-pv__text">
-    <span class="label">Freelance project</span>
-    <h3>Designed CIFF’s COP27 Children &amp; Youth Pavilion report</h3>
-    <p class="tl-pv__meta">Children&#39;s Investment Fund Foundation (CIFF) · Dec ’23 – Feb ’24 · 3 mos</p><p class="tl-pv__tags">Adobe InDesign, Report layout, Editorial design</p>
-  </div>
-  <div class="tl-pv__actions"><button class="btn" type="button" data-pick="group-editorial">&larr; All projects</button>
-    <a class="btn" href="#ciff" data-open="">Full entry <span aria-hidden="true">&darr;</span></a><a class="btn" href="/projects/children-youth-pavilion/">Case study <span aria-hidden="true">&rarr;</span></a>
-  </div>
-</div><div class="tl-pv" id="pv-inable" hidden="" data-open="inable" data-back="group-editorial">
-  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/gW3EZC96TC-357.avif" sizes="160px"><img loading="lazy" decoding="async" src="/img/gW3EZC96TC-357.webp" alt="" width="357" height="277"></picture></div>
-  <div class="tl-pv__text">
-    <span class="label">Freelance project</span>
-    <h3>Designed the Inclusive Africa Conference booklet for inABLE</h3>
-    <p class="tl-pv__meta">inABLE · May ’24</p><p class="tl-pv__tags">Adobe InDesign, Accessibility, Editorial design</p>
-  </div>
-  <div class="tl-pv__actions"><button class="btn" type="button" data-pick="group-editorial">&larr; All projects</button>
-    <a class="btn" href="#inable" data-open="">Full entry <span aria-hidden="true">&darr;</span></a><a class="btn" href="/projects/inclusive-africa-conference/">Case study <span aria-hidden="true">&rarr;</span></a>
-  </div>
-</div><div class="tl-pv" id="pv-kwetu" hidden="" data-open="kwetu" data-back="group-editorial">
-  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/RrLw6DqtPH-400.avif 400w, /img/RrLw6DqtPH-800.avif 800w, /img/RrLw6DqtPH-1200.avif 1200w" sizes="160px"><img loading="lazy" decoding="async" src="/img/RrLw6DqtPH-400.webp" alt="" width="1200" height="720" srcset="/img/RrLw6DqtPH-400.webp 400w, /img/RrLw6DqtPH-800.webp 800w, /img/RrLw6DqtPH-1200.webp 1200w" sizes="160px"></picture></div>
-  <div class="tl-pv__text">
-    <span class="label">Freelance project</span>
-    <h3>Brand identity and website design for KWETU Pride</h3>
-    <p class="tl-pv__meta">KWETU Pride · Jun ’24</p><p class="tl-pv__tags">Figma, Design systems</p>
-  </div>
-  <div class="tl-pv__actions"><button class="btn" type="button" data-pick="group-editorial">&larr; All projects</button>
-    <a class="btn" href="#kwetu" data-open="">Full entry <span aria-hidden="true">&darr;</span></a>
-  </div>
-</div><div class="tl-pv" id="pv-unfccc" hidden="" data-open="unfccc" data-back="group-editorial">
-  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/O43345GD05-400.avif 400w, /img/O43345GD05-800.avif 800w, /img/O43345GD05-1200.avif 1200w" sizes="160px"><img loading="lazy" decoding="async" src="/img/O43345GD05-400.webp" alt="" width="1200" height="675" srcset="/img/O43345GD05-400.webp 400w, /img/O43345GD05-800.webp 800w, /img/O43345GD05-1200.webp 1200w" sizes="160px"></picture></div>
-  <div class="tl-pv__text">
-    <span class="label">Freelance project</span>
-    <h3>Laid out a position paper for the UNFCCC High-Level Champions</h3>
-    <p class="tl-pv__meta">UNFCCC High-Level Champions · Sep ’24</p><p class="tl-pv__tags">Adobe InDesign, Editorial design</p>
-  </div>
-  <div class="tl-pv__actions"><button class="btn" type="button" data-pick="group-editorial">&larr; All projects</button>
-    <a class="btn" href="#unfccc" data-open="">Full entry <span aria-hidden="true">&darr;</span></a><a class="btn" href="/projects/african-energy-transition-minerals/">Case study <span aria-hidden="true">&rarr;</span></a>
-  </div>
-</div>
-    <div class="tl-pv" id="pv-herbivore" hidden="" data-open="herbivore">
-  <div class="tl-pv__thumbs" aria-hidden="true"><picture><source type="image/avif" srcset="/img/XWnfScwkDg-400.avif 400w, /img/XWnfScwkDg-512.avif 512w" sizes="160px"><img loading="lazy" decoding="async" src="/img/XWnfScwkDg-400.webp" alt="" width="512" height="726" srcset="/img/XWnfScwkDg-400.webp 400w, /img/XWnfScwkDg-512.webp 512w" sizes="160px"></picture></div>
-  <div class="tl-pv__text">
-    <span class="label">Full-time</span>
-    <h3>Graphic designer</h3>
-    <p class="tl-pv__meta">Herbivore Garden Center · Jun – Dec ’20 · 7 mos</p><p class="tl-pv__about">Herbivore Garden Center, a garden centre in Nairobi.</p><p class="tl-pv__tags">Adobe Illustrator, Social media design</p>
-  </div>
-  <div class="tl-pv__actions">
-    <a class="btn" href="#herbivore" data-open="">Full entry <span aria-hidden="true">&darr;</span></a>
-  </div>
-</div>
-  </div>
-  <figcaption class="tl-caption"><span class="label">Fig. 1</span>Roles (heavy) and freelance work (light) since 2020. Point at or tap a bar to preview it, or a lane name to focus on it. The full entry is below.</figcaption>
+  <figcaption class="tl-caption"><span class="label">Fig. 1</span>Roles (heavy) and freelance work (light) since 2020. Point at a lane name to focus on it; a bar goes to its entry below.</figcaption>
 </figure>
 
 <div class="gap" style="--rows: 1" aria-hidden="true"></div>

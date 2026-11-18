@@ -9,7 +9,32 @@
   const smooth = !matchMedia("(prefers-reduced-motion: reduce)").matches;
   const arrow = (d) => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg>`;
 
-  for (const track of document.querySelectorAll(".reel__track")) {
+  // A case study's spreads (wide pictures laid out across the column) are too small to read on a
+  // phone: each is wrapped in a frame of squares and becomes a reel, one picture at a time.
+  // How many squares tall depends on the picture: a wide strip needs less than a tall board.
+  const spreads = [];
+  if (matchMedia("(max-width: 720px)").matches) {
+    for (const spread of document.querySelectorAll(".prose .spread-grid")) {
+      const wrap = document.createElement("div");
+      wrap.className = "spread-reel";
+      spread.replaceWith(wrap);
+      wrap.append(spread);
+      spread.setAttribute("aria-label", "Images: " + (spread.querySelector("img")?.alt.slice(0, 60) || "figure"));
+      const shape = () => {
+        const img = spread.querySelector("img");
+        const w = +img?.getAttribute("width") || img?.naturalWidth, h = +img?.getAttribute("height") || img?.naturalHeight;
+        if (!w || !h) return;
+        wrap.style.setProperty("--rh", w / h > 5 ? 3 : w / h > 1.2 ? 5 : 8);
+        window.matSnap?.();
+      };
+      spread.querySelector("img")?.addEventListener("load", shape);
+      shape();
+      spreads.push(spread);
+    }
+    window.matSnap?.();
+  }
+
+  for (const track of [...document.querySelectorAll(".reel__track"), ...spreads]) {
     const items = [...track.children];
     const label = track.getAttribute("aria-label")?.split(":")[0] || "images";
     const [prev, next] = [["Previous", "M15 6l-6 6 6 6"], ["Next", "M9 6l6 6-6 6"]].map(([word, d]) => {
