@@ -10,8 +10,7 @@
   <link rel="icon" href="/assets/images/branding/favicon.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="/assets/images/branding/apple-touch-icon.png">
   <!-- Self-hosted fonts: preload the face every page renders first -->
-  <link rel="preload" href="/assets/fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/inter-latin-variable-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/jetbrains-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/style.css">
 
@@ -82,9 +81,11 @@
   {#- The page: a cutting mat on a desk. Blocks are placed in mat cells
       (--w / --h, see "Blocks" in style.css); .gap blocks are empty rows. #}
   <div class="desk">
+    {#- The keys start on the desk above the mat and stay pinned as the page scrolls (partials/nav.njk) #}
+    {% include "partials/nav.njk" %}
+    {#- A page that sets `hero:` (the homepage) has a header of its own on the desk, between the keys and the mat -#}
+    {%- if hero %}{% include hero %}{% endif %}
     <div class="mat">
-      {% include "partials/nav.njk" %}
-
       <main class="mat__content" id="main">
         {{ content | safe }}
 

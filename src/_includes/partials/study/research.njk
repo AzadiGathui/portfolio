@@ -8,7 +8,8 @@
       research:
         sources:      [{ title, image, alt?, url? }]   a source without a url is a photo of my own
         timeline:     [{ title, points[] }]             the steps taken, shown above the sources (optional)
-        question:     the "how might we" the research led to
+        flow:         true: the lines that carry the sources down, without a question after them (optional)
+        question:     the "how might we" the research led to (optional: without it, and its findings, only the sources are shown)
         figure:       { src, alt, width }               a picture under the question (optional)
         findings:     [{ title, detail?, rule? }]       rule: the principle it led to, linked to the card with
                                                           id="rule-N" (N is the finding's place in the list), which
@@ -19,7 +20,7 @@
 
     Without scripts the sources are a plain grid, each with its title and
     link. research.js gathers them into a pile that cycles, opens a source on
-    hover, focus or a tap, and can be paused (styles: "Research" in style.css). -#}
+    hover, focus or a tap, and stops when the visitor asks for reduced motion (styles: "Research" in style.css). -#}
 {%- set r = research %}
 {%- if r.timeline %}
 <ol class="timeline" data-rail aria-label="How the research went, step by step">
@@ -43,9 +44,11 @@
     {%- endfor %}
   </ul>
   <div class="rw__detail" hidden></div>
-  <button type="button" class="btn rw__pause" hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4v12M13 4v12"/></svg><span>Pause motion</span></button>
+  {%- if r.question or r.flow %}
   {% include "partials/study/flow.njk" %}
+  {%- endif %}
 </div>
+{%- if r.question %}
 <div class="panel split">
   <div class="split__lead">
     <h3 class="question">{{ r.question }}</h3>
@@ -63,3 +66,4 @@
     </ol>
   </div>
 </div>
+{%- endif %}

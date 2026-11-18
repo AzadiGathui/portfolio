@@ -3,122 +3,43 @@ layout: layouts/base.njk
 eleventyComputed:
   description: "Azadi Gathui, {{ site.role | lower | safe }}. Portfolio of UX, data science, editorial and data visualisation work."
 permalink: /
-scripts:
-  - flow
+hero: partials/home-hero.njk
+scripts: [tip]
 tools:
-  - { img: correction-tape, edge: r, at: "--c: 14; --r: 55; --rot: -2deg" }
-  - { img: earplugs, edge: l, at: "--c: 1; --r: 14; --rot: -2deg" }
-  - { img: mechanical-pencil, edge: r, at: "--c: 14; --r: 12; --rot: 1deg" }
-  - { img: icebear-cutter, edge: l, at: "--c: 1; --r: 34; --rot: 2deg" }
-  - { img: kneadable-eraser, edge: r, at: "--c: 14; --r: 40; --rot: -2deg" }
-  - { img: sharpener, edge: l, at: "--c: 1; --r: 48; --rot: -2deg" }
+  - { img: correction-tape, edge: r, at: "--c: 14; --r: 31; --rot: -2deg" }
+  - { img: earplugs, edge: l, at: "--c: 1; --r: 9; --rot: -2deg" }
+  - { img: mechanical-pencil, edge: r, at: "--c: 14; --r: 7; --rot: 1deg" }
+  - { img: icebear-cutter, edge: l, at: "--c: 1; --r: 20; --rot: 2deg" }
+  - { img: kneadable-eraser, edge: r, at: "--c: 14; --r: 24; --rot: -2deg" }
+  - { img: sharpener, edge: l, at: "--c: 1; --r: 34; --rot: -2deg" }
 ---
-{#- The headline is also the strip's script: each clause (.hl) goes white
-    when its step in the process below is shown (flow.js). flow-pending
-    greys the clauses before the page paints, so they never flash white
-    first; flow.js lifts it when the strip has played once. -#}
-<section class="sheet center hero" style="--h: 3" data-snap>
-  <span class="label">{{ site.role }}</span>
-  <h1><span class="hl" data-step="0">I find the problem,</span> <span class="hl" data-step="1">model the answer</span> <span class="hl" data-step="2">&amp; build the product.</span></h1>
-</section>
-<script>
-  (() => {
-    const root = document.documentElement;
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    root.classList.add("flow-pending");
-    setTimeout(() => root.classList.remove("flow-pending"), 30000);   // if flow.js never runs, the headline still ends up white
-  })();
-</script>
+{#- The homepage. Its header (the line, the sentence, three photos) is on the desk
+    above the mat: partials/home-hero.njk, set as `hero:` above. On the mat:
+    Selected projects, More work, Previous clients and About, as in the Figma's "home". -#}
 
-{#- A step's project, linked: the work that shows it -#}
-{% macro proof(slug, label, projects) -%}
-  {%- for p in projects %}{% if p.fileSlug == slug %}<a class="flow__proof" href="{{ p.url }}">{{ label }}</a>{% endif %}{% endfor -%}
-{%- endmacro %}
-
-<!-- The whole workflow, from people to shipped product: one person, end to
-     end. Three steps two squares wide, one square between each pair for the
-     rail to cross (.flow__link, no content); eight squares, centred on the
-     twelve. Each icon is a 2 × 2 frame (96-unit drawings, scaled to fit).
-     flow.js plays it once as a pipeline, with the headline's three clauses
-     lighting in step; the project under each name is a link, always. -->
-<ol class="sheet area flow" style="--x: 3; --w: 8; --h: 4" aria-label="How I work, end to end" data-snap>
-  <li>
-    <span class="frame flow__icon"><svg viewBox="0 0 96 96" aria-hidden="true">
-      <!-- qual: a speech bubble with lines of text -->
-      <path class="fill" d="M12 12h30a5 5 0 0 1 5 5v14a5 5 0 0 1-5 5H26l-8 7v-7h-6a5 5 0 0 1-5-5V17a5 5 0 0 1 5-5z"/>
-      <path d="M16 21h22M16 28h15"/>
-      <!-- quant: a sheet, its header row shaded -->
-      <rect class="soft" x="54" y="14" width="34" height="9"/>
-      <rect x="54" y="14" width="34" height="32" rx="3"/>
-      <path d="M54 23h34M54 31h34M54 39h34M65.3 14v32M76.7 14v32"/>
-      <!-- a group of people -->
-      <circle cx="26" cy="64" r="6.5"/><path class="fill" d="M14 86c0-8 5.4-13 12-13s12 5 12 13"/>
-      <circle cx="70" cy="64" r="6.5"/><path class="fill" d="M58 86c0-8 5.4-13 12-13s12 5 12 13"/>
-      <circle class="fill" cx="48" cy="58" r="8"/><path class="fill" d="M33 86c0-10 6.7-16 15-16s15 6 15 16"/>
-    </svg></span>
-    <div class="flow__text"><strong>Research &amp; analysis</strong>{{ proof("environmental-degradation-monitor", "Degradation monitor", collections.projects) }}</div>
-  </li>
-  <li class="flow__link" aria-hidden="true"></li>
-  <li>
-    <span class="frame flow__icon"><svg viewBox="0 0 96 96" aria-hidden="true">
-      <!-- a dashboard window -->
-      <rect x="6" y="12" width="64" height="52" rx="3"/>
-      <path d="M6 22h64"/><circle cx="12" cy="17" r="1.4"/><circle cx="17" cy="17" r="1.4"/><circle cx="22" cy="17" r="1.4"/>
-      <!-- line chart and donut -->
-      <path d="M12 30v26h24"/><path d="m14 50 8-9 7 4 8-11"/>
-      <circle cx="55" cy="36" r="8"/><path class="bold" d="M55 28a8 8 0 0 1 7.7 10.3"/>
-      <!-- code, in front -->
-      <rect class="fill" x="38" y="46" width="52" height="38" rx="4"/>
-      <path d="m55 56-7 7 7 7M73 56l7 7-7 7M67 54l-6 18"/>
-      <path d="M46 78h22M72 78h12"/>
-    </svg></span>
-    <div class="flow__text"><strong>Data science &amp; ML</strong>{{ proof("iucn-dd-species", "IUCN species model", collections.projects) }}</div>
-  </li>
-  <li class="flow__link" aria-hidden="true"></li>
-  <li>
-    <span class="frame flow__icon"><svg viewBox="0 0 96 96" aria-hidden="true">
-      <!-- web: a browser window with a layout -->
-      <rect x="6" y="14" width="64" height="50" rx="3"/>
-      <path d="M6 23h64"/><circle cx="12" cy="18.5" r="1.4"/><circle cx="17" cy="18.5" r="1.4"/><circle cx="22" cy="18.5" r="1.4"/>
-      <rect class="soft" x="12" y="29" width="24" height="15"/>
-      <path d="M42 31h20M42 37h14M12 51h50M12 57h34"/>
-      <!-- mobile, in front -->
-      <rect class="fill" x="58" y="34" width="30" height="50" rx="5"/>
-      <path d="M69 39h8"/><rect class="soft" x="63" y="45" width="20" height="13"/>
-      <path d="M63 64h20M63 70h13M70 79h6"/>
-    </svg></span>
-    <div class="flow__text"><strong>Design &amp; code</strong>{{ proof("jireh-health", "Jireh Health", collections.projects) }}</div>
-  </li>
-</ol>
-
-<section class="sheet center" style="--h: 1" data-snap>
-  <p><a class="more-link" href="#work">See the work &darr;</a> &nbsp; <a class="more-link" href="/resume/">Read the CV &rarr;</a></p>
-</section>
-
-<h2 class="sheet" id="work" style="--h: 1; align-self: end;">Selected work</h2>
-
-{#- A project's caption, the same in Selected work and More work:
-    sector, then title and deliverable; the arrow to its page in
-    the last column, which holds nothing else -#}
+{#- A project's caption on a card: sector, then title; the arrow to its page in the last column.
+    A project's own words for the card (cardLabel, cardTitle) win over its page's -#}
 {% macro caption(project) -%}
-  <span class="label">{{ project.data.industry }}</span>
-  <div class="cap__body"><h3>{{ project.data.title }}</h3><p class="cap__what">{{ project.data.deliverables }}</p></div>
+  <span class="label">{{ project.data.cardLabel or project.data.industry }}</span>
+  <div class="cap__body"><h3>{{ project.data.cardTitle or project.data.title }}</h3></div>
   <span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"/></svg></span>
 {%- endmacro %}
 
-<!-- Selected work: the first five projects in two staggered columns,
-     read left, right, left... Each place is --x column, --y row (from
-     the top of this area), --w / --h size, in cells (the last three
-     rows are the caption), then the side the artefact overhangs:
-     into the two empty columns between, the left column's on rows
-     the right column's don't use, so they never meet.
-     The projects take the places in their `order`. -->
-{%- set places = [[1, 1, 5, 9, "r"], [8, 6, 5, 7, "l"], [1, 11, 5, 7, "r"], [8, 14, 5, 9, "l"], [1, 19, 5, 7, "r"]] %}
-<div class="sheet area work" style="--h: 25" data-snap>
+<h2 class="sheet section-title" id="work" style="--x: 4; --w: 6; --h: 1">Selected projects</h2>
+
+<div class="gap" style="--rows: 1" aria-hidden="true"></div>
+
+<!-- Selected projects: the first four in two staggered columns, read left, right, left, right.
+     Each place is --x column, --y row (from the top of this area), --w / --h size, in
+     cells (the last rows are the caption), then the side the artefact overhangs:
+     into the two empty columns between, the left column's on rows the right column's don't use, so they never meet. The projects take the places in
+     their `order`. -->
+{%- set places = [[1, 1, 5, 8, "r"], [8, 6, 5, 6, "l"], [1, 11, 5, 6, "r"], [8, 14, 5, 8, "l"]] %}
+<div class="sheet area work" style="--h: 21" data-snap>
   {%- for project in collections.projects.slice(0, places.length) %}
   {%- set at = places[loop.index0] %}
   <a class="card card--{{ at[4] }}{% if loop.first %} has-note{% endif %}" href="{{ project.url }}" style="--x: {{ at[0] }}; --y: {{ at[1] }}; --w: {{ at[2] }}; --h: {{ at[3] }}">
-    <div class="frame frame--plain"><img src="{{ project.data.coverImage }}" alt="" sizes="(max-width: 720px) 90vw, 340px"{% if project.data.coverPosition %} style="object-position: {{ project.data.coverPosition }}"{% endif %}>{% if loop.first %}<span class="note" aria-hidden="true">a recent favourite &darr;</span>{% endif %}</div>
+    <div class="frame frame--plain"><img src="{{ project.data.cardImage or project.data.coverImage }}" alt="" sizes="(max-width: 720px) 90vw, 360px"{% if project.data.cardPosition or project.data.coverPosition %} style="object-position: {{ project.data.cardPosition or project.data.coverPosition }}"{% endif %}>{% if loop.first %}<span class="note" aria-hidden="true">a recent favourite &darr;</span>{% endif %}</div>
     {%- if project.data.thumbnail %}
     {%- if project.data.thumbnailKind == 'phone' and project.data.mockupImage %}
     <span class="card__art card__art--phone"><span class="phone-frame"><img src="{{ project.data.mockupImage }}" alt="" sizes="(max-width: 720px) 30vw, 160px"></span></span>
@@ -141,39 +62,60 @@ tools:
 
 <div class="gap" aria-hidden="true"></div>
 
-<!-- More work: the rest, one row each: the artefact itself, then
-     the same caption as the cards above -->
-<h2 class="sheet" style="--h: 1; align-self: end">More work</h2>
-<ul class="sheet area more" style="--h: 8" data-snap>
-  {%- for project in collections.projects %}{% if loop.index0 >= places.length %}
-  <li data-snap><a href="{{ project.url }}"><span class="frame more__thumb"><img src="{{ project.data.thumbnail or project.data.coverImage }}" alt="" sizes="200px"></span><div class="more__cap cap">{{ caption(project) }}</div></a></li>
-  {%- endif %}{% endfor %}
-</ul>
+<h2 class="sheet section-title" style="--x: 4; --w: 6; --h: 1">More work</h2>
+
+<div class="gap" style="--rows: 1" aria-hidden="true"></div>
+
+<!-- More work: the rest, as the mockups themselves lying on the mat. Pointing at one (or focusing it, or a
+     first tap) opens a card beside it with what the project was, the way a team member's face opens
+     their name (tip.js); the card is part of the link, so clicking it goes to the project. Places are
+     --x column, --y row, in cells: three across, then two centred under them. On a phone, two across. -->
+{%- set spots = [[1, 1], [5, 1], [9, 1], [3, 4], [7, 4]] %}
+<nav class="sheet area wall" style="--h: 6" aria-label="More work" data-snap>
+  {%- for project in collections.projects.slice(places.length) %}
+  {%- set at = spots[loop.index0] or [1, 1] %}
+  <a class="wall__item" data-tip="hover" href="{{ project.url }}" style="--x: {{ at[0] }}; --y: {{ at[1] }}; --w: 4; --h: 3">
+    <img src="{{ project.data.thumbnail or project.data.coverImage }}" alt="{{ project.data.title }}" sizes="(max-width: 720px) 45vw, 280px">
+    <span class="tip"><span class="tip__card wall__card">
+      <span class="label">{{ project.data.industry }}</span>
+      <h3>{{ project.data.title }}</h3>
+      <span class="cap__what">{{ project.data.deliverables if project.data.deliverables is string else project.data.deliverables[0] }}{% if project.data.client %} &middot; {{ project.data.client }}{% endif %}</span>
+      <span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"/></svg></span>
+    </span></span>
+  </a>
+  {%- endfor %}
+</nav>
 
 <div class="gap" aria-hidden="true"></div>
 
-<div class="sheet area clients" style="--h: 2" data-snap>
-  <span class="label">Designed for</span>
-  <span class="frame client"><span><abbr title="UN Climate Change High-Level Champions">UNFCCC</abbr> Champions</span></span>
-  <span class="frame client"><span><abbr title="Children’s Investment Fund Foundation">CIFF</abbr></span></span>
-  <span class="frame client"><span>inABLE</span></span>
-  <span class="frame client"><span>Jireh Health</span></span>
-  <span class="frame client"><span>Leja</span></span>
-  <span class="frame client"><span>LCOY Kenya</span></span>
-  <span class="frame client"><span><abbr title="Society for International Development">SID</abbr> Kenya</span></span>
+<h2 class="sheet section-title" style="--x: 4; --w: 6; --h: 1">Previous clients</h2>
+
+<div class="gap" style="--rows: 1" aria-hidden="true"></div>
+
+{#- Their marks (the Figma's own vectors, white), each at the height it has there -#}
+<div class="sheet clients" style="--h: 4" data-snap>
+  {%- for logo in [
+    { file: "ayicc.svg", name: "African Youth Initiative on Climate Change", h: 56 },
+    { file: "ciff.svg", name: "Children’s Investment Fund Foundation", h: 40 },
+    { file: "greenpeace.svg", name: "Greenpeace", h: 32 },
+    { file: "unfccc-champions.svg", name: "UN Climate Change High-Level Champions", h: 48 },
+    { file: "inable.png", name: "inABLE", h: 40 },
+    { file: "leja.svg", name: "Leja", h: 32 },
+    { file: "kwetupride.svg", name: "Kwetu Pride", h: 32 },
+    { file: "jireh.svg", name: "Jireh Health", h: 32 },
+    { file: "lcoy.svg", name: "LCOY Kenya", h: 48 },
+    { file: "sid.svg", name: "Society for International Development", h: 84 }
+  ] %}
+  <img src="/assets/images/home/clients/{{ logo.file }}" alt="{{ logo.name }}" style="--logo-h: {{ logo.h }}px" loading="lazy">
+  {%- endfor %}
 </div>
 
 <div class="gap" aria-hidden="true"></div>
 
-<!-- About: portrait, bio beside it (one empty column between) -->
-<h2 class="sheet" id="about" style="--h: 1; align-self: end">About</h2>
-<!-- A photo: a polaroid, caption written on it -->
-<figure class="sheet frame frame--polaroid has-note" style="--w: 4; --h: 5">
-  <div class="ph">Portrait to come</div>
-  <figcaption>Photo to come</figcaption>
-  <span class="note note--below" aria-hidden="true">hello! that's me</span>
-</figure>
-<section class="sheet" style="--x: 6; --w: 7; --h: 4;" data-snap>
-  <h2>Hi, I’m {{ site.author }}.</h2>
-  <p>{{ site.role }} with 7+ years of turning gnarly problems into human-centred solutions. I come to every collaboration with genuine curiosity, informed experimentation, and the kind of thinking that connects dots across fields. If it challenges assumptions, connects disciplines, or helps real humans live better, I'm probably already thinking about it.</p>
+<!-- About: the portrait as a print, the words beside it -->
+<figure class="sheet frame frame--polaroid about__print" id="about" style="--x: 2; --w: 3; --h: 4"><img src="/assets/images/home/about-print.jpg" alt="Azadi Gathui smiling, in a coral jacket, with long braids, in front of green leaves" sizes="(max-width: 720px) 60vw, 216px" loading="lazy"><figcaption>{{ site.role }}</figcaption></figure>
+<section class="sheet about__bio" style="--x: 6; --w: 6; --h: 4" data-snap>
+  <p class="label">Hi, I’m {{ site.author }}.</p>
+  <h2>7+ years of turning gnarly problems into human-centred solutions.</h2>
+  <p>I come to every collaboration with genuine curiosity, informed experimentation, and the kind of thinking that connects dots across fields. If it challenges assumptions, connects disciplines, or helps real humans live better, I'm probably already thinking about it.</p>
 </section>

@@ -3,6 +3,7 @@
 //   .annot__region   its handwritten note appears beside the screen (Home)
 //   [data-reveal]    fades up into place (collage pieces, the dashed lines)
 //   .pj-row[data-count]   the figures count up to their values (Results)
+//   .tl              a timeline (the sprints, as the resume's) draws itself in
 //
 // One IntersectionObserver per kind. When something has been shown it is
 // unobserved, which is what makes it stay: scrolling back up never hides it
@@ -49,6 +50,7 @@
 
   watch([...document.querySelectorAll(".annot__region")], mark("is-shown"));
   watch([...document.querySelectorAll("[data-reveal]")], mark("is-shown"));
+  watch([...document.querySelectorAll(".tl")], mark("is-drawn"));   // as cv.js does on the resume page
   watch([...document.querySelectorAll(".pj-row[data-count]")], (row) => {
     row.classList.add("is-shown");
     row.querySelectorAll(".stat-card__value").forEach(countUp);

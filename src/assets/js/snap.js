@@ -54,11 +54,15 @@
       for (const el of blocks) { el.style.removeProperty("margin-top"); el.style.removeProperty("min-height"); }
       const top = box.getBoundingClientRect().top + parseFloat(getComputedStyle(box).paddingTop);
       blocks.forEach((el, i) => {
-        if (i === 0 || !el.offsetHeight) return;
+        if (!el.offsetHeight) return;
+        const isPanel = el.classList.contains("panel") || el.classList.contains("chapter");   // a framed block (a chapter's head is one): on the mat's lines, top and bottom
+        if (i === 0) {   // the first block stays where it is, but a frame still ends on a line
+          if (isPanel) el.style.minHeight = `${Math.ceil(el.offsetHeight / cell - 0.01) * cell}px`;
+          return;
+        }
         const style = getComputedStyle(el);
         // where the block's box is, without the baseline nudge (style.css) moving its text
         const nudge = style.translate === "none" ? 0 : parseFloat(style.translate.split(" ")[1]) || 0;
-        const isPanel = el.classList.contains("panel");   // a framed block: on the mat's lines, top and bottom
         const onMat = isPanel || el.classList.contains("spread-grid");
         const step = onMat ? cell : line;
         const past = ((el.getBoundingClientRect().top - nudge - (onMat ? matTop : top)) % step + step) % step;
@@ -129,6 +133,8 @@
     roundCells(sheet, cell);
     const isEntry = sheet.classList.contains("entry");
     if (isEntry) sheet.style.removeProperty("--slack");
+    const isFacts = sheet.classList.contains("facts");
+    if (isFacts) for (const name of ["--facts-gap", "--facts-top", "--facts-bottom"]) sheet.style.removeProperty(name); // measured at the least it needs
     sheet.style.gridRow = "span 1"; // let it shrink before measuring (the whole
     // shorthand: CSS "span N" lives in grid-row-start, so setting only the end is ignored)
     const pad = getComputedStyle(sheet);
@@ -147,6 +153,26 @@
     // A CV card: what rounding up to whole cells leaves over goes below
     // its content, never above, so its title doesn't move when a row
     // opens or closes (style.css adds --slack to the bottom padding)
+    // The facts: what rounding up to whole cells leaves over is shared out evenly, in whole units,
+    // as the same gap above the first row, between the rows and below the last, so the table is
+    // centred in its container and every line of text stays on the unit
+    if (isFacts) {
+      const rowsEls = [...sheet.children].filter((el) => el.offsetHeight && getComputedStyle(el).position !== "absolute");
+      const unit = parseFloat(getComputedStyle(content).getPropertyValue("--unit")) || 4;
+      if (rowsEls.length) {
+        // rows that share a line (two columns on a phone) count once, at the taller one's height
+        const lineHeights = new Map();
+        for (const el of rowsEls) { const top = Math.round(el.getBoundingClientRect().top); lineHeights.set(top, Math.max(lineHeights.get(top) || 0, el.offsetHeight)); }
+        const total = sheet.getBoundingClientRect().height - 1;               // the box ends on the grid line; its 1px margin is the border
+        const extra = total - [...lineHeights.values()].reduce((sum, h) => sum + h, 0);
+        const n = lineHeights.size;
+        const gap = Math.floor(extra / (n + 1) / unit) * unit;
+        const top = gap + Math.floor((extra - (n + 1) * gap) / 2 / unit) * unit;
+        sheet.style.setProperty("--facts-gap", `${gap}px`);
+        sheet.style.setProperty("--facts-top", `${top}px`);
+        sheet.style.setProperty("--facts-bottom", `${extra - top - (n - 1) * gap}px`);
+      }
+    }
     if (isEntry) sheet.style.setProperty("--slack", `${Math.max(0, rows * cell - height)}px`);
   }
 

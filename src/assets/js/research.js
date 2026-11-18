@@ -7,14 +7,16 @@
 //     (every few seconds: data-cycle on .rw)
 //   - pointing at a source, tabbing to it, or tapping it holds it open and
 //     adds where it is from and a link to it; moving away lets go
-//   - a button pauses the motion; with "reduce motion" nothing cycles and
-//     the lines between the pile and the findings stand still
+//   - with "reduce motion" asked for, nothing cycles and the lines between
+//     the pile and the findings stand still (there is no button: the setting is the control)
 // On a narrow column the pile becomes a strip that scrolls sideways, with
 // the open source's title and link in a box underneath.
 //
 // The pile's layout is worked out here (each source's place depends on its
 // picture's shape and on which one is open); every size is a fraction of the
-// pile's width (--cw), so CSS scales it and nothing is measured on resize.
+// pile's width (--cw), so CSS scales it and nothing is measured on resize. The
+// pile is as wide as its column and --rw-ratio of that tall (style.css): wide
+// and shallow on a wide column, so the layout spreads sideways, not down.
 (() => {
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
   const f4 = (v) => v.toFixed(4);
@@ -24,7 +26,6 @@
     const pile = root.querySelector(".rw__pile");
     const cards = [...root.querySelectorAll(".rw__card")];
     const detail = root.querySelector(".rw__detail");
-    const pause = root.querySelector(".rw__pause");
     const n = cards.length;
     if (!pile || !n) continue;
 
@@ -62,20 +63,21 @@
 
     // ---- The pile: a sunflower scatter, in units of its width ----
     function layout(active, open) {
-      const area = clamp(0.58 / n, 0.03, 0.12);   // each picture's share of the pile
+      const ratio = parseFloat(getComputedStyle(pile).getPropertyValue("--rw-ratio")) || 1.05;   // the pile's height, in units of its width
+      const area = clamp(0.8 * (ratio / 1.05) / n, 0.015, 0.12);   // each picture's share of the pile's width squared: the same share of the area whatever its shape
       const base = shapes.map((asp, i) => {
         let w = Math.sqrt(area * asp), h = Math.sqrt(area / asp);
         if (w > 0.4) { h *= 0.4 / w; w = 0.4; }
         const r = n === 1 ? 0 : Math.sqrt((i + 0.5) / n), th = i * GOLDEN;
-        return { asp, w, h, x: 0.5 + 0.31 * r * Math.cos(th), y: 0.525 + 0.33 * r * Math.sin(th), rot: ((i * 53) % 11 - 5) * 1.2 };
+        return { asp, w, h, x: 0.5 + 0.48 * r * Math.cos(th), y: ratio / 2 + 0.31 * ratio * r * Math.sin(th), rot: ((i * 53) % 11 - 5) * 1.2 };
       });
       const a = active != null ? base[active] : null;
       let ax = 0, ay = 0, aw = 0;
       if (a) {
         aw = Math.min(0.5, a.w * 1.35);
-        const ah = Math.max(aw, 0.3) / a.asp + 0.3;   // room for the picture (never under 160px wide) and its words
-        ax = clamp(a.x, 0.24, 0.76);
-        ay = clamp(a.y, ah / 2 + 0.01, 1.05 - ah / 2 - 0.01);
+        const ah = Math.max(aw, 0.22) / a.asp + (ratio < 1 ? 0.14 : 0.3);   // room for the picture (never under 160px wide) and its words
+        ax = clamp(a.x, 0.2, 0.8);
+        ay = clamp(a.y, ah / 2 + 0.01, ratio - ah / 2 - 0.01);
       }
       base.forEach((b, i) => {
         const card = cards[i], on = active === i;
@@ -130,10 +132,7 @@
       const active = open != null ? open : idle;
       if (isStrip) layoutStrip(active, state.pin); else layout(active, open);
 
-      root.dataset.motion = state.reduced ? "reduced" : state.paused ? "paused" : "on";
-      pause.disabled = state.reduced;
-      pause.querySelector("span").textContent = state.reduced ? "Motion off" : state.paused ? "Play motion" : "Pause motion";
-      pause.querySelector("path").setAttribute("d", state.paused && !state.reduced ? "M6 4l10 6-10 6z" : "M7 4v12M13 4v12");
+      root.dataset.motion = state.reduced ? "reduced" : "on";
 
       // one timer, a whole interval long, re-armed after every change
       clearTimeout(timer);
@@ -172,13 +171,11 @@
     });
     root.addEventListener("keydown", (e) => { if (e.key === "Escape" && held() != null) set({ hover: null, pin: null }); });
 
-    pause.addEventListener("click", () => set({ paused: !state.paused }));
     mq.addEventListener("change", () => set({ reduced: mq.matches }));
     new ResizeObserver(() => { if (strip() !== wasStrip) render(); }).observe(root);
     // nothing cycles while the pile is off screen
     new IntersectionObserver(([entry]) => set({ offscreen: !entry.isIntersecting })).observe(root);
 
-    pause.hidden = false;
     root.classList.add("is-live");
     render();
   }
