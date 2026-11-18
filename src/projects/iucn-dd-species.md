@@ -7,7 +7,7 @@ role: Data Scientist
 deliverables: Random Forest classification model
 order: 3
 coverImage: /assets/images/projects/iucn/cover-header.jpg
-thumbnail: /assets/images/projects/iucn/model_kenya_by_class.png
+thumbnail: /assets/images/projects/iucn/preview-bars.png
 thumbnailKind: print   # phone | print | book: how the artefact is laid on the homepage card and case-study cover
 cardImage: /assets/images/home/card-chameleon.jpg
 cardPosition: 40% 40%

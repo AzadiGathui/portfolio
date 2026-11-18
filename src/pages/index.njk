@@ -30,21 +30,22 @@ tools:
 <div class="gap" style="--rows: 1" aria-hidden="true"></div>
 
 <!-- Selected projects: the first four in two staggered columns, read left, right, left, right.
-     Each place is --x column, --y row (from the top of this area), --w / --h size, in
-     cells (the last rows are the caption), then the side the artefact overhangs:
-     into the two empty columns between, the left column's on rows the right column's don't use, so they never meet. The projects take the places in
-     their `order`. -->
-{%- set places = [[1, 1, 5, 8, "r"], [8, 6, 5, 6, "l"], [1, 11, 5, 6, "r"], [8, 14, 5, 8, "l"]] %}
-<div class="sheet area work" style="--h: 21" data-snap>
+     Each place is --x column and --w width, in cells, then the side the artefact overhangs (into the
+     two empty columns between the pair; it shows only while the card is pointed at). Every card is
+     the same size, so their rows are set in style.css: the right card starts two squares below the left
+     one, and each next pair two squares below the card above it, the same two squares as the gap
+     between the columns. The projects take the places in their order. -->
+{%- set places = [[1, 5, "r"], [8, 5, "l"], [1, 5, "r"], [8, 5, "l"]] %}
+<div class="sheet area work" data-snap>
   {%- for project in collections.projects.slice(0, places.length) %}
   {%- set at = places[loop.index0] %}
-  <a class="card card--{{ at[4] }}{% if loop.first %} has-note{% endif %}" href="{{ project.url }}" style="--x: {{ at[0] }}; --y: {{ at[1] }}; --w: {{ at[2] }}; --h: {{ at[3] }}">
-    <div class="frame frame--plain"><img src="{{ project.data.cardImage or project.data.coverImage }}" alt="" sizes="(max-width: 720px) 90vw, 360px"{% if project.data.cardPosition or project.data.coverPosition %} style="object-position: {{ project.data.cardPosition or project.data.coverPosition }}"{% endif %}>{% if loop.first %}<span class="note" aria-hidden="true">a recent favourite &darr;</span>{% endif %}</div>
+  <a class="card card--{{ at[2] }}{% if loop.first %} has-note{% endif %}" href="{{ project.url }}" style="--x: {{ at[0] }}; --w: {{ at[1] }}">
+    <div class="frame frame--plain"><img src="{{ project.data.cardImage or project.data.coverImage }}" alt="" sizes="(max-width: 720px) 150vw, 640px"{% if project.data.cardPosition or project.data.coverPosition %} style="object-position: {{ project.data.cardPosition or project.data.coverPosition }}"{% endif %}>{% if loop.first %}<span class="note" aria-hidden="true">a recent favourite &darr;</span>{% endif %}</div>
     {%- if project.data.thumbnail %}
     {%- if project.data.thumbnailKind == 'phone' and project.data.mockupImage %}
-    <span class="card__art card__art--phone"><span class="phone-frame"><img src="{{ project.data.mockupImage }}" alt="" sizes="(max-width: 720px) 30vw, 160px"></span></span>
+    <span class="card__art card__art--phone"><span class="phone-frame"><img src="{{ project.data.mockupImage }}" alt="" sizes="(max-width: 720px) 45vw, 260px"></span></span>
     {%- else %}
-    <span class="card__art card__art--{{ project.data.thumbnailKind or 'print' }}"><img src="{{ project.data.thumbnail }}" alt="" sizes="220px"></span>
+    <span class="card__art card__art--{{ project.data.thumbnailKind or 'print' }}"><img src="{{ project.data.thumbnail }}" alt="" sizes="(max-width: 720px) 60vw, 420px"></span>
     {%- endif %}
     {%- endif %}
     <div class="card__cap cap">{{ caption(project) }}</div>

@@ -23,7 +23,7 @@
    Only these faces exist. */
 @font-face { font-family: "Inter"; src: url("/assets/fonts/inter-latin-variable-normal.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
 @font-face { font-family: "Inter"; src: url("/assets/fonts/inter-latin-variable-italic.woff2") format("woff2"); font-weight: 100 900; font-style: italic; font-display: swap; }
-@font-face { font-family: "Fraunces"; src: url("/assets/fonts/fraunces-italic-display.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }   /* the homepage line only: the display cut, pinned (one 14 KB file) */
+@font-face { font-family: "Fraunces"; src: url("/assets/fonts/fraunces-italic-variable.woff2") format("woff2"); font-weight: 250 400; font-style: italic; font-display: swap; }   /* the homepage line only (44 KB): weight, SOFT and WONK are set where it is used; the optical size is fixed at the text cut */
 @font-face { font-family: "JetBrains Mono"; src: url("/assets/fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
 /* Caveat (margin notes) is added by base.njk once the page has loaded: nothing above the fold uses it */
 
@@ -43,7 +43,7 @@
   --brand-light: #e6e6e6;
   --signal: #e50000;        /* defined but unused: red on this green is 2.3:1 (and a colour-blind clash), so pick it again before using it */
 
-  --desk: #262626;          /* the table around the mat (texture later) */
+  --desk: #1a1a1a;          /* the table around the mat (texture later) */
   --mat: #114232;           /* a cutting mat's dark green (the Figma's #114232): text is 9.1:1 on it, the secondary grey 5.4:1 */
   --mat-line: rgba(255, 255, 255, 0.07);   /* printed in a pale line: content stands out */
   --mat-print: rgba(255, 255, 255, 0.34);  /* the mat's printed numbers and ticks */
@@ -2643,17 +2643,19 @@ a.face__link .face__name { text-decoration: underline; text-decoration-thickness
 
 /* The header, on the desk above the mat: as wide as the mat's grid and centred (partials/home-hero.njk) */
 .home-hero { width: var(--grid-w); margin: var(--space-5) auto calc(var(--cell) * 1.25); text-align: center; }
-/* The line, as the Figma has it (text node "Researcher, Analyst & Designer"): Fraunces Italic at 128px, weight 300, SOFT 100,
-   WONK 0 and the text optical size (the pinned font file), line height 60%, letter spacing -2%, centred, fill #e6e6e6, and a
-   10px stroke in #3d3d3d on the OUTSIDE of the letters with mitred corners. An outside stroke is a stroke twice as wide drawn
-   behind the fill (paint-order), of which the outer half shows. 128px is on a 1024px header; it scales with the grid's width. */
+/* The home line. Typeface: Fraunces Italic 128px, weight 250, SOFT 100, WONK 0 (WONK off: the regular letterforms and ampersand,
+   not the leaning ones). Paragraph: line height 70%, letter spacing -3%, centred, fill #e6e6e6. Stroke: weight 8, #3d3d3d,
+   OUTSIDE, mitred. An outside stroke is one twice as wide drawn behind the fill (paint-order), of which the outer half shows.
+   128px is the size on a wide screen (the grid is 1008px wide there); it scales down with the grid, and the stroke with it. */
 .home-hero__line {
-  --fs: clamp(2.25rem, calc(var(--grid-w) * 0.125), 8rem);
-  max-width: none; margin: 0 auto; padding-top: 0.45em;   /* the lines are 60% apart, so the first rises above its box: room for it under the keys */
-  font: italic 400 var(--fs)/0.6 var(--f-hero);
-  letter-spacing: -0.02em;
+  --fs: clamp(2.25rem, calc(var(--grid-w) * 0.127), 8rem);
+  --stroke: 8;   /* stroke weight, outside */
+  max-width: none; margin: 0 auto; padding-top: 0.4em;   /* the lines are 70% apart, so the first rises above its box: room for it under the keys */
+  font: italic 250 var(--fs)/0.7 var(--f-hero);
+  font-variation-settings: "wght" 250, "SOFT" 100, "WONK" 0;
+  letter-spacing: -0.03em;
   color: var(--text);
-  -webkit-text-stroke: calc(var(--fs) * 20 / 128) #3d3d3d; paint-order: stroke fill; stroke-linejoin: miter; stroke-miterlimit: 4;
+  -webkit-text-stroke: calc(var(--fs) * var(--stroke) * 2 / 128) #3d3d3d; paint-order: stroke fill; stroke-linejoin: miter; stroke-miterlimit: 4;
   text-wrap: wrap;
 }
 .home-hero__sub { max-width: 20rem; margin: 2rem auto 0; position: relative; color: var(--text-2); font-size: var(--text-sm); line-height: var(--lh-small); text-align: right; text-wrap: pretty; }
@@ -2684,13 +2686,32 @@ a.face__link .face__name { text-decoration: underline; text-decoration-thickness
 .work .card { box-shadow: var(--lift-1); }
 .work .card:is(:hover, :focus-visible) { box-shadow: var(--lift-3); }
 .work .card .frame, .work .card:is(:hover, :focus-visible) .frame { box-shadow: none; }
+/* The preview (the artefact lying on the cover) shows only while the card is pointed at, focused, or lit (a touch screen, with no hover: the card in the middle of the screen, as its cover's colour does) */
+.work .card__art { opacity: 0; }
+.work .card:is(:hover, :focus-visible, .is-lit) .card__art { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .work .card__art { translate: 0 8px; transition: opacity var(--dur) var(--ease), translate var(--dur) var(--ease); }   /* it rises into place */
+  .work .card:is(:hover, :focus-visible, .is-lit) .card__art { translate: 0 -4px; }
+}
 @media (prefers-reduced-motion: no-preference) { .work .card { transition: translate var(--dur) var(--ease), box-shadow var(--dur) var(--ease); } }
 .work .cap > .label { padding-left: var(--plate-pad); }
 .work .cap__body { padding-left: var(--plate-pad); }
 .work .cap h3 { --clamp: 3; font-weight: 500; }
-.work .cap > .go { margin-right: 0; }
-.work .card { --cap: 2; }
-@media (max-width: 1100px) { .work .card { --cap: 3; } }   /* the squares are smaller: the title needs another */
+.work .cap > .go { place-self: end center; }   /* the bottom of the label-and-title block, whether the title is two lines or three */
+.work.sheet { --h: 16; }
+.work .card { --cap: 2; --h: 6; }
+/* One rhythm of two squares: the right card sits two below the left (the columns are two apart too), and the next
+   pair two squares clear of the card above (6 tall, or 7 below). Rows, not calc(): a grid line can't take one. */
+.work .card:nth-child(1) { --y: 1; }
+.work .card:nth-child(2) { --y: 3; }
+.work .card:nth-child(3) { --y: 9; }
+.work .card:nth-child(4) { --y: 11; }   /* the same cover on every card: 5 x 4 squares, and a caption of --cap (--h is the two together; a span can't take calc()) */
+@media (max-width: 1100px) {
+  .work.sheet { --h: 18; }
+  .work .card { --cap: 3; --h: 7; }
+  .work .card:nth-child(3) { --y: 10; }
+  .work .card:nth-child(4) { --y: 12; }
+}   /* the cover stays 4: the card is a square taller */   /* the squares are smaller: the title needs another */
 @media (max-width: 720px) {
   .work .card { --cap: 3; grid-row: auto / span 7; }   /* a caption of three squares, a cover of four */
 }
