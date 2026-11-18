@@ -6,11 +6,15 @@ industry: Geospatial AI
 role: Data Scientist
 timeline: Jun – Oct 2026
 platform: Streamlit web app (Python)
-deliverables: Land-cover segmentation model, change-detection pipeline, Kenya evaluation, interactive app
+deliverables: Land-cover segmentation model
 order: 2
 coverImage: /assets/images/projects/edm/cover-header.jpg
 thumbnail: /assets/images/projects/edm/thumbnail-placeholder.png
 thumbnailKind: print
+cardImage: /assets/images/home/card-forest.jpg
+cardPosition: 50% 50%
+cardLabel: Researcher + Analyst
+cardTitle: "Measuring encroachment on Kenya's forests."
 ogImage: /assets/images/projects/edm/cover-header.jpg
 description: An end-to-end pipeline that segments Sentinel-2 imagery with a U-Net, compares 2016 with 2025 and measures new built-up land inside Kenya's protected areas.
 permalink: /projects/environmental-degradation-monitor/

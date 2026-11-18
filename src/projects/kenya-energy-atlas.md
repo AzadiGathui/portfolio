@@ -4,7 +4,7 @@ tagline: Consolidated research publication
 client: SID (Society for International Development)
 industry: Energy
 role: Editorial Designer
-deliverables: Research publication, 280+ pages
+deliverables: Research publication
 order: 9
 coverImage: /assets/images/projects/efw/cover-header.jpg
 mockupImage: /assets/images/projects/efw/EFW hero mockup.png

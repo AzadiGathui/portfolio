@@ -8,7 +8,7 @@ industry: Healthcare Fintech
 role: UX Researcher & Designer
 timeline: Apr 2025 – Sep 2026
 platform: Installable web app (PWA), Android first
-deliverables: B2C web app, B2B admin dashboards, user research & usability testing
+deliverables: B2C web app
 team:
   - name: Terach Franchi
     role: CEO
@@ -110,6 +110,10 @@ coverPosition: 50% 20%
 mockupImage: /assets/images/projects/jh/home-cashback.png
 thumbnail: /assets/images/projects/jh/thumbnail.png
 thumbnailKind: phone
+cardImage: /assets/images/home/card-jireh.jpg
+cardPosition: 50% 30%
+cardLabel: Researcher + Designer
+cardTitle: "Rewarding caregivers’ initiative with flexible financing."
 ogImage: /assets/images/projects/jh/home-cashback.png
 description: UX research and design for Jireh, a mobile-first web app where Kenyans pay medical bills with M-Pesa, cashback and 0% interest loans backed by people they trust.
 permalink: /projects/jireh-health/

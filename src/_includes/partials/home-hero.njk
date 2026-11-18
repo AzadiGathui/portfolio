@@ -1,0 +1,19 @@
+{#- The homepage's header, on the desk above the mat (layouts/base.njk includes it
+    when a page sets `hero:`): the line in a large italic outlined in the desk's
+    grey, a sentence under it, and three photos of the work as prints with
+    their captions written on. It is as wide as the mat and centred, so it
+    lines up with the keys above and the mat below. Nothing here sits on the
+    grid: the grid starts with the mat. -#}
+<header class="home-hero">
+  <h1 class="home-hero__line">Researcher,<br>Analyst &amp; Designer</h1>
+  <p class="home-hero__sub">If it challenges assumptions, connects disciplines &amp; helps humans live better, I'm probably already thinking about it :)</p>
+  <div class="home-hero__photos">
+    {%- for photo in [
+      { src: "/assets/images/home/polaroid-focus-group.jpg", alt: "People sitting on benches under trees in a focus group discussion", caption: "Focus group discussions at a partner hospital." },
+      { src: "/assets/images/home/polaroid-ideo-launch.jpg", alt: "A room of people standing around a table beside a screen at an event", caption: "At the IDEO launch of the Financial Confidence Playbook." },
+      { src: "/assets/images/home/polaroid-crown-paints.jpg", alt: "A woman in a denim jacket holding a green swatch book in front of a wall of paint colour cards", caption: "At Crown Paints trying to match the green in my hands." }
+    ] %}
+    <figure class="frame frame--polaroid"><img src="{{ photo.src }}" alt="{{ photo.alt }}" sizes="(max-width: 720px) 40vw, 210px" loading="eager"><figcaption>{{ photo.caption }}</figcaption></figure>
+    {%- endfor %}
+  </div>
+</header>

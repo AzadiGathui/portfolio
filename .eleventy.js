@@ -146,6 +146,10 @@ module.exports = async function (eleventyConfig) {
   //   {% phones "Fast Track screens" %}
   //     {% phone { src: "/assets/images/projects/jh/code.png", alt: "…", step: "Step 1", title: "Find the counter", caption: "…" } %}
   //   {% endphones %}
+  //
+  // No src (the screenshot isn't ready): the same phone mockup, its screen a
+  // plain fill, so the page keeps its shape and the caption its place. It is
+  // left out of the accessibility tree unless an alt says what is missing.
   // ------------------------------------------------------------------
   const escapeAttr = (s) =>
     String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
@@ -156,7 +160,10 @@ module.exports = async function (eleventyConfig) {
       title && `<strong>${title}</strong>`,
       caption && `<span class="reel__text">${caption}</span>`,
     ].filter(Boolean).join(" ");
-    return `<figure class="reel__item"><span class="phone-frame"><img src="${escapeAttr(src)}" alt="${escapeAttr(alt)}" sizes="(max-width: 720px) 50vw, 220px" loading="lazy"></span>${text ? `<figcaption>${text}</figcaption>` : ""}</figure>`;
+    const screen = src
+      ? `<span class="phone-frame"><img src="${escapeAttr(src)}" alt="${escapeAttr(alt)}" sizes="(max-width: 720px) 50vw, 220px" loading="lazy"></span>`
+      : `<span class="phone-frame phone-frame--empty"${alt ? ` role="img" aria-label="${escapeAttr(alt)}"` : ` aria-hidden="true"`}></span>`;
+    return `<figure class="reel__item">${screen}${text ? `<figcaption>${text}</figcaption>` : ""}</figure>`;
   });
 
   // Output goes on one line: markdown ends a raw HTML block at the first
@@ -170,18 +177,25 @@ module.exports = async function (eleventyConfig) {
   // ------------------------------------------------------------------
   // CHAPTER: the head of a case study's section, centred on the page: a
   // small label (optional), the heading, and a line or two under it
-  // (optional). One shortcode, so every case study's sections open the
-  // same way (styles: "Chapter" in style.css).
+  // (optional), in a frame on the mat's lines. One shortcode, so every case
+  // study's sections open the same way (styles: "Chapter" in style.css).
   //
   //   {% chapter { label: "The challenge", title: "…", id: "overview", toc: "Challenge", lede: "…" } %}
   //
   // id: the heading's anchor (it then appears in the contents); toc: a
   // shorter name for it there. Output is one line: Markdown ends raw HTML
   // at the first blank line.
+  //
+  // The frame is as wide as its words need, in whole squares and an even
+  // number so it centres between mat lines (--cw: 4, 6 or 8; snap.js makes it
+  // whole squares tall): a short heading and no line under it gets a narrow
+  // frame, a long one the full text column.
   // ------------------------------------------------------------------
-  eleventyConfig.addShortcode("chapter", ({ label, title = "", id, toc, lede } = {}) =>
-    `<header class="chapter">${label ? `<p class="label">${label}</p>` : ""}<h2${id ? ` id="${escapeAttr(id)}"` : ""}${toc ? ` data-toc="${escapeAttr(toc)}"` : ""}>${title}</h2>${lede ? `<p class="chapter__lede">${lede}</p>` : ""}</header>`
-  );
+  eleventyConfig.addShortcode("chapter", ({ label, title = "", id, toc, lede } = {}) => {
+    const words = String(title).replace(/<[^>]+>/g, "").length + (lede ? String(lede).replace(/<[^>]+>/g, "").length : 0);
+    const width = words <= 30 ? 4 : words <= 120 ? 6 : 8;
+    return `<header class="chapter" style="--cw: ${width}">${label ? `<p class="label">${label}</p>` : ""}<h2${id ? ` id="${escapeAttr(id)}"` : ""}${toc ? ` data-toc="${escapeAttr(toc)}"` : ""}>${title}</h2>${lede ? `<p class="chapter__lede">${lede}</p>` : ""}</header>`;
+  });
 
   // "https://www.example.org/reports/x?y=1" → "example.org": a link's site, for a source's caption
   eleventyConfig.addFilter("host", (url) => {
@@ -251,7 +265,7 @@ module.exports = async function (eleventyConfig) {
         .map(([, h]) => h.replace(/<[^>]+>/g, "").trim())
         .filter(Boolean);
       const label = heads.length ? `Table: ${heads.join(", ")}` : "Table";
-      return `<div class="table-scroll" role="region" tabindex="0" aria-label="${escapeAttr(label)}">${table}</div>`;
+      return `<div class="panel table-panel"><div class="table-scroll" role="region" tabindex="0" aria-label="${escapeAttr(label)}">${table}</div></div>`;
     });
   });
 

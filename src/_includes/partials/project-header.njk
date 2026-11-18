@@ -1,0 +1,92 @@
+{#- A case study's header, the one place it is written: the title with one line of facts under it, the
+    cover with its artefact laid on it, and a small table of the rest. Included by layouts/project.njk, so
+    every project has the same header and only its front matter differs.
+
+    Nothing is required except a title. Whatever is missing is left out, never shown empty: a field
+    without a value is not drawn, a table with no rows is not drawn, no cover image means no cover.
+    The page's description is not shown here (it is for search and share previews): the header does not
+    say twice what the title and the facts already say.
+
+    Title block, in a frame on the mat's lines (as in the Figma's pj-header)
+      industry          one mono line above the heading
+      title, headline   the heading (headline: when it differs from the title the cards and pager use), titleSup
+
+    Cover
+      coverImage, coverPosition
+      thumbnail + thumbnailKind (phone | print | book) [+ mockupImage for a phone]: the artefact laid on it
+
+    Table: one row each, in this order, for whichever the page has
+      client, role, platform, deliverables (shown as "Output"; one value, or a list of two or so)
+      facts         any other rows this kind of project needs, in order: [{ label, value }]
+                    (a data project might add "Data", "Method", "Tools"; a design project "Research")
+      team          the people who did the work with me: [{ name, role?, url?, photo? }]. With a photo for
+                    everyone, a row of faces: each shows its name and role under it on hover, focus
+                    or a tap, linked to the person's profile (tip.js). Without, a list of names.
+                    A photo is the 224px square with its grey ring built in (scripts/team-avatar.js).
+    Each row is one line: the label, then the value, so keep a value short. A list value
+    (deliverables: [a, b]) is a short bulleted list, a line each.
+    The table is centred in its container, which is fixed to the grid: its rows are spread evenly
+    through it (snap.js, "facts"). -#}
+{%- set rows = [] %}
+{%- for pair in [["Client", client], ["Role", role], ["Platform", platform], ["Output", deliverables]] %}
+  {%- if pair[1] %}{% set _ = rows.push([pair[0], pair[1]]) %}{% endif %}
+{%- endfor %}
+{%- for extra in facts %}
+  {%- if extra.value %}{% set _ = rows.push([extra.label, extra.value]) %}{% endif %}
+{%- endfor %}
+
+{%- if title %}
+<header class="sheet title-plate" style="--w: 9; --h: 3" data-snap>
+  {%- if industry %}
+  <p class="label header__meta">{{ industry }}</p>
+  {%- endif %}
+  <h1>{{ headline or title }}{% if titleSup %}<sup class="title-sup">{{ titleSup }}</sup>{% endif %}</h1>
+</header>
+{%- endif %}
+
+{%- if coverImage %}
+<figure class="sheet cover" style="--h: 6">
+  <div class="frame frame--plain"><img src="{{ coverImage }}" alt="" sizes="(max-width: 720px) 90vw, 880px" loading="eager"{% if coverPosition %} style="object-position: {{ coverPosition }}"{% endif %}></div>
+  {%- if thumbnail %}
+  {%- if thumbnailKind == 'phone' and mockupImage %}
+  <span class="card__art card__art--phone"><span class="phone-frame"><img src="{{ mockupImage }}" alt="" sizes="(max-width: 720px) 30vw, 216px" loading="eager"></span></span>
+  {%- else %}
+  <span class="card__art card__art--{{ thumbnailKind or 'print' }}"><img src="{{ thumbnail }}" alt="" sizes="220px" loading="eager"></span>
+  {%- endif %}
+  {%- endif %}
+</figure>
+{%- endif %}
+
+{%- if rows.length or team.length %}
+<dl class="sheet facts" style="--x: 6; --w: 7; --h: 3" data-snap>
+  {%- for row in rows %}
+  <div><dt class="label">{{ row[0] }}</dt><dd>
+    {%- if row[1] is string %}{{ row[1] }}{% else %}<ul class="facts__list">{% for item in row[1] %}<li>{{ item }}</li>{% endfor %}</ul>{% endif -%}
+  </dd></div>
+  {%- endfor %}
+  {%- if team.length %}
+  {%- set faces = true %}
+  {%- for member in team %}{% if not member.photo %}{% set faces = false %}{% endif %}{% endfor %}
+  <div><dt class="label">Team</dt><dd>
+    {%- if faces %}
+    <ul class="faces">
+      {%- for member in team %}
+      <li class="face" data-tip="hover">
+        <{% if member.url %}a href="{{ member.url }}" rel="noopener"{% else %}span tabindex="0"{% endif %} class="face__link" aria-label="{{ member.name }}{% if member.role %}, {{ member.role }}{% endif %}">
+          <span class="face__img"><img src="{{ member.photo }}" alt="" width="56" height="56" sizes="56px" loading="eager"></span>
+          <span class="tip"><span class="tip__card face__card"><span class="face__name">{{ member.name }}</span>{% if member.role %}<span class="face__role">{{ member.role }}</span>{% endif %}</span></span>
+        </{% if member.url %}a{% else %}span{% endif %}>
+      </li>
+      {%- endfor %}
+    </ul>
+    {%- else %}
+    <ul class="team">
+      {%- for member in team %}
+      <li>{% if member.url %}<a href="{{ member.url }}" rel="noopener">{{ member.name }}</a>{% else %}{{ member.name }}{% endif %}{% if member.role %} <span class="team__role">{{ member.role }}</span>{% endif %}</li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+  </dd></div>
+  {%- endif %}
+</dl>
+{%- endif %}

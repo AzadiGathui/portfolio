@@ -4,7 +4,7 @@ tagline: Case study report on a just minerals transition
 client: UN Climate Change High-Level Champions
 industry: Critical Minerals
 role: Editorial Designer
-deliverables: "Case study report: layout and typesetting"
+deliverables: "Case study report"
 order: 6
 coverImage: /assets/images/projects/aetm/cover-header.jpg
 thumbnail: /assets/images/projects/aetm/spread-01-cover.jpg

@@ -39,42 +39,9 @@ lanes:
 
 <div class="gap" style="--rows: 1" aria-hidden="true"></div>
 
-{#- What the panel under the chart shows for one entry (cv.js copies it in
-    when a bar is pointed at or chosen): the card's facts, short, and the
-    way to the full card. Hidden here, so the build still resizes its images. -#}
-{%- macro pv(item) -%}
-<div class="tl-pv" id="pv-{{ item.id }}" hidden data-open="{{ item.open or item.id }}"{% if item.back %} data-back="{{ item.back }}"{% endif %}>
-  {%- if item.thumbs.length %}
-  <div class="tl-pv__thumbs" aria-hidden="true">{% for src in item.thumbs %}<img src="{{ src }}" alt="" sizes="160px">{% endfor %}</div>
-  {%- endif %}
-  <div class="tl-pv__text">
-    <span class="label">{{ item.kind }}</span>
-    <h3>{{ item.title }}</h3>
-    <p class="tl-pv__meta">{{ [item.org, item.dates, item.duration] | cvJoin }}</p>
-    {%- if item.group %}
-    <ul class="tl-pv__list" aria-label="Projects">
-      {%- for m in item.members %}
-      <li><button type="button" data-pick="{{ m.id }}">{{ m.label }}<span class="visually-hidden">,</span> <span class="tl-pv__year">{{ m.years }}</span></button></li>
-      {%- endfor %}
-    </ul>
-    {%- else %}
-    {%- if item.about %}<p class="tl-pv__about">{{ item.about }}</p>{% endif %}
-    {#- the first three; the card has them all -#}
-    {%- if item.tags.length %}<p class="tl-pv__tags">{% for t in item.tags %}{% if loop.index <= 3 %}{{ t }}{% if loop.index < 3 and not loop.last %}, {% endif %}{% endif %}{% endfor %}{% if item.tags.length > 3 %} <span class="tl-pv__more">+{{ item.tags.length - 3 }} more</span>{% endif %}</p>{% endif %}
-    {%- endif %}
-  </div>
-  <div class="tl-pv__actions">
-    {%- if item.back %}<button class="btn" type="button" data-pick="{{ item.back }}">&larr; All projects</button>{% endif %}
-    <a class="btn" href="#{{ item.open or item.id }}" data-open>Full entry <span aria-hidden="true">&darr;</span></a>
-    {%- if item.caseStudy %}<a class="btn" href="{{ item.caseStudy }}">Case study <span aria-hidden="true">&rarr;</span></a>{% endif %}
-  </div>
-</div>
-{%- endmacro -%}
-
 <!-- The one figure: the timeline. A title and key above it, so it reads
-     at once; lane chips; the chart in a frame of whole squares; a panel
-     that shows the entry pointed at or chosen; the caption below,
-     outside the frame -->
+     at once; the chart in a frame of whole squares, each bar a link to its
+     card below; the caption below, outside the frame -->
 <div class="sheet area cv-section tl-head" style="--h: 1">
   <h2 id="timeline-title">Career timeline</h2>
   <p class="tl-key" aria-hidden="true"><span class="tl-key__bar tl-key__bar--major"></span>Roles<span class="tl-key__bar tl-key__bar--minor"></span>Freelance projects</p>
@@ -102,17 +69,7 @@ lanes:
     </div>
   </div>
   </div>
-  <div class="tl-panel" id="tl-panel" role="region" aria-label="Selected entry" aria-live="polite" data-current="{{ tl.current }}">
-    <div class="tl-panel__body"></div>
-    <p class="tl-panel__hint" aria-hidden="true"></p>
-  </div>
-  <div hidden>
-    {%- for lane in tl.lanes %}{% for item in lane.items %}
-    {{ pv(item) }}
-    {%- if item.group %}{% for m in item.members %}{{ pv(m) }}{% endfor %}{% endif %}
-    {%- endfor %}{% endfor %}
-  </div>
-  <figcaption class="tl-caption"><span class="label">Fig. 1</span>Roles (heavy) and freelance work (light) since {{ timelineFrom }}. Point at or tap a bar to preview it, or a lane name to focus on it. The full entry is below.</figcaption>
+  <figcaption class="tl-caption"><span class="label">Fig. 1</span>Roles (heavy) and freelance work (light) since {{ timelineFrom }}. Point at a lane name to focus on it; a bar goes to its entry below.</figcaption>
 </figure>
 
 <div class="gap" style="--rows: 1" aria-hidden="true"></div>
