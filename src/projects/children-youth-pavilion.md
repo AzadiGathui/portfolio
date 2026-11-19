@@ -13,6 +13,7 @@ thumbnailKind: book   # phone | print | book: how the artefact is laid on the ho
 ogImage: /assets/images/projects/cyp/mockup.png
 description: Report design for the Children & Youth Pavilion at COP27 in Sharm el-Sheikh, built on the pavilion's existing brand and typeset on a precise InDesign grid.
 permalink: /projects/children-youth-pavilion/
+sidebar: false   # no contents list: the story runs the full width, its text under a framed heading (as in the Jireh study)
 ---
 
 <!-- Collages follow the Figma "pjs" page, frame 3:451, on a 12-column grid.
@@ -29,11 +30,14 @@ permalink: /projects/children-youth-pavilion/
   <img style="--at: 7 / 13" sizes="(max-width: 768px) 100vw, 440px" src="/assets/images/projects/cyp/spread-05-executive-summary.jpg" alt="Executive summary on a blue page, with a day-by-day list of the pavilion's themes and a photo of a panel">
 </div>
 
-<div class="article-body pj-intro">
-  <span class="label">Behind the scenes</span>
-  <h2>Using the existing brand to determine structure &amp; layout.</h2>
-  <p>With the colour palette and typeface already decided by the team that did the branding, I worked to typeset the text on a precise grid in Adobe InDesign.</p>
-  <p>I harmonised the colours into a logical scheme, grouped by thematic area and content type i.e. health was yellow, recommendations were blue etc.</p>
+<div class="article-body">
+
+{% chapter { label: "Behind the scenes", title: "Using the existing brand to determine structure &amp; layout." } %}
+
+With the colour palette and typeface already decided by the team that did the branding, I worked to typeset the text on a precise grid in Adobe InDesign.
+
+I harmonised the colours into a logical scheme, grouped by thematic area and content type i.e. health was yellow, recommendations were blue etc.
+
 </div>
 
 <div class="spread-grid">

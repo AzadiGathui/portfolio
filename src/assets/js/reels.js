@@ -12,9 +12,10 @@
   // A case study's spreads (wide pictures laid out across the column) are too small to read on a
   // phone: each is wrapped in a frame of squares and becomes a reel, one picture at a time.
   // How many squares tall depends on the picture: a wide strip needs less than a tall board.
+  // A collage marked .spread-grid--flat is left alone: its pictures stack one to a row instead.
   const spreads = [];
   if (matchMedia("(max-width: 720px)").matches) {
-    for (const spread of document.querySelectorAll(".prose .spread-grid")) {
+    for (const spread of document.querySelectorAll(".prose .spread-grid:not(.spread-grid--flat)")) {
       const wrap = document.createElement("div");
       wrap.className = "spread-reel";
       spread.replaceWith(wrap);
