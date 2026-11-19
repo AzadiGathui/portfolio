@@ -56,16 +56,17 @@ research:
       image: /assets/images/projects/lji/research/gender-evaluation-framework.png
       alt: "The Gender Evaluation Framework: a grid of intent, capability, commitment and impact"
       url: https://medium.com/last-mile-money/introducing-the-gender-evaluation-framework-a-rubric-to-understand-venture-intent-capability-and-d49fe537b821
-order: 4
+order: 3
 coverImage: /assets/images/projects/lji/cover-shop.jpg
 coverPosition: 50% 45%
 mockupImage: /assets/images/projects/lj/phone-home.png
 clientLogo: /assets/images/resume/leja/Leja logotype_WhitePink_RGB.svg
 thumbnail: /assets/images/projects/lj/thumbnail.png
 thumbnailKind: phone   # phone | print | book: how the artefact is laid on the homepage card and case-study cover
+cardArtLift: -0.5   # squares the card's phone sits above the cover's bottom edge; negative is below it, over the caption's grey (half a square: clear of the text and the arrow). The same as Jireh's
 ogImage: /assets/images/projects/lji/og-image.png
 cardImage: /assets/images/home/card-market.jpg
-cardPosition: 50% 50%
+cardPosition: 50% 30%
 cardLabel: Researcher + Designer
 cardTitle: Onboarding business owners for confidence, not just speed.
 description: Six weeks of merchant testing and IDEO critique, through a gender lens, to make Leja's onboarding clearer, more trustworthy and more supportive for women who run small businesses in Kenya. Product design for Leja Ltd., a B2B fintech platform.

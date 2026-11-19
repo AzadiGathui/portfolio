@@ -5,7 +5,9 @@
     lines up with the keys above and the mat below. Nothing here sits on the
     grid: the grid starts with the mat. -#}
 <header class="home-hero">
-  <h1 class="home-hero__line">Researcher,<br>Analyst &amp; Designer</h1>
+  {#- Two copies of the line on one spot: the outline behind (hidden from screen readers), the fill in front. One element can't do it:
+      paint-order works glyph by glyph, so the second line's outline would be drawn over the first line's fill (style.css, ".home-hero__line"). -#}
+  <h1 class="home-hero__line"><span class="home-hero__ink" aria-hidden="true">Researcher,<br>Analyst &amp; Designer</span><span>Researcher,<br>Analyst &amp; Designer</span></h1>
   <p class="home-hero__sub">If it challenges assumptions, connects disciplines &amp; helps humans live better, I'm probably already thinking about it :)</p>
   <div class="home-hero__photos">
     {%- for photo in [

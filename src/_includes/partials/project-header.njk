@@ -11,8 +11,8 @@
       industry          one mono line above the heading
       title, headline   the heading (headline: when it differs from the title the cards and pager use), titleSup
 
-    Cover
-      coverImage, coverPosition
+    Cover (the same picture as the project's card on the homepage)
+      cardImage, cardPosition, else coverImage, coverPosition
       thumbnail + thumbnailKind (phone | print | book) [+ mockupImage for a phone]: the artefact laid on it
 
     Table: one row each, in this order, for whichever the page has
@@ -44,9 +44,14 @@
 </header>
 {%- endif %}
 
-{%- if coverImage %}
+{#- The same cover as the project's card on the homepage (cardImage, else coverImage), cropped the way the card crops it:
+    a coverPosition was set for coverImage, so it goes with that image and cardPosition with the card's. The artefact below is the
+    same too (mockupImage or thumbnail), chosen the same way as the card does it (pages/index.njk). -#}
+{%- set headerCover = cardImage or coverImage %}
+{%- set headerPosition = cardPosition if cardImage else coverPosition %}
+{%- if headerCover %}
 <figure class="sheet cover" style="--h: 6">
-  <div class="frame frame--plain"><img src="{{ coverImage }}" alt="" sizes="(max-width: 720px) 90vw, 880px" loading="eager"{% if coverPosition %} style="object-position: {{ coverPosition }}"{% endif %}></div>
+  <div class="frame frame--plain"><img src="{{ headerCover }}" alt="" sizes="(max-width: 720px) 90vw, 880px" loading="eager"{% if headerPosition %} style="object-position: {{ headerPosition }}"{% endif %}></div>
   {%- if thumbnail %}
   {%- if thumbnailKind == 'phone' and mockupImage %}
   <span class="card__art card__art--phone"><span class="phone-frame"><img src="{{ mockupImage }}" alt="" sizes="(max-width: 720px) 30vw, 216px" loading="eager"></span></span>

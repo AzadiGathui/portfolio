@@ -36,37 +36,15 @@ research:
     src: /assets/images/projects/jh/research-circle.png
     alt: "A caregiver, Henry J., at the centre of his Circle, joined by four members: one marked New!, one Waiting and one Declined"
     width: 288
-  timeline:
-    - title: Read what exists
-      points:
-        - Healthcare financing, health records and Kenya's demographic data
-        - Human-centred design in Kenyan healthcare
-        - How community groups buy together
-    - title: Visit partner facilities
-      points:
-        - My first week, at the counter where bills are paid
-        - Tried the app while actually sick, and the selfie check failed
-    - title: Run focus groups
-      points:
-        - With the people we were designing for
-        - Who pays for whom, and what makes a PIN feel safe
-    - title: Boil it down
-      points:
-        - One question the product answers
-        - Four findings that shaped every screen
   findings:
     - title: Paying for someone else is the default.
       detail: Parents for their children, adults for their elderly parents. The bill is rarely your own.
-      rule: Pay for others as easily as for yourself.
     - title: Payment happens under pressure, on 3G and a low-end phone.
       detail: At a counter, often when someone is unwell. Heavy screens and dropped connections cost trust before it is earned.
-      rule: One decision per screen, from one shared system.
     - title: Money questions come before everything else.
       detail: "Where can we use Jireh next time? What can I do with the cashback I've earned? The long Home screen answers these up front."
-      rule: Every shilling is visible.
     - title: People share an ID, selfie or PIN only when they know why.
       detail: Every request has to explain itself, and nothing is switched on until the person chooses it.
-      rule: Earn every request, and never lose progress.
   sources:
     - title: "Community Group Buying: the 'US military vs the Red Army'"
       image: /assets/images/projects/jh/research-src-news.png
@@ -110,6 +88,7 @@ coverPosition: 50% 20%
 mockupImage: /assets/images/projects/jh/home-cashback.png
 thumbnail: /assets/images/projects/jh/thumbnail.png
 thumbnailKind: phone
+cardArtLift: -0.5   # squares the card's phone sits above the cover's bottom edge; negative is below it, over the caption's grey (half a square: clear of the text and the arrow)
 cardImage: /assets/images/home/card-jireh.jpg
 cardPosition: 50% 30%
 cardLabel: Researcher + Designer
@@ -130,17 +109,6 @@ The gap is covered by phone calls to family and by borrowing on terms nobody has
 {% chapter { label: "Research", title: "The research that shaped my decisions.", id: "research", toc: "Research", lede: "I started with what had been written, then spent my first week at partner facilities and ran focus groups with the people we were designing for." } %}
 
 {% filter oneLine %}{% include "partials/study/research.njk" %}{% endfilter %}
-
-{% chapter { label: "Principles", title: "Four rules, one for each finding", id: "principles", toc: "Principles", lede: "What we learned became what every screen answers to." } %}
-
-<div class="panel">
-<div class="pj-row pj-row--4 pj-row--rules">
-  <div class="stat-card" id="rule-1"><a class="label label--accent" href="#finding-1">From finding 01</a><p class="stat-card__value">Pay for others as easily as for yourself.</p><p class="caption"><a href="#circle">The Circle</a></p></div>
-  <div class="stat-card" id="rule-2"><a class="label label--accent" href="#finding-2">From finding 02</a><p class="stat-card__value">One decision per screen, from one shared system.</p><p class="caption"><a href="#fast-track">Fast Track</a> and the <a href="#system">icon system</a></p></div>
-  <div class="stat-card" id="rule-3"><a class="label label--accent" href="#finding-3">From finding 03</a><p class="stat-card__value">Every shilling is visible.</p><p class="caption"><a href="#home">Home</a></p></div>
-  <div class="stat-card" id="rule-4"><a class="label label--accent" href="#finding-4">From finding 04</a><p class="stat-card__value">Earn every request, and never lose progress.</p><p class="caption"><a href="#onboarding">Onboarding</a></p></div>
-</div>
-</div>
 
 {% chapter { label: "Pay for others as easily as for yourself", title: "A Circle of family and friends backs a small interest-free credit line", id: "circle", toc: "Circle", lede: "The hard part was explaining shared responsibility without sounding like a debt collector." } %}
 
