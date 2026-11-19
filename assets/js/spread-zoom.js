@@ -1,10 +1,10 @@
-// Tap-to-zoom for publication spreads, and for the pictures a narrow screen
-// shows smaller than they are (a page marks those img[data-enlarge]).
+// Tap-to-zoom for publication spreads (and the pages of a .reel--pages reel), and for
+// the pictures a narrow screen shows smaller than they are (a page marks those img[data-enlarge]).
 // Tapping one opens it full screen at the best resolution the build made.
 // Tap the image to zoom in on the spot you tapped, drag to look around, and tap
 // again to fit it back to the screen. Pinch-zoom still works on top of that.
 (function () {
-  var images = document.querySelectorAll('.spread-grid img, img[data-enlarge]');
+  var images = document.querySelectorAll('.spread-grid img, .reel--pages img, img[data-enlarge]');
   if (!images.length || typeof HTMLDialogElement !== 'function') return;
 
   var ZOOM = 2.5; // how much bigger than "fit to screen" a tap makes it

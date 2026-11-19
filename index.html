@@ -153,7 +153,8 @@
 <!-- More work: the rest, as the mockups themselves lying on the mat. Pointing at one (or focusing it, or a
      first tap) opens a card beside it with what the project was, the way a team member's face opens
      their name (tip.js); the card is part of the link, so clicking it goes to the project. Places are
-     --x column, --y row, in cells: three across, then two centred under them. On a phone, two across. -->
+     --x column, --y row, in cells: three across, then three more under them. On a phone, two across.
+     A project past the sixth has no place and falls back to [1, 1], so add one here (and rows to --h) when adding it. -->
 <nav class="sheet area wall" style="--h: 6" aria-label="More work" data-snap="">
   <a class="wall__item" data-tip="hover" href="/projects/price-of-power/" style="--x: 1; --y: 1; --w: 4; --h: 3">
     <picture><source type="image/avif" srcset="/img/cde3KuXc5p-400.avif 400w, /img/cde3KuXc5p-572.avif 572w" sizes="(max-width: 720px) 45vw, 280px"><img loading="lazy" decoding="async" src="/img/cde3KuXc5p-400.webp" alt="The cost of electricity in Kenya" width="572" height="280" srcset="/img/cde3KuXc5p-400.webp 400w, /img/cde3KuXc5p-572.webp 572w" sizes="(max-width: 720px) 45vw, 280px"></picture>
@@ -182,7 +183,7 @@
       <span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"></path></svg></span>
     </span></span>
   </a>
-  <a class="wall__item" data-tip="hover" href="/projects/children-youth-pavilion/" style="--x: 3; --y: 4; --w: 4; --h: 3">
+  <a class="wall__item" data-tip="hover" href="/projects/children-youth-pavilion/" style="--x: 1; --y: 4; --w: 4; --h: 3">
     <picture><source type="image/avif" srcset="/img/1aF1JsJ9Q--400.avif 400w, /img/1aF1JsJ9Q--720.avif 720w" sizes="(max-width: 720px) 45vw, 280px"><img loading="lazy" decoding="async" src="/img/1aF1JsJ9Q--400.webp" alt="Children &amp; Youth Pavilion at COP27" width="720" height="558" srcset="/img/1aF1JsJ9Q--400.webp 400w, /img/1aF1JsJ9Q--720.webp 720w" sizes="(max-width: 720px) 45vw, 280px"></picture>
     <span class="tip"><span class="tip__card wall__card">
       <span class="label">Youth &amp; Climate</span>
@@ -191,12 +192,21 @@
       <span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"></path></svg></span>
     </span></span>
   </a>
-  <a class="wall__item" data-tip="hover" href="/projects/kenya-energy-atlas/" style="--x: 7; --y: 4; --w: 4; --h: 3">
+  <a class="wall__item" data-tip="hover" href="/projects/kenya-energy-atlas/" style="--x: 5; --y: 4; --w: 4; --h: 3">
     <picture><source type="image/avif" srcset="/img/0nSzBgceFs-400.avif" sizes="(max-width: 720px) 45vw, 280px"><img loading="lazy" decoding="async" src="/img/0nSzBgceFs-400.webp" alt="Kenya Energy Atlas" width="400" height="226"></picture>
     <span class="tip"><span class="tip__card wall__card">
       <span class="label">Energy</span>
       <h3>Kenya Energy Atlas</h3>
       <span class="cap__what">Research publication &middot; SID (Society for International Development)</span>
+      <span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"></path></svg></span>
+    </span></span>
+  </a>
+  <a class="wall__item" data-tip="hover" href="/projects/the-max-messenger/" style="--x: 9; --y: 4; --w: 4; --h: 3">
+    <picture><source type="image/avif" srcset="/img/w0rH8hTyp6-400.avif 400w, /img/w0rH8hTyp6-600.avif 600w" sizes="(max-width: 720px) 45vw, 280px"><img loading="lazy" decoding="async" src="/img/w0rH8hTyp6-400.webp" alt="The Max Messenger" width="600" height="848" srcset="/img/w0rH8hTyp6-400.webp 400w, /img/w0rH8hTyp6-600.webp 600w" sizes="(max-width: 720px) 45vw, 280px"></picture>
+    <span class="tip"><span class="tip__card wall__card">
+      <span class="label">Digital Rights</span>
+      <h3>The Max Messenger</h3>
+      <span class="cap__what">90-page research report &middot; InterSecLab</span>
       <span class="go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8h10.5M9 4l4 4-4 4"></path></svg></span>
     </span></span>
   </a>

@@ -991,6 +991,9 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
    side of it. */
 .card__art img { filter: drop-shadow(var(--lift-2)); }
 .card__art--print, .card__art--book { --aw: 3; --ah: 3; }
+/* A portrait page (A4, 1 : 1.414) as the artefact: three squares wide, so as tall as it needs to be (3 x 1.414 = 4.243).
+   In the 3 x 3 box of a print its height would limit it and leave it only 2.1 squares wide. */
+.card__art--portrait { --aw: 3; --ah: 4.2426; }
 .card--r .card__art:not(.card__art--phone) img { object-position: right center; }
 .card--l .card__art:not(.card__art--phone) img { object-position: left center; }
 
@@ -1086,7 +1089,7 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
 .cover { position: relative; display: grid; padding: 0; }
 .cover > .frame img { filter: none; }   /* in colour, as in the Figma's header (it was grey, like the cards) */
 .cover .card__art { --hang: 2; left: var(--cell); bottom: calc(var(--hang) * var(--cell) * -1); }
-.cover .card__art--print, .cover .card__art--book { --hang: 1; }
+.cover .card__art--print, .cover .card__art--book, .cover .card__art--portrait { --hang: 1; }
 /* A phone in the header spans three squares (six tall): from the second to the
    fourth, it is centred in the five squares left of the facts. It hangs three
    squares over the cover's bottom edge, the height of the facts beside it, so
@@ -1130,6 +1133,7 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
   .cover { grid-row: span 4; }
   .cover .card__art { --hang: 0; }
   .cover .card__art--phone { --aw: 2; --ah: 3; }
+  .cover .card__art--portrait { --aw: 2; --ah: 2.8284; }   /* the cover is only four squares tall here: two wide, as tall as an A4 page needs */
   .facts > div { grid-template-columns: calc(var(--cell) * 2 - var(--plate-pad)) minmax(0, 1fr); }
   /* the title takes the whole width: balanced, it would stop short of the edge */
   header.sheet > h1, .title-plate h1 { text-wrap: wrap; max-width: none; }
@@ -1594,6 +1598,14 @@ html:not(.js) .cv-section__all { display: none; }
 .reel__item figcaption .label { display: block; margin: 0 0 var(--space-1); }
 .reel__item figcaption strong { display: block; color: var(--text); font-weight: 600; }
 
+/* A reel of A4 pages (a publication study's comparisons, .reel--pages): the same figure and caption as a phone's,
+   but each page is as wide as 1 : 1.414 of its height, not a phone's 1 : 2. --reel-h sets how tall (6 squares
+   makes a page about 400px wide, so two sit in the frame with a third cut off). A page opens full screen on a
+   tap (spread-zoom.js). */
+.reel--pages .reel__track > .reel__item { width: calc(var(--phone-h) / 1.4142); }
+.reel--pages .reel__item > :is(picture, img) { display: block; flex: none; width: 100%; height: var(--phone-h); }
+.reel--pages .reel__item img { width: 100%; height: 100%; object-fit: contain; cursor: zoom-in; }
+
 /* Previous / next: the same square button as everywhere, bottom right,
    the pair at any screen size. Disabled at either end; absent when
    everything fits. */
@@ -1948,8 +1960,45 @@ figcaption .label { display: inline; margin-right: 0.4em; }
 .spread-grid .is-end { align-self: end; }
 @media (max-width: 720px) {
   .spread-grid, .spread-grid > .stack { grid-template-columns: minmax(0, 1fr); }
-  .spread-grid > .stack, .spread-grid img { grid-column: 1 / -1; }
+  .spread-grid > .stack, .spread-grid > .annotated, .spread-grid img { grid-column: 1 / -1; }
   .spread-grid img { width: 100%; margin-inline: 0; }
+  .annotated__lines { left: 0; width: 100%; }
+}
+
+/* Collage helpers (The Max Messenger page; any collage may use them).
+   .is-drop      starts the item whole squares lower (--drop, default 1), so a row of
+                 equal items steps up and down on the mat's lines instead of sitting flat
+   .is-diagram   a vector figure drawn for a white page (black ink, no background): shown on
+                 the dark mat as it is, no plate behind it. Its ink would vanish on the green,
+                 so the picture is inverted (light ink, dark fills) and its hues turned back,
+                 which keeps red, orange and blue as themselves. The file is untouched.
+   --strips      a row of tall, narrow images (chapter-opener photos) that stays two
+                 across on a phone instead of one 1,200px-tall image per row */
+.spread-grid .is-drop { margin-top: calc(var(--cell) * var(--drop, 1)); }
+.spread-grid img.is-diagram { filter: invert(1) hue-rotate(180deg); }
+/* A label over a picture (which edition, say): the picture and its label go in one .stack, so on a phone they stay together */
+.spread-grid .stack > .label { grid-column: 1 / -1; margin: 0 var(--space-1); }
+
+/* An annotated page (.annotated): a picture with a note lying on it that points at a detail with a fine line, as
+   when a credit or a motif is called out. The note (.callout) is a paper label in the margin notes' hand; --x --y
+   --w place it as a share of the picture, and its type follows the picture's width (cqi), so it reads the same
+   on a phone. The line is drawn in the picture's own pixels (the svg's viewBox is the image's size), so it stays
+   on its detail at any width. Both leave clicks to the picture, which still opens full screen. */
+.spread-grid > .annotated, .spread-grid .stack > .annotated { position: relative; grid-column: var(--at, 1 / -1); margin: 0; container-type: inline-size; }
+.annotated > img { display: block; }
+.annotated__lines { position: absolute; top: 0; left: var(--space-1); width: calc(100% - var(--space-2)); height: 100%; overflow: visible; pointer-events: none; fill: none; stroke: var(--text); stroke-width: 1.5; stroke-linecap: round; }
+.annotated__lines * { vector-effect: non-scaling-stroke; }
+.annotated__lines .dot { fill: var(--text); stroke: none; }
+.callout {
+  position: absolute; left: var(--x); top: var(--y); width: var(--w); padding: 0.35em 0.55em 0.45em;
+  rotate: var(--rot, 0deg); background: var(--brand-light); color: var(--brand-black);
+  font: 400 clamp(0.9rem, 4.6cqi, 1.5rem)/1.05 var(--f-hand); text-wrap: balance;
+  box-shadow: var(--lift-2); pointer-events: none;
+}
+@media (max-width: 720px) {
+  .spread-grid .is-drop { margin-top: 0; }
+  .spread-grid--strips { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+  .spread-grid--strips img { grid-column: auto; }
 }
 
 /* A spread full screen (spread-zoom.js): tap to zoom in, drag to look round */
@@ -1961,6 +2010,8 @@ figcaption .label { display: inline; margin-right: 0.4em; }
    otherwise stretch it (they give the ratio, not the size) when one max clamps and the other doesn't. */
 .zoom__stage picture { display: contents; }
 .zoom__stage img { margin: auto; width: auto; height: auto; max-width: 100%; max-height: 100%; cursor: zoom-in; }
+/* The enlarged copy loses its collage classes, so a vector figure (black ink, no background) is inverted again here: on the mat's green the ink would vanish */
+.zoom__stage img[src*=".svg"] { filter: invert(1) hue-rotate(180deg); }   /* *= not $=: the dev server serves a picture as ?src=…svg&width=…, the build as /img/…svg */
 .zoom__stage.is-zoomed { padding: 0; }
 .zoom__stage.is-zoomed img { max-width: none; max-height: none; cursor: zoom-out; }
 .zoom__close, .zoom__hint { position: fixed; background: var(--mat); color: var(--text); }
@@ -2138,6 +2189,9 @@ a.face__link .face__name { text-decoration: underline; text-decoration-thickness
 .prose .chapter__lede { margin: var(--space-3) 0 0; color: var(--text); font-size: var(--text-sm); line-height: var(--lh-small); }
 .prose .chapter :is(h2, p) { max-width: none; text-wrap: balance; hyphens: manual; }
 .prose .article-body > :first-child { margin-top: 0; }
+/* A text block that follows a collage (the publication studies) rather than opening the story:
+   its head keeps its square of space above, so it doesn't sit against the pictures */
+.spread-grid + .article-body > .chapter:first-child { margin-top: var(--cell); }
 @media (max-width: 720px) {
   .prose .chapter { width: 100%; }   /* the whole width of the six squares */
 }
