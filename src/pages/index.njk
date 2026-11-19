@@ -40,7 +40,7 @@ tools:
   {%- for project in collections.projects.slice(0, places.length) %}
   {%- set at = places[loop.index0] %}
   <a class="card card--{{ at[2] }}" href="{{ project.url }}" style="--x: {{ at[0] }}; --w: {{ at[1] }}">
-    <div class="frame frame--plain"><img src="{{ project.data.cardImage or project.data.coverImage }}" alt="" sizes="(max-width: 720px) 150vw, 640px"{% if project.data.cardPosition or project.data.coverPosition %} style="object-position: {{ project.data.cardPosition or project.data.coverPosition }}"{% endif %}></div>
+    <div class="frame frame--plain"><img src="{{ project.data.cardImage or project.data.coverImage }}" alt="" sizes="(max-width: 720px) 112px, 640px"{% if project.data.cardPosition or project.data.coverPosition %} style="object-position: {{ project.data.cardPosition or project.data.coverPosition }}"{% endif %}></div>
     {%- if project.data.thumbnail %}
     {%- if project.data.thumbnailKind == 'phone' and project.data.mockupImage %}
     <span class="card__art card__art--phone"{% if project.data.cardArtLift %} style="--lift: {{ project.data.cardArtLift }}"{% endif %}><span class="phone-frame"><img src="{{ project.data.mockupImage }}" alt="" sizes="(max-width: 720px) 45vw, 260px"></span></span>
