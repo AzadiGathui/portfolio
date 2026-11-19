@@ -49,9 +49,20 @@
     const line = parseFloat(getComputedStyle(content).getPropertyValue("--rhythm")) || 24;
     const matTop = content.getBoundingClientRect().top; // a mat line
     for (const prose of content.querySelectorAll(".prose")) {
-      const box = prose.querySelector(":scope > .article-body") || prose;
+     // Every article body, not only the first: a publication study puts its text between collages
+     const bodies = [...prose.querySelectorAll(":scope > .article-body")];
+     for (const box of bodies.length ? bodies : [prose]) {
       const blocks = [...box.children].filter((el) => getComputedStyle(el).position !== "absolute");
       for (const el of blocks) { el.style.removeProperty("margin-top"); el.style.removeProperty("min-height"); }
+      // A body that follows a collage (rather than opening the story, which is already on a line) starts
+      // on a mat line, like a collage does: the rhythm below it is then on the unit, and so are the
+      // captions of a reel, which are moved onto it as one (their blocks are measured from here)
+      const first = box !== prose && box.previousElementSibling && blocks.find((el) => el.offsetHeight);
+      if (first) {
+        const nudge0 = getComputedStyle(first).translate === "none" ? 0 : parseFloat(getComputedStyle(first).translate.split(" ")[1]) || 0;
+        const past0 = ((first.getBoundingClientRect().top - nudge0 - matTop) % cell + cell) % cell;
+        if (past0 > 0.5 && cell - past0 > 0.5) first.style.marginTop = `${parseFloat(getComputedStyle(first).marginTop) + cell - past0}px`;
+      }
       const top = box.getBoundingClientRect().top + parseFloat(getComputedStyle(box).paddingTop);
       blocks.forEach((el, i) => {
         if (!el.offsetHeight) return;
@@ -69,6 +80,7 @@
         if (past > 0.5 && step - past > 0.5) el.style.marginTop = `${parseFloat(style.marginTop) + step - past}px`;
         if (isPanel) el.style.minHeight = `${Math.ceil(el.offsetHeight / cell - 0.01) * cell}px`;
       });
+     }
     }
   }
 

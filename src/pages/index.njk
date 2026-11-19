@@ -70,8 +70,9 @@ tools:
 <!-- More work: the rest, as the mockups themselves lying on the mat. Pointing at one (or focusing it, or a
      first tap) opens a card beside it with what the project was, the way a team member's face opens
      their name (tip.js); the card is part of the link, so clicking it goes to the project. Places are
-     --x column, --y row, in cells: three across, then two centred under them. On a phone, two across. -->
-{%- set spots = [[1, 1], [5, 1], [9, 1], [3, 4], [7, 4]] %}
+     --x column, --y row, in cells: three across, then three more under them. On a phone, two across.
+     A project past the sixth has no place and falls back to [1, 1], so add one here (and rows to --h) when adding it. -->
+{%- set spots = [[1, 1], [5, 1], [9, 1], [1, 4], [5, 4], [9, 4]] %}
 <nav class="sheet area wall" style="--h: 6" aria-label="More work" data-snap>
   {%- for project in collections.projects.slice(places.length) %}
   {%- set at = spots[loop.index0] or [1, 1] %}
