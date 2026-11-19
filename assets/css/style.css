@@ -23,7 +23,7 @@
    Only these faces exist. */
 @font-face { font-family: "Inter"; src: url("/assets/fonts/inter-latin-variable-normal.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
 @font-face { font-family: "Inter"; src: url("/assets/fonts/inter-latin-variable-italic.woff2") format("woff2"); font-weight: 100 900; font-style: italic; font-display: swap; }
-@font-face { font-family: "Fraunces"; src: url("/assets/fonts/fraunces-italic-variable.woff2") format("woff2"); font-weight: 250 400; font-style: italic; font-display: swap; }   /* the homepage line only (44 KB): weight, SOFT and WONK are set where it is used; the optical size is fixed at the text cut */
+@font-face { font-family: "Fraunces"; src: url("/assets/fonts/fraunces-italic-opsz.woff2") format("woff2"); font-weight: 250 400; font-style: italic; font-display: swap; }   /* the homepage line only (54 KB): Latin; the weight (100-900) and optical size (opsz 9-144) axes are kept, SOFT is fixed at 100 and WONK at 0 in the file (they are how the line is drawn) */
 @font-face { font-family: "JetBrains Mono"; src: url("/assets/fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
 /* Caveat (margin notes) is added by base.njk once the page has loaded: nothing above the fold uses it */
 
@@ -169,7 +169,7 @@
   --key-edge: #080808;                                        /* the hard shadow under it */
   --key-gloss: inset 0 1px 0 rgba(255, 255, 255, 0.12);
   --key-dish: inset 0 -2px 3px rgba(0, 0, 0, 0.25);
-  --key-font: 600 clamp(var(--text-xs), 1.1cqi, var(--text-sm))/var(--lh-display) var(--f-body);   /* a keycap's legend */
+  --key-font: 400 0.6875rem/var(--lh-display) var(--f-mono);   /* a keycap's legend: mono, like the site's other labels. 400 because that is the one weight of it loaded (600 would be a faked bold). 11px, fixed: mono letters are wider than Inter's, and at 12px+ "Contact" runs off the one-square key (7 letters x 0.6em = 46px of the key's 50px face) */
   --bezel: #4d4d4d;         /* the phone mockup's border */
   --polaroid: #333333;      /* a photo print's card */
   --card: #2b2b2b;          /* a project card's caption: a print lying on the mat */
@@ -401,6 +401,8 @@ body {
   left: 11px;
   top: 8px;
   font: var(--key-font);
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
 }
 .key__icon {
   display: none;
@@ -1086,10 +1088,12 @@ a:hover .go svg, a:focus-visible .go svg { rotate: -45deg; }
 .cover .card__art { --hang: 2; left: var(--cell); bottom: calc(var(--hang) * var(--cell) * -1); }
 .cover .card__art--print, .cover .card__art--book { --hang: 1; }
 /* A phone in the header spans three squares (six tall): from the second to the
-   fourth, it is centred in the five squares left of the facts. On a phone-sized
-   screen the facts run underneath, so it stays two wide. */
+   fourth, it is centred in the five squares left of the facts. It hangs three
+   squares over the cover's bottom edge, the height of the facts beside it, so
+   it ends on the same line they do. On a phone-sized screen the facts run
+   underneath, so it stays two wide. */
 @media (min-width: 721px) {
-  .cover .card__art--phone { --aw: 3; --ah: 6; }
+  .cover .card__art--phone { --aw: 3; --ah: 6; --hang: 3; }
 }
 .cover .card__art:not(.card__art--phone) img { object-position: left bottom; }
 
@@ -1858,6 +1862,8 @@ figcaption .label { display: inline; margin-right: 0.4em; }
   padding: 0 var(--space-4);
   border: 0;
   font: var(--key-font);
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
   pointer-events: auto;
   /* hidden until needed; visibility also takes them out of the tab order */
   opacity: 0;
@@ -2288,7 +2294,7 @@ a.face__link .face__name { text-decoration: underline; text-decoration-thickness
 .prose .question { max-width: none; margin: 0; font-family: var(--f-display); font-size: var(--text-xl); font-weight: 400; line-height: var(--lh-display); letter-spacing: var(--track-snug); text-wrap: balance; }
 .split picture { display: contents; }
 .split source { display: none; }
-.question__fig { width: min(calc(var(--w) * 1px), 100%); height: auto; border-radius: var(--space-3); box-shadow: var(--lift-1); }   /* the diagram is a white app card: rounded like one */
+.question__fig { width: min(calc(var(--w) * 1px), 100%); height: auto; }   /* a transparent illustration: it sits straight on the mat, with no card, radius or shadow of its own */
 .prose .split .label { margin: 0; }
 .prose .findings { display: grid; gap: var(--space-4); max-width: none; margin: var(--space-4) 0 0; padding: 0; list-style: none; }
 .finding { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-4); padding: var(--space-4); box-shadow: inset 0 0 0 1px var(--bezel); }
@@ -2644,31 +2650,74 @@ a.face__link .face__name { text-decoration: underline; text-decoration-thickness
 /* The header, on the desk above the mat: as wide as the mat's grid and centred (partials/home-hero.njk) */
 .home-hero { width: var(--grid-w); margin: var(--space-5) auto calc(var(--cell) * 1.25); text-align: center; }
 /* The home line. Typeface: Fraunces Italic 128px, weight 250, SOFT 100, WONK 0 (WONK off: the regular letterforms and ampersand,
-   not the leaning ones). Paragraph: line height 70%, letter spacing -3%, centred, fill #e6e6e6. Stroke: weight 8, #3d3d3d,
-   OUTSIDE, mitred. An outside stroke is one twice as wide drawn behind the fill (paint-order), of which the outer half shows.
+   not the leaning ones), optical size automatic: the same number as the size in px (128 at 128px). Paragraph: line height 70%, letter spacing -3%, centred, fill #e6e6e6. Outline: 8 outside, #3d3d3d in the design,
+   drawn as a ring of shadows (see .home-hero__ink below; it was a mitred text stroke, whose corners spiked).
+   The line is two copies in one grid cell: .home-hero__ink is the outline (and a fill of its colour, so no light edge
+   shows), the plain span over it is the fill. Layering them puts both lines' fills above both lines' outlines; one element
+   would paint line by line (a shadow as well as a stroke), and the tight line height would let line two's outline cover line one's fill.
    128px is the size on a wide screen (the grid is 1008px wide there); it scales down with the grid, and the stroke with it. */
 .home-hero__line {
-  --fs: clamp(2.25rem, calc(var(--grid-w) * 0.127), 8rem);
-  --stroke: 8;   /* stroke weight, outside */
+  --fs: min(8rem, calc(var(--grid-w) * 0.127));   /* 128px at most, and in proportion to the grid below that, with no minimum: the widest line is 97% of the grid at 320px, so it never needs to wrap */
+  --stroke: 12;   /* stroke weight, outside */
+  display: grid;
   max-width: none; margin: 0 auto; padding-top: 0.4em;   /* the lines are 70% apart, so the first rises above its box: room for it under the keys */
-  font: italic 250 var(--fs)/0.7 var(--f-hero);
-  font-variation-settings: "wght" 250, "SOFT" 100, "WONK" 0;
-  letter-spacing: -0.03em;
+  font: italic 300 var(--fs)/0.6 var(--f-hero);
+  font-variation-settings: "wght" 300;   /* SOFT 100 and WONK 0 are fixed in the font file. No "opsz" here: setting it would turn the automatic optical size off */
+  font-optical-sizing: auto;   /* the optical size follows the font size: opsz = its size in px, so 128px text is drawn at optical size 128 (the axis runs 9 to 144) and the line scaled down with the grid at its own smaller size */
+  letter-spacing: -0.02em;
   color: var(--text);
-  -webkit-text-stroke: calc(var(--fs) * var(--stroke) * 2 / 128) #3d3d3d; paint-order: stroke fill; stroke-linejoin: miter; stroke-miterlimit: 4;
-  text-wrap: wrap;
+  white-space: nowrap;   /* the two lines are set by the <br>; they scale with the grid rather than wrap */
 }
-.home-hero__sub { max-width: 20rem; margin: 2rem auto 0; position: relative; color: var(--text-2); font-size: var(--text-sm); line-height: var(--lh-small); text-align: right; text-wrap: pretty; }
+.home-hero__line > * { grid-area: 1 / 1; }   /* both copies in the one cell: the same width, so they break the same way */
+/* EXPERIMENT: the outline as a ring of 32 zero-blur shadows, one every 11.25 degrees, instead of -webkit-text-stroke. A stroke joins
+   the glyph's segments with mitred corners, which spike out at sharp angles; a shadow copy has no joins, so the edge is round.
+   --r is the outline's width (the outer half of the old stroke: --stroke/128 of the font size, 8px at 128px); --c is the
+   colour, a little darker than the old #3d3d3d. To go back: delete the text-shadow and use
+   -webkit-text-stroke: calc(var(--fs) * var(--stroke) * 2 / 128) #3d3d3d; stroke-linejoin: miter; stroke-miterlimit: 4 */
+.home-hero__ink {
+  --r: calc(var(--stroke) / 128 * 1em);
+  --c: #363636;
+  color: var(--c);
+  text-shadow:
+    var(--r) 0 0 var(--c), calc(var(--r) * 0.9808) calc(var(--r) * 0.1951) 0 var(--c), calc(var(--r) * 0.9239) calc(var(--r) * 0.3827) 0 var(--c), calc(var(--r) * 0.8315) calc(var(--r) * 0.5556) 0 var(--c),
+    calc(var(--r) * 0.7071) calc(var(--r) * 0.7071) 0 var(--c), calc(var(--r) * 0.5556) calc(var(--r) * 0.8315) 0 var(--c), calc(var(--r) * 0.3827) calc(var(--r) * 0.9239) 0 var(--c), calc(var(--r) * 0.1951) calc(var(--r) * 0.9808) 0 var(--c),
+    0 var(--r) 0 var(--c), calc(var(--r) * -0.1951) calc(var(--r) * 0.9808) 0 var(--c), calc(var(--r) * -0.3827) calc(var(--r) * 0.9239) 0 var(--c), calc(var(--r) * -0.5556) calc(var(--r) * 0.8315) 0 var(--c),
+    calc(var(--r) * -0.7071) calc(var(--r) * 0.7071) 0 var(--c), calc(var(--r) * -0.8315) calc(var(--r) * 0.5556) 0 var(--c), calc(var(--r) * -0.9239) calc(var(--r) * 0.3827) 0 var(--c), calc(var(--r) * -0.9808) calc(var(--r) * 0.1951) 0 var(--c),
+    calc(var(--r) * -1) 0 0 var(--c), calc(var(--r) * -0.9808) calc(var(--r) * -0.1951) 0 var(--c), calc(var(--r) * -0.9239) calc(var(--r) * -0.3827) 0 var(--c), calc(var(--r) * -0.8315) calc(var(--r) * -0.5556) 0 var(--c),
+    calc(var(--r) * -0.7071) calc(var(--r) * -0.7071) 0 var(--c), calc(var(--r) * -0.5556) calc(var(--r) * -0.8315) 0 var(--c), calc(var(--r) * -0.3827) calc(var(--r) * -0.9239) 0 var(--c), calc(var(--r) * -0.1951) calc(var(--r) * -0.9808) 0 var(--c),
+    0 calc(var(--r) * -1) 0 var(--c), calc(var(--r) * 0.1951) calc(var(--r) * -0.9808) 0 var(--c), calc(var(--r) * 0.3827) calc(var(--r) * -0.9239) 0 var(--c), calc(var(--r) * 0.5556) calc(var(--r) * -0.8315) 0 var(--c),
+    calc(var(--r) * 0.7071) calc(var(--r) * -0.7071) 0 var(--c), calc(var(--r) * 0.8315) calc(var(--r) * -0.5556) 0 var(--c), calc(var(--r) * 0.9239) calc(var(--r) * -0.3827) 0 var(--c), calc(var(--r) * 0.9808) calc(var(--r) * -0.1951) 0 var(--c);
+}
+/* Three lines, set by the <br>s, so none wraps: the box is as wide as the longest (22.6em), and the size is 14px until the grid is too
+   narrow for that (under about 330px), then the grid divided by 23.5, so the longest line is 96% of it. About 11px at 320px.
+   It can't scale in proportion to the grid all the way as the headline does: 14px x (264 / 1008) would be under 4px. */
+.home-hero__sub { width: max-content; max-width: none; margin: 2rem auto 0; position: relative; color: var(--text-2); font-size: min(var(--text-sm), calc(var(--grid-w) / 23.5)); line-height: var(--lh-small); text-align: right; white-space: nowrap; }
 .home-hero__photos { display: flex; justify-content: center; gap: var(--space-4); margin-top: 4rem; }
 /* a print: the photo with its caption written under it, a little lighter than the desk */
 .home-hero__photos .frame--polaroid { width: calc(var(--grid-w) * 0.208); padding: var(--space-2) var(--space-2) 0; --edge: var(--lift-2); }   /* in pixels: a % padding would be a share of the whole header's width */
 .home-hero__photos .frame--polaroid img { aspect-ratio: 19 / 18; height: auto; object-fit: fill; }
 .home-hero__photos .frame--polaroid figcaption { padding: var(--space-3) var(--space-2) var(--space-4); font-size: 1.0625rem; line-height: 1.25; }
 @media (max-width: 720px) {
-  /* three prints side by side, straight, each a third of the width less its gap */
-  .home-hero__photos { gap: var(--space-2); padding-inline: 0; }
-  .home-hero__photos .frame--polaroid { width: calc((100% - var(--space-2) * 2) / 3); padding: var(--space-1) var(--space-1) 0; }
-  .home-hero__photos .frame--polaroid figcaption { font-size: 0.8125rem; padding: var(--space-2) var(--space-1) var(--space-3); }
+  /* Three prints in one row that scrolls sideways, each the same fixed size (a little smaller than on a desktop, 176px) rather than a
+     third of the screen, so a caption wraps the same way on every phone and is never squeezed. The row runs to the screen's edges
+     (--bleed is the desk's side padding); its first print lines up with the grid and the next shows beside it, the sign that there
+     is more. On a wide phone all three fit and the row stays centred, with nothing to scroll. */
+  .home-hero__photos {
+    --bleed: var(--space-2);   /* the desk's side padding on a phone (.desk, above) */
+    --inset: calc((100cqi - var(--grid-w)) / 2 + var(--bleed));
+    width: calc(100cqi + 2 * var(--bleed));
+    margin: calc(4rem - var(--space-4)) calc((100% - 100cqi) / 2 - var(--bleed)) 0;
+    padding: var(--space-4) var(--inset);   /* top and bottom: room for the prints' shadows, which the scrolling box would cut off */
+    gap: var(--space-3);
+    justify-content: flex-start;
+    overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none;
+    scroll-snap-type: x proximity; scroll-padding-inline: var(--inset);
+  }
+  .home-hero__photos::-webkit-scrollbar { display: none; }
+  .home-hero__photos > :first-child { margin-left: auto; }    /* auto margins centre the row when it fits, and let it scroll from its start when it doesn't */
+  .home-hero__photos > :last-child { margin-right: auto; }
+  .home-hero__photos .frame--polaroid { flex: none; width: 11rem; padding: var(--space-2) var(--space-2) 0; grid-template-rows: auto 1fr; scroll-snap-align: start; }   /* 1fr under the photo: the prints are one height, and a caption's spare room goes below the text, not into the picture */
+  .home-hero__photos .frame--polaroid figcaption { font-size: 0.9375rem; padding: var(--space-3) var(--space-2) var(--space-4); text-wrap: balance; }
 }
 
 /* A section's title: a frame, like a case study's chapter head, on the mat's lines */
@@ -2682,13 +2731,15 @@ a.face__link .face__name { text-decoration: underline; text-decoration-thickness
 /* Selected projects: two by two, each a cover over a caption on a dark card (the Figma's pj-card).
    The hover, the lift, the artefact and the grey cover that takes its colour are the card's own (above). */
 .work .card__cap { background: var(--card); padding: var(--space-5) 0 var(--space-4); }
-/* the shadow is the whole card's (cover and caption together), and deepens when the card is pointed at, not the picture's alone */
-.work .card { box-shadow: var(--lift-1); }
-.work .card:is(:hover, :focus-visible) { box-shadow: var(--lift-3); }
+/* no shadow at rest; a light one when the card is pointed at (it also lifts, below). It is the whole card's (cover and caption together), not the picture's alone */
+.work .card { box-shadow: none; }
+.work .card:is(:hover, :focus-visible) { box-shadow: var(--lift-1); }
 .work .card .frame, .work .card:is(:hover, :focus-visible) .frame { box-shadow: none; }
 /* The preview (the artefact lying on the cover) shows only while the card is pointed at, focused, or lit (a touch screen, with no hover: the card in the middle of the screen, as its cover's colour does) */
-.work .card__art { opacity: 0; }
+.work .card__art { --lift: 0; opacity: 0; }   /* lowered onto the cover's bottom edge (the default is one square above the caption): about as low as it can go, as the caption's text and the arrow lie below it and the preview's inner square is their column */
 .work .card:is(:hover, :focus-visible, .is-lit) .card__art { opacity: 1; }
+/* the title is not underlined when the card is pointed at (the cover's colour, the lift and the shadow already say so) */
+.work .card:is(:hover, :focus-visible) .cap h3 { text-decoration: none; }
 @media (prefers-reduced-motion: no-preference) {
   .work .card__art { translate: 0 8px; transition: opacity var(--dur) var(--ease), translate var(--dur) var(--ease); }   /* it rises into place */
   .work .card:is(:hover, :focus-visible, .is-lit) .card__art { translate: 0 -4px; }
@@ -2696,6 +2747,13 @@ a.face__link .face__name { text-decoration: underline; text-decoration-thickness
 @media (prefers-reduced-motion: no-preference) { .work .card { transition: translate var(--dur) var(--ease), box-shadow var(--dur) var(--ease); } }
 .work .cap > .label { padding-left: var(--plate-pad); }
 .work .cap__body { padding-left: var(--plate-pad); }
+/* The space between the tag and the title. The caption is a fixed number of squares tall, so the extra comes out of the
+   room a title leaves under it (12px at the least, on a three-line title), not out of the card's height. The first row
+   is the label and its margin exactly (max-content): as auto it can shrink under the label, and the gap then depends on the width. */
+.work .cap { grid-template-rows: max-content auto; }
+.work .cap > .label { margin-bottom: var(--space-3); }
+@media (max-width: 339px) { .work .cap > .label { margin-bottom: var(--space-2); } }   /* a 320px screen has no room for more: three-line titles fill the caption */
+@media (min-width: 721px) and (max-width: 759px) { .work .cap { grid-template-rows: auto auto; } .work .cap > .label { margin-bottom: var(--space-1); } }   /* the same, at the narrowest tablet width: left as it was */
 .work .cap h3 { --clamp: 3; font-weight: 500; }
 .work .cap > .go { place-self: end center; }   /* the bottom of the label-and-title block, whether the title is two lines or three */
 .work.sheet { --h: 16; }
@@ -2714,6 +2772,25 @@ a.face__link .face__name { text-decoration: underline; text-decoration-thickness
 }   /* the cover stays 4: the card is a square taller */   /* the squares are smaller: the title needs another */
 @media (max-width: 720px) {
   .work .card { --cap: 3; grid-row: auto / span 7; }   /* a caption of three squares, a cover of four */
+}
+/* Selected projects on a phone: a list. Each project is a row, with its cover on the left, two squares wide and three tall, and the sector and
+   title beside it over all the rest of the width (the arrow and the preview are left out). The row is a whole number of squares tall (the
+   cover's three, or its text rounded up to them if that is more) and the rows are one square apart, so every cover sits on a mat line.
+   The block itself is no longer a grid with cards placed on it: snap.js still sizes it to whole squares from what is in it. */
+@media (max-width: 720px) {
+  .work.sheet { display: block; }
+  .work .card { display: grid; grid-template-columns: calc(var(--cell) * 2) minmax(0, 1fr); grid-template-rows: auto; margin: 0 0 var(--cell); min-height: max(calc(var(--cell) * 3), round(up, 9.25rem, var(--cell))); background: var(--card); }   /* at least the cover's three squares; 9.25rem is the text of a four-line title, with its padding, rounded up to whole squares */
+  .work .card:last-child { margin-bottom: 0; }
+  .work .card > .frame, .work .card:nth-child(even) > .frame { grid-column: 1; grid-row: 1; width: calc(var(--cell) * 2); height: calc(var(--cell) * 3); }   /* the cover: two squares wide, three tall (the even rule above puts every second one a column in) */
+  .work .card__art, .work .cap > .go { display: none; }
+  .work .card__cap { grid-column: 2; grid-row: 1; padding: var(--space-3); }
+  .work .cap { grid-template-columns: minmax(0, 1fr); }   /* not the card's columns any more */
+  .work .cap > .label, .work .cap__body { grid-column: 1; padding-left: 0; }
+  .work .cap h3 { --clamp: 4; }   /* the text has four squares of the width, so a title can need a fourth line */
+}
+@media (max-width: 339px) {   /* 320px: the text is 152px wide and three titles need five lines, which still fit the four squares a card takes there */
+  .work .cap h3 { --clamp: 5; }
+  .work .card { min-height: max(calc(var(--cell) * 3), round(up, 10.75rem, var(--cell))); }
 }
 
 /* More work: the mockups lying on the mat. Pointing at one (or a first tap, or focus) opens a card with
@@ -2750,7 +2827,7 @@ a.face__link .face__name { text-decoration: underline; text-decoration-thickness
 .clients { display: flex; flex-wrap: wrap; align-content: center; justify-content: center; align-items: center; gap: var(--space-5) calc(var(--cell) * 0.7); padding-inline: var(--cell); }
 .clients img { display: block; width: auto; height: var(--logo-h, 32px); max-width: 100%; opacity: 0.85; }
 @media (max-width: 720px) {
-  .clients { gap: var(--space-4) var(--space-5); padding-inline: var(--space-4); }
+  .clients { gap: var(--space-4) var(--space-5); padding-inline: var(--space-4); align-content: flex-start; }   /* from the top, not centred: logos taller than their box spilled upward and below it, and snap.js (which measures what scrolls below) sized the box short, so the next section sat too close */
   .clients img { height: calc(var(--logo-h, 32px) * 0.7); }
 }
 
@@ -2763,5 +2840,9 @@ a.face__link .face__name { text-decoration: underline; text-decoration-thickness
 .about__bio h2 { margin: 0; font-size: var(--text-xl); font-weight: 500; }
 .about__bio p { margin: 0; max-width: none; font-size: var(--text-sm); line-height: var(--lh-small); }
 @media (max-width: 720px) {
-  .about__print.sheet { grid-column: 2 / span 4; grid-row: span 5; margin-bottom: var(--space-5); }
+  /* The print takes six squares (it needs five and a bit, a caption on two lines), so a square or so of mat is left under it before the words.
+     The words start at their top, not centred: centred, a bio taller than its box spilled upward into the print, and snap.js
+     (which measures what scrolls below) then sized the box short. */
+  .about__print.sheet { grid-column: 2 / span 4; grid-row: span 6; align-self: start; margin-bottom: 0; }
+  .about__bio { align-content: start; padding-top: var(--space-4); }
 }
